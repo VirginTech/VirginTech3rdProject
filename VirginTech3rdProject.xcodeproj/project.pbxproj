@@ -16,7 +16,6 @@
 		CF20603019F3534700DBD8C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20602F19F3534700DBD8C4 /* Foundation.framework */; };
 		CF20603219F3534700DBD8C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603119F3534700DBD8C4 /* CoreGraphics.framework */; };
 		CF20603419F3534700DBD8C4 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603319F3534700DBD8C4 /* CoreText.framework */; };
-		CF20603619F3534700DBD8C4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF20603C19F3534700DBD8C4 /* libObjectiveChipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603919F3534700DBD8C4 /* libObjectiveChipmunk.a */; };
 		CF20604019F3534700DBD8C4 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF20603F19F3534700DBD8C4 /* Default.png */; };
 		CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF20604119F3534700DBD8C4 /* Default@2x.png */; };
@@ -202,6 +201,7 @@
 		CF20629F19F3534900DBD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20629E19F3534900DBD8C4 /* AppDelegate.m */; };
 		CF2062A219F3534900DBD8C4 /* HelloWorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A119F3534900DBD8C4 /* HelloWorldScene.m */; };
 		CF2062A519F3534900DBD8C4 /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A419F3534900DBD8C4 /* IntroScene.m */; };
+		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -629,7 +629,7 @@
 				CF20602619F3534700DBD8C4 /* OpenGLES.framework in Frameworks */,
 				CF20603019F3534700DBD8C4 /* Foundation.framework in Frameworks */,
 				CF20603C19F3534700DBD8C4 /* libObjectiveChipmunk.a in Frameworks */,
-				CF20603619F3534700DBD8C4 /* GLKit.framework in Frameworks */,
+				CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */,
 				CF20602A19F3534700DBD8C4 /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1859,6 +1859,7 @@
 				CF2062AA19F3534900DBD8C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CF2062AB19F3534900DBD8C4 /* Build configuration list for PBXNativeTarget "VirginTech3rdProject" */ = {
 			isa = XCConfigurationList;
@@ -1867,6 +1868,7 @@
 				CF2062AD19F3534900DBD8C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
