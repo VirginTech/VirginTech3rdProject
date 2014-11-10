@@ -199,9 +199,11 @@
 		CF20629719F3534900DBD8C4 /* LICENSE_Chipmunk.txt in Resources */ = {isa = PBXBuildFile; fileRef = CF20629619F3534900DBD8C4 /* LICENSE_Chipmunk.txt */; };
 		CF20629B19F3534900DBD8C4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20629A19F3534900DBD8C4 /* main.m */; };
 		CF20629F19F3534900DBD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20629E19F3534900DBD8C4 /* AppDelegate.m */; };
-		CF2062A219F3534900DBD8C4 /* HelloWorldScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A119F3534900DBD8C4 /* HelloWorldScene.m */; };
-		CF2062A519F3534900DBD8C4 /* IntroScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A419F3534900DBD8C4 /* IntroScene.m */; };
+		CF2062A219F3534900DBD8C4 /* StageScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A119F3534900DBD8C4 /* StageScene.m */; };
+		CF2062A519F3534900DBD8C4 /* TitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A419F3534900DBD8C4 /* TitleScene.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
+		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
+		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -609,10 +611,14 @@
 		CF20629A19F3534900DBD8C4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Supporting Files/main.m"; sourceTree = "<group>"; };
 		CF20629D19F3534900DBD8C4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Classes/AppDelegate.h; sourceTree = "<group>"; };
 		CF20629E19F3534900DBD8C4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Classes/AppDelegate.m; sourceTree = "<group>"; };
-		CF2062A019F3534900DBD8C4 /* HelloWorldScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HelloWorldScene.h; path = Classes/HelloWorldScene.h; sourceTree = "<group>"; };
-		CF2062A119F3534900DBD8C4 /* HelloWorldScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HelloWorldScene.m; path = Classes/HelloWorldScene.m; sourceTree = "<group>"; };
-		CF2062A319F3534900DBD8C4 /* IntroScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = IntroScene.h; path = Classes/IntroScene.h; sourceTree = "<group>"; };
-		CF2062A419F3534900DBD8C4 /* IntroScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = IntroScene.m; path = Classes/IntroScene.m; sourceTree = "<group>"; };
+		CF2062A019F3534900DBD8C4 /* StageScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = StageScene.h; path = Classes/StageScene.h; sourceTree = "<group>"; };
+		CF2062A119F3534900DBD8C4 /* StageScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = StageScene.m; path = Classes/StageScene.m; sourceTree = "<group>"; };
+		CF2062A319F3534900DBD8C4 /* TitleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = Classes/TitleScene.h; sourceTree = "<group>"; };
+		CF2062A419F3534900DBD8C4 /* TitleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TitleScene.m; path = Classes/TitleScene.m; sourceTree = "<group>"; };
+		CF83CA8C19F35C4700C78540 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF83CA8E19F35C7400C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF83CA9219F35CCA00C78540 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -694,6 +700,8 @@
 				CF20606319F3534700DBD8C4 /* iTunesArtwork */,
 				CF20606519F3534700DBD8C4 /* iTunesArtwork@2x */,
 				CF20604719F3534700DBD8C4 /* Icons */,
+				CF83CA8D19F35C4700C78540 /* InfoPlist.strings */,
+				CF83CA9319F35CCA00C78540 /* Localizable.strings */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1425,10 +1433,10 @@
 			children = (
 				CF20629D19F3534900DBD8C4 /* AppDelegate.h */,
 				CF20629E19F3534900DBD8C4 /* AppDelegate.m */,
-				CF2062A019F3534900DBD8C4 /* HelloWorldScene.h */,
-				CF2062A119F3534900DBD8C4 /* HelloWorldScene.m */,
-				CF2062A319F3534900DBD8C4 /* IntroScene.h */,
-				CF2062A419F3534900DBD8C4 /* IntroScene.m */,
+				CF2062A019F3534900DBD8C4 /* StageScene.h */,
+				CF2062A119F3534900DBD8C4 /* StageScene.m */,
+				CF2062A319F3534900DBD8C4 /* TitleScene.h */,
+				CF2062A419F3534900DBD8C4 /* TitleScene.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -1484,6 +1492,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = CF20601719F3534700DBD8C4;
 			productRefGroup = CF20602119F3534700DBD8C4 /* Products */;
@@ -1510,9 +1519,11 @@
 				CF20604919F3534700DBD8C4 /* Icon.png in Resources */,
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
+				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
 				CF20605B19F3534700DBD8C4 /* Icon-Small.png in Resources */,
 				CF20605919F3534700DBD8C4 /* Icon-Small-50.png in Resources */,
 				CF20629719F3534900DBD8C4 /* LICENSE_Chipmunk.txt in Resources */,
+				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
 				CF20604D19F3534700DBD8C4 /* Icon-72.png in Resources */,
 				CF20622919F3534800DBD8C4 /* LICENSE_CCBReader.txt in Resources */,
 				CF20619919F3534800DBD8C4 /* LICENSE_cocos2d.txt in Resources */,
@@ -1555,7 +1566,7 @@
 				CF20607819F3534700DBD8C4 /* CCEffect.m in Sources */,
 				CF20621619F3534800DBD8C4 /* CCBAnimationManager.m in Sources */,
 				CF20618419F3534800DBD8C4 /* CCVertex.m in Sources */,
-				CF2062A219F3534900DBD8C4 /* HelloWorldScene.m in Sources */,
+				CF2062A219F3534900DBD8C4 /* StageScene.m in Sources */,
 				CF2060B819F3534700DBD8C4 /* CCAnimationCache.m in Sources */,
 				CF20617219F3534800DBD8C4 /* base64.c in Sources */,
 				CF2060FB19F3534700DBD8C4 /* CCParticleSystemBase.m in Sources */,
@@ -1660,7 +1671,7 @@
 				CF2060F019F3534700DBD8C4 /* CCParticleBatchNode.m in Sources */,
 				CF20618A19F3534800DBD8C4 /* NSAttributedString+CCAdditions.m in Sources */,
 				CF20629B19F3534900DBD8C4 /* main.m in Sources */,
-				CF2062A519F3534900DBD8C4 /* IntroScene.m in Sources */,
+				CF2062A519F3534900DBD8C4 /* TitleScene.m in Sources */,
 				CF20608819F3534700DBD8C4 /* CCEffectStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1715,6 +1726,27 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		CF83CA8D19F35C4700C78540 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF83CA8C19F35C4700C78540 /* en */,
+				CF83CA8E19F35C7400C78540 /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		CF83CA9319F35CCA00C78540 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CF83CA9219F35CCA00C78540 /* en */,
+				CF83CA9419F35CCD00C78540 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		CF2062A619F3534900DBD8C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -1732,7 +1764,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1743,7 +1775,7 @@
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
@@ -1752,7 +1784,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1806,6 +1838,7 @@
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/objectivec/include\"",
 				);
 				INFOPLIST_FILE = VirginTech3rdProject/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
@@ -1821,6 +1854,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VirginTech3rdProject/Supporting Files/Prefix.pch";
@@ -1829,6 +1863,7 @@
 					"\"$(SRCROOT)/$(PROJECT_NAME)/Libraries/Chipmunk/objectivec/include\"",
 				);
 				INFOPLIST_FILE = VirginTech3rdProject/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = (
 					"-lz",
 					"-lsqlite3",
