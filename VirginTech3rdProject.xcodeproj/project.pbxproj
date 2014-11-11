@@ -201,6 +201,16 @@
 		CF20629F19F3534900DBD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20629E19F3534900DBD8C4 /* AppDelegate.m */; };
 		CF2062A219F3534900DBD8C4 /* StageScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A119F3534900DBD8C4 /* StageScene.m */; };
 		CF2062A519F3534900DBD8C4 /* TitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A419F3534900DBD8C4 /* TitleScene.m */; };
+		CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48173B1A11A9AA00D5597B /* bgLayer.png */; };
+		CF48173F1A11AA0900D5597B /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48173E1A11AA0900D5597B /* GameManager.m */; };
+		CF4817441A11B12100D5597B /* Fortress.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817431A11B12100D5597B /* Fortress.m */; };
+		CF4817501A11B8E600D5597B /* fortress_00.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48174E1A11B8E600D5597B /* fortress_00.png */; };
+		CF4817511A11B8E600D5597B /* fortress_01.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48174F1A11B8E600D5597B /* fortress_01.png */; };
+		CF4817541A11BFF600D5597B /* enemy.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4817521A11BFF600D5597B /* enemy.png */; };
+		CF4817551A11BFF600D5597B /* player.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4817531A11BFF600D5597B /* player.png */; };
+		CF4817581A11C01A00D5597B /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817571A11C01A00D5597B /* Player.m */; };
+		CF48175C1A11E81B00D5597B /* BasicMath.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48175B1A11E81B00D5597B /* BasicMath.m */; };
+		CF48175F1A1215E400D5597B /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48175E1A1215E400D5597B /* Enemy.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
 		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
@@ -615,9 +625,22 @@
 		CF2062A119F3534900DBD8C4 /* StageScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = StageScene.m; path = Classes/StageScene.m; sourceTree = "<group>"; };
 		CF2062A319F3534900DBD8C4 /* TitleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = Classes/TitleScene.h; sourceTree = "<group>"; };
 		CF2062A419F3534900DBD8C4 /* TitleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TitleScene.m; path = Classes/TitleScene.m; sourceTree = "<group>"; };
-		CF83CA8C19F35C4700C78540 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CF48173B1A11A9AA00D5597B /* bgLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgLayer.png; sourceTree = "<group>"; };
+		CF48173D1A11AA0900D5597B /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
+		CF48173E1A11AA0900D5597B /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
+		CF4817421A11B12100D5597B /* Fortress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fortress.h; sourceTree = "<group>"; };
+		CF4817431A11B12100D5597B /* Fortress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fortress.m; sourceTree = "<group>"; };
+		CF48174E1A11B8E600D5597B /* fortress_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_00.png; sourceTree = "<group>"; };
+		CF48174F1A11B8E600D5597B /* fortress_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_01.png; sourceTree = "<group>"; };
+		CF4817521A11BFF600D5597B /* enemy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy.png; sourceTree = "<group>"; };
+		CF4817531A11BFF600D5597B /* player.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player.png; sourceTree = "<group>"; };
+		CF4817561A11C01A00D5597B /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
+		CF4817571A11C01A00D5597B /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
+		CF48175A1A11E81B00D5597B /* BasicMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMath.h; sourceTree = "<group>"; };
+		CF48175B1A11E81B00D5597B /* BasicMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicMath.m; sourceTree = "<group>"; };
+		CF48175D1A1215E400D5597B /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
+		CF48175E1A1215E400D5597B /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
 		CF83CA8E19F35C7400C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		CF83CA9219F35CCA00C78540 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -692,6 +715,8 @@
 		CF20603E19F3534700DBD8C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CF4817451A11B67E00D5597B /* Object */,
+				CF48173A1A11A98C00D5597B /* BackGround */,
 				CF20603F19F3534700DBD8C4 /* Default.png */,
 				CF20604119F3534700DBD8C4 /* Default@2x.png */,
 				CF20604319F3534700DBD8C4 /* Default-568h@2x.png */,
@@ -1437,8 +1462,61 @@
 				CF2062A119F3534900DBD8C4 /* StageScene.m */,
 				CF2062A319F3534900DBD8C4 /* TitleScene.h */,
 				CF2062A419F3534900DBD8C4 /* TitleScene.m */,
+				CF4817591A11E7FB00D5597B /* lib */,
+				CF4817401A11AA1200D5597B /* manager */,
+				CF4817411A11B09C00D5597B /* object */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		CF48173A1A11A98C00D5597B /* BackGround */ = {
+			isa = PBXGroup;
+			children = (
+				CF48173B1A11A9AA00D5597B /* bgLayer.png */,
+			);
+			name = BackGround;
+			sourceTree = "<group>";
+		};
+		CF4817401A11AA1200D5597B /* manager */ = {
+			isa = PBXGroup;
+			children = (
+				CF48173D1A11AA0900D5597B /* GameManager.h */,
+				CF48173E1A11AA0900D5597B /* GameManager.m */,
+			);
+			name = manager;
+			sourceTree = "<group>";
+		};
+		CF4817411A11B09C00D5597B /* object */ = {
+			isa = PBXGroup;
+			children = (
+				CF4817421A11B12100D5597B /* Fortress.h */,
+				CF4817431A11B12100D5597B /* Fortress.m */,
+				CF4817561A11C01A00D5597B /* Player.h */,
+				CF4817571A11C01A00D5597B /* Player.m */,
+				CF48175D1A1215E400D5597B /* Enemy.h */,
+				CF48175E1A1215E400D5597B /* Enemy.m */,
+			);
+			name = object;
+			sourceTree = "<group>";
+		};
+		CF4817451A11B67E00D5597B /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				CF4817521A11BFF600D5597B /* enemy.png */,
+				CF4817531A11BFF600D5597B /* player.png */,
+				CF48174E1A11B8E600D5597B /* fortress_00.png */,
+				CF48174F1A11B8E600D5597B /* fortress_01.png */,
+			);
+			name = Object;
+			sourceTree = "<group>";
+		};
+		CF4817591A11E7FB00D5597B /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				CF48175A1A11E81B00D5597B /* BasicMath.h */,
+				CF48175B1A11E81B00D5597B /* BasicMath.m */,
+			);
+			name = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1483,7 +1561,7 @@
 		CF20601819F3534700DBD8C4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "VirginTech LLC.";
 			};
 			buildConfigurationList = CF20601B19F3534700DBD8C4 /* Build configuration list for PBXProject "VirginTech3rdProject" */;
@@ -1491,7 +1569,6 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
 				ja,
 			);
 			mainGroup = CF20601719F3534700DBD8C4;
@@ -1511,16 +1588,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */,
+				CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */,
+				CF4817541A11BFF600D5597B /* enemy.png in Resources */,
 				CF20605519F3534700DBD8C4 /* Icon-120.png in Resources */,
 				CF20604B19F3534700DBD8C4 /* Icon@2x.png in Resources */,
 				CF20605D19F3534700DBD8C4 /* Icon-Small@2x.png in Resources */,
+				CF4817551A11BFF600D5597B /* player.png in Resources */,
 				CF20604F19F3534700DBD8C4 /* Icon-72@2x.png in Resources */,
 				CF20604019F3534700DBD8C4 /* Default.png in Resources */,
 				CF20604919F3534700DBD8C4 /* Icon.png in Resources */,
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
+				CF4817501A11B8E600D5597B /* fortress_00.png in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
 				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
 				CF20605B19F3534700DBD8C4 /* Icon-Small.png in Resources */,
+				CF4817511A11B8E600D5597B /* fortress_01.png in Resources */,
 				CF20605919F3534700DBD8C4 /* Icon-Small-50.png in Resources */,
 				CF20629719F3534900DBD8C4 /* LICENSE_Chipmunk.txt in Resources */,
 				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
@@ -1553,6 +1635,7 @@
 				CF2061E419F3534800DBD8C4 /* IOSVersion.m in Sources */,
 				CF2061CA19F3534800DBD8C4 /* ALListener.m in Sources */,
 				CF20616A19F3534800DBD8C4 /* CCGLView.m in Sources */,
+				CF48175C1A11E81B00D5597B /* BasicMath.m in Sources */,
 				CF20615D19F3534800DBD8C4 /* CCGLView.m in Sources */,
 				CF2061B519F3534800DBD8C4 /* OALSimpleAudio.m in Sources */,
 				CF20611D19F3534800DBD8C4 /* CCScene.m in Sources */,
@@ -1572,6 +1655,7 @@
 				CF2060FB19F3534700DBD8C4 /* CCParticleSystemBase.m in Sources */,
 				CF20616019F3534800DBD8C4 /* UITouch+CC.m in Sources */,
 				CF2061FA19F3534800DBD8C4 /* CCButton.m in Sources */,
+				CF4817581A11C01A00D5597B /* Player.m in Sources */,
 				CF2060EC19F3534700DBD8C4 /* CCParallaxNode.m in Sources */,
 				CF20617F19F3534800DBD8C4 /* ccUtils.c in Sources */,
 				CF2060DC19F3534700DBD8C4 /* CCLayoutBox.m in Sources */,
@@ -1594,6 +1678,7 @@
 				CF20621F19F3534800DBD8C4 /* CCBsequence.m in Sources */,
 				CF20620A19F3534800DBD8C4 /* CCTableView.m in Sources */,
 				CF2060D919F3534700DBD8C4 /* CCLayout.m in Sources */,
+				CF4817441A11B12100D5597B /* Fortress.m in Sources */,
 				CF20610919F3534700DBD8C4 /* CCPhysicsShape.m in Sources */,
 				CF20608F19F3534700DBD8C4 /* CCRenderer.m in Sources */,
 				CF20612419F3534800DBD8C4 /* CCSprite.m in Sources */,
@@ -1605,6 +1690,7 @@
 				CF20614B19F3534800DBD8C4 /* CCTransition.m in Sources */,
 				CF2061A219F3534800DBD8C4 /* OALActionManager.m in Sources */,
 				CF20610619F3534700DBD8C4 /* CCPhysicsNode.m in Sources */,
+				CF48175F1A1215E400D5597B /* Enemy.m in Sources */,
 				CF2061A819F3534800DBD8C4 /* OALUtilityActions.m in Sources */,
 				CF2060E019F3534700DBD8C4 /* CCMotionStreak.m in Sources */,
 				CF2061EA19F3534800DBD8C4 /* NSMutableArray+WeakReferences.m in Sources */,
@@ -1631,6 +1717,7 @@
 				CF2060F719F3534700DBD8C4 /* CCParticleSystem.m in Sources */,
 				CF2060F319F3534700DBD8C4 /* CCParticleExamples.m in Sources */,
 				CF2060BF19F3534700DBD8C4 /* CCConfiguration.m in Sources */,
+				CF48173F1A11AA0900D5597B /* GameManager.m in Sources */,
 				CF2061C419F3534800DBD8C4 /* ALContext.m in Sources */,
 				CF20609E19F3534700DBD8C4 /* CCActionCatmullRom.m in Sources */,
 				CF20613019F3534800DBD8C4 /* CCSpriteFrameCache.m in Sources */,
@@ -1730,7 +1817,6 @@
 		CF83CA8D19F35C4700C78540 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CF83CA8C19F35C4700C78540 /* en */,
 				CF83CA8E19F35C7400C78540 /* ja */,
 			);
 			name = InfoPlist.strings;
@@ -1739,7 +1825,6 @@
 		CF83CA9319F35CCA00C78540 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				CF83CA9219F35CCA00C78540 /* en */,
 				CF83CA9419F35CCD00C78540 /* ja */,
 			);
 			name = Localizable.strings;
@@ -1751,9 +1836,16 @@
 		CF2062A619F3534900DBD8C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1762,9 +1854,14 @@
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1773,16 +1870,27 @@
 		CF2062A719F3534900DBD8C4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					NDEBUG,
 					"NS_BLOCK_ASSERTIONS=1",
 				);
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
@@ -1794,7 +1902,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
@@ -1811,7 +1918,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				EXECUTABLE_EXTENSION = a;
 				EXECUTABLE_PREFIX = lib;
@@ -1828,7 +1934,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1853,7 +1958,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

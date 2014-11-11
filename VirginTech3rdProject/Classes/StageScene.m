@@ -8,9 +8,27 @@
 // -----------------------------------------------------------------------
 
 #import "StageScene.h"
+#import "CCDrawNode.h"
 #import "TitleScene.h"
+#import "GameManager.h"
+#import "Fortress.h"
+#import "Player.h"
+#import "Enemy.h"
 
 @implementation StageScene
+
+CGSize winSize;
+CCSprite* bgSpLayer;
+CCScrollView* scrollView;
+
+Fortress* playerFortress;
+Fortress* enemyFortress;
+
+Player* player;
+NSMutableArray* playerArray;
+
+Enemy* enemy;
+NSMutableArray* enemyArray;
 
 + (StageScene *)scene
 {
@@ -23,17 +41,39 @@
     self = [super init];
     if (!self) return(nil);
     
+    winSize=[[CCDirector sharedDirector]viewSize];
+    
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
+    
+    //初期化
+    playerArray=[[NSMutableArray alloc]init];
+    enemyArray=[[NSMutableArray alloc]init];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
+    //レベルに応じた画面の大きさ
+    [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
+    
+    UIImage *image = [UIImage imageNamed:@"bgLayer.png"];
+    UIGraphicsBeginImageContext(CGSizeMake(winSize.width,[GameManager getWorldSize].height));
+    [image drawInRect:CGRectMake(0, 0, winSize.width,[GameManager getWorldSize].height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //スクロールビュー配置 z:0
+    bgSpLayer=[CCSprite spriteWithCGImage:image.CGImage key:nil];
+    scrollView=[[CCScrollView alloc]initWithContentNode:bgSpLayer];
+    scrollView.horizontalScrollEnabled=NO;
+    bgSpLayer.position=CGPointMake(0, 0);
+    [self addChild:scrollView z:0];
+    
     // Create a back button
-    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
-    backButton.position = ccp(0.85f, 0.95f); // Top Right of screen
+    backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
     [backButton setTarget:self selector:@selector(onBackClicked:)];
     [self addChild:backButton];
 
@@ -50,6 +90,33 @@
 {
     // always call super onEnter first
     [super onEnter];
+    
+    //我陣地ライン
+    CCDrawNode* drawNode1=[CCDrawNode node];
+    [drawNode1 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height/5)
+                                to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height/5)
+                                radius:0.5
+                                color:[CCColor whiteColor]];
+    [bgSpLayer addChild:drawNode1];
+    
+    //敵陣地ライン
+    CCDrawNode* drawNode2=[CCDrawNode node];
+    [drawNode2 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height-[GameManager getWorldSize].height/5)
+                                to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height-[GameManager getWorldSize].height/5)
+                                radius:0.5
+                                color:[CCColor whiteColor]];
+    [bgSpLayer addChild:drawNode2];
+
+    //我城生成
+    playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2, 15) type:0];
+    [bgSpLayer addChild:playerFortress];
+    
+    //敵城生成
+    enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
+    [bgSpLayer addChild:enemyFortress];
+    
+    //審判スケジュール開始
+    [self schedule:@selector(judgement_Schedule:)interval:0.1];
 }
 
 - (void)onExit
@@ -58,10 +125,42 @@
     [super onExit];
 }
 
--(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
-    CGPoint touchLoc = [touch locationInNode:self];
-    
+-(void)judgement_Schedule:(CCTime)dt
+{
+    for(Player* _player in playerArray){
+        if(_player.position.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
+            _player.targetPos=enemyFortress.position;
+        }
+    }
 
+    for(Enemy* _enemy in enemyArray){
+        if(_enemy.position.y<[GameManager getWorldSize].height/5){
+            _enemy.targetPos=playerFortress.position;
+        }
+    }
+}
+
+-(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+    
+    CGPoint worldLocation;
+    CGPoint touchLocation = [touch locationInNode:self];
+    
+    float offsetY = bgSpLayer.contentSize.height - winSize.height - scrollView.scrollPosition.y;
+    worldLocation.x = touchLocation.x + scrollView.scrollPosition.x;
+    worldLocation.y = touchLocation.y + offsetY;
+    
+    //プレイヤー作成
+    if(worldLocation.y<[GameManager getWorldSize].height/5){
+        player=[Player createPlayer:worldLocation];
+        [bgSpLayer addChild:player];
+        [playerArray addObject:player];
+    }
+    //敵作成
+    if(worldLocation.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
+        enemy=[Enemy createEnemy:worldLocation];
+        [bgSpLayer addChild:enemy];
+        [enemyArray addObject:enemy];
+    }
 }
 
 - (void)onBackClicked:(id)sender
