@@ -20,15 +20,18 @@
 CGSize winSize;
 CCSprite* bgSpLayer;
 CCScrollView* scrollView;
+CGPoint worldLocation;
 
 Fortress* playerFortress;
 Fortress* enemyFortress;
 
 Player* player;
 NSMutableArray* playerArray;
+bool createPlayerFlg;
 
 Enemy* enemy;
 NSMutableArray* enemyArray;
+bool createEnemyFlg;
 
 + (StageScene *)scene
 {
@@ -49,6 +52,7 @@ NSMutableArray* enemyArray;
     //初期化
     playerArray=[[NSMutableArray alloc]init];
     enemyArray=[[NSMutableArray alloc]init];
+    createPlayerFlg=false;
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -117,6 +121,7 @@ NSMutableArray* enemyArray;
     
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
+    
 }
 
 - (void)onExit
@@ -140,9 +145,30 @@ NSMutableArray* enemyArray;
     }
 }
 
--(void) touchBegan:(UITouch *)touch withEvent:(UIEvent *)event {
+UITouch* touches;
+UIEvent* events;
+
+-(void)create_Player_Schedule:(CCTime)dt
+{
+    if(touches.tapCount>0 && worldLocation.y<[GameManager getWorldSize].height/5){
+        player=[Player createPlayer:worldLocation];
+        [bgSpLayer addChild:player];
+        [playerArray addObject:player];
+        [self touchBegan:touches withEvent:events];
+
+    }else{
+        //通常停止
+        createPlayerFlg=false;
+        [self unschedule:@selector(create_Player_Schedule:)];
+    }
+}
+
+-(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    touches=touch;
+    events=event;
+    scrollView.verticalScrollEnabled=YES;
     
-    CGPoint worldLocation;
     CGPoint touchLocation = [touch locationInNode:self];
     
     float offsetY = bgSpLayer.contentSize.height - winSize.height - scrollView.scrollPosition.y;
@@ -151,15 +177,38 @@ NSMutableArray* enemyArray;
     
     //プレイヤー作成
     if(worldLocation.y<[GameManager getWorldSize].height/5){
-        player=[Player createPlayer:worldLocation];
-        [bgSpLayer addChild:player];
-        [playerArray addObject:player];
+        scrollView.verticalScrollEnabled=NO;
+        if(!createPlayerFlg){
+            //プレイヤー生成スケジュール開始
+            [self schedule:@selector(create_Player_Schedule:)interval:0.05 repeat:CCTimerRepeatForever delay:0.15f];
+            createPlayerFlg=true;
+        }
+    }else{
+        //境界線超え停止
+        if(createPlayerFlg){
+            [self unschedule:@selector(create_Player_Schedule:)];
+            createPlayerFlg=false;
+        }
     }
-    //敵作成
+
+    /*/敵作成
     if(worldLocation.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
         enemy=[Enemy createEnemy:worldLocation];
         [bgSpLayer addChild:enemy];
         [enemyArray addObject:enemy];
+    }*/
+}
+
+/*-(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+{
+}*/
+
+-(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
+    //チョンタッチ停止
+    if(createPlayerFlg){
+        createPlayerFlg=false;
+        [self unschedule:@selector(create_Player_Schedule:)];
     }
 }
 
