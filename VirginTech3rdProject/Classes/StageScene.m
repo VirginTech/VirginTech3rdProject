@@ -11,6 +11,7 @@
 #import "CCDrawNode.h"
 #import "TitleScene.h"
 #import "GameManager.h"
+#import "BasicMath.h"
 #import "Fortress.h"
 #import "Player.h"
 #import "Enemy.h"
@@ -27,11 +28,18 @@ Fortress* enemyFortress;
 
 Player* player;
 NSMutableArray* playerArray;
+NSMutableArray* removePlayerArray;
 bool createPlayerFlg;
 
 Enemy* enemy;
 NSMutableArray* enemyArray;
+NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
+
+//デバッグ用ラベル
+CCLabelTTF* debugLabel;
+int pCnt;
+int eCnt;
 
 + (StageScene *)scene
 {
@@ -53,6 +61,7 @@ bool createEnemyFlg;
     playerArray=[[NSMutableArray alloc]init];
     enemyArray=[[NSMutableArray alloc]init];
     createPlayerFlg=false;
+    pCnt=0;eCnt=0;
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -81,6 +90,11 @@ bool createEnemyFlg;
     [backButton setTarget:self selector:@selector(onBackClicked:)];
     [self addChild:backButton];
 
+    //デバッグラベル
+    debugLabel=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel.position=ccp(debugLabel.contentSize.width/2, winSize.height-debugLabel.contentSize.height/2);
+    [self addChild:debugLabel];
+    
     // done
 	return self;
 }
@@ -132,18 +146,311 @@ bool createEnemyFlg;
 
 -(void)judgement_Schedule:(CCTime)dt
 {
+    //初期化
+    removePlayerArray=[[NSMutableArray alloc]init];
+    removeEnemyArray=[[NSMutableArray alloc]init];
+    
+    float collisSurfaceAngle;//衝突面角度
+    
+    //**********************
+    //プレイヤージャッジメント
+    //**********************
+    for(Player* _player in playerArray){
+        if(_player.mode==0){
+            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position
+                                            ePos:ccp(_player.position.x,_player.position.y+1.0f)];
+        }
+        //================
+        //近隣プレイヤー捜索
+        //================
+        _player.nearPlayerCnt=0;
+        for(Player* _player1 in playerArray){
+            if([BasicMath RadiusIntersectsRadius:_player.position
+                                          pointB:_player1.position
+                                         radius1:(_player.contentSize.width*_player.scale+20)
+                                         radius2:(_player1.contentSize.width*_player1.scale+20)])
+            {
+                _player.nearPlayerCnt++;
+            }
+        }
+        for(Enemy* _enemy in enemyArray){
+            /*/====================
+            //衝突「戦闘」判定
+            //====================
+            if([BasicMath RadiusIntersectsRadius:_player.position
+                                          pointB:_enemy.position
+                                         radius1:(_player.contentSize.width*_player.scale-5)
+                                         radius2:(_enemy.contentSize.width*_enemy.scale-5)]){
+
+                if(!_player.stopFlg){
+                    [removePlayerArray addObject:_player];
+                }
+                if(!_enemy.stopFlg){
+                    [removeEnemyArray addObject:_enemy];
+                }
+                
+                _player.stopFlg=true;
+                _enemy.stopFlg=true;
+                
+                _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+                
+                _player.mode=3;
+                _enemy.mode=3;
+                
+                break;
+                
+            //====================
+            //プレイヤー逃避判定
+            //====================
+            }else*/if([BasicMath RadiusIntersectsRadius:_player.position
+                                            pointB:_enemy.position
+                                            radius1:(_player.contentSize.width*_player.scale+15)
+                                            radius2:(_enemy.contentSize.width*_enemy.scale+15)])
+            {
+                
+                if(_player.mode!=1){
+                    if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
+                        if(_player.position.y>[GameManager getWorldSize].height/5){
+                            collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
+                            _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
+                            _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
+                            _player.mode=1;
+                        }
+                    }
+                }
+                break;
+            }
+            //====================
+            //プレイヤー追撃判定
+            //====================
+            else if([BasicMath RadiusIntersectsRadius:_player.position
+                                                pointB:_enemy.position
+                                               radius1:(_player.contentSize.width*_player.scale+30)
+                                               radius2:(_enemy.contentSize.width*_enemy.scale+30)]){
+                if(_player.mode!=2){
+                    if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
+                        _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                        _player.mode=2;
+                    }
+                    if(_player.position.y<[GameManager getWorldSize].height/5){
+                        _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                        _player.mode=2;
+                    }
+                }
+                break;
+            }
+        }
+    }
+
+    //********************
+    //敵ジャッジメント
+    //********************
+    for(Enemy* _enemy in enemyArray){
+        if(_enemy.mode==0){
+            _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position
+                                                         ePos:ccp(_enemy.position.x,_enemy.position.y-1.0f)];
+        }
+        //==============
+        //近隣「敵」捜索
+        //==============
+        _enemy.nearEnemyCnt=0;
+        for(Enemy* _enemy1 in enemyArray){
+            if([BasicMath RadiusIntersectsRadius:_enemy.position
+                                          pointB:_enemy1.position
+                                         radius1:(_enemy.contentSize.width*_enemy.scale+20)
+                                         radius2:(_enemy1.contentSize.width*_enemy1.scale+20)])
+            {
+                _enemy.nearEnemyCnt++;
+            }
+        }
+        for(Player* _player in playerArray){
+            //====================
+            //「敵」逃避判定
+            //====================
+            if([BasicMath RadiusIntersectsRadius:_enemy.position
+                                                  pointB:_player.position
+                                                 radius1:(_enemy.contentSize.width*_enemy.scale+15)
+                                                 radius2:(_player.contentSize.width*_player.scale+15)])
+            {
+                
+                if(_enemy.mode!=1){
+                    if(_player.nearPlayerCnt > _enemy.nearEnemyCnt){
+                        if(_enemy.position.y<[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
+                            collisSurfaceAngle = [self getCollisSurfaceAngle:_enemy.position pos2:_player.position];
+                            _enemy.targetAngle = 2*collisSurfaceAngle-(_enemy.targetAngle+collisSurfaceAngle);
+                            _enemy.targetAngle = [BasicMath getNormalize_Radian:_enemy.targetAngle];
+                            _enemy.mode=1;
+                        }
+                    }
+                }
+                break;
+            }
+            //====================
+            //「敵」追撃判定
+            //====================
+            else if([BasicMath RadiusIntersectsRadius:_enemy.position
+                                            pointB:_player.position
+                                            radius1:(_enemy.contentSize.width*_enemy.scale+30)
+                                            radius2:(_player.contentSize.width*_player.scale+30)])
+            {
+                if(_enemy.mode!=2){
+                    if(_enemy.nearEnemyCnt >= _player.nearPlayerCnt){
+                        _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+                        _enemy.mode=2;
+                    }
+                    if(_enemy.position.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
+                        _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+                        _enemy.mode=2;
+                    }
+                }
+                break;
+            }
+        }
+    }
+    
+    //==============
+    //戦闘判定（停止）
+    //==============
+    for(Player* _player in playerArray){
+        for(Enemy* _enemy in enemyArray){
+            if([BasicMath RadiusIntersectsRadius:_player.position
+                                            pointB:_enemy.position
+                                            radius1:(_player.contentSize.width*_player.scale-7)
+                                            radius2:(_enemy.contentSize.width*_enemy.scale-7)])
+            {
+                _player.ability--;
+                _enemy.ability--;
+                
+                _player.stopFlg=true;
+                _enemy.stopFlg=true;
+                
+                _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+                
+                _player.mode=3;
+                _enemy.mode=3;
+                
+                break;
+            }
+        }
+    }
+    
+    //==============
+    //陣地内判定
+    //==============
     for(Player* _player in playerArray){
         if(_player.position.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
-            _player.targetPos=enemyFortress.position;
+            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:enemyFortress.position];
         }
     }
 
     for(Enemy* _enemy in enemyArray){
         if(_enemy.position.y<[GameManager getWorldSize].height/5){
-            _enemy.targetPos=playerFortress.position;
+            _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:playerFortress.position];
         }
     }
+    
+    //===================
+    //消滅オブジェクト削除
+    //===================
+    for(Player* _player in playerArray){
+        if(_player.ability<=0){
+            [removePlayerArray addObject:_player];
+        }
+    }
+    for(Enemy* _enemy in enemyArray){
+        if(_enemy.ability<=0){
+            [removeEnemyArray addObject:_enemy];
+        }
+    }
+    [self removeObject];
+
+    //===============
+    //戦闘後復帰処理
+    //===============
+    for(Player* _player in playerArray){
+        if(_player.mode==3){
+            bool hitFlg=false;
+            for(Enemy* _enemy in enemyArray){
+                if([BasicMath RadiusIntersectsRadius:_player.position
+                                              pointB:_enemy.position
+                                             radius1:(_player.contentSize.width*_player.scale-7)
+                                             radius2:(_enemy.contentSize.width*_enemy.scale-7)])
+                {
+                    hitFlg=true;
+                }
+            }
+            if(!hitFlg){
+                _player.mode=0;
+                _player.stopFlg=false;
+            }
+        }
+    }
+    for(Enemy* _enemy in enemyArray){
+        if(_enemy.mode==3){
+            bool hitFlg=false;
+            for(Player* _player in playerArray){
+                if([BasicMath RadiusIntersectsRadius:_enemy.position
+                                              pointB:_player.position
+                                             radius1:(_enemy.contentSize.width*_enemy.scale-7)
+                                             radius2:(_player.contentSize.width*_player.scale-7)])
+                {
+                    hitFlg=true;
+                }
+            }
+            if(!hitFlg){
+                _enemy.mode=0;
+                _enemy.stopFlg=false;
+            }
+        }
+    }
+
+    //デバッグラベル更新
+    debugLabel.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
 }
+
+//============================
+// 衝突面アングル算出
+//============================
+-(float)getCollisSurfaceAngle:(CGPoint)pos1 pos2:(CGPoint)pos2
+{
+    float angle;
+    
+    float inAngle=[BasicMath getAngle_To_Degree:pos1 ePos:pos2];
+    
+    if(inAngle>=315 || inAngle<45){//上
+        angle = [BasicMath getAngle_To_Radian:pos1 ePos:pos2]-M_PI_2;
+    }else if(inAngle>=45 && inAngle<135){//右
+        angle = [BasicMath getAngle_To_Radian:pos1 ePos:pos2]-M_PI;
+    }else if(inAngle>=135 && inAngle<225){//下
+        angle = [BasicMath getAngle_To_Radian:pos1 ePos:pos2]+M_PI_2;
+    }else if(inAngle>=225 && inAngle<315){//左
+        angle = [BasicMath getAngle_To_Radian:pos1 ePos:pos2]+M_PI * 2;
+    }
+    angle=[BasicMath getNormalize_Radian:angle];
+    return angle;
+}
+
+//============================
+// オブジェクト削除
+//============================
+-(void)removeObject
+{
+    for(Player* _player in removePlayerArray)
+    {
+        [playerArray removeObject:_player];
+        [bgSpLayer removeChild:_player cleanup:YES];
+        pCnt--;
+    }
+    for(Enemy* _enemy in removeEnemyArray)
+    {
+        [enemyArray removeObject:_enemy];
+        [bgSpLayer removeChild:_enemy cleanup:YES];
+        eCnt--;
+    }
+}
+
 
 UITouch* touches;
 UIEvent* events;
@@ -155,7 +462,7 @@ UIEvent* events;
         [bgSpLayer addChild:player];
         [playerArray addObject:player];
         [self touchBegan:touches withEvent:events];
-
+        pCnt++;
     }else{
         //通常停止
         createPlayerFlg=false;
@@ -180,7 +487,7 @@ UIEvent* events;
         scrollView.verticalScrollEnabled=NO;
         if(!createPlayerFlg){
             //プレイヤー生成スケジュール開始
-            [self schedule:@selector(create_Player_Schedule:)interval:0.05 repeat:CCTimerRepeatForever delay:0.15f];
+            [self schedule:@selector(create_Player_Schedule:)interval:0.1 repeat:CCTimerRepeatForever delay:0.15f];
             createPlayerFlg=true;
         }
     }else{
@@ -191,12 +498,13 @@ UIEvent* events;
         }
     }
 
-    /*/敵作成
+    //敵作成
     if(worldLocation.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
         enemy=[Enemy createEnemy:worldLocation];
         [bgSpLayer addChild:enemy];
         [enemyArray addObject:enemy];
-    }*/
+        eCnt++;
+    }
 }
 
 /*-(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event

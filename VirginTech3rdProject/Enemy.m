@@ -12,31 +12,52 @@
 
 @implementation Enemy
 
-@synthesize targetPos;
+@synthesize ability;
+@synthesize nearEnemyCnt;
+@synthesize stopFlg;
+@synthesize mode;
+@synthesize targetAngle;
 
 -(void)move_Schedule:(CCTime)dt
 {
-    targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:targetPos];
-    targetDistance = sqrtf(powf(self.position.x - targetPos.x,2) + powf(self.position.y - targetPos.y,2));
-    nextPos=CGPointMake(velocity*cosf(targetAngle),velocity*sinf(targetAngle));
+    nextPos=CGPointMake(self.position.x+velocity*cosf(targetAngle),self.position.y+velocity*sinf(targetAngle));
+    self.rotation=[BasicMath getAngle_To_Degree:self.position ePos:nextPos];
     
-    self.position=CGPointMake(self.position.x+nextPos.x, self.position.y+nextPos.y);
-    self.rotation=[BasicMath getAngle_To_Degree:self.position ePos:targetPos];
-    
-    if(targetDistance < 5.0){
-        [self unschedule:@selector(move_Schedule:)];
+    if(!stopFlg){
+        self.position=nextPos;
     }
+    
+    if(mode==1){//回避タイム測定
+        time1++;
+        if(time1>100)mode=0;//回避解除
+    }else{
+        time1=0;
+    }
+    
+    if(mode==2){//追跡タイム測定
+        time2++;
+        if(time2>300)mode=0;//追跡解除
+    }else{
+        time2=0;
+    }
+
 }
 
 -(id)initWithEnemy:(CGPoint)pos
 {
-    if(self=[super initWithImageNamed:@"enemy.png"])
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"object_default.plist"];
+    
+    if(self=[super initWithSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"enemy.png"]])
     {
         self.position=pos;
-        self.scale=0.5;
+        self.scale=0.7;
         
+        ability=10;
+        mode=0;//通常モード
+        stopFlg=false;
         velocity=0.2;
-        targetPos=ccp(self.position.x,0.0f);
+        nextPos=ccp(self.position.x,self.position.y-velocity);
+        targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
         
         [self schedule:@selector(move_Schedule:)interval:0.01];
     }

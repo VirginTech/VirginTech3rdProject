@@ -11,14 +11,22 @@
 
 @interface Player : CCSprite {
     
-    CGPoint targetPos;
+    int mode;//0:通常 1:逃避 2:追跡 3:戦闘
     float targetAngle;
-    float targetDistance;
     CGPoint nextPos;
     float velocity;
+    int time1;
+    int time2;
+    bool stopFlg;
+    int nearPlayerCnt;
+    int ability;
 }
 
-@property CGPoint targetPos;
+@property int ability;
+@property int nearPlayerCnt;
+@property bool stopFlg;
+@property int mode;
+@property float targetAngle;
 
 +(id)createPlayer:(CGPoint)pos;
 
