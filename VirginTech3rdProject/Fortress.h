@@ -11,7 +11,13 @@
 
 @interface Fortress : CCSprite {
     
+    int ability;
+    
+    //デバッグ用
+    CCLabelTTF* energyLabel;
 }
+
+@property int ability;
 
 +(id)createFortress:(CGPoint)pos type:(int)type;
 

@@ -40,6 +40,14 @@
     }else{
         time2=0;
     }
+    
+}
+
+-(void)status_Schedule:(CCTime)dt
+{
+    //デバッグ用
+    modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
+    energyLabel.string=[NSString stringWithFormat:@"%d",ability];    
 }
 
 -(id)initWithPlayer:(CGPoint)pos
@@ -59,6 +67,21 @@
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
 
         [self schedule:@selector(move_Schedule:)interval:0.01];
+        [self schedule:@selector(status_Schedule:)interval:0.1];
+        
+        //デバッグ用ラベル
+        modeLabel=[CCLabelTTF labelWithString:
+               [NSString stringWithFormat:@"M=%d",mode]fontName:@"Verdana-Bold" fontSize:10];
+        modeLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2-20);
+        modeLabel.color=[CCColor whiteColor];
+        [self addChild:modeLabel];
+        
+        energyLabel=[CCLabelTTF labelWithString:
+                  [NSString stringWithFormat:@"%d",ability]fontName:@"Verdana-Bold" fontSize:15];
+        energyLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
+        energyLabel.color=[CCColor whiteColor];
+        [self addChild:energyLabel];
+        
     }
     return self;
 }

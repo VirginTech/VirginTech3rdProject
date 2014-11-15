@@ -11,6 +11,14 @@
 
 @implementation Fortress
 
+@synthesize ability;
+
+-(void)status_Schedule:(CCTime)dt
+{
+    //デバッグ用
+    energyLabel.string=[NSString stringWithFormat:@"%d",ability];
+}
+
 -(id)initWithFortress:(CGPoint)pos type:(int)type
 {
     NSString* fileName;
@@ -23,6 +31,18 @@
     if(self=[super initWithImageNamed:fileName])
     {
         self.position=pos;
+        
+        ability=100;
+        
+        //デバッグ用
+        [self schedule:@selector(status_Schedule:)interval:0.1];
+        
+        energyLabel=[CCLabelTTF labelWithString:
+                     [NSString stringWithFormat:@"%d",ability]fontName:@"Verdana-Bold" fontSize:15];
+        energyLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
+        energyLabel.color=[CCColor whiteColor];
+        [self addChild:energyLabel];
+        
     }
     return self;
 }

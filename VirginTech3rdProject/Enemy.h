@@ -20,6 +20,10 @@
     bool stopFlg;
     int nearEnemyCnt;
     int ability;
+    
+    //デバッグ用
+    CCLabelTTF* modeLabel;
+    CCLabelTTF* energyLabel;
 }
 
 @property int ability;
