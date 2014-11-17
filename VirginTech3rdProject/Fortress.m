@@ -32,7 +32,7 @@
     {
         self.position=pos;
         
-        ability=100;
+        ability=1000;
         
         //デバッグ用
         [self schedule:@selector(status_Schedule:)interval:0.1];

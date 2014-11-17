@@ -159,6 +159,9 @@ int eCnt;
     enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
     [bgSpLayer addChild:enemyFortress];
     
+    //「敵」生成
+    [self create_Enemy];
+    
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
     
@@ -183,6 +186,7 @@ int eCnt;
     //**********************
     for(Player* _player in playerArray){
         if(_player.mode==0){
+            _player.stopFlg=false;
             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position
                                             ePos:ccp(_player.position.x,_player.position.y+1.0f)];
         }
@@ -274,6 +278,7 @@ int eCnt;
     //********************
     for(Enemy* _enemy in enemyArray){
         if(_enemy.mode==0){
+            _enemy.stopFlg=false;
             _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position
                                                          ePos:ccp(_enemy.position.x,_enemy.position.y-1.0f)];
         }
@@ -447,7 +452,7 @@ int eCnt;
         {
             if(!gameEndFlg){
                 _player.stopFlg=true;
-                //enemyFortress.ability--;
+                enemyFortress.ability--;
                 if(enemyFortress.ability<=0){
                     [bgSpLayer removeChild:enemyFortress cleanup:YES];
                     gameEndFlg=true;
@@ -463,13 +468,18 @@ int eCnt;
         {
             if(!gameEndFlg){
                 _enemy.stopFlg=true;
-                //playerFortress.ability--;
+                playerFortress.ability--;
                 if(playerFortress.ability<=0){
                     [bgSpLayer removeChild:playerFortress cleanup:YES];
                     gameEndFlg=true;
                 }
             }
         }
+    }
+    
+    //「敵」作成
+    if(eCnt<20){
+        [self create_Enemy];
     }
     
     //=============
@@ -530,20 +540,64 @@ int eCnt;
     }
 }
 
+-(void)create_Enemy{
+    
+    int xOff=0;
+    int yOff=0;
+    
+    for(int i=0;i<20;i++)
+    {
+        if(i%5==0){
+            yOff=yOff+20;
+            xOff=0;
+        }else{
+            xOff=xOff+25;
+        }
+        enemy=[Enemy createEnemy:ccp(50+xOff,[GameManager getWorldSize].height*0.8+yOff)];
+        [bgSpLayer addChild:enemy];
+        [enemyArray addObject:enemy];
+        eCnt++;
+    }
+    
+    xOff=0;
+    yOff=0;
+    
+    for(int i=0;i<20;i++)
+    {
+        if(i%5==0){
+            yOff=yOff+20;
+            xOff=0;
+        }else{
+            xOff=xOff+25;
+        }
+        enemy=[Enemy createEnemy:ccp([GameManager getWorldSize].width-150+xOff,[GameManager getWorldSize].height*0.8+yOff)];
+        [bgSpLayer addChild:enemy];
+        [enemyArray addObject:enemy];
+        eCnt++;
+    }
+
+}
+
 
 UITouch* touches;
 UIEvent* events;
 
 -(void)create_Player_Schedule:(CCTime)dt
 {
-    if(touches.tapCount>0 && worldLocation.y<[GameManager getWorldSize].height/5){
-        player=[Player createPlayer:worldLocation];
-        [bgSpLayer addChild:player];
-        [playerArray addObject:player];
-        [self touchBegan:touches withEvent:events];
-        pCnt++;
+    if(pCnt<40){
+        if(touches.tapCount>0 && worldLocation.y<[GameManager getWorldSize].height/5){
+            player=[Player createPlayer:worldLocation];
+            [bgSpLayer addChild:player];
+            [playerArray addObject:player];
+            [self touchBegan:touches withEvent:events];
+            pCnt++;
+        }else{
+            //通常停止
+            createPlayerFlg=false;
+            [self unschedule:@selector(create_Player_Schedule:)];
+        }
     }else{
-        //通常停止
+        //カウント超過停止
         createPlayerFlg=false;
         [self unschedule:@selector(create_Player_Schedule:)];
     }
@@ -577,13 +631,13 @@ UIEvent* events;
         }
     }
 
-    //敵作成
+    /*/敵作成
     if(worldLocation.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
         enemy=[Enemy createEnemy:worldLocation];
         [bgSpLayer addChild:enemy];
         [enemyArray addObject:enemy];
         eCnt++;
-    }
+    }*/
 }
 
 /*-(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
