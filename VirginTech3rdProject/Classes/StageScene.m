@@ -11,6 +11,7 @@
 #import "CCDrawNode.h"
 #import "TitleScene.h"
 #import "GameManager.h"
+#import "InitObjManager.h"
 #import "BasicMath.h"
 #import "Fortress.h"
 #import "Player.h"
@@ -22,6 +23,8 @@ CGSize winSize;
 CCSprite* bgSpLayer;
 CCScrollView* scrollView;
 CGPoint worldLocation;
+
+int stageNum;
 
 Fortress* playerFortress;
 Fortress* enemyFortress;
@@ -38,7 +41,12 @@ NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
 
 //デバッグ用ラベル
-CCLabelTTF* debugLabel;
+CCLabelTTF* debugLabel1;
+CCLabelTTF* debugLabel2;
+
+//カウンター
+int pMaxCnt;
+int pTotalCnt;
 int pCnt;
 int eCnt;
 
@@ -63,7 +71,33 @@ int eCnt;
     enemyArray=[[NSMutableArray alloc]init];
     createPlayerFlg=false;
     gameEndFlg=false;
+    pTotalCnt=0;
     pCnt=0;eCnt=0;
+    pMaxCnt=0;
+    stageNum=[GameManager getStageLevel];
+    
+    //プレイヤーMax数
+    if(stageNum==1){
+        pMaxCnt=100;
+    }else if(stageNum==2){
+        pMaxCnt=100;
+    }else if(stageNum==3){
+        pMaxCnt=100;
+    }else if(stageNum==4){
+        pMaxCnt=100;
+    }else if(stageNum==5){
+        pMaxCnt=100;
+    }else if(stageNum==6){
+        pMaxCnt=100;
+    }else if(stageNum==7){
+        pMaxCnt=100;
+    }else if(stageNum==8){
+        pMaxCnt=100;
+    }else if(stageNum==9){
+        pMaxCnt=100;
+    }else if(stageNum==10){
+        pMaxCnt=100;
+    }
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -93,10 +127,14 @@ int eCnt;
     [self addChild:backButton];
 
     //デバッグラベル
-    debugLabel=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
-    debugLabel.position=ccp(debugLabel.contentSize.width/2, winSize.height-debugLabel.contentSize.height/2);
-    [self addChild:debugLabel];
-    
+    debugLabel1=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel1.position=ccp(debugLabel1.contentSize.width/2, winSize.height-debugLabel1.contentSize.height/2);
+    [self addChild:debugLabel1];
+
+    debugLabel2=[CCLabelTTF labelWithString:@"Totle=0000" fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel2.position=ccp(debugLabel2.contentSize.width/2, debugLabel1.position.y-debugLabel2.contentSize.height);
+    [self addChild:debugLabel2];
+
     // done
 	return self;
 }
@@ -159,8 +197,10 @@ int eCnt;
     enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
     [bgSpLayer addChild:enemyFortress];
     
-    //「敵」生成
-    [self create_Enemy];
+    //「敵」生成スケジュール
+    int repeatNum=[InitObjManager NumOfRepeat:stageNum];
+    int interval=[InitObjManager NumOfInterval:stageNum];
+    [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:repeatNum delay:1.0];
     
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
@@ -171,6 +211,23 @@ int eCnt;
 {
     // always call super onExit last
     [super onExit];
+}
+
+-(void)create_Enemy_Schedule:(CCTime)dt
+{
+    CGPoint pos;
+    NSMutableArray* array=[[NSMutableArray alloc]init];
+    array=[InitObjManager init_Enemy_Pattern:stageNum];
+    
+    for(int i=0;i<array.count;i++)
+    {
+        pos=[[array objectAtIndex:i]CGPointValue];
+        enemy=[Enemy createEnemy:pos];
+        [bgSpLayer addChild:enemy];
+        [enemyArray addObject:enemy];
+        eCnt++;
+    }
+
 }
 
 -(void)judgement_Schedule:(CCTime)dt
@@ -202,6 +259,11 @@ int eCnt;
             {
                 _player.nearPlayerCnt++;
             }
+        }
+        //「敵」配列入れ替え
+        if(enemyArray.count>0){
+            [enemyArray addObject:[enemyArray objectAtIndex:0]];
+            [enemyArray removeObjectAtIndex:0];
         }
         for(Enemy* _enemy in enemyArray){
             /*/====================
@@ -294,6 +356,11 @@ int eCnt;
             {
                 _enemy.nearEnemyCnt++;
             }
+        }
+        //「敵」配列入れ替え
+        if(playerArray.count>0){
+            [playerArray addObject:[playerArray objectAtIndex:0]];
+            [playerArray removeObjectAtIndex:0];
         }
         for(Player* _player in playerArray){
             //====================
@@ -477,11 +544,6 @@ int eCnt;
         }
     }
     
-    //「敵」作成
-    if(eCnt<20){
-        [self create_Enemy];
-    }
-    
     //=============
     //ゲーム終了停止
     //=============
@@ -496,7 +558,8 @@ int eCnt;
     }
     
     //デバッグラベル更新
-    debugLabel.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
+    debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
+    debugLabel2.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];
 }
 
 //============================
@@ -540,57 +603,19 @@ int eCnt;
     }
 }
 
--(void)create_Enemy{
-    
-    int xOff=0;
-    int yOff=0;
-    
-    for(int i=0;i<20;i++)
-    {
-        if(i%5==0){
-            yOff=yOff+20;
-            xOff=0;
-        }else{
-            xOff=xOff+25;
-        }
-        enemy=[Enemy createEnemy:ccp(50+xOff,[GameManager getWorldSize].height*0.8+yOff)];
-        [bgSpLayer addChild:enemy];
-        [enemyArray addObject:enemy];
-        eCnt++;
-    }
-    
-    xOff=0;
-    yOff=0;
-    
-    for(int i=0;i<20;i++)
-    {
-        if(i%5==0){
-            yOff=yOff+20;
-            xOff=0;
-        }else{
-            xOff=xOff+25;
-        }
-        enemy=[Enemy createEnemy:ccp([GameManager getWorldSize].width-150+xOff,[GameManager getWorldSize].height*0.8+yOff)];
-        [bgSpLayer addChild:enemy];
-        [enemyArray addObject:enemy];
-        eCnt++;
-    }
-
-}
-
-
 UITouch* touches;
 UIEvent* events;
 
 -(void)create_Player_Schedule:(CCTime)dt
 {
-    if(pCnt<40){
+    if(pCnt<40 && pTotalCnt<pMaxCnt){
         if(touches.tapCount>0 && worldLocation.y<[GameManager getWorldSize].height/5){
             player=[Player createPlayer:worldLocation];
             [bgSpLayer addChild:player];
             [playerArray addObject:player];
             [self touchBegan:touches withEvent:events];
             pCnt++;
+            pTotalCnt++;
         }else{
             //通常停止
             createPlayerFlg=false;

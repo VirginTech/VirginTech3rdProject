@@ -11,6 +11,7 @@
 @implementation GameManager
 
 CGSize worldSize;//ワールドサイズ
+int stageLevel;//ステージレベル
 
 //ワールドサイズ
 +(void)setWorldSize:(CGSize)size{
@@ -19,6 +20,12 @@ CGSize worldSize;//ワールドサイズ
 +(CGSize)getWorldSize{
     return worldSize;
 }
-
+//ステージレベル取得／登録
++(void)setStageLevel:(int)level{
+    stageLevel=level;
+}
++(int)getStageLevel{
+    return stageLevel;
+}
 
 @end

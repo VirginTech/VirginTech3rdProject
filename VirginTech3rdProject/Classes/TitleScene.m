@@ -9,7 +9,7 @@
 
 // Import the interfaces
 #import "TitleScene.h"
-#import "StageScene.h"
+#import "SelectScene.h"
 
 @implementation TitleScene
 
@@ -49,7 +49,7 @@
 - (void)onSpinningClicked:(id)sender
 {
     // start spinning scene with transition
-    [[CCDirector sharedDirector] replaceScene:[StageScene scene]
+    [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 
 }
