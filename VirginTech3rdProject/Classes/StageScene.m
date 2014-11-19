@@ -41,11 +41,16 @@ NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
 
 //デバッグ用ラベル
+int repCnt;
 CCLabelTTF* debugLabel1;
 CCLabelTTF* debugLabel2;
+CCLabelTTF* debugLabel3;
+CCLabelTTF* debugLabel4;
+CCLabelTTF* debugLabel5;
 
 //カウンター
 int pMaxCnt;
+int eMaxCnt;
 int pTotalCnt;
 int pCnt;
 int eCnt;
@@ -75,29 +80,13 @@ int eCnt;
     pCnt=0;eCnt=0;
     pMaxCnt=0;
     stageNum=[GameManager getStageLevel];
+    repCnt=0;
     
     //プレイヤーMax数
-    if(stageNum==1){
-        pMaxCnt=100;
-    }else if(stageNum==2){
-        pMaxCnt=100;
-    }else if(stageNum==3){
-        pMaxCnt=100;
-    }else if(stageNum==4){
-        pMaxCnt=100;
-    }else if(stageNum==5){
-        pMaxCnt=100;
-    }else if(stageNum==6){
-        pMaxCnt=100;
-    }else if(stageNum==7){
-        pMaxCnt=100;
-    }else if(stageNum==8){
-        pMaxCnt=100;
-    }else if(stageNum==9){
-        pMaxCnt=100;
-    }else if(stageNum==10){
-        pMaxCnt=100;
-    }
+    pMaxCnt=[InitObjManager NumPlayerMax:stageNum];
+    
+    //敵Max数
+    eMaxCnt=[InitObjManager init_Enemy_Pattern:stageNum].count*([InitObjManager NumOfRepeat:stageNum]+1);
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -131,10 +120,22 @@ int eCnt;
     debugLabel1.position=ccp(debugLabel1.contentSize.width/2, winSize.height-debugLabel1.contentSize.height/2);
     [self addChild:debugLabel1];
 
-    debugLabel2=[CCLabelTTF labelWithString:@"Totle=0000" fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
     debugLabel2.position=ccp(debugLabel2.contentSize.width/2, debugLabel1.position.y-debugLabel2.contentSize.height);
     [self addChild:debugLabel2];
 
+    debugLabel3=[CCLabelTTF labelWithString:@"Totle=0000" fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel3.position=ccp(debugLabel3.contentSize.width/2, debugLabel2.position.y-debugLabel3.contentSize.height);
+    [self addChild:debugLabel3];
+
+    debugLabel4=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"eRepeat: 0/0"]fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel4.position=ccp(debugLabel4.contentSize.width/2, debugLabel3.position.y-debugLabel4.contentSize.height);
+    [self addChild:debugLabel4];
+
+    debugLabel5=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"EnemyMax=%d",eMaxCnt]fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel5.position=ccp(debugLabel5.contentSize.width/2, debugLabel4.position.y-debugLabel5.contentSize.height);
+    [self addChild:debugLabel5];
+    
     // done
 	return self;
 }
@@ -218,6 +219,8 @@ int eCnt;
     CGPoint pos;
     NSMutableArray* array=[[NSMutableArray alloc]init];
     array=[InitObjManager init_Enemy_Pattern:stageNum];
+    
+    repCnt++;
     
     for(int i=0;i<array.count;i++)
     {
@@ -559,7 +562,9 @@ int eCnt;
     
     //デバッグラベル更新
     debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
-    debugLabel2.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];
+    debugLabel3.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];
+    debugLabel4.string=[NSString stringWithFormat:@"eRepeat:%d／%d",repCnt,[InitObjManager NumOfRepeat:stageNum]+1];
+
 }
 
 //============================

@@ -10,9 +10,17 @@
 
 @implementation GameManager
 
+int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 CGSize worldSize;//ワールドサイズ
 int stageLevel;//ステージレベル
 
+//デバイス取得／登録
++(void)setDevice:(int)type{
+    deviceType=type;
+}
++(int)getDevice{
+    return deviceType;
+}
 //ワールドサイズ
 +(void)setWorldSize:(CGSize)size{
     worldSize=size;

@@ -36,7 +36,7 @@ CGSize winSize;
     CGPoint btnPos=CGPointMake(70, winSize.height-50);
     for(int i=0;i<50;i++){
         CCButton* selectBtn=[CCButton buttonWithTitle:
-                             [NSString stringWithFormat:@"%02d",i+1] fontName:@"Verdana-Bold" fontSize:30];
+                             [NSString stringWithFormat:@"%02d",i+1] fontName:@"Verdana-Bold" fontSize:25];
         if(i%5!=0){
             btnPos=CGPointMake(btnPos.x+50, btnPos.y);
         }else{

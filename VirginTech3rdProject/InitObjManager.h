@@ -14,6 +14,7 @@
     
 }
 
++(int)NumPlayerMax:(int)stageNum;
 +(int)NumOfRepeat:(int)stageNum;
 +(int)NumOfInterval:(int)stageNum;
 +(NSMutableArray*)init_Enemy_Pattern:(int)stageNum;
