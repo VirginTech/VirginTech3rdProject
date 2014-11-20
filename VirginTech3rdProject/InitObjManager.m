@@ -15,25 +15,25 @@
 {
     int pMaxCnt=100;
     
-    if(stageNum==1){
+    if(stageNum%10==1){
         pMaxCnt=100;
-    }else if(stageNum==2){
+    }else if(stageNum%10==2){
         pMaxCnt=100;
-    }else if(stageNum==3){
+    }else if(stageNum%10==3){
         pMaxCnt=120;
-    }else if(stageNum==4){
+    }else if(stageNum%10==4){
         pMaxCnt=100;
-    }else if(stageNum==5){
+    }else if(stageNum%10==5){
         pMaxCnt=120;
-    }else if(stageNum==6){
+    }else if(stageNum%10==6){
         pMaxCnt=100;
-    }else if(stageNum==7){
+    }else if(stageNum%10==7){
         pMaxCnt=120;
-    }else if(stageNum==8){
+    }else if(stageNum%10==8){
         pMaxCnt=100;
-    }else if(stageNum==9){
-        pMaxCnt=100;
-    }else if(stageNum==10){
+    }else if(stageNum%10==9){
+        pMaxCnt=140;
+    }else if(stageNum%10==0){
         pMaxCnt=100;
     }
 
@@ -43,26 +43,26 @@
 {
     int repeat=0;
     
-    if(stageNum==1){
+    if(stageNum%10==1){
         repeat=1;//２回
-    }else if(stageNum==2){
+    }else if(stageNum%10==2){
         repeat=3;//４回
-    }else if(stageNum==3){
+    }else if(stageNum%10==3){
         repeat=2;//３回
-    }else if(stageNum==4){
+    }else if(stageNum%10==4){
         repeat=3;//４回
-    }else if(stageNum==5){
+    }else if(stageNum%10==5){
         repeat=3;//４回
-    }else if(stageNum==6){
+    }else if(stageNum%10==6){
         repeat=4;//５回
-    }else if(stageNum==7){
+    }else if(stageNum%10==7){
         repeat=3;//４回
-    }else if(stageNum==8){
-        repeat=1;
-    }else if(stageNum==9){
-        repeat=1;
-    }else if(stageNum==10){
-        repeat=1;
+    }else if(stageNum%10==8){
+        repeat=3;//４回
+    }else if(stageNum%10==9){
+        repeat=2;//３回
+    }else if(stageNum%10==0){
+        repeat=4;//５回
     }
     
     return repeat;
@@ -72,26 +72,26 @@
 {
     int interval=1;
     
-    if(stageNum==1){
+    if(stageNum%10==1){
         interval=20;
-    }else if(stageNum==2){
+    }else if(stageNum%10==2){
         interval=10;
-    }else if(stageNum==3){
+    }else if(stageNum%10==3){
         interval=20;
-    }else if(stageNum==4){
+    }else if(stageNum%10==4){
         interval=15;
-    }else if(stageNum==5){
+    }else if(stageNum%10==5){
         interval=20;
-    }else if(stageNum==6){
+    }else if(stageNum%10==6){
         interval=15;
-    }else if(stageNum==7){
+    }else if(stageNum%10==7){
         interval=20;
-    }else if(stageNum==8){
+    }else if(stageNum%10==8){
+        interval=10;
+    }else if(stageNum%10==9){
         interval=20;
-    }else if(stageNum==9){
-        interval=20;
-    }else if(stageNum==10){
-        interval=20;
+    }else if(stageNum%10==0){
+        interval=10;
     }
     
     return interval;
@@ -109,7 +109,7 @@
     //==============
     //ステージ０１（４０×２）
     //==============
-    if(stageNum==1){
+    if(stageNum%10==1){
         xOff=0;
         yOff=0;
         sPoint=ccp(50,[GameManager getWorldSize].height*0.8);
@@ -144,7 +144,7 @@
     //==============
     //ステージ０２（２０×４）
     //==============
-    if(stageNum==2){
+    if(stageNum%10==2){
         xOff=0;
         yOff=0;
         if([GameManager getDevice]==3){//iPad
@@ -169,7 +169,7 @@
     //==============
     //ステージ０３（３６×３）
     //==============
-    if(stageNum==3){
+    if(stageNum%10==3){
         for(int j=0;j<4;j++){
             xOff=0;
             yOff=0;
@@ -195,7 +195,7 @@
     //==============
     //ステージ０４（２０×４）
     //==============
-    if(stageNum==4){
+    if(stageNum%10==4){
         for(int j=0;j<2;j++){
             xOff=0;
             yOff=0;
@@ -220,7 +220,7 @@
     //==============
     //ステージ０５（２５×４）
     //==============
-    if(stageNum==5){
+    if(stageNum%10==5){
         xOff=0;
         yOff=0;
         if([GameManager getDevice]==3){//iPad
@@ -243,7 +243,7 @@
     //==============
     //ステージ０６（１８×５）
     //==============
-    if(stageNum==6){
+    if(stageNum%10==6){
         for(int i=0;i<2;i++){
             if([GameManager getDevice]==3){//iPad
                 sPoint=ccp(100+(i*180),[GameManager getWorldSize].height*0.8);
@@ -290,7 +290,7 @@
     //==============
     //ステージ０７（２７×４）
     //==============
-    if(stageNum==7){
+    if(stageNum%10==7){
         for(int i=0;i<3;i++){
             if([GameManager getDevice]==3){//iPad
                 sPoint=ccp(100+(i*90),[GameManager getWorldSize].height*0.95);
@@ -339,6 +339,132 @@
             value=[NSValue valueWithCGPoint:pos];
             [enemyArray addObject:value];
         }
+    }
+    //==============
+    //ステージ０８（２４×４）
+    //==============
+    if(stageNum%10==8){
+
+        for(int i=0;i<6;i++){
+            if([GameManager getDevice]==3){//iPad
+                sPoint=ccp(70+(i*50),[GameManager getWorldSize].height*0.8);
+            }else{
+                sPoint=ccp(40+(i*50),[GameManager getWorldSize].height*0.8);
+            }
+
+            pos=ccp(sPoint.x,sPoint.y);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x-10,sPoint.y+15);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x+10,sPoint.y+15);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x,sPoint.y+30);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+        }
+    }
+    //==============
+    //ステージ０９（４０×３）
+    //==============
+    if(stageNum%10==9){
+        xOff=0;
+        yOff=0;
+        if([GameManager getDevice]==3){//iPad
+            sPoint=ccp(80,[GameManager getWorldSize].height*0.8);
+        }else{
+            sPoint=ccp(50,[GameManager getWorldSize].height*0.8);
+        }
+        for(int i=0;i<20;i++)
+        {
+            if(i%5==0){
+                yOff=yOff+20;
+                xOff=-i*3;
+            }else{
+                xOff=xOff+25;
+            }
+            pos=ccp(sPoint.x+xOff,sPoint.y+yOff);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+        }
+        xOff=0;
+        yOff=0;
+        if([GameManager getDevice]==3){//iPad
+            sPoint=ccp([GameManager getWorldSize].width-180,[GameManager getWorldSize].height*0.8);
+        }else{
+            sPoint=ccp([GameManager getWorldSize].width-150,[GameManager getWorldSize].height*0.8);
+        }
+        for(int i=0;i<20;i++)
+        {
+            if(i%5==0){
+                yOff=yOff+20;
+                xOff=i*3;
+            }else{
+                xOff=xOff+25;
+            }
+            pos=ccp(sPoint.x+xOff,sPoint.y+yOff);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+        }
+    }
+    //==============
+    //ステージ１０（２０×５）
+    //==============
+    if(stageNum%10==0){
+        for(int i=0;i<2;i++){
+            if([GameManager getDevice]==3){//iPad
+                sPoint=ccp(100+(i*180),[GameManager getWorldSize].height*0.8);
+            }else{
+                sPoint=ccp(80+(i*160),[GameManager getWorldSize].height*0.8);
+            }
+            pos=ccp(sPoint.x,sPoint.y);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            //---
+            pos=ccp(sPoint.x-15,sPoint.y+20);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x+15,sPoint.y+20);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            //---
+            pos=ccp(sPoint.x-30,sPoint.y+40);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x,sPoint.y+40);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x+30,sPoint.y+40);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            //---
+            pos=ccp(sPoint.x-45,sPoint.y+60);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x-15,sPoint.y+60);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+            
+            pos=ccp(sPoint.x+15,sPoint.y+60);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+
+            pos=ccp(sPoint.x+45,sPoint.y+60);
+            value=[NSValue valueWithCGPoint:pos];
+            [enemyArray addObject:value];
+}
     }
     
     return enemyArray;
