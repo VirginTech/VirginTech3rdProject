@@ -112,7 +112,7 @@
     if(stageNum%10==1){
         xOff=0;
         yOff=0;
-        sPoint=ccp(50,[GameManager getWorldSize].height*0.8);
+        sPoint=ccp(50,[GameManager getWorldSize].height*0.9);
         for(int i=0;i<20;i++)
         {
             if(i%5==0){
@@ -127,7 +127,7 @@
         }
         xOff=0;
         yOff=0;
-        sPoint=ccp([GameManager getWorldSize].width-150,[GameManager getWorldSize].height*0.8);
+        sPoint=ccp([GameManager getWorldSize].width-150,[GameManager getWorldSize].height*0.9);
         for(int i=0;i<20;i++)
         {
             if(i%5==0){
@@ -148,9 +148,9 @@
         xOff=0;
         yOff=0;
         if([GameManager getDevice]==3){//iPad
-            sPoint=ccp(80,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp(80,[GameManager getWorldSize].height*0.9);
         }else{
-            sPoint=ccp(50,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp(50,[GameManager getWorldSize].height*0.9);
         }
         for(int i=0;i<20;i++)
         {
@@ -174,9 +174,9 @@
             xOff=0;
             yOff=0;
             if([GameManager getDevice]==3){//iPad
-                sPoint=ccp(50+(j*80),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(50+(j*80),[GameManager getWorldSize].height*0.9);
             }else{
-                sPoint=ccp(20+(j*80),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(20+(j*80),[GameManager getWorldSize].height*0.9);
             }
             for(int i=0;i<9;i++)
             {
@@ -200,9 +200,9 @@
             xOff=0;
             yOff=0;
             if([GameManager getDevice]==3){//iPad
-                sPoint=ccp(100+(j*170),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(100+(j*170),[GameManager getWorldSize].height*0.9);
             }else{
-                sPoint=ccp(80+(j*150),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(80+(j*150),[GameManager getWorldSize].height*0.9);
             }
             for(int i=0;i<10;i++){
                 if(i%2==0){
@@ -224,9 +224,9 @@
         xOff=0;
         yOff=0;
         if([GameManager getDevice]==3){//iPad
-            sPoint=ccp(50,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp(50,[GameManager getWorldSize].height*0.9);
         }else{
-            sPoint=ccp(20,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp(20,[GameManager getWorldSize].height*0.9);
         }
         for(int i=0;i<25;i++){
             if(i%5==0){
@@ -246,9 +246,9 @@
     if(stageNum%10==6){
         for(int i=0;i<2;i++){
             if([GameManager getDevice]==3){//iPad
-                sPoint=ccp(100+(i*180),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(100+(i*180),[GameManager getWorldSize].height*0.9);
             }else{
-                sPoint=ccp(80+(i*160),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(80+(i*160),[GameManager getWorldSize].height*0.9);
             }
             pos=ccp(sPoint.x,sPoint.y);
             value=[NSValue valueWithCGPoint:pos];
@@ -293,14 +293,14 @@
     if(stageNum%10==7){
         for(int i=0;i<3;i++){
             if([GameManager getDevice]==3){//iPad
-                sPoint=ccp(100+(i*90),[GameManager getWorldSize].height*0.95);
+                sPoint=ccp(100+(i*90),[GameManager getWorldSize].height*1.05);
                 if(i==1){
-                    sPoint=ccp(100+(i*90),[GameManager getWorldSize].height*0.8);
+                    sPoint=ccp(100+(i*90),[GameManager getWorldSize].height*0.9);
                 }
             }else{
-                sPoint=ccp(80+(i*80),[GameManager getWorldSize].height*0.95);
+                sPoint=ccp(80+(i*80),[GameManager getWorldSize].height*1.05);
                 if(i==1){
-                    sPoint=ccp(80+(i*80),[GameManager getWorldSize].height*0.8);
+                    sPoint=ccp(80+(i*80),[GameManager getWorldSize].height*0.9);
                 }
             }
             pos=ccp(sPoint.x,sPoint.y);
@@ -347,9 +347,9 @@
 
         for(int i=0;i<6;i++){
             if([GameManager getDevice]==3){//iPad
-                sPoint=ccp(70+(i*50),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(70+(i*50),[GameManager getWorldSize].height*0.9);
             }else{
-                sPoint=ccp(40+(i*50),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(40+(i*50),[GameManager getWorldSize].height*0.9);
             }
 
             pos=ccp(sPoint.x,sPoint.y);
@@ -376,9 +376,9 @@
         xOff=0;
         yOff=0;
         if([GameManager getDevice]==3){//iPad
-            sPoint=ccp(80,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp(80,[GameManager getWorldSize].height*0.9);
         }else{
-            sPoint=ccp(50,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp(50,[GameManager getWorldSize].height*0.9);
         }
         for(int i=0;i<20;i++)
         {
@@ -395,9 +395,9 @@
         xOff=0;
         yOff=0;
         if([GameManager getDevice]==3){//iPad
-            sPoint=ccp([GameManager getWorldSize].width-180,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp([GameManager getWorldSize].width-180,[GameManager getWorldSize].height*0.9);
         }else{
-            sPoint=ccp([GameManager getWorldSize].width-150,[GameManager getWorldSize].height*0.8);
+            sPoint=ccp([GameManager getWorldSize].width-150,[GameManager getWorldSize].height*0.9);
         }
         for(int i=0;i<20;i++)
         {
@@ -418,9 +418,9 @@
     if(stageNum%10==0){
         for(int i=0;i<2;i++){
             if([GameManager getDevice]==3){//iPad
-                sPoint=ccp(100+(i*180),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(100+(i*180),[GameManager getWorldSize].height*0.9);
             }else{
-                sPoint=ccp(80+(i*160),[GameManager getWorldSize].height*0.8);
+                sPoint=ccp(80+(i*160),[GameManager getWorldSize].height*0.9);
             }
             pos=ccp(sPoint.x,sPoint.y);
             value=[NSValue valueWithCGPoint:pos];

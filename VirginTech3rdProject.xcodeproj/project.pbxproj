@@ -209,6 +209,9 @@
 		CF4817581A11C01A00D5597B /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817571A11C01A00D5597B /* Player.m */; };
 		CF48175C1A11E81B00D5597B /* BasicMath.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48175B1A11E81B00D5597B /* BasicMath.m */; };
 		CF48175F1A1215E400D5597B /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48175E1A1215E400D5597B /* Enemy.m */; };
+		CF49107C1A1EE1AB003F6579 /* ItemBtnLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */; };
+		CF4910841A1F1F24003F6579 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4910821A1F1F24003F6579 /* btn_default.plist */; };
+		CF4910851A1F1F24003F6579 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4910831A1F1F24003F6579 /* btn_default.png */; };
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
 		CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
@@ -640,6 +643,10 @@
 		CF48175B1A11E81B00D5597B /* BasicMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicMath.m; sourceTree = "<group>"; };
 		CF48175D1A1215E400D5597B /* Enemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemy.h; sourceTree = "<group>"; };
 		CF48175E1A1215E400D5597B /* Enemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemy.m; sourceTree = "<group>"; };
+		CF49107A1A1EE1AB003F6579 /* ItemBtnLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemBtnLayer.h; sourceTree = "<group>"; };
+		CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemBtnLayer.m; sourceTree = "<group>"; };
+		CF4910821A1F1F24003F6579 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
+		CF4910831A1F1F24003F6579 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 		CF50D8BC1A1B0177005A1B5D /* InitObjManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitObjManager.h; sourceTree = "<group>"; };
 		CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitObjManager.m; sourceTree = "<group>"; };
 		CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectScene.h; sourceTree = "<group>"; };
@@ -721,6 +728,7 @@
 		CF20603E19F3534700DBD8C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CF49107D1A1F16A9003F6579 /* UI */,
 				CF4817451A11B67E00D5597B /* Object */,
 				CF48173A1A11A98C00D5597B /* BackGround */,
 				CF20603F19F3534700DBD8C4 /* Default.png */,
@@ -1470,6 +1478,7 @@
 				CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */,
 				CF2062A019F3534900DBD8C4 /* StageScene.h */,
 				CF2062A119F3534900DBD8C4 /* StageScene.m */,
+				CF4910791A1EE17F003F6579 /* Layer */,
 				CF4817591A11E7FB00D5597B /* lib */,
 				CF4817401A11AA1200D5597B /* manager */,
 				CF4817411A11B09C00D5597B /* object */,
@@ -1527,6 +1536,24 @@
 				CF48175B1A11E81B00D5597B /* BasicMath.m */,
 			);
 			name = lib;
+			sourceTree = "<group>";
+		};
+		CF4910791A1EE17F003F6579 /* Layer */ = {
+			isa = PBXGroup;
+			children = (
+				CF49107A1A1EE1AB003F6579 /* ItemBtnLayer.h */,
+				CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */,
+			);
+			name = Layer;
+			sourceTree = "<group>";
+		};
+		CF49107D1A1F16A9003F6579 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CF4910821A1F1F24003F6579 /* btn_default.plist */,
+				CF4910831A1F1F24003F6579 /* btn_default.png */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1616,9 +1643,11 @@
 				CF903F3D1A14C4E500C6779E /* object_default.png in Resources */,
 				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
 				CF20604D19F3534700DBD8C4 /* Icon-72.png in Resources */,
+				CF4910841A1F1F24003F6579 /* btn_default.plist in Resources */,
 				CF20622919F3534800DBD8C4 /* LICENSE_CCBReader.txt in Resources */,
 				CF903F3C1A14C4E500C6779E /* object_default.plist in Resources */,
 				CF20619919F3534800DBD8C4 /* LICENSE_cocos2d.txt in Resources */,
+				CF4910851A1F1F24003F6579 /* btn_default.png in Resources */,
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
@@ -1742,6 +1771,7 @@
 				CF20611219F3534700DBD8C4 /* CCRenderTexture.m in Sources */,
 				CF2060CA19F3534700DBD8C4 /* ccFPSImages.m in Sources */,
 				CF2061DC19F3534800DBD8C4 /* OALAudioSession.m in Sources */,
+				CF49107C1A1EE1AB003F6579 /* ItemBtnLayer.m in Sources */,
 				CF20616D19F3534800DBD8C4 /* CCWindow.m in Sources */,
 				CF20612D19F3534800DBD8C4 /* CCSpriteFrame.m in Sources */,
 				CF20615919F3534800DBD8C4 /* CCES2Renderer.m in Sources */,

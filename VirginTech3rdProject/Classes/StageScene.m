@@ -13,6 +13,7 @@
 #import "GameManager.h"
 #import "InitObjManager.h"
 #import "BasicMath.h"
+#import "ItemBtnLayer.h"
 #import "Fortress.h"
 #import "Player.h"
 #import "Enemy.h"
@@ -23,6 +24,9 @@ CGSize winSize;
 CCSprite* bgSpLayer;
 CCScrollView* scrollView;
 CGPoint worldLocation;
+
+ItemBtnLayer* itemLayer;
+float footer;
 
 int stageNum;
 
@@ -72,6 +76,7 @@ int eCnt;
     self.userInteractionEnabled = YES;
     
     //初期化
+    footer=60;
     playerArray=[[NSMutableArray alloc]init];
     enemyArray=[[NSMutableArray alloc]init];
     createPlayerFlg=false;
@@ -91,6 +96,10 @@ int eCnt;
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
+    
+    //アイテムボタンレイヤー
+    itemLayer=[[ItemBtnLayer alloc]init];
+    [self addChild:itemLayer z:1];
     
     //レベルに応じた画面の大きさ
     [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
@@ -150,48 +159,56 @@ int eCnt;
     // always call super onEnter first
     [super onEnter];
     
+    //アイテムライン
+    CCDrawNode* drawNode0=[CCDrawNode node];
+    [drawNode0 drawSegmentFrom:ccp(0,footer)
+                            to:ccp([GameManager getWorldSize].width, footer)
+                        radius:0.5
+                         color:[CCColor whiteColor]];
+    [bgSpLayer addChild:drawNode0];
+    
     //我陣地ライン
     CCDrawNode* drawNode1=[CCDrawNode node];
-    [drawNode1 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height/5)
-                                to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height/5)
+    [drawNode1 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.2)
+                                to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.2)
                                 radius:0.5
                                 color:[CCColor whiteColor]];
     [bgSpLayer addChild:drawNode1];
     
     //敵陣地ライン
     CCDrawNode* drawNode2=[CCDrawNode node];
-    [drawNode2 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height-[GameManager getWorldSize].height/5)
-                                to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height-[GameManager getWorldSize].height/5)
+    [drawNode2 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.8)
+                                to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
                                 radius:0.5
                                 color:[CCColor whiteColor]];
     [bgSpLayer addChild:drawNode2];
 
     //我逃避限界ライン
     CCDrawNode* drawNode3=[CCDrawNode node];
-    [drawNode3 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height/4)
-                            to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height/4)
+    [drawNode3 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.25)
+                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.25)
                             radius:0.5
                             color:[CCColor blueColor]];
     [bgSpLayer addChild:drawNode3];
     
     //敵逃避限界ライン
     CCDrawNode* drawNode4=[CCDrawNode node];
-    [drawNode4 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height-[GameManager getWorldSize].height/4)
-                            to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height-[GameManager getWorldSize].height/4)
+    [drawNode4 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.75)
+                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.75)
                             radius:0.5
                             color:[CCColor redColor]];
     [bgSpLayer addChild:drawNode4];
 
     //センターライン
     CCDrawNode* drawNode5=[CCDrawNode node];
-    [drawNode5 drawSegmentFrom:ccp(0,[GameManager getWorldSize].height/2)
-                            to:ccp([GameManager getWorldSize].width,[GameManager getWorldSize].height/2)
+    [drawNode5 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)/2)
+                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)/2)
                         radius:0.5
                          color:[CCColor yellowColor]];
     [bgSpLayer addChild:drawNode5];
     
     //我城生成
-    playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2, 15) type:0];
+    playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,footer+15) type:0];
     [bgSpLayer addChild:playerFortress];
     
     //敵城生成
@@ -306,7 +323,7 @@ int eCnt;
                 
                 if(_player.mode!=1){
                     if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
-                        if(_player.position.y>[GameManager getWorldSize].height/4){
+                        if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
                             collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
                             _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
                             _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
@@ -328,7 +345,7 @@ int eCnt;
                         _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
                         _player.mode=2;
                     }
-                    if(_player.position.y<[GameManager getWorldSize].height/4){
+                    if(_player.position.y<footer+([GameManager getWorldSize].height-footer)*0.25){
                         _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
                         _player.mode=2;
                     }
@@ -377,7 +394,7 @@ int eCnt;
                 
                 if(_enemy.mode!=1){
                     if(_player.nearPlayerCnt > _enemy.nearEnemyCnt){
-                        if(_enemy.position.y<[GameManager getWorldSize].height-[GameManager getWorldSize].height/4){
+                        if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.75){
                             collisSurfaceAngle = [self getCollisSurfaceAngle:_enemy.position pos2:_player.position];
                             _enemy.targetAngle = 2*collisSurfaceAngle-(_enemy.targetAngle+collisSurfaceAngle);
                             _enemy.targetAngle = [BasicMath getNormalize_Radian:_enemy.targetAngle];
@@ -400,7 +417,7 @@ int eCnt;
                         _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
                         _enemy.mode=2;
                     }
-                    if(_enemy.position.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/4){
+                    if(_enemy.position.y>footer+([GameManager getWorldSize].height-footer)*0.75){
                         _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
                         _enemy.mode=2;
                     }
@@ -442,14 +459,14 @@ int eCnt;
     //==============
     for(Player* _player in playerArray){
         //敵陣地内に入ったら
-        if(_player.position.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
+        if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.8){
             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:enemyFortress.position];
         }
     }
 
     for(Enemy* _enemy in enemyArray){
         //プレイヤー陣地内に入ったら
-        if(_enemy.position.y<[GameManager getWorldSize].height/5){
+        if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.2){
             _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:playerFortress.position];
         }
     }
@@ -614,7 +631,7 @@ UIEvent* events;
 -(void)create_Player_Schedule:(CCTime)dt
 {
     if(pCnt<40 && pTotalCnt<pMaxCnt){
-        if(touches.tapCount>0 && worldLocation.y<[GameManager getWorldSize].height/5){
+        if(touches.tapCount>0 && worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
             player=[Player createPlayer:worldLocation];
             [bgSpLayer addChild:player];
             [playerArray addObject:player];
@@ -625,11 +642,15 @@ UIEvent* events;
             //通常停止
             createPlayerFlg=false;
             [self unschedule:@selector(create_Player_Schedule:)];
+            //アイテムボタン無効化
+            [itemLayer btnSelectedDisable];
         }
     }else{
         //カウント超過停止
         createPlayerFlg=false;
         [self unschedule:@selector(create_Player_Schedule:)];
+        //アイテムボタン無効化
+        [itemLayer btnSelectedDisable];
     }
 }
 
@@ -646,7 +667,7 @@ UIEvent* events;
     worldLocation.y = touchLocation.y + offsetY;
     
     //プレイヤー作成
-    if(worldLocation.y<[GameManager getWorldSize].height/5){
+    if(worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
         scrollView.verticalScrollEnabled=NO;
         if(!createPlayerFlg){
             //プレイヤー生成スケジュール開始
@@ -658,11 +679,13 @@ UIEvent* events;
         if(createPlayerFlg){
             [self unschedule:@selector(create_Player_Schedule:)];
             createPlayerFlg=false;
+            //アイテムボタン無効化
+            [itemLayer btnSelectedDisable];
         }
     }
 
     /*/敵作成
-    if(worldLocation.y>[GameManager getWorldSize].height-[GameManager getWorldSize].height/5){
+    if(worldLocation.y>footer+([GameManager getWorldSize].height-footer)*0.8){
         enemy=[Enemy createEnemy:worldLocation];
         [bgSpLayer addChild:enemy];
         [enemyArray addObject:enemy];
@@ -680,6 +703,8 @@ UIEvent* events;
     if(createPlayerFlg){
         createPlayerFlg=false;
         [self unschedule:@selector(create_Player_Schedule:)];
+        //アイテムボタン無効化
+        [itemLayer btnSelectedDisable];
     }
 }
 

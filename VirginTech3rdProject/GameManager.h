@@ -16,5 +16,7 @@
 +(CGSize)getWorldSize;
 +(void)setStageLevel:(int)level;
 +(int)getStageLevel;
++(void)setItem:(int)num;
++(int)getItem;
 
 @end

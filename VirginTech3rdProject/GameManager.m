@@ -13,6 +13,7 @@
 int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 CGSize worldSize;//ワールドサイズ
 int stageLevel;//ステージレベル
+int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード 4:攻撃アップ 5:高速モード
 
 //デバイス取得／登録
 +(void)setDevice:(int)type{
@@ -34,6 +35,13 @@ int stageLevel;//ステージレベル
 }
 +(int)getStageLevel{
     return stageLevel;
+}
+//アイテム番号
++(void)setItem:(int)num{
+    item=num;
+}
++(int)getItem{
+    return item;
 }
 
 @end
