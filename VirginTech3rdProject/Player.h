@@ -20,6 +20,7 @@
     bool stopFlg;
     int nearPlayerCnt;
     int ability;
+    int itemNum;
     
     //デバッグ用
     CCLabelTTF* modeLabel;
@@ -27,6 +28,8 @@
     
 }
 
+@property float velocity;
+@property int itemNum;
 @property int ability;
 @property int nearPlayerCnt;
 @property bool stopFlg;

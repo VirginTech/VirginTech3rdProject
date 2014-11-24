@@ -12,6 +12,8 @@
 
 @implementation Player
 
+@synthesize velocity;
+@synthesize itemNum;
 @synthesize ability;
 @synthesize nearPlayerCnt;
 @synthesize mode;
@@ -47,7 +49,7 @@
 {
     //デバッグ用
     modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
-    energyLabel.string=[NSString stringWithFormat:@"%d",ability];    
+    energyLabel.string=[NSString stringWithFormat:@"%d",itemNum];
 }
 
 -(id)initWithPlayer:(CGPoint)pos
@@ -59,10 +61,22 @@
         self.position=pos;
         self.scale=0.7;
         
-        ability=10;
+        itemNum=[GameManager getItem];
         mode=0;//通常モード
         stopFlg=false;
-        velocity=0.2;
+        
+        if([GameManager getItem]==5){//高速モード
+            velocity=0.3f;
+        }else{
+            velocity=0.2f;
+        }
+        
+        if([GameManager getItem]==2){//シールドモード
+            ability=30;
+        }else{
+            ability=10;
+        }
+        
         nextPos=ccp(self.position.x,self.position.y+velocity);
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
 
@@ -77,7 +91,7 @@
         [self addChild:modeLabel];
         
         energyLabel=[CCLabelTTF labelWithString:
-                  [NSString stringWithFormat:@"%d",ability]fontName:@"Verdana-Bold" fontSize:15];
+                  [NSString stringWithFormat:@"%d",itemNum]fontName:@"Verdana-Bold" fontSize:15];
         energyLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
         energyLabel.color=[CCColor whiteColor];
         [self addChild:energyLabel];

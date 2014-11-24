@@ -46,6 +46,17 @@ NSMutableArray* btnArray;
                          (btn.contentSize.height*btn.scale)/2);
         [btn setTarget:self selector:@selector(onButtonClicked:)];
         btn.name=[NSString stringWithFormat:@"%d",i];
+        if(i==0){
+            btn.title=@"爆　弾";
+        }else if(i==1){
+            btn.title=@"シールド";
+        }else if(i==2){
+            btn.title=@"突撃モード";
+        }else if(i==3){
+            btn.title=@"攻撃アップ";
+        }else if(i==4){
+            btn.title=@"高速モード";
+        }
         [btnArray addObject:btn];
         [self addChild:btn];
     }

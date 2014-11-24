@@ -321,13 +321,15 @@ int eCnt;
                                             radius2:(_enemy.contentSize.width*_enemy.scale+15)])
             {
                 
-                if(_player.mode!=1){
-                    if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
-                        if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
-                            collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
-                            _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
-                            _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
-                            _player.mode=1;
+                if(_player.itemNum!=3){//突撃モードでなければ
+                    if(_player.mode!=1){
+                        if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
+                            if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
+                                collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
+                                _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
+                                _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
+                                _player.mode=1;
+                            }
                         }
                     }
                 }
@@ -340,14 +342,17 @@ int eCnt;
                                                 pointB:_enemy.position
                                                radius1:(_player.contentSize.width*_player.scale+30)
                                                radius2:(_enemy.contentSize.width*_enemy.scale+30)]){
-                if(_player.mode!=2){
-                    if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
-                        _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
-                        _player.mode=2;
-                    }
-                    if(_player.position.y<footer+([GameManager getWorldSize].height-footer)*0.25){
-                        _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
-                        _player.mode=2;
+                
+                if(_player.itemNum!=3){//突撃モードでなければ
+                    if(_player.mode!=2){
+                        if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
+                            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                            _player.mode=2;
+                        }
+                        if(_player.position.y<footer+([GameManager getWorldSize].height-footer)*0.25){
+                            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                            _player.mode=2;
+                        }
                     }
                 }
                 break;
@@ -437,9 +442,6 @@ int eCnt;
                                             radius1:(_player.contentSize.width*_player.scale)/2
                                             radius2:(_enemy.contentSize.width*_enemy.scale)/2])
             {
-                _player.ability--;
-                _enemy.ability--;
-                
                 _player.stopFlg=true;
                 _enemy.stopFlg=true;
                 
@@ -448,6 +450,27 @@ int eCnt;
                 
                 _player.mode=3;
                 _enemy.mode=3;
+                
+                //==================
+                //アイテムごとによる攻撃
+                //==================
+                if(_player.itemNum==1){//爆弾
+                    for(Enemy* _enemy_ in enemyArray){
+                        if([BasicMath RadiusContainsPoint:_player.position
+                                                        pointB:_enemy_.position
+                                                        radius:50])
+                        {
+                            _enemy_.ability=0;
+                        }
+                    }
+                    _player.itemNum=0;
+                }else if(_player.itemNum==4){//攻撃アップ
+                    _player.ability--;
+                    _enemy.ability-=3;
+                }else{//通常・その他
+                    _player.ability--;
+                    _enemy.ability--;
+                }
                 
                 break;
             }
@@ -459,15 +482,19 @@ int eCnt;
     //==============
     for(Player* _player in playerArray){
         //敵陣地内に入ったら
-        if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.8){
-            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:enemyFortress.position];
+        if(_player.mode!=3){//戦闘以外だったら
+            if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.8){
+                _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:enemyFortress.position];
+            }
         }
     }
 
     for(Enemy* _enemy in enemyArray){
         //プレイヤー陣地内に入ったら
-        if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.2){
-            _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:playerFortress.position];
+        if(_enemy.mode!=3){//戦闘以外だったら
+            if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.2){
+                _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:playerFortress.position];
+            }
         }
     }
     
