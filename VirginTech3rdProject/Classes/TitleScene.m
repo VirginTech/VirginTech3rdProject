@@ -10,6 +10,7 @@
 // Import the interfaces
 #import "TitleScene.h"
 #import "SelectScene.h"
+#import "RealBattleScene.h"
 
 @implementation TitleScene
 
@@ -42,8 +43,22 @@
     [helloWorldButton setTarget:self selector:@selector(onSpinningClicked:)];
     [self addChild:helloWorldButton];
 
+    CCButton *realBattleButton = [CCButton buttonWithTitle:@"[リアル対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    realBattleButton.positionType = CCPositionTypeNormalized;
+    realBattleButton.position = ccp(0.5f, 0.30f);
+    [realBattleButton setTarget:self selector:@selector(onRealBattleClicked:)];
+    [self addChild:realBattleButton];
+
     // done
 	return self;
+}
+
+- (void)onRealBattleClicked:(id)sender
+{
+    // start spinning scene with transition
+    [[CCDirector sharedDirector] replaceScene:[RealBattleScene scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    
 }
 
 - (void)onSpinningClicked:(id)sender

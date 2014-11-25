@@ -201,6 +201,7 @@
 		CF20629F19F3534900DBD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20629E19F3534900DBD8C4 /* AppDelegate.m */; };
 		CF2062A219F3534900DBD8C4 /* StageScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A119F3534900DBD8C4 /* StageScene.m */; };
 		CF2062A519F3534900DBD8C4 /* TitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A419F3534900DBD8C4 /* TitleScene.m */; };
+		CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454FE01A2418200037A978 /* RealBattleScene.m */; };
 		CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48173B1A11A9AA00D5597B /* bgLayer.png */; };
 		CF48173F1A11AA0900D5597B /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48173E1A11AA0900D5597B /* GameManager.m */; };
 		CF4817441A11B12100D5597B /* Fortress.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817431A11B12100D5597B /* Fortress.m */; };
@@ -630,6 +631,8 @@
 		CF2062A119F3534900DBD8C4 /* StageScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = StageScene.m; path = Classes/StageScene.m; sourceTree = "<group>"; };
 		CF2062A319F3534900DBD8C4 /* TitleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = Classes/TitleScene.h; sourceTree = "<group>"; };
 		CF2062A419F3534900DBD8C4 /* TitleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TitleScene.m; path = Classes/TitleScene.m; sourceTree = "<group>"; };
+		CF454FDF1A2418200037A978 /* RealBattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealBattleScene.h; sourceTree = "<group>"; };
+		CF454FE01A2418200037A978 /* RealBattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealBattleScene.m; sourceTree = "<group>"; };
 		CF48173B1A11A9AA00D5597B /* bgLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgLayer.png; sourceTree = "<group>"; };
 		CF48173D1A11AA0900D5597B /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		CF48173E1A11AA0900D5597B /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
@@ -1478,6 +1481,8 @@
 				CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */,
 				CF2062A019F3534900DBD8C4 /* StageScene.h */,
 				CF2062A119F3534900DBD8C4 /* StageScene.m */,
+				CF454FDF1A2418200037A978 /* RealBattleScene.h */,
+				CF454FE01A2418200037A978 /* RealBattleScene.m */,
 				CF4910791A1EE17F003F6579 /* Layer */,
 				CF4817591A11E7FB00D5597B /* lib */,
 				CF4817401A11AA1200D5597B /* manager */,
@@ -1709,6 +1714,7 @@
 				CF20617019F3534800DBD8C4 /* NSEvent+CC.m in Sources */,
 				CF2061C719F3534800DBD8C4 /* ALDevice.m in Sources */,
 				CF20618D19F3534800DBD8C4 /* NSThread+performBlock.m in Sources */,
+				CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */,
 				CF20612A19F3534800DBD8C4 /* CCSpriteBatchNode.m in Sources */,
 				CF20607A19F3534700DBD8C4 /* CCEffectBrightness.m in Sources */,
 				CF2061AF19F3534800DBD8C4 /* OALAudioTrackNotifications.m in Sources */,

@@ -1,34 +1,27 @@
 //
-//  HelloWorldScene.m
+//  RealBattleScene.m
 //  VirginTech3rdProject
 //
-//  Created by VirginTech LLC. on 2014/10/19.
-//  Copyright VirginTech LLC. 2014年. All rights reserved.
+//  Created by VirginTech LLC. on 2014/11/25.
+//  Copyright 2014年 VirginTech LLC. All rights reserved.
 //
-// -----------------------------------------------------------------------
 
-#import "StageScene.h"
-#import "CCDrawNode.h"
-#import "TitleScene.h"
-#import "GameManager.h"
-#import "InitObjManager.h"
+#import "RealBattleScene.h"
 #import "BasicMath.h"
-#import "ItemBtnLayer.h"
+#import "GameManager.h"
+#import "TitleScene.h"
+#import "CCDrawNode.h"
+
 #import "Fortress.h"
 #import "Player.h"
 #import "Enemy.h"
 
-@implementation StageScene
+@implementation RealBattleScene
 
 CGSize winSize;
-CCSprite* bgSpLayer;
-CCScrollView* scrollView;
-CGPoint worldLocation;
-
-ItemBtnLayer* itemLayer;
+CGPoint playerLocation;
+CGPoint enemyLocation;
 float footer;
-
-int stageNum;
 
 Fortress* playerFortress;
 Fortress* enemyFortress;
@@ -44,6 +37,14 @@ NSMutableArray* enemyArray;
 NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
 
+//カウンター
+int pMaxCnt;
+int pTotalCnt;
+int pCnt;
+int eMaxCnt;
+int eTotalCnt;
+int eCnt;
+
 //デバッグ用ラベル
 int repCnt;
 CCLabelTTF* debugLabel1;
@@ -52,14 +53,7 @@ CCLabelTTF* debugLabel3;
 CCLabelTTF* debugLabel4;
 CCLabelTTF* debugLabel5;
 
-//カウンター
-int pMaxCnt;
-int eMaxCnt;
-int pTotalCnt;
-int pCnt;
-int eCnt;
-
-+ (StageScene *)scene
++(RealBattleScene *)scene
 {
     return [[self alloc] init];
 }
@@ -74,32 +68,27 @@ int eCnt;
     
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
-    
+    self.multipleTouchEnabled = YES; /*マルチタッチ検出を有効化*/
+
     //初期化
-    footer=60;
-    playerArray=[[NSMutableArray alloc]init];
-    enemyArray=[[NSMutableArray alloc]init];
-    createPlayerFlg=false;
     gameEndFlg=false;
+    
+    footer=0;
+    playerArray=[[NSMutableArray alloc]init];
+    createPlayerFlg=false;
     pTotalCnt=0;
-    pCnt=0;eCnt=0;
-    pMaxCnt=0;
-    stageNum=[GameManager getStageLevel];
-    repCnt=0;
+    pCnt=0;
+    pMaxCnt=250;
     
-    //プレイヤーMax数
-    pMaxCnt=[InitObjManager NumPlayerMax:stageNum];
-    
-    //敵Max数
-    eMaxCnt=(int)[InitObjManager init_Enemy_Pattern:stageNum].count*([InitObjManager NumOfRepeat:stageNum]+1);
+    enemyArray=[[NSMutableArray alloc]init];
+    createEnemyFlg=false;
+    eTotalCnt=0;
+    eCnt=0;
+    eMaxCnt=250;
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
-    
-    //アイテムボタンレイヤー
-    itemLayer=[[ItemBtnLayer alloc]init];
-    [self addChild:itemLayer z:1];
     
     //レベルに応じた画面の大きさ
     [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
@@ -110,144 +99,87 @@ int eCnt;
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    //スクロールビュー配置 z:0
-    bgSpLayer=[CCSprite spriteWithCGImage:image.CGImage key:nil];
-    scrollView=[[CCScrollView alloc]initWithContentNode:bgSpLayer];
-    scrollView.horizontalScrollEnabled=NO;
-    bgSpLayer.position=CGPointMake(0, 0);
-    [self addChild:scrollView z:0];
-    
     // Create a back button
     CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
     backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
     [backButton setTarget:self selector:@selector(onBackClicked:)];
     [self addChild:backButton];
-
+    
     //デバッグラベル
-    debugLabel1=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
+    debugLabel1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
     debugLabel1.position=ccp(debugLabel1.contentSize.width/2, winSize.height-debugLabel1.contentSize.height/2);
     [self addChild:debugLabel1];
-
-    debugLabel2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
+    
+    debugLabel2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"EnemyMax=%d",eMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
     debugLabel2.position=ccp(debugLabel2.contentSize.width/2, debugLabel1.position.y-debugLabel2.contentSize.height);
     [self addChild:debugLabel2];
-
-    debugLabel3=[CCLabelTTF labelWithString:@"Totle=0000" fontName:@"Verdana-Bold" fontSize:10];
+    
+    debugLabel3=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
     debugLabel3.position=ccp(debugLabel3.contentSize.width/2, debugLabel2.position.y-debugLabel3.contentSize.height);
     [self addChild:debugLabel3];
-
-    debugLabel4=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"eRepeat: 0/0"]fontName:@"Verdana-Bold" fontSize:10];
+    
+    debugLabel4=[CCLabelTTF labelWithString:@"pTotal=0000" fontName:@"Verdana-Bold" fontSize:10];
     debugLabel4.position=ccp(debugLabel4.contentSize.width/2, debugLabel3.position.y-debugLabel4.contentSize.height);
     [self addChild:debugLabel4];
-
-    debugLabel5=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"EnemyMax=%d",eMaxCnt]fontName:@"Verdana-Bold" fontSize:10];
+    
+    debugLabel5=[CCLabelTTF labelWithString:@"eTotle=0000" fontName:@"Verdana-Bold" fontSize:10];
     debugLabel5.position=ccp(debugLabel5.contentSize.width/2, debugLabel4.position.y-debugLabel5.contentSize.height);
     [self addChild:debugLabel5];
-    
-    // done
-	return self;
+
+    return self;
 }
 
-- (void)dealloc
+-(void)dealloc
 {
     // clean up code goes here
 }
 
-- (void)onEnter
+-(void)onEnter
 {
     // always call super onEnter first
     [super onEnter];
     
-    //アイテムライン
-    CCDrawNode* drawNode0=[CCDrawNode node];
-    [drawNode0 drawSegmentFrom:ccp(0,footer)
-                            to:ccp([GameManager getWorldSize].width, footer)
-                        radius:0.5
-                         color:[CCColor whiteColor]];
-    [bgSpLayer addChild:drawNode0];
-    
     //我陣地ライン
     CCDrawNode* drawNode1=[CCDrawNode node];
     [drawNode1 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.2)
-                                to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.2)
-                                radius:0.5
-                                color:[CCColor whiteColor]];
-    [bgSpLayer addChild:drawNode1];
+                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.2)
+                        radius:0.5
+                         color:[CCColor whiteColor]];
+    [self addChild:drawNode1];
     
     //敵陣地ライン
     CCDrawNode* drawNode2=[CCDrawNode node];
     [drawNode2 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.8)
-                                to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
-                                radius:0.5
-                                color:[CCColor whiteColor]];
-    [bgSpLayer addChild:drawNode2];
-
-    //我逃避限界ライン
-    CCDrawNode* drawNode3=[CCDrawNode node];
-    [drawNode3 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.25)
-                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.25)
-                            radius:0.5
-                            color:[CCColor blueColor]];
-    [bgSpLayer addChild:drawNode3];
+                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
+                        radius:0.5
+                         color:[CCColor whiteColor]];
+    [self addChild:drawNode2];
     
-    //敵逃避限界ライン
-    CCDrawNode* drawNode4=[CCDrawNode node];
-    [drawNode4 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.75)
-                            to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.75)
-                            radius:0.5
-                            color:[CCColor redColor]];
-    [bgSpLayer addChild:drawNode4];
-
     //センターライン
     CCDrawNode* drawNode5=[CCDrawNode node];
     [drawNode5 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)/2)
                             to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)/2)
                         radius:0.5
                          color:[CCColor yellowColor]];
-    [bgSpLayer addChild:drawNode5];
+    [self addChild:drawNode5];
     
     //我城生成
     playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,footer+15) type:0];
-    [bgSpLayer addChild:playerFortress];
+    [self addChild:playerFortress];
     
     //敵城生成
     enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
-    [bgSpLayer addChild:enemyFortress];
-    
-    //「敵」生成スケジュール
-    int repeatNum=[InitObjManager NumOfRepeat:stageNum];
-    int interval=[InitObjManager NumOfInterval:stageNum];
-    [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:repeatNum delay:1.0];
+    [self addChild:enemyFortress];
     
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
-    
 }
 
-- (void)onExit
+-(void)onExit
 {
     // always call super onExit last
     [super onExit];
-}
-
--(void)create_Enemy_Schedule:(CCTime)dt
-{
-    CGPoint pos;
-    NSMutableArray* array=[[NSMutableArray alloc]init];
-    array=[InitObjManager init_Enemy_Pattern:stageNum];
-    
-    repCnt++;
-    
-    for(int i=0;i<array.count;i++)
-    {
-        pos=[[array objectAtIndex:i]CGPointValue];
-        enemy=[Enemy createEnemy:pos];
-        [bgSpLayer addChild:enemy];
-        [enemyArray addObject:enemy];
-        eCnt++;
-    }
-
 }
 
 -(void)judgement_Schedule:(CCTime)dt
@@ -265,7 +197,7 @@ int eCnt;
         if(_player.mode==0){
             _player.stopFlg=false;
             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position
-                                            ePos:ccp(_player.position.x,_player.position.y+1.0f)];
+                                                         ePos:ccp(_player.position.x,_player.position.y+1.0f)];
         }
         //================
         //近隣プレイヤー捜索
@@ -287,79 +219,79 @@ int eCnt;
         }
         for(Enemy* _enemy in enemyArray){
             /*/====================
-            //衝突「戦闘」判定
-            //====================
-            if([BasicMath RadiusIntersectsRadius:_player.position
-                                          pointB:_enemy.position
-                                         radius1:(_player.contentSize.width*_player.scale-5)
-                                         radius2:(_enemy.contentSize.width*_enemy.scale-5)]){
-
-                if(!_player.stopFlg){
-                    [removePlayerArray addObject:_player];
-                }
-                if(!_enemy.stopFlg){
-                    [removeEnemyArray addObject:_enemy];
-                }
-                
-                _player.stopFlg=true;
-                _enemy.stopFlg=true;
-                
-                _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
-                _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
-                
-                _player.mode=3;
-                _enemy.mode=3;
-                
-                break;
-                
-            //====================
-            //プレイヤー逃避判定
-            //====================
-            }else*/if([BasicMath RadiusIntersectsRadius:_player.position
-                                            pointB:_enemy.position
-                                            radius1:(_player.contentSize.width*_player.scale+15)
-                                            radius2:(_enemy.contentSize.width*_enemy.scale+15)])
-            {
-                
-                if(_player.itemNum!=3){//突撃モードでなければ
-                    if(_player.mode!=1){
-                        if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
-                            if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
-                                collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
-                                _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
-                                _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
-                                _player.mode=1;
-                            }
-                        }
-                    }
-                }
-                break;
-            }
+             //衝突「戦闘」判定
+             //====================
+             if([BasicMath RadiusIntersectsRadius:_player.position
+             pointB:_enemy.position
+             radius1:(_player.contentSize.width*_player.scale-5)
+             radius2:(_enemy.contentSize.width*_enemy.scale-5)]){
+             
+             if(!_player.stopFlg){
+             [removePlayerArray addObject:_player];
+             }
+             if(!_enemy.stopFlg){
+             [removeEnemyArray addObject:_enemy];
+             }
+             
+             _player.stopFlg=true;
+             _enemy.stopFlg=true;
+             
+             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+             _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+             
+             _player.mode=3;
+             _enemy.mode=3;
+             
+             break;
+             
+             //====================
+             //プレイヤー逃避判定
+             //====================
+             }else*/if([BasicMath RadiusIntersectsRadius:_player.position
+                                                  pointB:_enemy.position
+                                                 radius1:(_player.contentSize.width*_player.scale+15)
+                                                 radius2:(_enemy.contentSize.width*_enemy.scale+15)])
+             {
+                 
+                 if(_player.itemNum!=3){//突撃モードでなければ
+                     if(_player.mode!=1){
+                         if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
+                             if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
+                                 collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
+                                 _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
+                                 _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
+                                 _player.mode=1;
+                             }
+                         }
+                     }
+                 }
+                 break;
+             }
             //====================
             //プレイヤー追撃判定
             //====================
-            else if([BasicMath RadiusIntersectsRadius:_player.position
+             else if([BasicMath RadiusIntersectsRadius:_player.position
                                                 pointB:_enemy.position
                                                radius1:(_player.contentSize.width*_player.scale+30)
                                                radius2:(_enemy.contentSize.width*_enemy.scale+30)]){
-                
-                if(_player.itemNum!=3){//突撃モードでなければ
-                    if(_player.mode!=2){
-                        if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
-                            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
-                            _player.mode=2;
-                        }
-                        if(_player.position.y<footer+([GameManager getWorldSize].height-footer)*0.25){
-                            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
-                            _player.mode=2;
-                        }
-                    }
-                }
-                break;
-            }
+                 
+                 if(_player.itemNum!=3){//突撃モードでなければ
+                     if(_player.mode!=2){
+                         if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
+                             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                             _player.mode=2;
+                         }
+                         if(_player.position.y<footer+([GameManager getWorldSize].height-footer)*0.25){
+                             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                             _player.mode=2;
+                         }
+                     }
+                 }
+                 break;
+             }
         }
     }
-
+    
     //********************
     //敵ジャッジメント
     //********************
@@ -367,7 +299,7 @@ int eCnt;
         if(_enemy.mode==0){
             _enemy.stopFlg=false;
             _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position
-                                                         ePos:ccp(_enemy.position.x,_enemy.position.y-1.0f)];
+                                                        ePos:ccp(_enemy.position.x,_enemy.position.y-1.0f)];
         }
         //==============
         //近隣「敵」捜索
@@ -392,9 +324,9 @@ int eCnt;
             //「敵」逃避判定
             //====================
             if([BasicMath RadiusIntersectsRadius:_enemy.position
-                                                  pointB:_player.position
-                                                 radius1:(_enemy.contentSize.width*_enemy.scale+15)
-                                                 radius2:(_player.contentSize.width*_player.scale+15)])
+                                          pointB:_player.position
+                                         radius1:(_enemy.contentSize.width*_enemy.scale+15)
+                                         radius2:(_player.contentSize.width*_player.scale+15)])
             {
                 
                 if(_enemy.mode!=1){
@@ -413,9 +345,9 @@ int eCnt;
             //「敵」追撃判定
             //====================
             else if([BasicMath RadiusIntersectsRadius:_enemy.position
-                                            pointB:_player.position
-                                            radius1:(_enemy.contentSize.width*_enemy.scale+30)
-                                            radius2:(_player.contentSize.width*_player.scale+30)])
+                                               pointB:_player.position
+                                              radius1:(_enemy.contentSize.width*_enemy.scale+30)
+                                              radius2:(_player.contentSize.width*_player.scale+30)])
             {
                 if(_enemy.mode!=2){
                     if(_enemy.nearEnemyCnt >= _player.nearPlayerCnt){
@@ -438,9 +370,9 @@ int eCnt;
     for(Player* _player in playerArray){
         for(Enemy* _enemy in enemyArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
-                                            pointB:_enemy.position
-                                            radius1:(_player.contentSize.width*_player.scale)/2
-                                            radius2:(_enemy.contentSize.width*_enemy.scale)/2])
+                                          pointB:_enemy.position
+                                         radius1:(_player.contentSize.width*_player.scale)/2
+                                         radius2:(_enemy.contentSize.width*_enemy.scale)/2])
             {
                 _player.stopFlg=true;
                 _enemy.stopFlg=true;
@@ -457,8 +389,8 @@ int eCnt;
                 if(_player.itemNum==1){//爆弾
                     for(Enemy* _enemy_ in enemyArray){
                         if([BasicMath RadiusContainsPoint:_player.position
-                                                        pointB:_enemy_.position
-                                                        radius:50])
+                                                   pointB:_enemy_.position
+                                                   radius:50])
                         {
                             _enemy_.ability=0;
                         }
@@ -488,7 +420,7 @@ int eCnt;
             }
         }
     }
-
+    
     for(Enemy* _enemy in enemyArray){
         //プレイヤー陣地内に入ったら
         if(_enemy.mode!=3){//戦闘以外だったら
@@ -512,7 +444,7 @@ int eCnt;
         }
     }
     [self removeObject];
-
+    
     //===============
     //戦闘後復帰処理
     //===============
@@ -540,9 +472,9 @@ int eCnt;
             bool hitFlg=false;
             for(Player* _player in playerArray){
                 if([BasicMath RadiusIntersectsRadius:_enemy.position
-                                                pointB:_player.position
-                                                radius1:(_enemy.contentSize.width*_enemy.scale)/2
-                                                radius2:(_player.contentSize.width*_player.scale)/2])
+                                              pointB:_player.position
+                                             radius1:(_enemy.contentSize.width*_enemy.scale)/2
+                                             radius2:(_player.contentSize.width*_player.scale)/2])
                 {
                     hitFlg=true;
                     break;
@@ -554,21 +486,21 @@ int eCnt;
             }
         }
     }
-
+    
     //=================
     //陣地攻撃
     //=================
     for(Player* _player in playerArray){
         if([BasicMath RadiusIntersectsRadius:_player.position
-                                                pointB:enemyFortress.position
-                                                radius1:(_player.contentSize.width*_player.scale)/2
-                                                radius2:(enemyFortress.contentSize.width*enemyFortress.scale)/2])
+                                      pointB:enemyFortress.position
+                                     radius1:(_player.contentSize.width*_player.scale)/2
+                                     radius2:(enemyFortress.contentSize.width*enemyFortress.scale)/2])
         {
             if(!gameEndFlg){
                 _player.stopFlg=true;
                 enemyFortress.ability--;
                 if(enemyFortress.ability<=0){
-                    [bgSpLayer removeChild:enemyFortress cleanup:YES];
+                    [self removeChild:enemyFortress cleanup:YES];
                     gameEndFlg=true;
                 }
             }
@@ -584,7 +516,7 @@ int eCnt;
                 _enemy.stopFlg=true;
                 playerFortress.ability--;
                 if(playerFortress.ability<=0){
-                    [bgSpLayer removeChild:playerFortress cleanup:YES];
+                    [self removeChild:playerFortress cleanup:YES];
                     gameEndFlg=true;
                 }
             }
@@ -605,10 +537,9 @@ int eCnt;
     }
     
     //デバッグラベル更新
-    debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
-    debugLabel3.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];
-    debugLabel4.string=[NSString stringWithFormat:@"eRepeat:%d／%d",repCnt,[InitObjManager NumOfRepeat:stageNum]+1];
-
+    debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
+    debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
+    debugLabel5.string=[NSString stringWithFormat:@"eTotle=%04d",eTotalCnt];
 }
 
 //============================
@@ -641,106 +572,124 @@ int eCnt;
     for(Player* _player in removePlayerArray)
     {
         [playerArray removeObject:_player];
-        [bgSpLayer removeChild:_player cleanup:YES];
+        [self removeChild:_player cleanup:YES];
         pCnt--;
     }
     for(Enemy* _enemy in removeEnemyArray)
     {
         [enemyArray removeObject:_enemy];
-        [bgSpLayer removeChild:_enemy cleanup:YES];
+        [self removeChild:_enemy cleanup:YES];
         eCnt--;
     }
 }
 
-UITouch* touches;
-UIEvent* events;
-
 -(void)create_Player_Schedule:(CCTime)dt
 {
     if(pCnt<40 && pTotalCnt<pMaxCnt){
-        if(touches.tapCount>0 && worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
-            player=[Player createPlayer:worldLocation];
-            [bgSpLayer addChild:player];
+        if(playerLocation.y<[GameManager getWorldSize].height*0.2){
+            player=[Player createPlayer:playerLocation];
+            [self addChild:player];
             [playerArray addObject:player];
-            [self touchBegan:touches withEvent:events];
             pCnt++;
             pTotalCnt++;
         }else{
             //通常停止
             createPlayerFlg=false;
             [self unschedule:@selector(create_Player_Schedule:)];
-            //アイテムボタン無効化
-            [itemLayer btnSelectedDisable];
         }
     }else{
         //カウント超過停止
         createPlayerFlg=false;
         [self unschedule:@selector(create_Player_Schedule:)];
-        //アイテムボタン無効化
-        [itemLayer btnSelectedDisable];
+    }
+}
+
+-(void)create_Enemy_Schedule:(CCTime)dt
+{
+    if(eCnt<40 && eTotalCnt<eMaxCnt){
+        if(enemyLocation.y>[GameManager getWorldSize].height*0.8){
+            enemy=[Enemy createEnemy:enemyLocation];
+            [self addChild:enemy];
+            [enemyArray addObject:enemy];
+            eCnt++;
+            eTotalCnt++;
+        }else{
+            //通常停止
+            createEnemyFlg=false;
+            [self unschedule:@selector(create_Enemy_Schedule:)];
+        }
+    }else{
+        //カウント超過停止
+        createEnemyFlg=false;
+        [self unschedule:@selector(create_Enemy_Schedule:)];
     }
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
 {
-    touches=touch;
-    events=event;
-    scrollView.verticalScrollEnabled=YES;
-    
     CGPoint touchLocation = [touch locationInNode:self];
     
-    float offsetY = bgSpLayer.contentSize.height - winSize.height - scrollView.scrollPosition.y;
-    worldLocation.x = touchLocation.x + scrollView.scrollPosition.x;
-    worldLocation.y = touchLocation.y + offsetY;
-    
     //プレイヤー作成
-    if(worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
-        scrollView.verticalScrollEnabled=NO;
+    if(touchLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
+        playerLocation=touchLocation;
         if(!createPlayerFlg){
             //プレイヤー生成スケジュール開始
             [self schedule:@selector(create_Player_Schedule:)interval:0.1 repeat:CCTimerRepeatForever delay:0.15f];
             createPlayerFlg=true;
         }
-    }else{
-        //境界線超え停止
-        if(createPlayerFlg){
-            [self unschedule:@selector(create_Player_Schedule:)];
-            createPlayerFlg=false;
-            //アイテムボタン無効化
-            [itemLayer btnSelectedDisable];
+    }
+    if(touchLocation.y>footer+([GameManager getWorldSize].height-footer)*0.8){
+        enemyLocation=touchLocation;
+        if(!createEnemyFlg){
+            //敵生成スケジュール開始
+            [self schedule:@selector(create_Enemy_Schedule:)interval:0.1 repeat:CCTimerRepeatForever delay:0.15f];
+            createEnemyFlg=true;
         }
     }
-
-    /*/敵作成
-    if(worldLocation.y>footer+([GameManager getWorldSize].height-footer)*0.8){
-        enemy=[Enemy createEnemy:worldLocation];
-        [bgSpLayer addChild:enemy];
-        [enemyArray addObject:enemy];
-        eCnt++;
-    }*/
 }
 
-/*-(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+-(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
-}*/
+    CGPoint touchLocation = [touch locationInNode:self];
+    
+    if(touchLocation.y<[GameManager getWorldSize].height*0.2+50)
+    {
+        playerLocation=touchLocation;
+    }
+    
+    if(touchLocation.y>[GameManager getWorldSize].height*0.8-50)
+    {
+        enemyLocation=touchLocation;
+    }
+}
 
 -(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
 {
     //チョンタッチ停止
-    if(createPlayerFlg){
-        createPlayerFlg=false;
-        [self unschedule:@selector(create_Player_Schedule:)];
-        //アイテムボタン無効化
-        [itemLayer btnSelectedDisable];
+    CGPoint touchLocation = [touch locationInNode:self];
+    
+    if(touchLocation.y<[GameManager getWorldSize].height*0.5){
+        if(createPlayerFlg){
+            createPlayerFlg=false;
+            [self unschedule:@selector(create_Player_Schedule:)];
+        }
     }
+
+    if(touchLocation.y>[GameManager getWorldSize].height*0.5){
+        if(createEnemyFlg){
+            createEnemyFlg=false;
+            [self unschedule:@selector(create_Enemy_Schedule:)];
+        }
+    }
+    
 }
 
-- (void)onBackClicked:(id)sender
+-(void)onBackClicked:(id)sender
 {
     // back to intro scene with transition
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
-
+    
 }
 
 @end
