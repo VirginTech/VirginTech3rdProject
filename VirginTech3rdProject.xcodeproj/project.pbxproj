@@ -213,6 +213,8 @@
 		CF49107C1A1EE1AB003F6579 /* ItemBtnLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */; };
 		CF4910841A1F1F24003F6579 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4910821A1F1F24003F6579 /* btn_default.plist */; };
 		CF4910851A1F1F24003F6579 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4910831A1F1F24003F6579 /* btn_default.png */; };
+		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
+		CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4BDAB31A25AFC000ECE855 /* GKitController.m */; };
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
 		CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
@@ -650,6 +652,9 @@
 		CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemBtnLayer.m; sourceTree = "<group>"; };
 		CF4910821A1F1F24003F6579 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
 		CF4910831A1F1F24003F6579 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
+		CF4BDAB01A25AE5300ECE855 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		CF4BDAB21A25AFC000ECE855 /* GKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKitController.h; sourceTree = "<group>"; };
+		CF4BDAB31A25AFC000ECE855 /* GKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKitController.m; sourceTree = "<group>"; };
 		CF50D8BC1A1B0177005A1B5D /* InitObjManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitObjManager.h; sourceTree = "<group>"; };
 		CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitObjManager.m; sourceTree = "<group>"; };
 		CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectScene.h; sourceTree = "<group>"; };
@@ -665,6 +670,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */,
 				CF20602819F3534700DBD8C4 /* OpenAL.framework in Frameworks */,
 				CF20602E19F3534700DBD8C4 /* UIKit.framework in Frameworks */,
 				CF20602419F3534700DBD8C4 /* QuartzCore.framework in Frameworks */,
@@ -703,6 +709,7 @@
 		CF20602219F3534700DBD8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF4BDAB01A25AE5300ECE855 /* GameKit.framework */,
 				CF20602319F3534700DBD8C4 /* QuartzCore.framework */,
 				CF20602519F3534700DBD8C4 /* OpenGLES.framework */,
 				CF20602719F3534700DBD8C4 /* OpenAL.framework */,
@@ -1475,6 +1482,8 @@
 			children = (
 				CF20629D19F3534900DBD8C4 /* AppDelegate.h */,
 				CF20629E19F3534900DBD8C4 /* AppDelegate.m */,
+				CF4BDAB21A25AFC000ECE855 /* GKitController.h */,
+				CF4BDAB31A25AFC000ECE855 /* GKitController.m */,
 				CF2062A319F3534900DBD8C4 /* TitleScene.h */,
 				CF2062A419F3534900DBD8C4 /* TitleScene.m */,
 				CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */,
@@ -1797,6 +1806,7 @@
 				CF20614219F3534800DBD8C4 /* CCTiledMapLayer.m in Sources */,
 				CF20608A19F3534700DBD8C4 /* CCEffectTexture.m in Sources */,
 				CF20617919F3534800DBD8C4 /* CCColor.m in Sources */,
+				CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */,
 				CF20609319F3534700DBD8C4 /* CCShader.m in Sources */,
 				CF2060B519F3534700DBD8C4 /* CCAnimation.m in Sources */,
 				CF20620119F3534800DBD8C4 /* CCControlTextureFactory.m in Sources */,

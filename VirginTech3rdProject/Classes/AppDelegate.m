@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import "TitleScene.h"
 #import "GameManager.h"
+#import "GKitController.h"
 
 @implementation AppDelegate
 
@@ -43,6 +44,30 @@
 		CCSetupTabletScale2X: @(YES),
 	}];
 	
+    //OSバージョン登録
+    [GameManager setOsVersion:[[[UIDevice currentDevice]systemVersion]floatValue]];
+    
+    //GameCenterへ認証
+    GKLocalPlayer* localPlayer = [GKLocalPlayer localPlayer];
+    if ([GameManager getOsVersion]>=6.0f)
+    {
+        GKitController *gkc = (GKitController *)[UIApplication sharedApplication].keyWindow.rootViewController;
+        localPlayer.authenticateHandler = ^(UIViewController* viewController, NSError* error)
+        {
+            if(viewController!=nil){
+                [gkc presentViewController:viewController animated:YES completion:nil];
+            }
+            if(error==nil) {
+                // ゲーム招待を処理するためのハンドラを設定する
+                [gkc initMatchInviteHandler];
+            }
+        };
+    }else
+    {
+        localPlayer.authenticateHandler = ^(UIViewController* viewController, NSError* error){};
+    }
+
+    
 	return YES;
 }
 

@@ -11,6 +11,7 @@
 @implementation GameManager
 
 int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
+float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ
 int stageLevel;//ステージレベル
 int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード 4:攻撃アップ 5:高速モード
@@ -21,6 +22,13 @@ int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード
 }
 +(int)getDevice{
     return deviceType;
+}
+//OSバージョン
++(void)setOsVersion:(float)version{
+    osVersion=version;
+}
++(float)getOsVersion{
+    return osVersion;
 }
 //ワールドサイズ
 +(void)setWorldSize:(CGSize)size{

@@ -10,7 +10,6 @@
 // Importing cocos2d.h and cocos2d-ui.h, will import anything you need to start using cocos2d-v3
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
-
 // -----------------------------------------------------------------------
 
 /**
@@ -20,7 +19,9 @@
  *
  */
 @interface TitleScene : CCScene
-
+{
+    GKitController* gkc;
+}
 // -----------------------------------------------------------------------
 
 + (TitleScene *)scene;

@@ -12,6 +12,8 @@
 
 +(int)getDevice;
 +(void)setDevice:(int)type;// 1:iPhone5,6 2:iPhone4 3:iPad2
++(float)getOsVersion;
++(void)setOsVersion:(float)version;
 +(void)setWorldSize:(CGSize)size;
 +(CGSize)getWorldSize;
 +(void)setStageLevel:(int)level;

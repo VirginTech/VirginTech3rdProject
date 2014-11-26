@@ -29,6 +29,9 @@
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
+    //ゲームキット初期化
+    gkc=[[GKitController alloc]init];
+    
     // Hello world
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"3rd Project" fontName:@"Chalkduster" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
@@ -49,8 +52,19 @@
     [realBattleButton setTarget:self selector:@selector(onRealBattleClicked:)];
     [self addChild:realBattleButton];
 
+    CCButton *matchMakeButton = [CCButton buttonWithTitle:@"[オンライン対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    matchMakeButton.positionType = CCPositionTypeNormalized;
+    matchMakeButton.position = ccp(0.5f, 0.25f);
+    [matchMakeButton setTarget:self selector:@selector(onMatchMakeClicked:)];
+    [self addChild:matchMakeButton];
+
     // done
 	return self;
+}
+
+- (void)onMatchMakeClicked:(id)sender
+{
+    [gkc showRequestMatch];
 }
 
 - (void)onRealBattleClicked:(id)sender
