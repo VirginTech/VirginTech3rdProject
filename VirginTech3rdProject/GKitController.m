@@ -7,6 +7,7 @@
 //
 
 #import "GKitController.h"
+#import "MatchMakeScene.h"
 
 @implementation GKitController
 
@@ -49,7 +50,7 @@ GKitController *viewController;
 - (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController
 {
     //[self dismissModalViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:^(void){}];
+    [viewController dismissViewControllerAnimated:YES completion:^(void){}];
 }
 
 //=====================
@@ -114,7 +115,8 @@ GKitController *viewController;
     if (match.expectedPlayerCount == 0) {
         //matchStarted = YES;
         // ゲーム開始の処理
-        NSLog(@"Ready to start match!");
+        [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]
+                                   withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     }
 }
 

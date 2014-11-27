@@ -10,6 +10,9 @@
 #import <GameKit/GameKit.h>
 
 @interface GKitController : UINavigationController <GKLeaderboardViewControllerDelegate,GKMatchmakerViewControllerDelegate>
+{
+    //GKitController *viewController;
+}
 
 -(void)showLeaderboard;
 -(void)showRequestMatch;

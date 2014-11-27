@@ -220,6 +220,7 @@
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
 		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
+		CF863EE91A27311F007C146E /* MatchMakeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF863EE81A27311F007C146E /* MatchMakeScene.m */; };
 		CF903F3C1A14C4E500C6779E /* object_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF903F3A1A14C4E500C6779E /* object_default.plist */; };
 		CF903F3D1A14C4E500C6779E /* object_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF903F3B1A14C4E500C6779E /* object_default.png */; };
 /* End PBXBuildFile section */
@@ -661,6 +662,8 @@
 		CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectScene.m; sourceTree = "<group>"; };
 		CF83CA8E19F35C7400C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CF863EE71A27311F007C146E /* MatchMakeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakeScene.h; sourceTree = "<group>"; };
+		CF863EE81A27311F007C146E /* MatchMakeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakeScene.m; sourceTree = "<group>"; };
 		CF903F3A1A14C4E500C6779E /* object_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = object_default.plist; sourceTree = "<group>"; };
 		CF903F3B1A14C4E500C6779E /* object_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = object_default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1492,6 +1495,8 @@
 				CF2062A119F3534900DBD8C4 /* StageScene.m */,
 				CF454FDF1A2418200037A978 /* RealBattleScene.h */,
 				CF454FE01A2418200037A978 /* RealBattleScene.m */,
+				CF863EE71A27311F007C146E /* MatchMakeScene.h */,
+				CF863EE81A27311F007C146E /* MatchMakeScene.m */,
 				CF4910791A1EE17F003F6579 /* Layer */,
 				CF4817591A11E7FB00D5597B /* lib */,
 				CF4817401A11AA1200D5597B /* manager */,
@@ -1691,6 +1696,7 @@
 				CF20616A19F3534800DBD8C4 /* CCGLView.m in Sources */,
 				CF48175C1A11E81B00D5597B /* BasicMath.m in Sources */,
 				CF20615D19F3534800DBD8C4 /* CCGLView.m in Sources */,
+				CF863EE91A27311F007C146E /* MatchMakeScene.m in Sources */,
 				CF2061B519F3534800DBD8C4 /* OALSimpleAudio.m in Sources */,
 				CF20611D19F3534800DBD8C4 /* CCScene.m in Sources */,
 				CF20614519F3534800DBD8C4 /* CCTiledMapObjectGroup.m in Sources */,

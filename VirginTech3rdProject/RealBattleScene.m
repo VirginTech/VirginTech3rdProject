@@ -92,13 +92,7 @@ CCLabelTTF* debugLabel5;
     
     //レベルに応じた画面の大きさ
     [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
-    
-    UIImage *image = [UIImage imageNamed:@"bgLayer.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(winSize.width,[GameManager getWorldSize].height));
-    [image drawInRect:CGRectMake(0, 0, winSize.width,[GameManager getWorldSize].height)];
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
+        
     // Create a back button
     CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
