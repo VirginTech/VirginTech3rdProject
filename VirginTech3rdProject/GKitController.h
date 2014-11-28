@@ -11,7 +11,7 @@
 
 @interface GKitController : UINavigationController <GKLeaderboardViewControllerDelegate,GKMatchmakerViewControllerDelegate>
 {
-    //GKitController *viewController;
+
 }
 
 -(void)showLeaderboard;

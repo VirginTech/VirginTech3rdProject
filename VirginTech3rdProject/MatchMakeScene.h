@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
+#import <GameKit/GameKit.h>
 
-@interface MatchMakeScene : CCScene {
+@interface MatchMakeScene : CCScene <GKMatchDelegate>
+{
     
 }
 
 + (MatchMakeScene *)scene;
 - (id)init;
+
++(GKMatch*)getCurrentMatch;
++(void)setCurrentMatch:(GKMatch*)match;
 
 @end

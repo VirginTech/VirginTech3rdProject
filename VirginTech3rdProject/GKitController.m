@@ -70,7 +70,7 @@ GKitController *viewController;
     //if(gameCenterAvailable) {
     [GKMatchmaker sharedMatchmaker].inviteHandler = ^(GKInvite *acceptedInvite, NSArray *playersToInvite) {
         // 既存のマッチングを破棄する
-        //self.currentMatch = nil;
+        [MatchMakeScene setCurrentMatch:nil];
         
         if (acceptedInvite) {
             // ゲーム招待を利用してマッチメイク画面を開く
@@ -107,13 +107,15 @@ GKitController *viewController;
 
 - (void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFindMatch:(GKMatch *)match
 {
-    //[self dismissModalViewController];
     [viewController dismissViewControllerAnimated:YES completion:nil];
-    //self.currentMatch = match;
+
+    //match.delegate = self;
+    
+    //マッチの保持
+    [MatchMakeScene setCurrentMatch:match];
     
     // 全ユーザが揃ったかどうか
     if (match.expectedPlayerCount == 0) {
-        //matchStarted = YES;
         // ゲーム開始の処理
         [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]
                                    withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
@@ -129,5 +131,6 @@ GKitController *viewController;
 {
     [viewController dismissViewControllerAnimated:YES completion:nil]; // ゲームに固有のコードをここに実装する。
 }
+
 
 @end
