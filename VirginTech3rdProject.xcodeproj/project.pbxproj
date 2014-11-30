@@ -213,6 +213,8 @@
 		CF49107C1A1EE1AB003F6579 /* ItemBtnLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */; };
 		CF4910841A1F1F24003F6579 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4910821A1F1F24003F6579 /* btn_default.plist */; };
 		CF4910851A1F1F24003F6579 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4910831A1F1F24003F6579 /* btn_default.png */; };
+		CF4AF35F1A295FFC009A4475 /* mPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF35E1A295FFC009A4475 /* mPlayer.m */; };
+		CF4AF3621A29839B009A4475 /* mEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF3611A29839B009A4475 /* mEnemy.m */; };
 		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
 		CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4BDAB31A25AFC000ECE855 /* GKitController.m */; };
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
@@ -653,6 +655,10 @@
 		CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemBtnLayer.m; sourceTree = "<group>"; };
 		CF4910821A1F1F24003F6579 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
 		CF4910831A1F1F24003F6579 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
+		CF4AF35D1A295FFC009A4475 /* mPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mPlayer.h; sourceTree = "<group>"; };
+		CF4AF35E1A295FFC009A4475 /* mPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mPlayer.m; sourceTree = "<group>"; };
+		CF4AF3601A29839B009A4475 /* mEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mEnemy.h; sourceTree = "<group>"; };
+		CF4AF3611A29839B009A4475 /* mEnemy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mEnemy.m; sourceTree = "<group>"; };
 		CF4BDAB01A25AE5300ECE855 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		CF4BDAB21A25AFC000ECE855 /* GKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKitController.h; sourceTree = "<group>"; };
 		CF4BDAB31A25AFC000ECE855 /* GKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKitController.m; sourceTree = "<group>"; };
@@ -1533,6 +1539,10 @@
 				CF4817571A11C01A00D5597B /* Player.m */,
 				CF48175D1A1215E400D5597B /* Enemy.h */,
 				CF48175E1A1215E400D5597B /* Enemy.m */,
+				CF4AF35D1A295FFC009A4475 /* mPlayer.h */,
+				CF4AF35E1A295FFC009A4475 /* mPlayer.m */,
+				CF4AF3601A29839B009A4475 /* mEnemy.h */,
+				CF4AF3611A29839B009A4475 /* mEnemy.m */,
 			);
 			name = object;
 			sourceTree = "<group>";
@@ -1760,6 +1770,7 @@
 				CF20614819F3534800DBD8C4 /* CCTMXXMLParser.m in Sources */,
 				CF20617D19F3534800DBD8C4 /* CCProfiling.m in Sources */,
 				CF2061DF19F3534800DBD8C4 /* OALSuspendHandler.m in Sources */,
+				CF4AF3621A29839B009A4475 /* mEnemy.m in Sources */,
 				CF20620D19F3534800DBD8C4 /* CCTextField.m in Sources */,
 				CF2060E519F3534700DBD8C4 /* CCNode.m in Sources */,
 				CF20622519F3534800DBD8C4 /* CCBLocalizationManager.m in Sources */,
@@ -1789,6 +1800,7 @@
 				CF20613E19F3534800DBD8C4 /* CCTiledMap.m in Sources */,
 				CF20608019F3534700DBD8C4 /* CCEffectColorPulse.m in Sources */,
 				CF20611619F3534700DBD8C4 /* CCResponder.m in Sources */,
+				CF4AF35F1A295FFC009A4475 /* mPlayer.m in Sources */,
 				CF20611219F3534700DBD8C4 /* CCRenderTexture.m in Sources */,
 				CF2060CA19F3534700DBD8C4 /* ccFPSImages.m in Sources */,
 				CF2061DC19F3534800DBD8C4 /* OALAudioSession.m in Sources */,

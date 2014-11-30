@@ -9,9 +9,10 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
-@interface GKitController : UINavigationController <GKLeaderboardViewControllerDelegate,GKMatchmakerViewControllerDelegate>
+@interface GKitController : UINavigationController
+                    <GKLeaderboardViewControllerDelegate,GKMatchmakerViewControllerDelegate,GKMatchDelegate>
 {
-
+    
 }
 
 -(void)showLeaderboard;

@@ -8,10 +8,13 @@
 
 #import "GKitController.h"
 #import "MatchMakeScene.h"
+#import "GameManager.h"
 
 @implementation GKitController
 
 GKitController *viewController;
+GKMatch* currentMatch;
+int hostNum;
 
 //=====================
 //　リーダーボード画面
@@ -71,6 +74,7 @@ GKitController *viewController;
     [GKMatchmaker sharedMatchmaker].inviteHandler = ^(GKInvite *acceptedInvite, NSArray *playersToInvite) {
         // 既存のマッチングを破棄する
         [MatchMakeScene setCurrentMatch:nil];
+        currentMatch=nil;
         
         if (acceptedInvite) {
             // ゲーム招待を利用してマッチメイク画面を開く
@@ -91,6 +95,7 @@ GKitController *viewController;
 //マッチメイク要求
 - (void)showMatchmakerWithRequest:(GKMatchRequest *)request
 {
+    hostNum=arc4random()%1000;
     GKMatchmakerViewController *mmvc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
     viewController = (GKitController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     mmvc.matchmakerDelegate = self;
@@ -99,6 +104,7 @@ GKitController *viewController;
 //ゲーム招待
 - (void)showMatchmakerWithInvite:(GKInvite *)invite
 {
+    hostNum=arc4random()%1000;
     GKMatchmakerViewController *mmvc = [[GKMatchmakerViewController alloc] initWithInvite:invite];
     viewController = (GKitController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     mmvc.matchmakerDelegate = self;
@@ -109,16 +115,16 @@ GKitController *viewController;
 {
     [viewController dismissViewControllerAnimated:YES completion:nil];
 
-    //match.delegate = self;
-    
+    currentMatch=match;
+    match.delegate = self;
+
     //マッチの保持
     [MatchMakeScene setCurrentMatch:match];
     
     // 全ユーザが揃ったかどうか
     if (match.expectedPlayerCount == 0) {
-        // ゲーム開始の処理
-        [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]
-                                   withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+        //親決め
+        [self sendDataToAllPlayers];
     }
 }
 
@@ -132,5 +138,44 @@ GKitController *viewController;
     [viewController dismissViewControllerAnimated:YES completion:nil]; // ゲームに固有のコードをここに実装する。
 }
 
+//=============
+// 送信メソッド
+//=============
+-(void)sendDataToAllPlayers;
+{
+    NSLog(@"%dを送信しました",hostNum);
+    NSError *error = nil;
+    NSData *packetData = [[NSString stringWithFormat:@"%d",hostNum] dataUsingEncoding:NSUTF8StringEncoding];
+    [currentMatch sendDataToAllPlayers:packetData withDataMode:GKMatchSendDataReliable error:&error];
+    
+    if (error != nil){
+        NSLog(@"%@",error);
+    }
+}
+//=============
+// 受信メソッド
+//=============
+-(void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString*)playerID
+{
+    bool flg=true;
+    int _host = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]intValue];
+    NSLog(@"%dを受信しました",_host);
+    if(hostNum > _host){
+        [GameManager setHost:true];
+    }else if(hostNum < _host){
+        [GameManager setHost:false];
+    }else{
+        //もう一度
+        flg=false;
+        hostNum=arc4random()%1000;
+        [self sendDataToAllPlayers];
+    }
+    
+    //ゲーム開始の処理
+    if(flg){
+        [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]withTransition:
+                                                            [CCTransition transitionCrossFadeWithDuration:1.0]];
+    }
+}
 
 @end

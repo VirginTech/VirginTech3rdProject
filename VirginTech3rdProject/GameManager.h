@@ -20,5 +20,7 @@
 +(int)getStageLevel;
 +(void)setItem:(int)num;
 +(int)getItem;
++(void)setHost:(bool)host;
++(bool)getHost;
 
 @end

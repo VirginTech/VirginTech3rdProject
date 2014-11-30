@@ -15,6 +15,7 @@ float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ
 int stageLevel;//ステージレベル
 int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード 4:攻撃アップ 5:高速モード
+bool isHost;//true:ホスト(青) false:クライアント(赤)
 
 //デバイス取得／登録
 +(void)setDevice:(int)type{
@@ -50,6 +51,13 @@ int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード
 }
 +(int)getItem{
     return item;
+}
+//ホスト/クライアント
++(void)setHost:(bool)host{
+    isHost=host;
+}
++(bool)getHost{
+    return isHost;
 }
 
 @end
