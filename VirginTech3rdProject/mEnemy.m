@@ -7,9 +7,17 @@
 //
 
 #import "mEnemy.h"
-
+#import "BasicMath.h"
+#import "GameManager.h"
 
 @implementation mEnemy
+
+-(void)move_Schedule:(CCTime)dt
+{
+    nextPos=CGPointMake(self.position.x+velocity*cosf(targetAngle),self.position.y+velocity*sinf(targetAngle));
+    self.rotation=[BasicMath getAngle_To_Degree:self.position ePos:nextPos];
+    self.position=nextPos;
+}
 
 -(id)initWithEnemy:(CGPoint)pos
 {
@@ -19,8 +27,17 @@
     {
         self.position=pos;
         self.scale=0.7;
+        velocity=0.2;
         
+        if([GameManager getHost]){
+            nextPos=ccp(self.position.x,self.position.y-velocity);
+        }else{
+            nextPos=ccp(self.position.x,self.position.y+velocity);
+        }
         
+        targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
+        
+        [self schedule:@selector(move_Schedule:)interval:0.01];
     }
     return self;
 }

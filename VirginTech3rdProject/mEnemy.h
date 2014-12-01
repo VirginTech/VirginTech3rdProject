@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface mEnemy : CCSprite {
-    
+@interface mEnemy : CCSprite
+{    
+    float targetAngle;
+    CGPoint nextPos;
+    float velocity;
 }
 
 +(id)createEnemy:(CGPoint)pos;

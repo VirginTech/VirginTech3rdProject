@@ -46,7 +46,7 @@ int eTotalCnt;
 int eCnt;
 
 //デバッグ用ラベル
-int repCnt;
+//int repCnt;
 CCLabelTTF* debugLabel1;
 CCLabelTTF* debugLabel2;
 CCLabelTTF* debugLabel3;

@@ -8,6 +8,7 @@
 
 #import "mPlayer.h"
 #import "BasicMath.h"
+#import "GameManager.h"
 
 @implementation mPlayer
 
@@ -28,7 +29,12 @@
         self.scale=0.7;
         velocity=0.2f;
         
-        nextPos=ccp(self.position.x,self.position.y+velocity);
+        if([GameManager getHost]){
+            nextPos=ccp(self.position.x,self.position.y+velocity);
+        }else{
+            nextPos=ccp(self.position.x,self.position.y-velocity);
+        }
+        
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
         
         [self schedule:@selector(move_Schedule:)interval:0.01];
