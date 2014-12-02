@@ -86,6 +86,9 @@ CCLabelTTF* debugLabel5;
     eCnt=0;
     eMaxCnt=250;
     
+    //アイテム初期化
+    [GameManager setItem:0];//アイテム選択なし
+    
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
@@ -587,7 +590,7 @@ CCLabelTTF* debugLabel5;
             pCnt++;
             pTotalCnt++;
         }else{
-            //通常停止
+            //陣地外停止
             createPlayerFlg=false;
             [self unschedule:@selector(create_Player_Schedule:)];
         }
