@@ -14,8 +14,8 @@
 #import "mPlayer.h"
 #import "mEnemy.h"
 
-struct Send_Data {
-    int msgNum;//メッセージ種別 0
+//対戦データ送信用 構造体
+struct Battle_Data {
     int objId;//個別ID
     int group;//青:0 赤:1
     float posX;//posX
@@ -24,12 +24,19 @@ struct Send_Data {
     bool stopFlg;//停止
     bool dieFlg;//生死
 };
-typedef struct Send_Data Send_Data;
+typedef struct Battle_Data Battle_Data;
+
+//オブジェクト配置用 構造体
+struct CreateObj_Data {
+    float posX;//posX
+    float posY;//posY
+};
+typedef struct CreateObj_Data CreateObj_Data;
 
 @implementation MatchMakeScene
 
 CGSize winSize;
-GKMatch* currentMatch;
+GKMatch* battleMatch;
 
 CGSize offSet;
 CGPoint touchPos;
@@ -67,11 +74,11 @@ CCLabelTTF* debugLabel5;
 
 +(GKMatch*)getCurrentMatch
 {
-    return currentMatch;
+    return battleMatch;
 }
 +(void)setCurrentMatch:(GKMatch*)match
 {
-    currentMatch=match;
+    battleMatch=match;
 }
 
 +(MatchMakeScene *)scene
@@ -92,7 +99,7 @@ CCLabelTTF* debugLabel5;
     self.userInteractionEnabled = YES;
     
     //GKMatchデリゲート
-    currentMatch.delegate=self;
+    battleMatch.delegate=self;
     
     //初期化
     gameEndFlg=false;
@@ -196,8 +203,8 @@ CCLabelTTF* debugLabel5;
 -(void)dealloc
 {
     // clean up code goes here
-    currentMatch.delegate=nil;
-    [currentMatch disconnect];
+    battleMatch.delegate=nil;
+    [battleMatch disconnect];
 }
 
 -(void)onEnter
@@ -617,11 +624,10 @@ CCLabelTTF* debugLabel5;
     // メッセージデータ送信
     //===================
     battleDataArray=[[NSMutableArray alloc]init];
-    Send_Data battleData;
+    Battle_Data battleData;
     NSData* data;
     
     for(mPlayer* _player in playerArray){
-        battleData.msgNum=1;
         battleData.objId=_player.objId;
         battleData.group=_player.group;
         battleData.posX=_player.position.x;
@@ -629,11 +635,10 @@ CCLabelTTF* debugLabel5;
         battleData.angle=_player.targetAngle;
         battleData.stopFlg=_player.stopFlg;
         battleData.dieFlg=false;//仮
-        data=[NSData dataWithBytes:&battleData length:sizeof(Send_Data)];
+        data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
     for(mEnemy* _enemy in enemyArray){
-        battleData.msgNum=1;
         battleData.objId=_enemy.objId;
         battleData.group=_enemy.group;
         battleData.posX=_enemy.position.x;
@@ -641,11 +646,11 @@ CCLabelTTF* debugLabel5;
         battleData.angle=_enemy.targetAngle;
         battleData.stopFlg=_enemy.stopFlg;
         battleData.dieFlg=false;//仮
-        data=[NSData dataWithBytes:&battleData length:sizeof(Send_Data)];
+        data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
     if(battleDataArray.count>0){
-        [self sendData_Battle_Data:battleDataArray];
+        [self sendData_BattleData:battleDataArray];
     }
     
     //デバッグラベル更新
@@ -717,7 +722,7 @@ CCLabelTTF* debugLabel5;
                 pCnt++;
                 pTotalCnt++;
                 //データ送信
-                [self sendData_CreateObject:0 pos:touchPos];
+                [self sendData_CreateObject:touchPos];
             }else{
                 //カウント超過停止
                 createObjectFlg=false;
@@ -731,7 +736,7 @@ CCLabelTTF* debugLabel5;
                 eCnt++;
                 eTotalCnt++;
                 //データ送信
-                [self sendData_CreateObject:0 pos:touchPos];
+                [self sendData_CreateObject:touchPos];
             }else{
                 //カウント超過停止
                 createObjectFlg=false;
@@ -787,8 +792,8 @@ CCLabelTTF* debugLabel5;
 -(void)onBackClicked:(id)sender
 {
     // back to intro scene with transition
-    currentMatch.delegate=nil;
-    [currentMatch disconnect];
+    battleMatch.delegate=nil;
+    [battleMatch disconnect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     
@@ -817,28 +822,41 @@ CCLabelTTF* debugLabel5;
 //==========================
 // 　　　送信メソッド
 //==========================
--(void)sendData_Battle_Data:(NSMutableArray*)array;
+-(void)sendData_BattleData:(NSMutableArray*)array;
 {
     NSError *error = nil;
-    NSData *packetData = [NSKeyedArchiver archivedDataWithRootObject:array];
-    [currentMatch sendDataToAllPlayers:packetData withDataMode:GKMatchSendDataUnreliable error:&error];
+    
+    //ヘッダー番号付与
+    int header=1;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [NSKeyedArchiver archivedDataWithRootObject:array];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
     
     if (error != nil){
         NSLog(@"%@",error);
     }
 }
 
--(void)sendData_CreateObject:(int)_msgNum pos:(CGPoint)_pos;
+-(void)sendData_CreateObject:(CGPoint)_pos;
 {
-    Send_Data sendData;
+    CreateObj_Data createData;
 
-    sendData.msgNum=_msgNum;
-    sendData.posX=_pos.x-offSet.width;
-    sendData.posY=_pos.y-offSet.height;
+    createData.posX=_pos.x-offSet.width;
+    createData.posY=_pos.y-offSet.height;
 
     NSError *error = nil;
-    NSData *packetData = [NSData dataWithBytes:&sendData length:sizeof(Send_Data)];
-    [currentMatch sendDataToAllPlayers:packetData withDataMode:GKMatchSendDataUnreliable error:&error];
+
+    //ヘッダー番号付与
+    int header=0;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [NSData dataWithBytes:&createData length:sizeof(CreateObj_Data)];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
     
     if (error != nil){
         NSLog(@"%@",error);
@@ -849,21 +867,34 @@ CCLabelTTF* debugLabel5;
 //==========================
 -(void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID
 {
-    Send_Data* sendData=(Send_Data*)[data bytes];
-    int _msgNum=sendData->msgNum;
-    
-    //同じ位置なら
-    //float _x=createObj->posX+offSet.width;
-    //float _y=createObj->posY+offSet.height;
+    //ヘッダー番号の取り出し
+    int *header=malloc(sizeof(*header));//メモリー確保
+    memset(header, 0, sizeof(*header));//初期化
+    [data getBytes:header range:NSMakeRange(0, sizeof(*header))];//部分コピー
+    int _msgNum=*header;
+    free(header);//解放
 
+    //本体の取り出し
+    long diffLength=data.length-sizeof(*header);//本体サイズ取得
+    char *msg=malloc(diffLength);//メモリー確保
+    memset(msg, 0, diffLength);//初期化
+    [data getBytes:msg range:NSMakeRange(sizeof(*header), diffLength)];//部分コピー
+    
     //======================
-    // 相手オブジェクト配置
+    // オブジェクト配置
     //======================
     if(_msgNum==0)
     {
+        //構造体へ代入
+        CreateObj_Data* createData=(CreateObj_Data*)msg;
+
         //対称軸へ置く
-        float _x=winSize.width-sendData->posX-offSet.width;
-        float _y=winSize.height-sendData->posY-offSet.height;
+        float _x=winSize.width-createData->posX-offSet.width;
+        float _y=winSize.height-createData->posY-offSet.height;
+        
+        //同じ位置なら
+        //float _x=createObj->posX+offSet.width;
+        //float _y=createObj->posY+offSet.height;
         
         if([GameManager getHost]){
             m_enemy=[mEnemy createEnemy:eTotalCnt pos:ccp(_x,_y)];
@@ -882,10 +913,36 @@ CCLabelTTF* debugLabel5;
     //======================
     // 対戦データ受信
     //======================
-    else
+    else if(_msgNum==1)
     {
+        //NSDataへ変換
+        NSData* dData=[NSData dataWithBytes:msg length:diffLength];
+        //配列の復元
+        NSArray* array = [NSKeyedUnarchiver unarchiveObjectWithData:dData];
+        //構造体へ
+        for(NSData* _data in array)
+        {
+            Battle_Data* battleData=(Battle_Data*)[_data bytes];
+            int objId=battleData->objId;//個別ID
+            int group=battleData->group;//青:0 赤:1
+            float posX=battleData->posX;//posX
+            float posY=battleData->posY;//posY
+            float angle=battleData->angle;//ターゲットアングル
+            bool stopFlg=battleData->stopFlg;//停止
+            bool dieFlg=battleData->dieFlg;//生死
+            
+            NSLog(@"ObjID=%d PosX=%f PosY=%f Angle=%f",objId,posX,posY,angle);
+        }
+        NSLog(@"--------------------");
+    }
+    //======================
+    //
+    //======================
+    else{
         
     }
+
+    free(msg);
 }
 
 @end
