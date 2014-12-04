@@ -322,7 +322,7 @@ int eCnt;
             {
                 
                 if(_player.itemNum!=3){//突撃モードでなければ
-                    if(_player.mode!=1){
+                    if(_player.mode!=1 && _player.mode!=3){
                         if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
                             if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
                                 collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
@@ -344,7 +344,7 @@ int eCnt;
                                                radius2:(_enemy.contentSize.width*_enemy.scale+30)]){
                 
                 if(_player.itemNum!=3){//突撃モードでなければ
-                    if(_player.mode!=2){
+                    if(_player.mode!=2 && _player.mode!=3){
                         if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
                             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
                             _player.mode=2;
@@ -397,7 +397,7 @@ int eCnt;
                                                  radius2:(_player.contentSize.width*_player.scale+15)])
             {
                 
-                if(_enemy.mode!=1){
+                if(_enemy.mode!=1 && _enemy.mode!=3){
                     if(_player.nearPlayerCnt > _enemy.nearEnemyCnt){
                         if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.75){
                             collisSurfaceAngle = [self getCollisSurfaceAngle:_enemy.position pos2:_player.position];
@@ -417,7 +417,7 @@ int eCnt;
                                             radius1:(_enemy.contentSize.width*_enemy.scale+30)
                                             radius2:(_player.contentSize.width*_player.scale+30)])
             {
-                if(_enemy.mode!=2){
+                if(_enemy.mode!=2 && _enemy.mode!=3){
                     if(_enemy.nearEnemyCnt >= _player.nearPlayerCnt){
                         _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
                         _enemy.mode=2;
@@ -498,21 +498,6 @@ int eCnt;
         }
     }
     
-    //===================
-    //消滅オブジェクト削除
-    //===================
-    for(Player* _player in playerArray){
-        if(_player.ability<=0){
-            [removePlayerArray addObject:_player];
-        }
-    }
-    for(Enemy* _enemy in enemyArray){
-        if(_enemy.ability<=0){
-            [removeEnemyArray addObject:_enemy];
-        }
-    }
-    [self removeObject];
-
     //===============
     //戦闘後復帰処理
     //===============
@@ -604,6 +589,22 @@ int eCnt;
         [self unscheduleAllSelectors];
     }
     
+    //===================
+    //消滅オブジェクト削除
+    //===================
+    for(Player* _player in playerArray){
+        if(_player.ability<=0){
+            [removePlayerArray addObject:_player];
+        }
+    }
+    for(Enemy* _enemy in enemyArray){
+        if(_enemy.ability<=0){
+            [removeEnemyArray addObject:_enemy];
+        }
+    }
+    [self removeObject];
+    
+
     //デバッグラベル更新
     debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
     debugLabel3.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];

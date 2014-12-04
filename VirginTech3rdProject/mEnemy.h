@@ -23,6 +23,9 @@
     
     int time1;
     int time2;
+    
+    //デバッグ用
+    CCLabelTTF* energyLabel;
 }
 
 @property int objId;

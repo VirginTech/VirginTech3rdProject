@@ -42,6 +42,12 @@
     }
 }
 
+-(void)status_Schedule:(CCTime)dt
+{
+    //デバッグ用
+    energyLabel.string=[NSString stringWithFormat:@"%d",ability];
+}
+
 -(id)initWithEnemy:(int)numId pos:(CGPoint)pos
 {
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"object_default.plist"];
@@ -66,6 +72,13 @@
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
         
         [self schedule:@selector(move_Schedule:)interval:0.01];
+        [self schedule:@selector(status_Schedule:)interval:0.1];
+        
+        energyLabel=[CCLabelTTF labelWithString:
+                     [NSString stringWithFormat:@"%d",ability]fontName:@"Verdana-Bold" fontSize:15];
+        energyLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
+        energyLabel.color=[CCColor whiteColor];
+        [self addChild:energyLabel];
     }
     return self;
 }

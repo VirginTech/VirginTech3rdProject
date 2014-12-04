@@ -21,8 +21,9 @@ struct Battle_Data {
     float posX;//posX
     float posY;//posY
     float angle;//ターゲットアングル
+    int ability;//アビリティ
+    int f_ability;//要塞アビリティ
     bool stopFlg;//停止
-    bool dieFlg;//生死
 };
 typedef struct Battle_Data Battle_Data;
 
@@ -66,6 +67,7 @@ int eCnt;
 
 //デバッグラベル
 CCLabelTTF* lbl_1;
+CCLabelTTF* lbl_2;
 CCLabelTTF* debugLabel1;
 CCLabelTTF* debugLabel2;
 CCLabelTTF* debugLabel3;
@@ -100,6 +102,7 @@ CCLabelTTF* debugLabel5;
     
     //GKMatchデリゲート
     battleMatch.delegate=self;
+    //NSLog(@"%@",battleMatch.playerIDs);
     
     //初期化
     gameEndFlg=false;
@@ -175,6 +178,14 @@ CCLabelTTF* debugLabel5;
     }
     lbl_1.position=ccp(lbl_1.contentSize.width/2,winSize.height-lbl_1.contentSize.height/2);
     [self addChild:lbl_1];
+    
+    if(battleMatch.playerIDs.count>0){
+        lbl_2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[battleMatch.playerIDs objectAtIndex:0]] fontName:@"Verdana-Bold" fontSize:10];
+    }else{
+        lbl_2=[CCLabelTTF labelWithString:@"マッチ取得に失敗しました(受信不能)" fontName:@"Verdana-Bold" fontSize:10];
+    }
+    lbl_2.position=ccp(winSize.width-lbl_2.contentSize.width/2,winSize.height-lbl_2.contentSize.height/2);
+    [self addChild:lbl_2];
     
     //デバッグラベル
     debugLabel1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
@@ -338,7 +349,7 @@ CCLabelTTF* debugLabel5;
              {
                  
                  if(_player.itemNum!=3){//突撃モードでなければ
-                     if(_player.mode!=1){
+                     if(_player.mode!=1 && _player.mode!=3){
                          if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
                              if(_player.position.y>offSet.height+[GameManager getWorldSize].height*0.25){
                                  collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
@@ -360,7 +371,7 @@ CCLabelTTF* debugLabel5;
                                                radius2:(_enemy.contentSize.width*_enemy.scale+30)]){
                  
                  if(_player.itemNum!=3){//突撃モードでなければ
-                     if(_player.mode!=2){
+                     if(_player.mode!=2 && _player.mode!=3){
                          if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
                              _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
                              _player.mode=2;
@@ -413,7 +424,7 @@ CCLabelTTF* debugLabel5;
                                          radius2:(_player.contentSize.width*_player.scale+15)])
             {
                 
-                if(_enemy.mode!=1){
+                if(_enemy.mode!=1 && _enemy.mode!=3){
                     if(_player.nearPlayerCnt > _enemy.nearEnemyCnt){
                         if(_enemy.position.y<offSet.height+[GameManager getWorldSize].height*0.75){
                             collisSurfaceAngle = [self getCollisSurfaceAngle:_enemy.position pos2:_player.position];
@@ -433,7 +444,7 @@ CCLabelTTF* debugLabel5;
                                               radius1:(_enemy.contentSize.width*_enemy.scale+30)
                                               radius2:(_player.contentSize.width*_player.scale+30)])
             {
-                if(_enemy.mode!=2){
+                if(_enemy.mode!=2 && _enemy.mode!=3){
                     if(_enemy.nearEnemyCnt >= _player.nearPlayerCnt){
                         _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
                         _enemy.mode=2;
@@ -514,21 +525,6 @@ CCLabelTTF* debugLabel5;
         }
     }
     
-    //===================
-    //消滅オブジェクト削除
-    //===================
-    for(mPlayer* _player in playerArray){
-        if(_player.ability<=0){
-            [removePlayerArray addObject:_player];
-        }
-    }
-    for(mEnemy* _enemy in enemyArray){
-        if(_enemy.ability<=0){
-            [removeEnemyArray addObject:_enemy];
-        }
-    }
-    [self removeObject];
-    
     //===============
     //戦闘後復帰処理
     //===============
@@ -583,10 +579,6 @@ CCLabelTTF* debugLabel5;
             if(!gameEndFlg){
                 _player.stopFlg=true;
                 enemyFortress.ability--;
-                if(enemyFortress.ability<=0){
-                    [self removeChild:enemyFortress cleanup:YES];
-                    gameEndFlg=true;
-                }
             }
         }
     }
@@ -599,26 +591,9 @@ CCLabelTTF* debugLabel5;
             if(!gameEndFlg){
                 _enemy.stopFlg=true;
                 playerFortress.ability--;
-                if(playerFortress.ability<=0){
-                    [self removeChild:playerFortress cleanup:YES];
-                    gameEndFlg=true;
-                }
             }
         }
     }
-    
-    //=============
-    //ゲーム終了停止
-    //=============
-    if(gameEndFlg){
-        for(mPlayer* _player in playerArray){
-            _player.stopFlg=true;
-        }
-        for(mEnemy* _enemy in enemyArray){
-            _enemy.stopFlg=true;
-        }
-        [self unscheduleAllSelectors];
-    }  
     
     //===================
     // メッセージデータ送信
@@ -633,8 +608,9 @@ CCLabelTTF* debugLabel5;
         battleData.posX=_player.position.x;
         battleData.posY=_player.position.y;
         battleData.angle=_player.targetAngle;
+        battleData.ability=_player.ability;
+        battleData.f_ability=playerFortress.ability;
         battleData.stopFlg=_player.stopFlg;
-        battleData.dieFlg=false;//仮
         data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
@@ -644,8 +620,9 @@ CCLabelTTF* debugLabel5;
         battleData.posX=_enemy.position.x;
         battleData.posY=_enemy.position.y;
         battleData.angle=_enemy.targetAngle;
+        battleData.ability=_enemy.ability;
+        battleData.f_ability=enemyFortress.ability;
         battleData.stopFlg=_enemy.stopFlg;
-        battleData.dieFlg=false;//仮
         data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
@@ -653,6 +630,45 @@ CCLabelTTF* debugLabel5;
         [self sendData_BattleData:battleDataArray];
     }
     
+    //===================
+    //消滅オブジェクト削除
+    //===================
+    for(mPlayer* _player in playerArray){
+        if(_player.ability<=0){
+            [removePlayerArray addObject:_player];
+        }
+    }
+    for(mEnemy* _enemy in enemyArray){
+        if(_enemy.ability<=0){
+            [removeEnemyArray addObject:_enemy];
+        }
+    }
+    [self removeObject];
+    //===================
+    //要塞オブジェクト削除
+    //===================
+    if(playerFortress.ability<=0){
+        [self removeChild:playerFortress cleanup:YES];
+        gameEndFlg=true;
+    }
+    if(enemyFortress.ability<=0){
+        [self removeChild:enemyFortress cleanup:YES];
+        gameEndFlg=true;
+    }
+    //=============
+    //ゲーム終了停止
+    //=============
+    if(gameEndFlg){
+        for(mPlayer* _player in playerArray){
+            _player.stopFlg=true;
+        }
+        for(mEnemy* _enemy in enemyArray){
+            _enemy.stopFlg=true;
+        }
+        [self unscheduleAllSelectors];
+    }
+    
+
     //デバッグラベル更新
     debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
     debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
@@ -705,6 +721,47 @@ CCLabelTTF* debugLabel5;
 //=========================
 -(void)status_Schedule:(CCTime)dt
 {
+    removePlayerArray=[[NSMutableArray alloc]init];
+    removeEnemyArray=[[NSMutableArray alloc]init];
+    
+    //=============
+    //オブジェクト撃破
+    //=============
+    for(mPlayer* _player in playerArray){
+        if(_player.ability<=0){
+            [removePlayerArray addObject:_player];
+        }
+    }
+    for(mEnemy* _enemy in enemyArray){
+        if(_enemy.ability<=0){
+            [removeEnemyArray addObject:_enemy];
+        }
+    }
+    [self removeObject];
+    //=============
+    //要塞撃破
+    //=============
+    if(playerFortress.ability<=0){
+        [self removeChild:playerFortress cleanup:YES];
+        gameEndFlg=true;
+    }
+    if(enemyFortress.ability<=0){
+        [self removeChild:enemyFortress cleanup:YES];
+        gameEndFlg=true;
+    }
+    //=============
+    //ゲーム終了停止
+    //=============
+    if(gameEndFlg){
+        for(mPlayer* _player in playerArray){
+            _player.stopFlg=true;
+        }
+        for(mEnemy* _enemy in enemyArray){
+            _enemy.stopFlg=true;
+        }
+        [self unscheduleAllSelectors];
+    }
+
     //デバッグラベル更新
     debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
     debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
@@ -857,7 +914,7 @@ CCLabelTTF* debugLabel5;
     [tmpData appendData:packetData];
     //送信
     [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
-    
+    NSLog(@"送信しました！");
     if (error != nil){
         NSLog(@"%@",error);
     }
@@ -879,7 +936,7 @@ CCLabelTTF* debugLabel5;
     char *msg=malloc(diffLength);//メモリー確保
     memset(msg, 0, diffLength);//初期化
     [data getBytes:msg range:NSMakeRange(sizeof(*header), diffLength)];//部分コピー
-    
+    NSLog(@"受信しました！");
     //======================
     // オブジェクト配置
     //======================
@@ -887,7 +944,8 @@ CCLabelTTF* debugLabel5;
     {
         //構造体へ代入
         CreateObj_Data* createData=(CreateObj_Data*)msg;
-
+        //NSLog(@"PosX=%f : PosY=%f",createData->posX,createData->posY);
+        
         //対称軸へ置く
         float _x=winSize.width-createData->posX-offSet.width;
         float _y=winSize.height-createData->posY-offSet.height;
@@ -923,17 +981,9 @@ CCLabelTTF* debugLabel5;
         for(NSData* _data in array)
         {
             Battle_Data* battleData=(Battle_Data*)[_data bytes];
-            int objId=battleData->objId;//個別ID
-            int group=battleData->group;//青:0 赤:1
-            float posX=battleData->posX;//posX
-            float posY=battleData->posY;//posY
-            float angle=battleData->angle;//ターゲットアングル
-            bool stopFlg=battleData->stopFlg;//停止
-            bool dieFlg=battleData->dieFlg;//生死
-            
-            NSLog(@"ObjID=%d PosX=%f PosY=%f Angle=%f",objId,posX,posY,angle);
+            //NSLog(@"PosX=%f : PosY=%f",battleData->posX,battleData->posY);
+            [self setObjectData:battleData];
         }
-        NSLog(@"--------------------");
     }
     //======================
     //
@@ -943,6 +993,34 @@ CCLabelTTF* debugLabel5;
     }
 
     free(msg);
+}
+
+-(void)setObjectData:(Battle_Data*)battleData
+{
+    int group=battleData->group;
+    int objId=battleData->objId;
+    
+    if(group==0){//青
+        playerFortress.ability=battleData->f_ability;
+        for(mPlayer* _player in playerArray){
+            if(_player.objId==objId){
+                _player.targetAngle=battleData->angle + M_PI;//反転
+                _player.ability=battleData->ability;
+                _player.stopFlg=battleData->stopFlg;
+                break;
+            }
+        }
+    }else{//赤
+        enemyFortress.ability=battleData->f_ability;
+        for(mEnemy* _enemy in enemyArray){
+            if(_enemy.objId==objId){
+                _enemy.targetAngle=battleData->angle + M_PI;//反転
+                _enemy.ability=battleData->ability;
+                _enemy.stopFlg=battleData->stopFlg;
+                break;
+            }
+        }
+    }
 }
 
 @end
