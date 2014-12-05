@@ -201,6 +201,8 @@
 		CF20629F19F3534900DBD8C4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20629E19F3534900DBD8C4 /* AppDelegate.m */; };
 		CF2062A219F3534900DBD8C4 /* StageScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A119F3534900DBD8C4 /* StageScene.m */; };
 		CF2062A519F3534900DBD8C4 /* TitleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2062A419F3534900DBD8C4 /* TitleScene.m */; };
+		CF454F2D1A31B7F3001C6CA9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454F2C1A31B7F3001C6CA9 /* Reachability.m */; };
+		CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */; };
 		CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454FE01A2418200037A978 /* RealBattleScene.m */; };
 		CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48173B1A11A9AA00D5597B /* bgLayer.png */; };
 		CF48173F1A11AA0900D5597B /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48173E1A11AA0900D5597B /* GameManager.m */; };
@@ -636,6 +638,9 @@
 		CF2062A119F3534900DBD8C4 /* StageScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = StageScene.m; path = Classes/StageScene.m; sourceTree = "<group>"; };
 		CF2062A319F3534900DBD8C4 /* TitleScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TitleScene.h; path = Classes/TitleScene.h; sourceTree = "<group>"; };
 		CF2062A419F3534900DBD8C4 /* TitleScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TitleScene.m; path = Classes/TitleScene.m; sourceTree = "<group>"; };
+		CF454F2B1A31B7F3001C6CA9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		CF454F2C1A31B7F3001C6CA9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CF454FDF1A2418200037A978 /* RealBattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealBattleScene.h; sourceTree = "<group>"; };
 		CF454FE01A2418200037A978 /* RealBattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealBattleScene.m; sourceTree = "<group>"; };
 		CF48173B1A11A9AA00D5597B /* bgLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgLayer.png; sourceTree = "<group>"; };
@@ -679,6 +684,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */,
 				CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */,
 				CF20602819F3534700DBD8C4 /* OpenAL.framework in Frameworks */,
 				CF20602E19F3534700DBD8C4 /* UIKit.framework in Frameworks */,
@@ -718,6 +724,7 @@
 		CF20602219F3534700DBD8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */,
 				CF4BDAB01A25AE5300ECE855 /* GameKit.framework */,
 				CF20602319F3534700DBD8C4 /* QuartzCore.framework */,
 				CF20602519F3534700DBD8C4 /* OpenGLES.framework */,
@@ -1497,18 +1504,26 @@
 				CF2062A419F3534900DBD8C4 /* TitleScene.m */,
 				CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */,
 				CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */,
-				CF2062A019F3534900DBD8C4 /* StageScene.h */,
-				CF2062A119F3534900DBD8C4 /* StageScene.m */,
-				CF454FDF1A2418200037A978 /* RealBattleScene.h */,
-				CF454FE01A2418200037A978 /* RealBattleScene.m */,
-				CF863EE71A27311F007C146E /* MatchMakeScene.h */,
-				CF863EE81A27311F007C146E /* MatchMakeScene.m */,
+				CF454F301A31BC3E001C6CA9 /* Scene */,
 				CF4910791A1EE17F003F6579 /* Layer */,
 				CF4817591A11E7FB00D5597B /* lib */,
 				CF4817401A11AA1200D5597B /* manager */,
 				CF4817411A11B09C00D5597B /* object */,
 			);
 			name = Classes;
+			sourceTree = "<group>";
+		};
+		CF454F301A31BC3E001C6CA9 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				CF2062A019F3534900DBD8C4 /* StageScene.h */,
+				CF2062A119F3534900DBD8C4 /* StageScene.m */,
+				CF454FDF1A2418200037A978 /* RealBattleScene.h */,
+				CF454FE01A2418200037A978 /* RealBattleScene.m */,
+				CF863EE71A27311F007C146E /* MatchMakeScene.h */,
+				CF863EE81A27311F007C146E /* MatchMakeScene.m */,
+			);
+			name = Scene;
 			sourceTree = "<group>";
 		};
 		CF48173A1A11A98C00D5597B /* BackGround */ = {
@@ -1561,6 +1576,8 @@
 		CF4817591A11E7FB00D5597B /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				CF454F2B1A31B7F3001C6CA9 /* Reachability.h */,
+				CF454F2C1A31B7F3001C6CA9 /* Reachability.m */,
 				CF48175A1A11E81B00D5597B /* BasicMath.h */,
 				CF48175B1A11E81B00D5597B /* BasicMath.m */,
 			);
@@ -1785,6 +1802,7 @@
 				CF2061F419F3534800DBD8C4 /* OALTools.m in Sources */,
 				CF20614F19F3534800DBD8C4 /* cocos2d.m in Sources */,
 				CF20612719F3534800DBD8C4 /* CCSprite9Slice.m in Sources */,
+				CF454F2D1A31B7F3001C6CA9 /* Reachability.m in Sources */,
 				CF20616719F3534800DBD8C4 /* CCDirectorMac.m in Sources */,
 				CF2061FD19F3534800DBD8C4 /* CCControl.m in Sources */,
 				CF2060F719F3534700DBD8C4 /* CCParticleSystem.m in Sources */,

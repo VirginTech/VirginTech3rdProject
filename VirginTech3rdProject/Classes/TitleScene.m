@@ -11,6 +11,7 @@
 #import "TitleScene.h"
 #import "SelectScene.h"
 #import "RealBattleScene.h"
+#import "Reachability.h"
 
 @implementation TitleScene
 
@@ -64,7 +65,24 @@
 
 - (void)onMatchMakeClicked:(id)sender
 {
-    [gkc showRequestMatch];
+    //ネット接続できるか確認
+    Reachability *internetReach = [Reachability reachabilityForInternetConnection];
+    //[internetReach startNotifier];
+    NetworkStatus netStatus = [internetReach currentReachabilityStatus];
+    if(netStatus == NotReachable)
+    {
+        //ネットワーク接続なし
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ネットワークエラー"
+                                                        message:@"ネットワーク接続がありません"
+                                                        delegate:nil
+                                                        cancelButtonTitle:nil
+                                                        otherButtonTitles:@"OK", nil];
+        [alert show];
+        return;
+    }else{
+        //ネットワークOK!
+        [gkc showRequestMatch];
+    }
 }
 
 - (void)onRealBattleClicked:(id)sender

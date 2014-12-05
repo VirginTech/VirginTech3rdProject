@@ -22,7 +22,6 @@ struct Battle_Data {
     float posY;//posY
     float angle;//ターゲットアングル
     int ability;//アビリティ
-    int f_ability;//要塞アビリティ
     bool stopFlg;//停止
 };
 typedef struct Battle_Data Battle_Data;
@@ -33,6 +32,13 @@ struct CreateObj_Data {
     float posY;//posY
 };
 typedef struct CreateObj_Data CreateObj_Data;
+
+//陣地アビリティ送信用 構造体
+struct Fortress_Data {
+    int pAbility;//プレイヤーアビリティ
+    int eAbility;//エネミーアビリティ
+};
+typedef struct Fortress_Data Fortress_Data;
 
 @implementation MatchMakeScene
 
@@ -179,10 +185,12 @@ CCLabelTTF* debugLabel5;
     lbl_1.position=ccp(lbl_1.contentSize.width/2,winSize.height-lbl_1.contentSize.height/2);
     [self addChild:lbl_1];
     
+    //GKMatch監視
     if(battleMatch.playerIDs.count>0){
         lbl_2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[battleMatch.playerIDs objectAtIndex:0]] fontName:@"Verdana-Bold" fontSize:10];
     }else{
-        lbl_2=[CCLabelTTF labelWithString:@"マッチ取得に失敗しました(受信不能)" fontName:@"Verdana-Bold" fontSize:10];
+        lbl_2=[CCLabelTTF labelWithString:@"対戦データの取得に失敗しました(受信不能)" fontName:@"Verdana-Bold" fontSize:10];
+        [self alert_Disconnected:@"ネットワークエラー" msg:@"対戦データの取得に失敗しました" delegate:self];//エラーメッセージ
     }
     lbl_2.position=ccp(winSize.width-lbl_2.contentSize.width/2,winSize.height-lbl_2.contentSize.height/2);
     [self addChild:lbl_2];
@@ -214,8 +222,8 @@ CCLabelTTF* debugLabel5;
 -(void)dealloc
 {
     // clean up code goes here
-    battleMatch.delegate=nil;
     [battleMatch disconnect];
+    battleMatch.delegate=nil;
 }
 
 -(void)onEnter
@@ -596,7 +604,7 @@ CCLabelTTF* debugLabel5;
     }
     
     //===================
-    // メッセージデータ送信
+    // 対戦データ作成
     //===================
     battleDataArray=[[NSMutableArray alloc]init];
     Battle_Data battleData;
@@ -609,7 +617,6 @@ CCLabelTTF* debugLabel5;
         battleData.posY=_player.position.y;
         battleData.angle=_player.targetAngle;
         battleData.ability=_player.ability;
-        battleData.f_ability=playerFortress.ability;
         battleData.stopFlg=_player.stopFlg;
         data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
@@ -621,14 +628,16 @@ CCLabelTTF* debugLabel5;
         battleData.posY=_enemy.position.y;
         battleData.angle=_enemy.targetAngle;
         battleData.ability=_enemy.ability;
-        battleData.f_ability=enemyFortress.ability;
         battleData.stopFlg=_enemy.stopFlg;
         data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
+    //対戦データ送信
     if(battleDataArray.count>0){
         [self sendData_BattleData:battleDataArray];
     }
+    //要塞アビリティ送信
+    [self sendData_Fortress:playerFortress.ability enemy:enemyFortress.ability];
     
     //===================
     //消滅オブジェクト削除
@@ -849,10 +858,30 @@ CCLabelTTF* debugLabel5;
 -(void)onBackClicked:(id)sender
 {
     // back to intro scene with transition
-    battleMatch.delegate=nil;
     [battleMatch disconnect];
+    battleMatch.delegate=nil;
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    
+}
+
+-(void)alert_Disconnected:(NSString*)title msg:(NSString*)msg delegate:(id)delegate
+{
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+                                                    message:msg
+                                                    delegate:delegate
+                                                    cancelButtonTitle:nil
+                                                    otherButtonTitles:@"OK", nil];
+    [alert show];
+}
+
+-(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    [self sendData_Error_Message:@"対戦データの取得に失敗しました"];//相手へエラー通知
+    //[battleMatch disconnect];
+    //battleMatch.delegate=nil;
+    //[[CCDirector sharedDirector] replaceScene:[TitleScene scene]
+    //                           withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     
 }
 
@@ -865,7 +894,8 @@ CCLabelTTF* debugLabel5;
             break;
         case GKPlayerStateDisconnected:
             // プレーヤーが切断した場合
-            NSLog(@"切断されました");
+            //NSLog(@"切断されました");
+            [self alert_Disconnected:@"プレイヤー切断" msg:@"対戦相手から接続が切れました" delegate:nil];
             break;
         default:
             break;
@@ -876,9 +906,9 @@ CCLabelTTF* debugLabel5;
     }
 }
 
-//==========================
-// 　　　送信メソッド
-//==========================
+//====================================
+// 対戦データ送信メソッド ヘッダー（１）
+//====================================
 -(void)sendData_BattleData:(NSMutableArray*)array;
 {
     NSError *error = nil;
@@ -896,16 +926,16 @@ CCLabelTTF* debugLabel5;
         NSLog(@"%@",error);
     }
 }
-
+//====================================
+// オブジェクト配置 送信メソッド ヘッダー（０）
+//====================================
 -(void)sendData_CreateObject:(CGPoint)_pos;
 {
     CreateObj_Data createData;
-
     createData.posX=_pos.x-offSet.width;
     createData.posY=_pos.y-offSet.height;
 
     NSError *error = nil;
-
     //ヘッダー番号付与
     int header=0;
     NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
@@ -914,11 +944,56 @@ CCLabelTTF* debugLabel5;
     [tmpData appendData:packetData];
     //送信
     [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
-    NSLog(@"送信しました！");
+    //NSLog(@"送信しました！");
     if (error != nil){
         NSLog(@"%@",error);
     }
 }
+//====================================
+// エラーメッセージ 送信メソッド ヘッダー（２）
+//====================================
+-(void)sendData_Error_Message:(NSString*)message
+{
+    //NSLog(@"エラーメッセージ、送信してる？");
+    NSError *error = nil;
+    //ヘッダー番号付与
+    int header=2;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [message dataUsingEncoding:NSUTF8StringEncoding];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
+    
+    if (error != nil){
+        NSLog(@"%@",error);
+    }
+}
+//====================================
+// 陣地アビリティ 送信メソッド ヘッダー（３）
+//====================================
+-(void)sendData_Fortress:(int)pAbility enemy:(int)eAbility
+{
+    Fortress_Data fortressData;
+    fortressData.pAbility=pAbility;
+    fortressData.eAbility=eAbility;
+    
+    NSError *error = nil;
+    //ヘッダー番号付与
+    int header=3;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [NSData dataWithBytes:&fortressData length:sizeof(Fortress_Data)];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
+    
+    if (error != nil){
+        NSLog(@"%@",error);
+    }
+
+}
+
 //==========================
 // 　　　受信メソッド
 //==========================
@@ -936,7 +1011,7 @@ CCLabelTTF* debugLabel5;
     char *msg=malloc(diffLength);//メモリー確保
     memset(msg, 0, diffLength);//初期化
     [data getBytes:msg range:NSMakeRange(sizeof(*header), diffLength)];//部分コピー
-    NSLog(@"受信しました！");
+    //NSLog(@"受信しました！");
     //======================
     // オブジェクト配置
     //======================
@@ -986,12 +1061,35 @@ CCLabelTTF* debugLabel5;
         }
     }
     //======================
+    // エラーメッセージ
+    //======================
+    else if(_msgNum==2)
+    {
+        //NSDataへ変換
+        NSData* dData=[NSData dataWithBytes:msg length:diffLength];
+        //文字列の復元
+        NSString* message=[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding];
+        [self alert_Disconnected:@"ネットワークエラー" msg:message delegate:nil];
+    }
+    //======================
+    // 陣地アビリティ
+    //======================
+    else if(_msgNum==3)
+    {
+        //構造体へ代入
+        Fortress_Data* fortressData=(Fortress_Data*)msg;
+        playerFortress.ability=fortressData->pAbility;
+        enemyFortress.ability=fortressData->eAbility;
+    }
+    //======================
     //
     //======================
-    else{
+    else
+    {
         
     }
-
+    
+    
     free(msg);
 }
 
@@ -1001,7 +1099,6 @@ CCLabelTTF* debugLabel5;
     int objId=battleData->objId;
     
     if(group==0){//青
-        playerFortress.ability=battleData->f_ability;
         for(mPlayer* _player in playerArray){
             if(_player.objId==objId){
                 _player.targetAngle=battleData->angle + M_PI;//反転
@@ -1011,7 +1108,6 @@ CCLabelTTF* debugLabel5;
             }
         }
     }else{//赤
-        enemyFortress.ability=battleData->f_ability;
         for(mEnemy* _enemy in enemyArray){
             if(_enemy.objId==objId){
                 _enemy.targetAngle=battleData->angle + M_PI;//反転

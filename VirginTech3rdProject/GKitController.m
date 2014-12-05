@@ -15,6 +15,7 @@
 GKitController *viewController;
 GKMatch* currentMatch;
 int hostNum;
+bool flg=false;
 
 //=====================
 //　リーダーボード画面
@@ -95,7 +96,11 @@ int hostNum;
 //マッチメイク要求
 - (void)showMatchmakerWithRequest:(GKMatchRequest *)request
 {
+    flg=false;
     hostNum=arc4random()%1000;
+    [MatchMakeScene setCurrentMatch:nil];
+    currentMatch=nil;
+    
     GKMatchmakerViewController *mmvc = [[GKMatchmakerViewController alloc] initWithMatchRequest:request];
     viewController = (GKitController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     mmvc.matchmakerDelegate = self;
@@ -104,7 +109,11 @@ int hostNum;
 //ゲーム招待
 - (void)showMatchmakerWithInvite:(GKInvite *)invite
 {
+    flg=false;
     hostNum=arc4random()%1000;
+    [MatchMakeScene setCurrentMatch:nil];
+    currentMatch=nil;
+    
     GKMatchmakerViewController *mmvc = [[GKMatchmakerViewController alloc] initWithInvite:invite];
     viewController = (GKitController *)[UIApplication sharedApplication].keyWindow.rootViewController;
     mmvc.matchmakerDelegate = self;
@@ -118,9 +127,6 @@ int hostNum;
     currentMatch=match;
     match.delegate = self;
 
-    //マッチの保持
-    [MatchMakeScene setCurrentMatch:match];
-    
     // 全ユーザが揃ったかどうか
     if (match.expectedPlayerCount == 0) {
         //親決め
@@ -131,11 +137,23 @@ int hostNum;
 -(void)matchmakerViewControllerWasCancelled:(GKMatchmakerViewController*)viewController
 {
     [viewController dismissViewControllerAnimated:YES completion:nil]; // ゲームに固有のコードをここに実装する。
+    /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GKMatchエラー"
+                                                    message:@"GKMatchの取得に失敗しました(1)"
+                                                    delegate:nil
+                                                    cancelButtonTitle:nil
+                                                    otherButtonTitles:@"OK", nil];
+    [alert show];*/
 }
 
 -(void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
 {
     [viewController dismissViewControllerAnimated:YES completion:nil]; // ゲームに固有のコードをここに実装する。
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GKMatchエラー"
+                                                    message:@"GKMatchの取得に失敗しました(2)"
+                                                    delegate:nil
+                                                    cancelButtonTitle:nil
+                                                    otherButtonTitles:@"OK", nil];
+    [alert show];
 }
 
 //=============
@@ -145,8 +163,14 @@ int hostNum;
 {
     NSLog(@"%dを送信しました",hostNum);
     NSError *error = nil;
-    NSData *packetData = [[NSString stringWithFormat:@"%d",hostNum] dataUsingEncoding:NSUTF8StringEncoding];
-    [currentMatch sendDataToAllPlayers:packetData withDataMode:GKMatchSendDataReliable error:&error];
+    //ダミーヘッダー番号付与（対戦シーンへの誤データ送信防止）
+    int header=99;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [[NSString stringWithFormat:@"%d",hostNum] dataUsingEncoding:NSUTF8StringEncoding];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [currentMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataReliable error:&error];
     
     if (error != nil){
         NSLog(@"%@",error);
@@ -157,24 +181,47 @@ int hostNum;
 //=============
 -(void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString*)playerID
 {
-    bool flg=true;
-    int _host = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]intValue];
-    NSLog(@"%dを受信しました",_host);
-    if(hostNum > _host){
-        [GameManager setHost:true];
-    }else if(hostNum < _host){
-        [GameManager setHost:false];
-    }else{
-        //もう一度
-        flg=false;
-        hostNum=arc4random()%1000;
-        [self sendDataToAllPlayers];
-    }
+    //ダミーヘッダー番号の取り出し
+    int *header=malloc(sizeof(*header));//メモリー確保
+    memset(header, 0, sizeof(*header));//初期化
+    [data getBytes:header range:NSMakeRange(0, sizeof(*header))];//部分コピー
+    //int _msgNum=*header;
+    free(header);//解放
     
-    //ゲーム開始の処理
-    if(flg){
-        [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]withTransition:
-                                                            [CCTransition transitionCrossFadeWithDuration:1.0]];
+    //本体の取り出し
+    long diffLength=data.length-sizeof(*header);//本体サイズ取得
+    char *msg=malloc(diffLength);//メモリー確保
+    memset(msg, 0, diffLength);//初期化
+    [data getBytes:msg range:NSMakeRange(sizeof(*header), diffLength)];//部分コピー
+    
+    //NSDataへ変換
+    NSData* dData=[NSData dataWithBytes:msg length:diffLength];
+    
+    //bool flg=true;
+    if(!flg){//重複受信防止
+        int _host = [[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding]intValue];
+        NSLog(@"%dを受信しました",_host);
+        if(hostNum > _host){
+            flg=true;
+            [GameManager setHost:true];
+        }else if(hostNum < _host){
+            flg=true;
+            [GameManager setHost:false];
+        }else{
+            //もう一度
+            NSLog(@"もう一度");
+            flg=false;
+            hostNum=arc4random()%1000;
+            [self sendDataToAllPlayers];
+        }
+        
+        //ゲーム開始の処理
+        if(flg){
+            //マッチの保持
+            [MatchMakeScene setCurrentMatch:match];
+            [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]withTransition:
+                                                                [CCTransition transitionCrossFadeWithDuration:1.0]];
+        }
     }
 }
 
