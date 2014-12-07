@@ -613,8 +613,8 @@ CCLabelTTF* debugLabel5;
     for(mPlayer* _player in playerArray){
         battleData.objId=_player.objId;
         battleData.group=_player.group;
-        battleData.posX=_player.position.x;
-        battleData.posY=_player.position.y;
+        battleData.posX=_player.position.x-offSet.width;//X座標正規化
+        battleData.posY=_player.position.y-offSet.height;//Y座標正規化
         battleData.angle=_player.targetAngle;
         battleData.ability=_player.ability;
         battleData.stopFlg=_player.stopFlg;
@@ -624,8 +624,8 @@ CCLabelTTF* debugLabel5;
     for(mEnemy* _enemy in enemyArray){
         battleData.objId=_enemy.objId;
         battleData.group=_enemy.group;
-        battleData.posX=_enemy.position.x;
-        battleData.posY=_enemy.position.y;
+        battleData.posX=_enemy.position.x-offSet.width;//X座標正規化
+        battleData.posY=_enemy.position.y-offSet.height;//Y座標正規化
         battleData.angle=_enemy.targetAngle;
         battleData.ability=_enemy.ability;
         battleData.stopFlg=_enemy.stopFlg;
@@ -932,8 +932,8 @@ CCLabelTTF* debugLabel5;
 -(void)sendData_CreateObject:(CGPoint)_pos;
 {
     CreateObj_Data createData;
-    createData.posX=_pos.x-offSet.width;
-    createData.posY=_pos.y-offSet.height;
+    createData.posX=_pos.x-offSet.width;//X座標正規化
+    createData.posY=_pos.y-offSet.height;//Y座標正規化
 
     NSError *error = nil;
     //ヘッダー番号付与
@@ -1101,6 +1101,8 @@ CCLabelTTF* debugLabel5;
     if(group==0){//青
         for(mPlayer* _player in playerArray){
             if(_player.objId==objId){
+                _player.position=ccp(winSize.width-battleData->posX-offSet.width,
+                                     winSize.height-battleData->posY-offSet.height);
                 _player.targetAngle=battleData->angle + M_PI;//反転
                 _player.ability=battleData->ability;
                 _player.stopFlg=battleData->stopFlg;
@@ -1110,6 +1112,8 @@ CCLabelTTF* debugLabel5;
     }else{//赤
         for(mEnemy* _enemy in enemyArray){
             if(_enemy.objId==objId){
+                _enemy.position=ccp(winSize.width-battleData->posX-offSet.width,
+                                     winSize.height-battleData->posY-offSet.height);
                 _enemy.targetAngle=battleData->angle + M_PI;//反転
                 _enemy.ability=battleData->ability;
                 _enemy.stopFlg=battleData->stopFlg;
