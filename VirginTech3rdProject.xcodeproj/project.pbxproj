@@ -221,6 +221,7 @@
 		CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4BDAB31A25AFC000ECE855 /* GKitController.m */; };
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
 		CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */; };
+		CF5187161A3546DE006A5845 /* ItemInventoryLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
 		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
@@ -671,6 +672,8 @@
 		CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitObjManager.m; sourceTree = "<group>"; };
 		CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectScene.h; sourceTree = "<group>"; };
 		CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectScene.m; sourceTree = "<group>"; };
+		CF5187141A3546DE006A5845 /* ItemInventoryLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInventoryLayer.h; sourceTree = "<group>"; };
+		CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInventoryLayer.m; sourceTree = "<group>"; };
 		CF83CA8E19F35C7400C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CF863EE71A27311F007C146E /* MatchMakeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakeScene.h; sourceTree = "<group>"; };
@@ -1504,10 +1507,10 @@
 				CF2062A419F3534900DBD8C4 /* TitleScene.m */,
 				CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */,
 				CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */,
+				CF4817401A11AA1200D5597B /* manager */,
 				CF454F301A31BC3E001C6CA9 /* Scene */,
 				CF4910791A1EE17F003F6579 /* Layer */,
 				CF4817591A11E7FB00D5597B /* lib */,
-				CF4817401A11AA1200D5597B /* manager */,
 				CF4817411A11B09C00D5597B /* object */,
 			);
 			name = Classes;
@@ -1589,6 +1592,8 @@
 			children = (
 				CF49107A1A1EE1AB003F6579 /* ItemBtnLayer.h */,
 				CF49107B1A1EE1AB003F6579 /* ItemBtnLayer.m */,
+				CF5187141A3546DE006A5845 /* ItemInventoryLayer.h */,
+				CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -1784,6 +1789,7 @@
 				CF2061EA19F3534800DBD8C4 /* NSMutableArray+WeakReferences.m in Sources */,
 				CF2061D819F3534800DBD8C4 /* OpenALManager.m in Sources */,
 				CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */,
+				CF5187161A3546DE006A5845 /* ItemInventoryLayer.m in Sources */,
 				CF20614819F3534800DBD8C4 /* CCTMXXMLParser.m in Sources */,
 				CF20617D19F3534800DBD8C4 /* CCProfiling.m in Sources */,
 				CF2061DF19F3534800DBD8C4 /* OALSuspendHandler.m in Sources */,

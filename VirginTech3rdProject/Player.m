@@ -60,10 +60,10 @@
     {
         self.position=pos;
         self.scale=0.7;
-        
-        itemNum=[GameManager getItem];
         mode=0;//通常モード
         stopFlg=false;
+        
+        itemNum=[GameManager getItem];
         
         if([GameManager getItem]==5){//高速モード
             velocity=0.3f;

@@ -9,9 +9,11 @@
 
 // Import the interfaces
 #import "TitleScene.h"
+#import "GameManager.h"
 #import "SelectScene.h"
 #import "RealBattleScene.h"
 #import "Reachability.h"
+#import "ItemInventoryLayer.h"
 
 @implementation TitleScene
 
@@ -30,6 +32,9 @@
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
+    //データ初期化
+    [GameManager initialize_Item];
+    
     //ゲームキット初期化
     gkc=[[GKitController alloc]init];
     
@@ -41,7 +46,7 @@
     [self addChild:label];
     
     // Helloworld scene button
-    CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[スタート]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
     helloWorldButton.positionType = CCPositionTypeNormalized;
     helloWorldButton.position = ccp(0.5f, 0.35f);
     [helloWorldButton setTarget:self selector:@selector(onSpinningClicked:)];
@@ -58,9 +63,23 @@
     matchMakeButton.position = ccp(0.5f, 0.25f);
     [matchMakeButton setTarget:self selector:@selector(onMatchMakeClicked:)];
     [self addChild:matchMakeButton];
+    
+    CCButton *itemInventoryButton = [CCButton buttonWithTitle:@"[アイテム倉庫]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    itemInventoryButton.positionType = CCPositionTypeNormalized;
+    itemInventoryButton.position = ccp(0.5f, 0.20f);
+    [itemInventoryButton setTarget:self selector:@selector(onItemInventoryClicked:)];
+    [self addChild:itemInventoryButton];
+    
+    
 
     // done
 	return self;
+}
+
+- (void)onItemInventoryClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[ItemInventoryLayer scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 - (void)onMatchMakeClicked:(id)sender

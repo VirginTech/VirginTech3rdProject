@@ -23,4 +23,11 @@
 +(void)setHost:(bool)host;
 +(bool)getHost;
 
++(void)initialize_Item;
+
++(NSMutableArray*)load_Item_All;
++(void)save_Item_All:(int)bomb shield:(int)shield onrush:(int)onrush attackup:(int)attackup speedup:(int)speedup;
++(int)load_Item_Individual:(int)item;
++(void)save_Item_Individual:(int)item value:(int)value;
+
 @end

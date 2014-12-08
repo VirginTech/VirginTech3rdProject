@@ -13,6 +13,11 @@
 
 CGSize winSize;
 NSMutableArray* btnArray;
+CCLabelTTF* bombValue;
+CCLabelTTF* shieldValue;
+CCLabelTTF* onrushValue;
+CCLabelTTF* attackupValue;
+CCLabelTTF* speedupValue;
 
 + (ItemBtnLayer *)scene
 {
@@ -48,19 +53,43 @@ NSMutableArray* btnArray;
         btn.name=[NSString stringWithFormat:@"%d",i];
         if(i==0){
             btn.title=@"爆　弾";
+            bombValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:0]] fontName:@"Verdana-Bold" fontSize:30];
+            bombValue.position=ccp(btn.contentSize.width/2,bombValue.contentSize.height/2);
+            [btn addChild:bombValue];
         }else if(i==1){
             btn.title=@"シールド";
+            shieldValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:30];
+            shieldValue.position=ccp(btn.contentSize.width/2,shieldValue.contentSize.height/2);
+            [btn addChild:shieldValue];
         }else if(i==2){
             btn.title=@"突撃モード";
+            onrushValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:30];
+            onrushValue.position=ccp(btn.contentSize.width/2,onrushValue.contentSize.height/2);
+            [btn addChild:onrushValue];
         }else if(i==3){
             btn.title=@"攻撃アップ";
+            attackupValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:3]] fontName:@"Verdana-Bold" fontSize:30];
+            attackupValue.position=ccp(btn.contentSize.width/2,attackupValue.contentSize.height/2);
+            [btn addChild:attackupValue];
         }else if(i==4){
             btn.title=@"高速モード";
+            speedupValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:30];
+            speedupValue.position=ccp(btn.contentSize.width/2,speedupValue.contentSize.height/2);
+            [btn addChild:speedupValue];
         }
         [btnArray addObject:btn];
         [self addChild:btn];
     }
     return self;
+}
+
+-(void)updata_Item_Value
+{
+    bombValue.string=[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:0]];
+    shieldValue.string=[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:1]];
+    onrushValue.string=[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:2]];
+    attackupValue.string=[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:3]];
+    speedupValue.string=[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:4]];
 }
 
 -(void)btnSelectedDisable
@@ -75,7 +104,11 @@ NSMutableArray* btnArray;
 {
     CCButton* btn=(CCButton*)sender;
     if(btn.selected){
-        [GameManager setItem:[btn.name intValue]+1];
+        if([GameManager load_Item_Individual:[btn.name intValue]]>0){//アイテム在庫があれば
+            [GameManager setItem:[btn.name intValue]+1];
+        }else{//なければ
+            btn.selected=NO;
+        }
     }else{
         [GameManager setItem:0];
     }

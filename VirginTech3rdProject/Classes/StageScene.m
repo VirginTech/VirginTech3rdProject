@@ -26,6 +26,7 @@ CCScrollView* scrollView;
 CGPoint worldLocation;
 
 ItemBtnLayer* itemLayer;
+int itemNum;
 float footer;
 
 int stageNum;
@@ -663,6 +664,18 @@ UIEvent* events;
             player=[Player createPlayer:worldLocation];
             [bgSpLayer addChild:player];
             [playerArray addObject:player];
+            
+            itemNum=[GameManager getItem];
+            if(itemNum>0){//アイテムが選択されていて
+                //アイテム数更新
+                [GameManager save_Item_Individual:itemNum-1 value:[GameManager load_Item_Individual:itemNum-1]-1];
+                [itemLayer updata_Item_Value];
+                //アイテム数が0になったら無効化
+                if([GameManager load_Item_Individual:itemNum-1]<=0){
+                    [itemLayer btnSelectedDisable];
+                }
+            }
+            
             [self touchBegan:touches withEvent:events];
             pCnt++;
             pTotalCnt++;
