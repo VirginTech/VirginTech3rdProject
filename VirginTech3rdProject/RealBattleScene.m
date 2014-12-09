@@ -11,6 +11,7 @@
 #import "GameManager.h"
 #import "TitleScene.h"
 #import "CCDrawNode.h"
+#import "MatchWaitLayer.h"
 
 #import "Fortress.h"
 #import "Player.h"
@@ -44,6 +45,9 @@ int pCnt;
 int eMaxCnt;
 int eTotalCnt;
 int eCnt;
+
+//対戦準備レイヤー
+MatchWaitLayer* mWaitLayer;
 
 //デバッグ用ラベル
 //int repCnt;
@@ -88,6 +92,10 @@ CCLabelTTF* debugLabel5;
     
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
+
+    //対戦準備レイヤー
+    mWaitLayer=[[MatchWaitLayer alloc]init];
+    [self addChild:mWaitLayer z:2];//最上位へ
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -171,6 +179,7 @@ CCLabelTTF* debugLabel5;
     
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
+    
 }
 
 -(void)onExit

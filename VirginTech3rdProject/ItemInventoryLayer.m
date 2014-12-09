@@ -40,11 +40,11 @@ CCLabelTTF* lbl_Item_05;
     //=================
     // 爆 弾
     //=================
-    lbl_Item_01=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"爆　　弾（現有数＝%03d）",[GameManager load_Item_Individual:0]] fontName:@"Verdana-Bold" fontSize:20];
+    lbl_Item_01=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"爆　　弾（現有数＝%03d）",[GameManager load_Item_Individual:0]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_01.position=ccp(lbl_Item_01.contentSize.width/2+20,winSize.height-100);
     [self addChild:lbl_Item_01];
     
-    CCButton* btn_Item_01=[CCButton buttonWithTitle:@"[購　入]" fontName:@"Verdana-Bold" fontSize:20];
+    CCButton* btn_Item_01=[CCButton buttonWithTitle:@"[購入]" fontName:@"Verdana-Bold" fontSize:15];
     btn_Item_01.position=ccp(winSize.width-btn_Item_01.contentSize.width/2-10,lbl_Item_01.position.y);
     btn_Item_01.name=[NSString stringWithFormat:@"%d",0];
     [btn_Item_01 setTarget:self selector:@selector(onAddItemClicked:)];
@@ -53,11 +53,11 @@ CCLabelTTF* lbl_Item_05;
     //=================
     // シールド
     //=================
-    lbl_Item_02=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"シールド（現有数＝%03d）",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:20];
+    lbl_Item_02=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"シールド（現有数＝%03d）",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_02.position=ccp(lbl_Item_02.contentSize.width/2+20,lbl_Item_01.position.y-50);
     [self addChild:lbl_Item_02];
 
-    CCButton* btn_Item_02=[CCButton buttonWithTitle:@"[購　入]" fontName:@"Verdana-Bold" fontSize:20];
+    CCButton* btn_Item_02=[CCButton buttonWithTitle:@"[購入]" fontName:@"Verdana-Bold" fontSize:15];
     btn_Item_02.position=ccp(winSize.width-btn_Item_02.contentSize.width/2-10,lbl_Item_02.position.y);
     btn_Item_02.name=[NSString stringWithFormat:@"%d",1];
     [btn_Item_02 setTarget:self selector:@selector(onAddItemClicked:)];
@@ -66,11 +66,11 @@ CCLabelTTF* lbl_Item_05;
     //=================
     // 突進モード
     //=================
-    lbl_Item_03=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"突進モード（現有数＝%03d）",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:20];
+    lbl_Item_03=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"突進モード（現有数＝%03d）",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_03.position=ccp(lbl_Item_03.contentSize.width/2+20,lbl_Item_02.position.y-50);
     [self addChild:lbl_Item_03];
 
-    CCButton* btn_Item_03=[CCButton buttonWithTitle:@"[購　入]" fontName:@"Verdana-Bold" fontSize:20];
+    CCButton* btn_Item_03=[CCButton buttonWithTitle:@"[購入]" fontName:@"Verdana-Bold" fontSize:15];
     btn_Item_03.position=ccp(winSize.width-btn_Item_03.contentSize.width/2-10,lbl_Item_03.position.y);
     btn_Item_03.name=[NSString stringWithFormat:@"%d",2];
     [btn_Item_03 setTarget:self selector:@selector(onAddItemClicked:)];
@@ -79,11 +79,11 @@ CCLabelTTF* lbl_Item_05;
     //=================
     // 攻撃アップ
     //=================
-    lbl_Item_04=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"攻撃力UP（現有数＝%03d）",[GameManager load_Item_Individual:3]] fontName:@"Verdana-Bold" fontSize:20];
+    lbl_Item_04=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"攻撃力UP（現有数＝%03d）",[GameManager load_Item_Individual:3]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_04.position=ccp(lbl_Item_04.contentSize.width/2+20,lbl_Item_03.position.y-50);
     [self addChild:lbl_Item_04];
 
-    CCButton* btn_Item_04=[CCButton buttonWithTitle:@"[購　入]" fontName:@"Verdana-Bold" fontSize:20];
+    CCButton* btn_Item_04=[CCButton buttonWithTitle:@"[購入]" fontName:@"Verdana-Bold" fontSize:15];
     btn_Item_04.position=ccp(winSize.width-btn_Item_04.contentSize.width/2-10,lbl_Item_04.position.y);
     btn_Item_04.name=[NSString stringWithFormat:@"%d",3];
     [btn_Item_04 setTarget:self selector:@selector(onAddItemClicked:)];
@@ -92,11 +92,11 @@ CCLabelTTF* lbl_Item_05;
     //=================
     // 高速モード
     //=================
-    lbl_Item_05=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"高速モード（現有数＝%03d）",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:20];
+    lbl_Item_05=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"高速モード（現有数＝%03d）",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_05.position=ccp(lbl_Item_05.contentSize.width/2+20,lbl_Item_04.position.y-50);
     [self addChild:lbl_Item_05];
 
-    CCButton* btn_Item_05=[CCButton buttonWithTitle:@"[購　入]" fontName:@"Verdana-Bold" fontSize:20];
+    CCButton* btn_Item_05=[CCButton buttonWithTitle:@"[購入]" fontName:@"Verdana-Bold" fontSize:15];
     btn_Item_05.position=ccp(winSize.width-btn_Item_05.contentSize.width/2-10,lbl_Item_05.position.y);
     btn_Item_05.name=[NSString stringWithFormat:@"%d",4];
     [btn_Item_05 setTarget:self selector:@selector(onAddItemClicked:)];

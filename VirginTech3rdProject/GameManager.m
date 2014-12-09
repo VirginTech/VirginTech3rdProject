@@ -14,6 +14,7 @@ int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ
 int stageLevel;//ステージレベル
+int matchMode;//0:シングル 1:リアル対戦 2:ネット対戦
 int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード 4:攻撃アップ 5:高速モード
 bool isHost;//true:ホスト(青) false:クライアント(赤)
 
@@ -44,6 +45,13 @@ bool isHost;//true:ホスト(青) false:クライアント(赤)
 }
 +(int)getStageLevel{
     return stageLevel;
+}
+//マッチメニュー
++(void)setMatchMode:(int)mode{
+    matchMode=mode;
+}
++(int)getMatchMode{
+    return matchMode;
 }
 //アイテム番号
 +(void)setItem:(int)num{

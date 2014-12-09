@@ -18,6 +18,9 @@
 +(CGSize)getWorldSize;
 +(void)setStageLevel:(int)level;
 +(int)getStageLevel;
++(void)setMatchMode:(int)mode;
++(int)getMatchMode;
+
 +(void)setItem:(int)num;
 +(int)getItem;
 +(void)setHost:(bool)host;

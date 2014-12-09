@@ -14,6 +14,9 @@
 #import "RealBattleScene.h"
 #import "Reachability.h"
 #import "ItemInventoryLayer.h"
+#import "PreferencesLayer.h"
+#import "CreditLayer.h"
+#import "ShopLayer.h"
 
 @implementation TitleScene
 
@@ -38,12 +41,16 @@
     //ゲームキット初期化
     gkc=[[GKitController alloc]init];
     
-    // Hello world
+    //タイトル
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"3rd Project" fontName:@"Chalkduster" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
     label.color = [CCColor redColor];
     label.position = ccp(0.5f, 0.5f); // Middle of screen
     [self addChild:label];
+    
+    
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
     // Helloworld scene button
     CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
@@ -70,10 +77,78 @@
     [itemInventoryButton setTarget:self selector:@selector(onItemInventoryClicked:)];
     [self addChild:itemInventoryButton];
     
+    // GameCenterボタン
+    CCButton *gameCenterButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                                  [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"gamecenter.png"]];
+    gameCenterButton.positionType = CCPositionTypeNormalized;
+    gameCenterButton.position = ccp(0.95f, 0.15f);
+    gameCenterButton.scale=0.5;
+    [gameCenterButton setTarget:self selector:@selector(onGameCenterClicked:)];
+    [self addChild:gameCenterButton];
     
+    //Twitter
+    CCButton *twitterButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                               [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twitter.png"]];
+    twitterButton.positionType = CCPositionTypeNormalized;
+    twitterButton.position = ccp(0.95f, 0.22f);
+    twitterButton.scale=0.5;
+    [twitterButton setTarget:self selector:@selector(onTwitterClicked:)];
+    [self addChild:twitterButton];
+    
+    //Facebook
+    CCButton *facebookButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                                [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"facebook.png"]];
+    facebookButton.positionType = CCPositionTypeNormalized;
+    facebookButton.position = ccp(0.95f, 0.29f);
+    facebookButton.scale=0.5;
+    [facebookButton setTarget:self selector:@selector(onFacebookClicked:)];
+    [self addChild:facebookButton];
 
+    //In-AppPurchaseボタン
+    CCButton *inAppButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"shopBtn.png"]];
+    inAppButton.positionType = CCPositionTypeNormalized;
+    inAppButton.position = ccp(0.05f, 0.15f);
+    inAppButton.scale=0.5;
+    [inAppButton setTarget:self selector:@selector(onInAppPurchaseClicked:)];
+    [self addChild:inAppButton];
+    
+    //環境設定
+    CCButton *preferencesButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                                   [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"configBtn.png"]];
+    preferencesButton.positionType = CCPositionTypeNormalized;
+    preferencesButton.position = ccp(0.05f, 0.22f);
+    preferencesButton.scale=0.5;
+    [preferencesButton setTarget:self selector:@selector(onPreferencesButtonClicked:)];
+    [self addChild:preferencesButton];
+    
+    //クレジット
+    CCButton *creditButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                              [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"creditBtn.png"]];
+    creditButton.positionType = CCPositionTypeNormalized;
+    creditButton.position = ccp(0.05f, 0.29f);
+    creditButton.scale=0.5;
+    [creditButton setTarget:self selector:@selector(onCreditButtonClicked:)];
+    [self addChild:creditButton];
+    
     // done
 	return self;
+}
+
+- (void)dealloc
+{
+    // clean up code goes here
+}
+
+-(void)onEnter
+{
+    [super onEnter];
+}
+
+- (void)onExit
+{
+    // always call super onExit last
+    [super onExit];
 }
 
 - (void)onItemInventoryClicked:(id)sender
@@ -100,13 +175,15 @@
         return;
     }else{
         //ネットワークOK!
-        [gkc showRequestMatch];
+        [GameManager setMatchMode:2];
+        [gkc showRequestMatch];//マッチ画面表示
     }
 }
 
 - (void)onRealBattleClicked:(id)sender
 {
     // start spinning scene with transition
+    [GameManager setMatchMode:1];
     [[CCDirector sharedDirector] replaceScene:[RealBattleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     
@@ -115,9 +192,75 @@
 - (void)onSpinningClicked:(id)sender
 {
     // start spinning scene with transition
+    [GameManager setMatchMode:0];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 
+}
+
+-(void)onGameCenterClicked:(id)sender
+{
+    gkc=[[GKitController alloc]init];
+    [gkc showLeaderboard];
+}
+
+-(void)onTwitterClicked:(id)sender
+{
+    NSURL* url = [NSURL URLWithString:@"https://twitter.com/VirginTechLLC"];
+    [[UIApplication sharedApplication]openURL:url];
+}
+
+-(void)onFacebookClicked:(id)sender
+{
+    NSURL* url = [NSURL URLWithString:@"https://www.facebook.com/pages/VirginTech-LLC/516907375075432"];
+    [[UIApplication sharedApplication]openURL:url];
+}
+
+-(void)onInAppPurchaseClicked:(id)sender
+{
+    //アプリ内購入の設定チェック
+    if (![SKPaymentQueue canMakePayments]){//ダメ
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
+                                                        message:@"アプリ内での購入が出来ません"
+                                                        delegate:nil
+                                                        cancelButtonTitle:nil
+                                                        otherButtonTitles:@"OK", nil];
+        [alert show];
+        return;
+        
+    }else{//OK!
+        
+        //ネット接続できるか確認
+        Reachability *internetReach = [Reachability reachabilityForInternetConnection];
+        //[internetReach startNotifier];
+        NetworkStatus netStatus = [internetReach currentReachabilityStatus];
+        if(netStatus == NotReachable)//ダメ
+        {
+            //ネットワーク接続なし
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ネットワークエラー"
+                                                            message:@"ネットワーク接続がありません"
+                                                           delegate:nil
+                                                  cancelButtonTitle:nil
+                                                  otherButtonTitles:@"OK", nil];
+            [alert show];
+            return;
+            
+        }else{//ネットワークOK!
+            
+            //ショップ画面へ
+            [[CCDirector sharedDirector] replaceScene:[ShopLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+        }
+    }
+}
+
+-(void)onPreferencesButtonClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+}
+
+-(void)onCreditButtonClicked:(id)sender
+{
+        [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 @end

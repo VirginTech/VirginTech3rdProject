@@ -10,6 +10,8 @@
 #import "GameManager.h"
 #import "BasicMath.h"
 #import "TitleScene.h"
+#import "MatchWaitLayer.h"
+
 #import "Fortress.h"
 #import "mPlayer.h"
 #import "mEnemy.h"
@@ -71,6 +73,9 @@ int eMaxCnt;
 int eTotalCnt;
 int eCnt;
 
+//対戦準備レイヤー
+MatchWaitLayer* mWaitLayer;
+
 //デバッグラベル
 CCLabelTTF* lbl_1;
 CCLabelTTF* lbl_2;
@@ -127,6 +132,10 @@ CCLabelTTF* debugLabel5;
     
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
+    
+    //対戦準備レイヤー
+    mWaitLayer=[[MatchWaitLayer alloc]init];
+    [self addChild:mWaitLayer z:2];//最上位へ
     
     //ワールドサイズ（iPhone4に合わせた画面の大きさ）
     [GameManager setWorldSize:CGSizeMake(320, 480)];
@@ -268,6 +277,9 @@ CCLabelTTF* debugLabel5;
                          color:[CCColor yellowColor]];
     [self addChild:drawNode5];
     
+    //準備状況・スケジュール
+    [self schedule:@selector(readiness_Schedule:)interval:0.5];
+    
     //審判スケジュール開始
     if([GameManager getHost]){//ホストだったら
         [self schedule:@selector(judgement_Schedule:)interval:0.1];
@@ -280,6 +292,29 @@ CCLabelTTF* debugLabel5;
 {
     // always call super onExit last
     [super onExit];
+}
+
+//=========================
+//準備状況・スケジュール
+//=========================
+-(void)readiness_Schedule:(CCTime)dt
+{
+    if([GameManager getHost]){//ホスト青
+        if(mWaitLayer.playerReadyFlg){
+            //準備OK 送信
+            [self sendData_Readiness:true];
+        }
+    }else{//クライアント赤
+        if(mWaitLayer.enemyReadyFlg){
+            //準備OK 送信
+            [self sendData_Readiness:true];
+        }
+    }
+    
+    if(mWaitLayer.playerReadyFlg && mWaitLayer.enemyReadyFlg){
+        [self unschedule:@selector(readiness_Schedule:)];
+        [self removeChild:mWaitLayer cleanup:YES];
+    }
 }
 
 //=========================
@@ -993,7 +1028,25 @@ CCLabelTTF* debugLabel5;
     }
 
 }
+//====================================
+// 準備状況 送信メソッド ヘッダー（４）
+//====================================
+-(void)sendData_Readiness:(bool)readyFlg
+{
+    NSError *error = nil;
 
+    int header=4;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [[NSString stringWithFormat:@"%d",readyFlg] dataUsingEncoding:NSUTF8StringEncoding];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataUnreliable error:&error];
+    
+    if (error != nil){
+        NSLog(@"%@",error);
+    }
+}
 //==========================
 // 　　　受信メソッド
 //==========================
@@ -1082,14 +1135,28 @@ CCLabelTTF* debugLabel5;
         enemyFortress.ability=fortressData->eAbility;
     }
     //======================
+    // 準備状況受信
+    //======================
+    else if(_msgNum==4)
+    {
+        //NSDataへ変換
+        NSData* dData=[NSData dataWithBytes:msg length:diffLength];
+        //boolへ
+        bool flg = [[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding]boolValue];
+        
+        if([GameManager getHost]){//ホスト青
+            mWaitLayer.enemyReadyFlg=flg;//赤状況受信
+        }else{
+            mWaitLayer.playerReadyFlg=flg;//青状況受信
+        }
+    }
+    //======================
     //
     //======================
     else
     {
         
     }
-    
-    
     free(msg);
 }
 

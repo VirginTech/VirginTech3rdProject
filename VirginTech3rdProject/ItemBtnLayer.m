@@ -37,12 +37,12 @@ CCLabelTTF* speedupValue;
     [GameManager setItem:0];//アイテム選択なし
     
     btnArray=[[NSMutableArray alloc]init];
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"item_default.plist"];
     
     for(int i=0;i<5;i++){
         CCButton* btn=[CCButton buttonWithTitle:@""
-                                    spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"btn01.png"]
-                         highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"btn02.png"]
+                                    spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item01.png"]
+                         highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item02.png"]
                             disabledSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:nil]];
         
         btn.togglesSelectedState=YES;
