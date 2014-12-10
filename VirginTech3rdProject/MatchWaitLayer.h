@@ -14,11 +14,17 @@
     
     bool playerReadyFlg;
     bool enemyReadyFlg;
+    CCLabelTTF* playerLbl;
+    CCLabelTTF* enemyLbl;
 }
+@property CCLabelTTF* playerLbl;
+@property CCLabelTTF* enemyLbl;
 @property bool playerReadyFlg;
 @property bool enemyReadyFlg;
 
 + (MatchWaitLayer *)scene;
 - (id)init;
+
+-(void)readyWaitStart;
 
 @end

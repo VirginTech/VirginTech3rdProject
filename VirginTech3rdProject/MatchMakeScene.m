@@ -313,7 +313,12 @@ CCLabelTTF* debugLabel5;
     
     if(mWaitLayer.playerReadyFlg && mWaitLayer.enemyReadyFlg){
         [self unschedule:@selector(readiness_Schedule:)];
-        [self removeChild:mWaitLayer cleanup:YES];
+        mWaitLayer.playerLbl.fontSize=50;
+        mWaitLayer.playerLbl.string=@"戦闘開始！";
+        mWaitLayer.enemyLbl.fontSize=50;
+        mWaitLayer.enemyLbl.string=@"戦闘開始！";
+        [mWaitLayer readyWaitStart];
+        //[self removeChild:mWaitLayer cleanup:YES];
     }
 }
 

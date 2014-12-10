@@ -12,12 +12,17 @@
 
 @implementation MatchWaitLayer
 
+@synthesize playerLbl;
+@synthesize enemyLbl;
 @synthesize playerReadyFlg;
 @synthesize enemyReadyFlg;
 
 CGSize winSize;
+
 CCButton* playerBtn;
 CCButton* enemyBtn;
+
+int readyCnt;
 
 + (MatchWaitLayer *)scene
 {
@@ -34,8 +39,10 @@ CCButton* enemyBtn;
     self.multipleTouchEnabled = YES; /*マルチタッチ検出を有効化*/
     winSize=[[CCDirector sharedDirector]viewSize];
     
+    //初期化
     playerReadyFlg=false;
     enemyReadyFlg=false;
+    readyCnt=0;
     
     if([GameManager getMatchMode]==1)//リアル対戦モード
     {
@@ -45,13 +52,22 @@ CCButton* enemyBtn;
         [playerBtn setTarget:self selector:@selector(onReadyClicked:)];
         [self addChild:playerBtn];
         
+        playerLbl=[CCLabelTTF labelWithString:@"" fontName:@"Verdana-Bold" fontSize:25];
+        playerLbl.position=ccp(winSize.width/2,winSize.height*0.35);
+        [self addChild:playerLbl];
+        
         enemyBtn=[CCButton buttonWithTitle:@"[準備よし]" fontName:@"Verdana-Bold" fontSize:25];
         enemyBtn.position=ccp(winSize.width/2,winSize.height*0.65);
         enemyBtn.rotation=180;
         enemyBtn.name=[NSString stringWithFormat:@"%d",1];
         [enemyBtn setTarget:self selector:@selector(onReadyClicked:)];
         [self addChild:enemyBtn];
-    }
+
+        enemyLbl=[CCLabelTTF labelWithString:@"" fontName:@"Verdana-Bold" fontSize:25];
+        enemyLbl.position=ccp(winSize.width/2,winSize.height*0.65);
+        enemyLbl.rotation=180;
+        [self addChild:enemyLbl];
+}
     else if([GameManager getMatchMode]==2)//ネット対戦モード
     {
         if([GameManager getHost]){//サーバー
@@ -60,12 +76,22 @@ CCButton* enemyBtn;
             //playerBtn.name=[NSString stringWithFormat:@"%d",0];
             [playerBtn setTarget:self selector:@selector(onReadyClicked:)];
             [self addChild:playerBtn];
+            
+            playerLbl=[CCLabelTTF labelWithString:@"" fontName:@"Verdana-Bold" fontSize:25];
+            playerLbl.position=ccp(winSize.width/2,winSize.height*0.35);
+            [self addChild:playerLbl];
+
         }else{//クライアント
             enemyBtn=[CCButton buttonWithTitle:@"[準備よし]" fontName:@"Verdana-Bold" fontSize:25];
             enemyBtn.position=ccp(winSize.width/2,winSize.height*0.35);
             //enemyBtn.name=[NSString stringWithFormat:@"%d",1];
             [enemyBtn setTarget:self selector:@selector(onReadyClicked:)];
             [self addChild:enemyBtn];
+            
+            enemyLbl=[CCLabelTTF labelWithString:@"" fontName:@"Verdana-Bold" fontSize:25];
+            enemyLbl.position=ccp(winSize.width/2,winSize.height*0.35);
+            [self addChild:enemyLbl];
+
         }
     }
     
@@ -88,13 +114,22 @@ CCButton* enemyBtn;
         if(num==0){//プレイヤー
             playerBtn.visible=false;
             playerReadyFlg=true;//準備よし
+            playerLbl.fontSize=20;
+            playerLbl.string=@"対戦相手を待っています......";
         }else{
             enemyBtn.visible=false;
             enemyReadyFlg=true;
+            enemyLbl.fontSize=20;
+            enemyLbl.string=@"対戦相手を待っています......";
         }
         //対戦開始！
         if(playerReadyFlg && enemyReadyFlg){
-            [self removeFromParentAndCleanup:YES];//レイヤー消去
+            playerLbl.fontSize=50;
+            playerLbl.string=@"戦闘開始！";
+            enemyLbl.fontSize=50;
+            enemyLbl.string=@"戦闘開始！";
+            [self readyWaitStart];
+            //[self removeFromParentAndCleanup:YES];//レイヤー消去
         }
     }
     else if([GameManager getMatchMode]==2)//ネット対戦モード
@@ -102,12 +137,30 @@ CCButton* enemyBtn;
         if([GameManager getHost]){//ホスト青プレイヤー
             playerBtn.visible=false;
             playerReadyFlg=true;//準備よし
+            playerLbl.fontSize=20;
+            playerLbl.string=@"対戦相手を待っています......";
             //NSLog(@"ホスト準備よし");
         }else{
             enemyBtn.visible=false;
             enemyReadyFlg=true;
+            enemyLbl.fontSize=20;
+            enemyLbl.string=@"対戦相手を待っています......";
             //NSLog(@"クライアント準備よし");
         }
+    }
+}
+
+-(void)readyWaitStart
+{
+    [self schedule:@selector(ready_Wait_Schedule:) interval:1.0];
+}
+
+-(void)ready_Wait_Schedule:(CCTime)dt
+{
+    readyCnt++;
+    if(readyCnt>1){
+        [self unschedule:@selector(ready_Wait_Schedule:)];
+        [self removeFromParentAndCleanup:YES];//レイヤー消去
     }
 }
 
