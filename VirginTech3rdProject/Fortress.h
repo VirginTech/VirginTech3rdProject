@@ -13,8 +13,13 @@
     
     int ability;
     
+    CCSprite* lifeGauge1;
+    CCSprite* lifeGauge2;
+    float maxLife;
+    float nowRatio;
+    
     //デバッグ用
-    CCLabelTTF* energyLabel;
+    //CCLabelTTF* energyLabel;
 }
 
 @property int ability;

@@ -18,7 +18,10 @@
 #import "CreditLayer.h"
 #import "ShopLayer.h"
 
+
 @implementation TitleScene
+
+MessageLayer* msgBox;
 
 + (TitleScene *)scene
 {
@@ -42,7 +45,7 @@
     gkc=[[GKitController alloc]init];
     
     //タイトル
-    CCLabelTTF *label = [CCLabelTTF labelWithString:@"3rd Project" fontName:@"Chalkduster" fontSize:36.0f];
+    CCLabelTTF *label = [CCLabelTTF labelWithString:@"戦国HERO" fontName:@"Chalkduster" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
     label.color = [CCColor redColor];
     label.position = ccp(0.5f, 0.5f); // Middle of screen
@@ -56,7 +59,7 @@
     CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
     helloWorldButton.positionType = CCPositionTypeNormalized;
     helloWorldButton.position = ccp(0.5f, 0.35f);
-    [helloWorldButton setTarget:self selector:@selector(onSpinningClicked:)];
+    [helloWorldButton setTarget:self selector:@selector(onPlayClicked:)];
     [self addChild:helloWorldButton];
 
     CCButton *realBattleButton = [CCButton buttonWithTitle:@"[リアル対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
@@ -151,6 +154,16 @@
     [super onExit];
 }
 
+//=====================
+// デリゲートメソッド
+//=====================
+-(void)onMessageLayerBtnClocked:(int)btnNum
+{
+    NSLog(@"%d が選択されました",btnNum);
+    msgBox.delegate=nil;//デリゲート解除
+}
+
+
 - (void)onItemInventoryClicked:(id)sender
 {
     [[CCDirector sharedDirector] replaceScene:[ItemInventoryLayer scene]
@@ -165,13 +178,21 @@
     NetworkStatus netStatus = [internetReach currentReachabilityStatus];
     if(netStatus == NotReachable)
     {
-        //ネットワーク接続なし
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ネットワークエラー"
-                                                        message:@"ネットワーク接続がありません"
+        /*/ネットワーク接続なし
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                        message:NSLocalizedString(@"NotNetwork",NULL)
                                                         delegate:nil
                                                         cancelButtonTitle:nil
-                                                        otherButtonTitles:@"OK", nil];
-        [alert show];
+                                                        otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
+        [alert show];*/
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]init:CGSizeMake(200, 100) type:0
+                                                    title:NSLocalizedString(@"Error",NULL)
+                                                    msg:NSLocalizedString(@"NotNetwork",NULL)];
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox];
+        
         return;
     }else{
         //ネットワークOK!
@@ -189,7 +210,7 @@
     
 }
 
-- (void)onSpinningClicked:(id)sender
+- (void)onPlayClicked:(id)sender
 {
     // start spinning scene with transition
     [GameManager setMatchMode:0];
@@ -220,11 +241,11 @@
 {
     //アプリ内購入の設定チェック
     if (![SKPaymentQueue canMakePayments]){//ダメ
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"エラー"
-                                                        message:@"アプリ内での購入が出来ません"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                        message:NSLocalizedString(@"InAppBillingIslimited",NULL)
                                                         delegate:nil
                                                         cancelButtonTitle:nil
-                                                        otherButtonTitles:@"OK", nil];
+                                                        otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
         [alert show];
         return;
         
@@ -237,11 +258,11 @@
         if(netStatus == NotReachable)//ダメ
         {
             //ネットワーク接続なし
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"ネットワークエラー"
-                                                            message:@"ネットワーク接続がありません"
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                            message:NSLocalizedString(@"NotNetwork",NULL)
                                                            delegate:nil
                                                   cancelButtonTitle:nil
-                                                  otherButtonTitles:@"OK", nil];
+                                                  otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
             [alert show];
             return;
             

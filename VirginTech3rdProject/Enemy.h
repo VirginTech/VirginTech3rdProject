@@ -21,9 +21,14 @@
     int nearEnemyCnt;
     int ability;
     
+    CCSprite* lifeGauge1;
+    CCSprite* lifeGauge2;
+    float maxLife;
+    float nowRatio;
+
     //デバッグ用
-    CCLabelTTF* modeLabel;
-    CCLabelTTF* energyLabel;
+    //CCLabelTTF* modeLabel;
+    //CCLabelTTF* energyLabel;
 }
 
 @property int ability;

@@ -46,7 +46,7 @@ int readyCnt;
     
     if([GameManager getMatchMode]==1)//リアル対戦モード
     {
-        playerBtn=[CCButton buttonWithTitle:@"[準備よし]" fontName:@"Verdana-Bold" fontSize:25];
+        playerBtn=[CCButton buttonWithTitle:NSLocalizedString(@"YouReady",NULL) fontName:@"Verdana-Bold" fontSize:25];
         playerBtn.position=ccp(winSize.width/2,winSize.height*0.35);
         playerBtn.name=[NSString stringWithFormat:@"%d",0];
         [playerBtn setTarget:self selector:@selector(onReadyClicked:)];
@@ -56,7 +56,7 @@ int readyCnt;
         playerLbl.position=ccp(winSize.width/2,winSize.height*0.35);
         [self addChild:playerLbl];
         
-        enemyBtn=[CCButton buttonWithTitle:@"[準備よし]" fontName:@"Verdana-Bold" fontSize:25];
+        enemyBtn=[CCButton buttonWithTitle:NSLocalizedString(@"YouReady",NULL) fontName:@"Verdana-Bold" fontSize:25];
         enemyBtn.position=ccp(winSize.width/2,winSize.height*0.65);
         enemyBtn.rotation=180;
         enemyBtn.name=[NSString stringWithFormat:@"%d",1];
@@ -71,7 +71,7 @@ int readyCnt;
     else if([GameManager getMatchMode]==2)//ネット対戦モード
     {
         if([GameManager getHost]){//サーバー
-            playerBtn=[CCButton buttonWithTitle:@"[準備よし]" fontName:@"Verdana-Bold" fontSize:25];
+            playerBtn=[CCButton buttonWithTitle:NSLocalizedString(@"YouReady",NULL) fontName:@"Verdana-Bold" fontSize:25];
             playerBtn.position=ccp(winSize.width/2,winSize.height*0.35);
             //playerBtn.name=[NSString stringWithFormat:@"%d",0];
             [playerBtn setTarget:self selector:@selector(onReadyClicked:)];
@@ -82,7 +82,7 @@ int readyCnt;
             [self addChild:playerLbl];
 
         }else{//クライアント
-            enemyBtn=[CCButton buttonWithTitle:@"[準備よし]" fontName:@"Verdana-Bold" fontSize:25];
+            enemyBtn=[CCButton buttonWithTitle:NSLocalizedString(@"YouReady",NULL) fontName:@"Verdana-Bold" fontSize:25];
             enemyBtn.position=ccp(winSize.width/2,winSize.height*0.35);
             //enemyBtn.name=[NSString stringWithFormat:@"%d",1];
             [enemyBtn setTarget:self selector:@selector(onReadyClicked:)];
@@ -115,19 +115,19 @@ int readyCnt;
             playerBtn.visible=false;
             playerReadyFlg=true;//準備よし
             playerLbl.fontSize=20;
-            playerLbl.string=@"対戦相手を待っています......";
+            playerLbl.string=NSLocalizedString(@"OpponentWait",NULL);
         }else{
             enemyBtn.visible=false;
             enemyReadyFlg=true;
             enemyLbl.fontSize=20;
-            enemyLbl.string=@"対戦相手を待っています......";
+            enemyLbl.string=NSLocalizedString(@"OpponentWait",NULL);
         }
         //対戦開始！
         if(playerReadyFlg && enemyReadyFlg){
             playerLbl.fontSize=50;
-            playerLbl.string=@"戦闘開始！";
+            playerLbl.string=NSLocalizedString(@"BattleStrart",NULL);
             enemyLbl.fontSize=50;
-            enemyLbl.string=@"戦闘開始！";
+            enemyLbl.string=NSLocalizedString(@"BattleStrart",NULL);
             [self readyWaitStart];
             //[self removeFromParentAndCleanup:YES];//レイヤー消去
         }
@@ -138,13 +138,13 @@ int readyCnt;
             playerBtn.visible=false;
             playerReadyFlg=true;//準備よし
             playerLbl.fontSize=20;
-            playerLbl.string=@"対戦相手を待っています......";
+            playerLbl.string=NSLocalizedString(@"OpponentWait",NULL);
             //NSLog(@"ホスト準備よし");
         }else{
             enemyBtn.visible=false;
             enemyReadyFlg=true;
             enemyLbl.fontSize=20;
-            enemyLbl.string=@"対戦相手を待っています......";
+            enemyLbl.string=NSLocalizedString(@"OpponentWait",NULL);
             //NSLog(@"クライアント準備よし");
         }
     }

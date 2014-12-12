@@ -22,8 +22,13 @@
     int ability;
     int itemNum;
     
+    CCSprite* lifeGauge1;
+    CCSprite* lifeGauge2;
+    float maxLife;
+    float nowRatio;
+    
     //デバッグ用
-    CCLabelTTF* modeLabel;
+    //CCLabelTTF* modeLabel;
     CCLabelTTF* energyLabel;
     
 }

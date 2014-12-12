@@ -5,3 +5,32 @@
   Created by VirginTech LLC. on 2014/10/19.
   Copyright (c) 2014年 VirginTech LLC. All rights reserved.
 */
+
+//ロケール
+"Locale" = "ロケール";
+
+//ボタン
+"Yes"="はい";
+"No"="いいえ";
+"Ok"="OK";
+
+//アプリ内課金
+"NotNetwork" = "ネットワーク接続がありません。";
+"Error" = "エラー";
+"Completed" = "完了しました。";
+"InAppBillingIslimited" = "アプリ内課金が制限されています。";
+"ItemIdIsInvalid" = "アイテムIDが無効です。";
+"Purchase" = "を購入しました。";
+"Restored" = "リストア完了。";
+"Processing" = "購入処理中... ";
+
+//バトル通信
+"BattleStrart"="戦闘開始！";
+"NotBattleData"="対戦データの取得に失敗しました";
+"PlayerDisconnected"="対戦相手から接続が切れました";
+"NetworkError"="ネットワークエラー";
+"YouReady"="[準備完了]";
+"OpponentWait"="対戦相手を待っています......";
+
+
+

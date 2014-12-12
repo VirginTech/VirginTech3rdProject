@@ -199,7 +199,8 @@ CCLabelTTF* debugLabel5;
         lbl_2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%@",[battleMatch.playerIDs objectAtIndex:0]] fontName:@"Verdana-Bold" fontSize:10];
     }else{
         lbl_2=[CCLabelTTF labelWithString:@"対戦データの取得に失敗しました(受信不能)" fontName:@"Verdana-Bold" fontSize:10];
-        [self alert_Disconnected:@"ネットワークエラー" msg:@"対戦データの取得に失敗しました" delegate:self];//エラーメッセージ
+        [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
+                             msg:NSLocalizedString(@"NotBattleData",NULL) delegate:self];//エラーメッセージ
     }
     lbl_2.position=ccp(winSize.width-lbl_2.contentSize.width/2,winSize.height-lbl_2.contentSize.height/2);
     [self addChild:lbl_2];
@@ -314,9 +315,9 @@ CCLabelTTF* debugLabel5;
     if(mWaitLayer.playerReadyFlg && mWaitLayer.enemyReadyFlg){
         [self unschedule:@selector(readiness_Schedule:)];
         mWaitLayer.playerLbl.fontSize=50;
-        mWaitLayer.playerLbl.string=@"戦闘開始！";
+        mWaitLayer.playerLbl.string=NSLocalizedString(@"BattleStrart",NULL);
         mWaitLayer.enemyLbl.fontSize=50;
-        mWaitLayer.enemyLbl.string=@"戦闘開始！";
+        mWaitLayer.enemyLbl.string=NSLocalizedString(@"BattleStrart",NULL);
         [mWaitLayer readyWaitStart];
         //[self removeChild:mWaitLayer cleanup:YES];
     }
@@ -917,7 +918,7 @@ CCLabelTTF* debugLabel5;
 
 -(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    [self sendData_Error_Message:@"対戦データの取得に失敗しました"];//相手へエラー通知
+    [self sendData_Error_Message:NSLocalizedString(@"NotBattleData",NULL)];//相手へエラー通知
     //[battleMatch disconnect];
     //battleMatch.delegate=nil;
     //[[CCDirector sharedDirector] replaceScene:[TitleScene scene]
@@ -935,7 +936,8 @@ CCLabelTTF* debugLabel5;
         case GKPlayerStateDisconnected:
             // プレーヤーが切断した場合
             //NSLog(@"切断されました");
-            [self alert_Disconnected:@"プレイヤー切断" msg:@"対戦相手から接続が切れました" delegate:nil];
+            [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
+                                 msg:NSLocalizedString(@"PlayerDisconnected",NULL) delegate:nil];
             break;
         default:
             break;
@@ -1127,7 +1129,7 @@ CCLabelTTF* debugLabel5;
         NSData* dData=[NSData dataWithBytes:msg length:diffLength];
         //文字列の復元
         NSString* message=[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding];
-        [self alert_Disconnected:@"ネットワークエラー" msg:message delegate:nil];
+        [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL) msg:message delegate:nil];
     }
     //======================
     // 陣地アビリティ

@@ -12,6 +12,7 @@
 #import "cocos2d-ui.h"
 #import "GKitController.h"
 #import <StoreKit/StoreKit.h>
+#import "MessageLayer.h"
 // -----------------------------------------------------------------------
 
 /**
@@ -20,7 +21,7 @@
  *  Main usage for CCLayer now, is to make colored backgrounds (rectangles)
  *
  */
-@interface TitleScene : CCScene
+@interface TitleScene : CCScene <MsgLayerDelegate>
 {
     GKitController* gkc;
 }

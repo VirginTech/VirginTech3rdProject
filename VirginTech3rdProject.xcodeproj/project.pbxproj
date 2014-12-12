@@ -210,14 +210,21 @@
 		CF20D57D1A36BE5C006CD725 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20D57C1A36BE5C006CD725 /* StoreKit.framework */; };
 		CF20D5801A36BE9D006CD725 /* ShopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20D57F1A36BE9D006CD725 /* ShopLayer.m */; };
 		CF20D5831A36D15F006CD725 /* MatchWaitLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */; };
+		CF4428491A3A746500F17BB0 /* player_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4428471A3A746500F17BB0 /* player_default.plist */; };
+		CF44284A1A3A746500F17BB0 /* player_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4428481A3A746500F17BB0 /* player_default.png */; };
+		CF44284D1A3A747800F17BB0 /* enemy_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF44284B1A3A747800F17BB0 /* enemy_default.plist */; };
+		CF44284E1A3A747800F17BB0 /* enemy_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF44284C1A3A747800F17BB0 /* enemy_default.png */; };
+		CF4428511A3A810F00F17BB0 /* fortress_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF44284F1A3A810F00F17BB0 /* fortress_default.plist */; };
+		CF4428521A3A810F00F17BB0 /* fortress_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4428501A3A810F00F17BB0 /* fortress_default.png */; };
+		CF4428551A3AD12000F17BB0 /* MessageLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4428541A3AD12000F17BB0 /* MessageLayer.m */; };
+		CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4428571A3AD3AF00F17BB0 /* message_default.plist */; };
+		CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4428581A3AD3AF00F17BB0 /* message_default.png */; };
 		CF454F2D1A31B7F3001C6CA9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454F2C1A31B7F3001C6CA9 /* Reachability.m */; };
 		CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */; };
 		CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454FE01A2418200037A978 /* RealBattleScene.m */; };
 		CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48173B1A11A9AA00D5597B /* bgLayer.png */; };
 		CF48173F1A11AA0900D5597B /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48173E1A11AA0900D5597B /* GameManager.m */; };
 		CF4817441A11B12100D5597B /* Fortress.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817431A11B12100D5597B /* Fortress.m */; };
-		CF4817501A11B8E600D5597B /* fortress_00.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48174E1A11B8E600D5597B /* fortress_00.png */; };
-		CF4817511A11B8E600D5597B /* fortress_01.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48174F1A11B8E600D5597B /* fortress_01.png */; };
 		CF4817581A11C01A00D5597B /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817571A11C01A00D5597B /* Player.m */; };
 		CF48175C1A11E81B00D5597B /* BasicMath.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48175B1A11E81B00D5597B /* BasicMath.m */; };
 		CF48175F1A1215E400D5597B /* Enemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48175E1A1215E400D5597B /* Enemy.m */; };
@@ -233,8 +240,6 @@
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
 		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
 		CF863EE91A27311F007C146E /* MatchMakeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF863EE81A27311F007C146E /* MatchMakeScene.m */; };
-		CF903F3C1A14C4E500C6779E /* object_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF903F3A1A14C4E500C6779E /* object_default.plist */; };
-		CF903F3D1A14C4E500C6779E /* object_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF903F3B1A14C4E500C6779E /* object_default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -659,6 +664,16 @@
 		CF20D57F1A36BE9D006CD725 /* ShopLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopLayer.m; sourceTree = "<group>"; };
 		CF20D5811A36D15F006CD725 /* MatchWaitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchWaitLayer.h; sourceTree = "<group>"; };
 		CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchWaitLayer.m; sourceTree = "<group>"; };
+		CF4428471A3A746500F17BB0 /* player_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = player_default.plist; sourceTree = "<group>"; };
+		CF4428481A3A746500F17BB0 /* player_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_default.png; sourceTree = "<group>"; };
+		CF44284B1A3A747800F17BB0 /* enemy_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = enemy_default.plist; sourceTree = "<group>"; };
+		CF44284C1A3A747800F17BB0 /* enemy_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_default.png; sourceTree = "<group>"; };
+		CF44284F1A3A810F00F17BB0 /* fortress_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fortress_default.plist; sourceTree = "<group>"; };
+		CF4428501A3A810F00F17BB0 /* fortress_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_default.png; sourceTree = "<group>"; };
+		CF4428531A3AD12000F17BB0 /* MessageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLayer.h; sourceTree = "<group>"; };
+		CF4428541A3AD12000F17BB0 /* MessageLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageLayer.m; sourceTree = "<group>"; };
+		CF4428571A3AD3AF00F17BB0 /* message_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = message_default.plist; sourceTree = "<group>"; };
+		CF4428581A3AD3AF00F17BB0 /* message_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message_default.png; sourceTree = "<group>"; };
 		CF454F2B1A31B7F3001C6CA9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CF454F2C1A31B7F3001C6CA9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -669,8 +684,6 @@
 		CF48173E1A11AA0900D5597B /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
 		CF4817421A11B12100D5597B /* Fortress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fortress.h; sourceTree = "<group>"; };
 		CF4817431A11B12100D5597B /* Fortress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fortress.m; sourceTree = "<group>"; };
-		CF48174E1A11B8E600D5597B /* fortress_00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_00.png; sourceTree = "<group>"; };
-		CF48174F1A11B8E600D5597B /* fortress_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_01.png; sourceTree = "<group>"; };
 		CF4817561A11C01A00D5597B /* Player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Player.h; sourceTree = "<group>"; };
 		CF4817571A11C01A00D5597B /* Player.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Player.m; sourceTree = "<group>"; };
 		CF48175A1A11E81B00D5597B /* BasicMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicMath.h; sourceTree = "<group>"; };
@@ -696,8 +709,6 @@
 		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CF863EE71A27311F007C146E /* MatchMakeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakeScene.h; sourceTree = "<group>"; };
 		CF863EE81A27311F007C146E /* MatchMakeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakeScene.m; sourceTree = "<group>"; };
-		CF903F3A1A14C4E500C6779E /* object_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = object_default.plist; sourceTree = "<group>"; };
-		CF903F3B1A14C4E500C6779E /* object_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = object_default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1540,6 +1551,8 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CF4428571A3AD3AF00F17BB0 /* message_default.plist */,
+				CF4428581A3AD3AF00F17BB0 /* message_default.png */,
 				CF20D5721A36B7AA006CD725 /* btn_default.plist */,
 				CF20D5731A36B7AA006CD725 /* btn_default.png */,
 			);
@@ -1598,10 +1611,12 @@
 		CF4817451A11B67E00D5597B /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				CF903F3A1A14C4E500C6779E /* object_default.plist */,
-				CF903F3B1A14C4E500C6779E /* object_default.png */,
-				CF48174E1A11B8E600D5597B /* fortress_00.png */,
-				CF48174F1A11B8E600D5597B /* fortress_01.png */,
+				CF44284F1A3A810F00F17BB0 /* fortress_default.plist */,
+				CF4428501A3A810F00F17BB0 /* fortress_default.png */,
+				CF44284B1A3A747800F17BB0 /* enemy_default.plist */,
+				CF44284C1A3A747800F17BB0 /* enemy_default.png */,
+				CF4428471A3A746500F17BB0 /* player_default.plist */,
+				CF4428481A3A746500F17BB0 /* player_default.png */,
 			);
 			name = Object;
 			sourceTree = "<group>";
@@ -1632,6 +1647,8 @@
 				CF20D57F1A36BE9D006CD725 /* ShopLayer.m */,
 				CF20D5811A36D15F006CD725 /* MatchWaitLayer.h */,
 				CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */,
+				CF4428531A3AD12000F17BB0 /* MessageLayer.h */,
+				CF4428541A3AD12000F17BB0 /* MessageLayer.m */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -1713,7 +1730,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF44284A1A3A746500F17BB0 /* player_default.png in Resources */,
 				CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */,
+				CF4428511A3A810F00F17BB0 /* fortress_default.plist in Resources */,
 				CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */,
 				CF20605519F3534700DBD8C4 /* Icon-120.png in Resources */,
 				CF20604B19F3534700DBD8C4 /* Icon@2x.png in Resources */,
@@ -1722,30 +1741,32 @@
 				CF20604019F3534700DBD8C4 /* Default.png in Resources */,
 				CF20604919F3534700DBD8C4 /* Icon.png in Resources */,
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
-				CF4817501A11B8E600D5597B /* fortress_00.png in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
 				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
 				CF20605B19F3534700DBD8C4 /* Icon-Small.png in Resources */,
-				CF4817511A11B8E600D5597B /* fortress_01.png in Resources */,
 				CF20605919F3534700DBD8C4 /* Icon-Small-50.png in Resources */,
 				CF20629719F3534900DBD8C4 /* LICENSE_Chipmunk.txt in Resources */,
-				CF903F3D1A14C4E500C6779E /* object_default.png in Resources */,
 				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
 				CF20604D19F3534700DBD8C4 /* Icon-72.png in Resources */,
 				CF20D5741A36B7AA006CD725 /* btn_default.plist in Resources */,
 				CF20622919F3534800DBD8C4 /* LICENSE_CCBReader.txt in Resources */,
-				CF903F3C1A14C4E500C6779E /* object_default.plist in Resources */,
 				CF20619919F3534800DBD8C4 /* LICENSE_cocos2d.txt in Resources */,
 				CF20D5701A36B6C1006CD725 /* item_default.png in Resources */,
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20D5751A36B7AA006CD725 /* btn_default.png in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
+				CF44284D1A3A747800F17BB0 /* enemy_default.plist in Resources */,
 				CF20D56F1A36B6C1006CD725 /* item_default.plist in Resources */,
 				CF20605319F3534700DBD8C4 /* Icon-76@2x.png in Resources */,
+				CF44284E1A3A747800F17BB0 /* enemy_default.png in Resources */,
 				CF20606119F3534700DBD8C4 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
+				CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */,
+				CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */,
 				CF20606619F3534700DBD8C4 /* iTunesArtwork@2x in Resources */,
+				CF4428491A3A746500F17BB0 /* player_default.plist in Resources */,
+				CF4428521A3A810F00F17BB0 /* fortress_default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1791,6 +1812,7 @@
 				CF4817581A11C01A00D5597B /* Player.m in Sources */,
 				CF2060EC19F3534700DBD8C4 /* CCParallaxNode.m in Sources */,
 				CF20617F19F3534800DBD8C4 /* ccUtils.c in Sources */,
+				CF4428551A3AD12000F17BB0 /* MessageLayer.m in Sources */,
 				CF2060DC19F3534700DBD8C4 /* CCLayoutBox.m in Sources */,
 				CF20613519F3534800DBD8C4 /* CCTexture.m in Sources */,
 				CF20618719F3534800DBD8C4 /* CGPointExtension.m in Sources */,

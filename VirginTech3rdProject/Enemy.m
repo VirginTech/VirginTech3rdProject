@@ -45,14 +45,23 @@
 
 -(void)status_Schedule:(CCTime)dt
 {
+    //ライフゲージ
+    if(self.rotationalSkewX==self.rotationalSkewY){
+        lifeGauge1.rotation=-self.rotation;//常に０度を維持
+    }
+    nowRatio=(100/maxLife)*ability;
+    lifeGauge2.scaleX=nowRatio*0.01;
+    lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge2.contentSize.width/2), lifeGauge2.contentSize.height/2);
+
     //デバッグ用
-    modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
-    energyLabel.string=[NSString stringWithFormat:@"%d",ability];
+    //modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
+    //energyLabel.string=[NSString stringWithFormat:@"%d",ability];
 }
 
 -(id)initWithEnemy:(CGPoint)pos
 {
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"object_default.plist"];
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"enemy_default.plist"];
     
     if(self=[super initWithSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"enemy.png"]])
     {
@@ -63,13 +72,32 @@
         mode=0;//通常モード
         stopFlg=false;
         velocity=0.2;
+        
         nextPos=ccp(self.position.x,self.position.y-velocity);
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
+        
+        //ライフ初期値
+        maxLife=ability;
+        
+        //体力ゲージ描画
+        lifeGauge1=[CCSprite spriteWithSpriteFrame:
+                    [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"lifegauge1.png"]];
+        lifeGauge1.position=CGPointMake(self.contentSize.width/2, self.contentSize.height/2 - 15);
+        lifeGauge1.scale=0.5;
+        [self addChild:lifeGauge1];
+        
+        lifeGauge2=[CCSprite spriteWithSpriteFrame:
+                    [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"lifegauge2.png"]];
+        nowRatio=(100/maxLife)*ability;
+        lifeGauge2.scaleX=nowRatio*0.01;
+        lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge2.contentSize.width/2), lifeGauge2.contentSize.height/2);
+        lifeGauge2.scale=0.5;
+        [lifeGauge1 addChild:lifeGauge2];
         
         [self schedule:@selector(move_Schedule:)interval:0.01];
         [self schedule:@selector(status_Schedule:)interval:0.1];
         
-        //デバッグ用ラベル
+        /*/デバッグ用ラベル
         modeLabel=[CCLabelTTF labelWithString:
                    [NSString stringWithFormat:@"M=%d",mode]fontName:@"Verdana-Bold" fontSize:10];
         modeLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2-20);
@@ -80,7 +108,7 @@
                      [NSString stringWithFormat:@"%d",ability]fontName:@"Verdana-Bold" fontSize:15];
         energyLabel.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
         energyLabel.color=[CCColor whiteColor];
-        [self addChild:energyLabel];
+        [self addChild:energyLabel];*/
         
     }
     return self;
