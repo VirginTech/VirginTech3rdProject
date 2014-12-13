@@ -44,6 +44,8 @@ typedef struct Fortress_Data Fortress_Data;
 
 @implementation MatchMakeScene
 
+MessageLayer* msgBox;
+
 CGSize winSize;
 GKMatch* battleMatch;
 
@@ -200,7 +202,9 @@ CCLabelTTF* debugLabel5;
     }else{
         lbl_2=[CCLabelTTF labelWithString:@"対戦データの取得に失敗しました(受信不能)" fontName:@"Verdana-Bold" fontSize:10];
         [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
-                             msg:NSLocalizedString(@"NotBattleData",NULL) delegate:self];//エラーメッセージ
+                                msg:NSLocalizedString(@"NotBattleData",NULL)
+                                delegate:self
+                                procNum:1];//エラーメッセージ送信
     }
     lbl_2.position=ccp(winSize.width-lbl_2.contentSize.width/2,winSize.height-lbl_2.contentSize.height/2);
     [self addChild:lbl_2];
@@ -906,17 +910,36 @@ CCLabelTTF* debugLabel5;
     
 }
 
--(void)alert_Disconnected:(NSString*)title msg:(NSString*)msg delegate:(id)delegate
+//=====================
+// デリゲートメソッド
+//=====================
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
 {
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+    //NSLog(@"%d が選択されました",btnNum);
+
+    if(procNum==1){//対戦相手へのエラー通知
+        [self sendData_Error_Message:NSLocalizedString(@"NotBattleData",NULL)];//相手へエラー通知
+    }
+    msgBox.delegate=nil;//デリゲート解除
+}
+
+-(void)alert_Disconnected:(NSString*)title msg:(NSString*)msg delegate:(id)delegate procNum:(int)procNum
+{
+    /*UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
                                                     message:msg
                                                     delegate:delegate
                                                     cancelButtonTitle:nil
                                                     otherButtonTitles:@"OK", nil];
-    [alert show];
+    [alert show];*/
+    
+    //カスタムアラートメッセージ
+    msgBox=[[MessageLayer alloc]initWithTitle:title msg:msg size:CGSizeMake(200, 100) type:0 procNum:procNum];
+    msgBox.delegate=self;//デリゲートセット
+    [self addChild:msgBox z:3];
+
 }
 
--(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+/*-(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     [self sendData_Error_Message:NSLocalizedString(@"NotBattleData",NULL)];//相手へエラー通知
     //[battleMatch disconnect];
@@ -924,7 +947,7 @@ CCLabelTTF* debugLabel5;
     //[[CCDirector sharedDirector] replaceScene:[TitleScene scene]
     //                           withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     
-}
+}*/
 
 -(void)match:(GKMatch *)match player:(NSString *)playerID didChangeState:(GKPlayerConnectionState)state
 {
@@ -937,7 +960,9 @@ CCLabelTTF* debugLabel5;
             // プレーヤーが切断した場合
             //NSLog(@"切断されました");
             [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
-                                 msg:NSLocalizedString(@"PlayerDisconnected",NULL) delegate:nil];
+                                    msg:NSLocalizedString(@"PlayerDisconnected",NULL)
+                                    delegate:nil
+                                    procNum:0];//処理なし
             break;
         default:
             break;
@@ -1129,7 +1154,10 @@ CCLabelTTF* debugLabel5;
         NSData* dData=[NSData dataWithBytes:msg length:diffLength];
         //文字列の復元
         NSString* message=[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding];
-        [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL) msg:message delegate:nil];
+        [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
+                                                                msg:message
+                                                                delegate:nil
+                                                                procNum:0];//処理なし
     }
     //======================
     // 陣地アビリティ

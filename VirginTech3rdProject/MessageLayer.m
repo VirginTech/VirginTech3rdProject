@@ -14,13 +14,14 @@
 @synthesize delegate;
 
 CGSize winSize;
+int procNum;
 
 + (MessageLayer *)scene
 {
     return [[self alloc] init];
 }
 
--(id)init:(CGSize)size type:(int)type title:(NSString*)title msg:(NSString*)msg
+-(id)initWithTitle:(NSString*)title msg:(NSString*)msg size:(CGSize)size type:(int)type procNum:(int)_procNum
 {
     // Apple recommend assigning self with supers return value
     self = [super init];
@@ -28,6 +29,8 @@ CGSize winSize;
     
     self.userInteractionEnabled = YES;
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    procNum=_procNum;
     
     //画像の読込み
     [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
@@ -57,14 +60,20 @@ CGSize winSize;
     [noBtn setTarget:self selector:@selector(noButtonClicked:)];
     [okBtn setTarget:self selector:@selector(okButtonClicked:)];
     
-    if(type==1){
+    //[OK]ボタン
+    if(type==0){
+        okBtn.position=ccp(winSize.width-msgBoard.position.x, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+okBtn.contentSize.height*okBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
+        [self addChild:okBtn];
+    }
+    //[Yes/No]ボタン
+    else if(type==1){
         yesBtn.position=ccp(winSize.width-msgBoard.position.x+yesBtn.contentSize.width*yesBtn.scale/2+5, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+yesBtn.contentSize.height*yesBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
         [self addChild:yesBtn];
         noBtn.position=ccp(winSize.width-msgBoard.position.x-noBtn.contentSize.width*noBtn.scale/2-5, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+noBtn.contentSize.height*noBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
         [self addChild:noBtn];
+    //
     }else{
-        okBtn.position=ccp(winSize.width-msgBoard.position.x, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+okBtn.contentSize.height*okBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
-        [self addChild:okBtn];
+        
     }
     
     //タイトル
@@ -82,34 +91,34 @@ CGSize winSize;
 
 -(void)yesButtonClicked:(id)sender
 {
-    if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:)])
+    if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:procNum:)])
     {
-        [self sendDelegate:1];
+        [self sendDelegate:2]; //2:YES
         [self removeFromParentAndCleanup:YES];
     }
 }
 
 -(void)noButtonClicked:(id)sender
 {
-    if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:)])
+    if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:procNum:)])
     {
-        [self sendDelegate:0];
+        [self sendDelegate:1]; //1:No
         [self removeFromParentAndCleanup:YES];
     }
 }
 
 -(void)okButtonClicked:(id)sender
 {
-    if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:)])
+    if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:procNum:)])
     {
-        [self sendDelegate:-1];
+        [self sendDelegate:0]; //0:OK
         [self removeFromParentAndCleanup:YES];
     }
 }
 
 -(void)sendDelegate:(int)btnNum
 {
-    [delegate onMessageLayerBtnClocked:btnNum];
+    [delegate onMessageLayerBtnClocked:btnNum procNum:procNum];
 }
 
 

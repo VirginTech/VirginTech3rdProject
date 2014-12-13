@@ -157,9 +157,9 @@ MessageLayer* msgBox;
 //=====================
 // デリゲートメソッド
 //=====================
--(void)onMessageLayerBtnClocked:(int)btnNum
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
 {
-    NSLog(@"%d が選択されました",btnNum);
+    //NSLog(@"%d が選択されました",btnNum);
     msgBox.delegate=nil;//デリゲート解除
 }
 
@@ -187,11 +187,13 @@ MessageLayer* msgBox;
         [alert show];*/
         
         //カスタムアラートメッセージ
-        msgBox=[[MessageLayer alloc]init:CGSizeMake(200, 100) type:0
-                                                    title:NSLocalizedString(@"Error",NULL)
-                                                    msg:NSLocalizedString(@"NotNetwork",NULL)];
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                msg:NSLocalizedString(@"NotNetwork",NULL)
+                                                size:CGSizeMake(200, 100)
+                                                type:0
+                                                procNum:0];//処理なし
         msgBox.delegate=self;//デリゲートセット
-        [self addChild:msgBox];
+        [self addChild:msgBox z:3];
         
         return;
     }else{
@@ -241,12 +243,22 @@ MessageLayer* msgBox;
 {
     //アプリ内購入の設定チェック
     if (![SKPaymentQueue canMakePayments]){//ダメ
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
+        /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
                                                         message:NSLocalizedString(@"InAppBillingIslimited",NULL)
                                                         delegate:nil
                                                         cancelButtonTitle:nil
                                                         otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
-        [alert show];
+        [alert show];*/
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                msg:NSLocalizedString(@"InAppBillingIslimited",NULL)
+                                                size:CGSizeMake(200, 100)
+                                                type:0
+                                                procNum:0];//処理なし
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:3];
+
         return;
         
     }else{//OK!
@@ -257,13 +269,23 @@ MessageLayer* msgBox;
         NetworkStatus netStatus = [internetReach currentReachabilityStatus];
         if(netStatus == NotReachable)//ダメ
         {
-            //ネットワーク接続なし
+            /*/ネットワーク接続なし
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
                                                             message:NSLocalizedString(@"NotNetwork",NULL)
                                                            delegate:nil
                                                   cancelButtonTitle:nil
                                                   otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
-            [alert show];
+            [alert show];*/
+            
+            //カスタムアラートメッセージ
+            msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                    msg:NSLocalizedString(@"NotNetwork",NULL)
+                                                    size:CGSizeMake(200, 100)
+                                                    type:0
+                                                    procNum:0];//処理なし
+            msgBox.delegate=self;//デリゲートセット
+            [self addChild:msgBox z:3];
+
             return;
             
         }else{//ネットワークOK!

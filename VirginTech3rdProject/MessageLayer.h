@@ -13,7 +13,7 @@
 // デリゲートを定義
 @protocol MsgLayerDelegate <NSObject>
 
--(void)onMessageLayerBtnClocked:(int)btnNum;
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum;
 
 @end
 
@@ -28,6 +28,10 @@
 -(void)sendDelegate:(int)btnNum;
 
 +(MessageLayer *)scene;
--(id)init:(CGSize)size type:(int)type title:(NSString*)title msg:(NSString*)msg;
+-(id)initWithTitle:(NSString*)title //タイトル
+                            msg:(NSString*)msg //本文
+                            size:(CGSize)size //サイズ
+                            type:(int)type //0:OKボタン 1:Yes/Noボタン
+                            procNum:(int)_procNum; //処理ナンバー
 
 @end

@@ -96,6 +96,7 @@ bool flg=false;
 //マッチメイク要求
 - (void)showMatchmakerWithRequest:(GKMatchRequest *)request
 {
+    //初期化
     flg=false;
     hostNum=arc4random()%1000;
     [MatchMakeScene setCurrentMatch:nil];
@@ -109,6 +110,7 @@ bool flg=false;
 //ゲーム招待
 - (void)showMatchmakerWithInvite:(GKInvite *)invite
 {
+    //初期化
     flg=false;
     hostNum=arc4random()%1000;
     [MatchMakeScene setCurrentMatch:nil];
@@ -148,12 +150,12 @@ bool flg=false;
 -(void)matchmakerViewController:(GKMatchmakerViewController *)viewController didFailWithError:(NSError *)error
 {
     [viewController dismissViewControllerAnimated:YES completion:nil]; // ゲームに固有のコードをここに実装する。
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GKMatchエラー"
+    /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GKMatchエラー"
                                                     message:@"GKMatchの取得に失敗しました(2)"
                                                     delegate:nil
                                                     cancelButtonTitle:nil
                                                     otherButtonTitles:@"OK", nil];
-    [alert show];
+    [alert show];*/
 }
 
 //=============
@@ -161,7 +163,7 @@ bool flg=false;
 //=============
 -(void)sendDataToAllPlayers;
 {
-    NSLog(@"%dを送信しました",hostNum);
+    //NSLog(@"%dを送信しました",hostNum);
     NSError *error = nil;
     //ダミーヘッダー番号付与（対戦シーンへの誤データ送信防止）
     int header=99;
@@ -200,7 +202,7 @@ bool flg=false;
     //bool flg=true;
     if(!flg){//重複受信防止
         int _host = [[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding]intValue];
-        NSLog(@"%dを受信しました",_host);
+        //NSLog(@"%dを受信しました",_host);
         if(hostNum > _host){
             flg=true;
             [GameManager setHost:true];
@@ -209,7 +211,7 @@ bool flg=false;
             [GameManager setHost:false];
         }else{
             //もう一度
-            NSLog(@"もう一度");
+            //NSLog(@"もう一度");
             flg=false;
             hostNum=arc4random()%1000;
             [self sendDataToAllPlayers];

@@ -67,7 +67,7 @@ int readyCnt;
         enemyLbl.position=ccp(winSize.width/2,winSize.height*0.65);
         enemyLbl.rotation=180;
         [self addChild:enemyLbl];
-}
+    }
     else if([GameManager getMatchMode]==2)//ネット対戦モード
     {
         if([GameManager getHost]){//サーバー

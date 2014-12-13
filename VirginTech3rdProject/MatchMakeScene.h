@@ -10,8 +10,9 @@
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
 #import <GameKit/GameKit.h>
+#import "MessageLayer.h"
 
-@interface MatchMakeScene : CCScene <GKMatchDelegate>
+@interface MatchMakeScene : CCScene <GKMatchDelegate,MsgLayerDelegate>
 {
     
 }
