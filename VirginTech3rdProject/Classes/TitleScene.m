@@ -198,7 +198,6 @@ MessageLayer* msgBox;
         return;
     }else{
         //ネットワークOK!
-        [GameManager setMatchMode:2];
         [gkc showRequestMatch];//マッチ画面表示
     }
 }

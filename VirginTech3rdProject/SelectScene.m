@@ -49,11 +49,11 @@ CGSize winSize;
     }
     
     
-    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
-    backButton.positionType = CCPositionTypeNormalized;
-    backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
-    [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    CCButton *titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    titleButton.positionType = CCPositionTypeNormalized;
+    titleButton.position = ccp(0.9f, 0.95f); // Top Right of screen
+    [titleButton setTarget:self selector:@selector(onTitleClicked:)];
+    [self addChild:titleButton];
     
     return self;
 }
@@ -69,7 +69,7 @@ CGSize winSize;
     
 }
 
-- (void)onBackClicked:(id)sender
+- (void)onTitleClicked:(id)sender
 {
     // back to intro scene with transition
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]

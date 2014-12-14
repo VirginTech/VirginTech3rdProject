@@ -233,6 +233,7 @@
 		CF4AF3621A29839B009A4475 /* mEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF3611A29839B009A4475 /* mEnemy.m */; };
 		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
 		CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4BDAB31A25AFC000ECE855 /* GKitController.m */; };
+		CF50BECE1A3D251B0060F037 /* NaviLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50BECD1A3D251B0060F037 /* NaviLayer.m */; };
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
 		CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */; };
 		CF5187161A3546DE006A5845 /* ItemInventoryLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */; };
@@ -699,6 +700,8 @@
 		CF4BDAB01A25AE5300ECE855 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		CF4BDAB21A25AFC000ECE855 /* GKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKitController.h; sourceTree = "<group>"; };
 		CF4BDAB31A25AFC000ECE855 /* GKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKitController.m; sourceTree = "<group>"; };
+		CF50BECC1A3D251B0060F037 /* NaviLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviLayer.h; sourceTree = "<group>"; };
+		CF50BECD1A3D251B0060F037 /* NaviLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviLayer.m; sourceTree = "<group>"; };
 		CF50D8BC1A1B0177005A1B5D /* InitObjManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitObjManager.h; sourceTree = "<group>"; };
 		CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitObjManager.m; sourceTree = "<group>"; };
 		CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectScene.h; sourceTree = "<group>"; };
@@ -1649,6 +1652,8 @@
 				CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */,
 				CF4428531A3AD12000F17BB0 /* MessageLayer.h */,
 				CF4428541A3AD12000F17BB0 /* MessageLayer.m */,
+				CF50BECC1A3D251B0060F037 /* NaviLayer.h */,
+				CF50BECD1A3D251B0060F037 /* NaviLayer.m */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -1844,6 +1849,7 @@
 				CF20610D19F3534700DBD8C4 /* CCProgressNode.m in Sources */,
 				CF20611919F3534800DBD8C4 /* CCResponderManager.m in Sources */,
 				CF20614B19F3534800DBD8C4 /* CCTransition.m in Sources */,
+				CF50BECE1A3D251B0060F037 /* NaviLayer.m in Sources */,
 				CF2061A219F3534800DBD8C4 /* OALActionManager.m in Sources */,
 				CF20610619F3534700DBD8C4 /* CCPhysicsNode.m in Sources */,
 				CF48175F1A1215E400D5597B /* Enemy.m in Sources */,

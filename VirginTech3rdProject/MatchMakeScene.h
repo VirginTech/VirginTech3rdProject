@@ -23,4 +23,6 @@
 +(GKMatch*)getCurrentMatch;
 +(void)setCurrentMatch:(GKMatch*)match;
 
++(void)sendData_Pause:(bool)flg;
+
 @end

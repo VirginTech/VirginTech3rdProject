@@ -23,6 +23,10 @@
 
 -(void)move_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
+    
     nextPos=CGPointMake(self.position.x+velocity*cosf(targetAngle),self.position.y+velocity*sinf(targetAngle));
     self.rotation=[BasicMath getAngle_To_Degree:self.position ePos:nextPos];
     if(!stopFlg){

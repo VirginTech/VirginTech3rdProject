@@ -95,11 +95,11 @@ int readyCnt;
         }
     }
     
-    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    /*CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
     backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
     [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    [self addChild:backButton];*/
     
     return self;
 }

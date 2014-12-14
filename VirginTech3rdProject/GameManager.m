@@ -17,6 +17,7 @@ int stageLevel;//ステージレベル
 int matchMode;//0:シングル 1:リアル対戦 2:ネット対戦
 int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード 4:攻撃アップ 5:高速モード
 bool isHost;//true:ホスト(青) false:クライアント(赤)
+bool pauseFlg;
 
 //デバイス取得／登録
 +(void)setDevice:(int)type{
@@ -66,6 +67,13 @@ bool isHost;//true:ホスト(青) false:クライアント(赤)
 }
 +(bool)getHost{
     return isHost;
+}
+//ポーズフラグ
++(void)setPause:(bool)flg{
+    pauseFlg=flg;
+}
++(bool)getPause{
+    return pauseFlg;
 }
 
 //=======================

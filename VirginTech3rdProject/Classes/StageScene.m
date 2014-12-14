@@ -17,6 +17,7 @@
 #import "Fortress.h"
 #import "Player.h"
 #import "Enemy.h"
+#import "NaviLayer.h"
 
 @implementation StageScene
 
@@ -87,6 +88,7 @@ int eCnt;
     pMaxCnt=0;
     stageNum=[GameManager getStageLevel];
     repCnt=0;
+    [GameManager setPause:false];
     
     //プレイヤーMax数
     pMaxCnt=[InitObjManager NumPlayerMax:stageNum];
@@ -101,6 +103,10 @@ int eCnt;
     //アイテムボタンレイヤー
     itemLayer=[[ItemBtnLayer alloc]init];
     [self addChild:itemLayer z:1];
+    
+    //ナビレイヤー
+    NaviLayer* naviLayer=[[NaviLayer alloc]init];
+    [self addChild:naviLayer z:2];
     
     //レベルに応じた画面の大きさ
     [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
@@ -119,11 +125,11 @@ int eCnt;
     [self addChild:scrollView z:0];
     
     // Create a back button
-    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    /*CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
     backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
     [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    [self addChild:backButton];*/
 
     //デバッグラベル
     debugLabel1=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
@@ -253,6 +259,10 @@ int eCnt;
 
 -(void)judgement_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
+    
     //初期化
     removePlayerArray=[[NSMutableArray alloc]init];
     removeEnemyArray=[[NSMutableArray alloc]init];

@@ -11,6 +11,7 @@
 #import "BasicMath.h"
 #import "TitleScene.h"
 #import "MatchWaitLayer.h"
+#import "NaviLayer.h"
 
 #import "Fortress.h"
 #import "mPlayer.h"
@@ -44,8 +45,6 @@ typedef struct Fortress_Data Fortress_Data;
 
 @implementation MatchMakeScene
 
-MessageLayer* msgBox;
-
 CGSize winSize;
 GKMatch* battleMatch;
 
@@ -77,6 +76,8 @@ int eCnt;
 
 //対戦準備レイヤー
 MatchWaitLayer* mWaitLayer;
+MessageLayer* msgBox;
+NaviLayer* naviLayer;
 
 //デバッグラベル
 CCLabelTTF* lbl_1;
@@ -132,12 +133,18 @@ CCLabelTTF* debugLabel5;
     eCnt=0;
     eMaxCnt=250;
     
+    [GameManager setPause:false];
+    
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
     
     //対戦準備レイヤー
     mWaitLayer=[[MatchWaitLayer alloc]init];
-    [self addChild:mWaitLayer z:2];//最上位へ
+    [self addChild:mWaitLayer z:1];//最上位へ
+    
+    //ナビレイヤー
+    naviLayer=[[NaviLayer alloc]init];
+    [self addChild:naviLayer z:2];
     
     //ワールドサイズ（iPhone4に合わせた画面の大きさ）
     [GameManager setWorldSize:CGSizeMake(320, 480)];
@@ -151,12 +158,12 @@ CCLabelTTF* debugLabel5;
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
-    // Create a back button
+    /*/ Create a back button
     CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
     backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
     [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    [self addChild:backButton];*/
     
     //ワールドライン描画
     CCDrawNode* worldLine_v1=[CCDrawNode node];//左縦
@@ -332,6 +339,9 @@ CCLabelTTF* debugLabel5;
 //=========================
 -(void)judgement_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
     //初期化
     removePlayerArray=[[NSMutableArray alloc]init];
     removeEnemyArray=[[NSMutableArray alloc]init];
@@ -775,6 +785,9 @@ CCLabelTTF* debugLabel5;
 //=========================
 -(void)status_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
     removePlayerArray=[[NSMutableArray alloc]init];
     removeEnemyArray=[[NSMutableArray alloc]init];
     
@@ -1079,6 +1092,25 @@ CCLabelTTF* debugLabel5;
         NSLog(@"%@",error);
     }
 }
+//====================================
+// ポーズ・レジューム 送信メソッド ヘッダー（５）
+//====================================
++(void)sendData_Pause:(bool)flg
+{
+    NSError *error = nil;
+    
+    int header=5;
+    NSMutableData* tmpData=[NSMutableData dataWithBytes:&header length:sizeof(header)];//ヘッダー部
+    NSData *packetData = [[NSString stringWithFormat:@"%d",flg] dataUsingEncoding:NSUTF8StringEncoding];//本体部
+    //合体
+    [tmpData appendData:packetData];
+    //送信
+    [battleMatch sendDataToAllPlayers:tmpData withDataMode:GKMatchSendDataReliable error:&error];
+    
+    if (error != nil){
+        NSLog(@"%@",error);
+    }
+}
 //==========================
 // 　　　受信メソッド
 //==========================
@@ -1183,6 +1215,22 @@ CCLabelTTF* debugLabel5;
             mWaitLayer.enemyReadyFlg=flg;//赤状況受信
         }else{
             mWaitLayer.playerReadyFlg=flg;//青状況受信
+        }
+    }
+    //======================
+    // ポーズ・レジューム状況受信
+    //======================
+    else if(_msgNum==5)
+    {
+        //NSDataへ変換
+        NSData* dData=[NSData dataWithBytes:msg length:diffLength];
+        //boolへ
+        bool flg = [[[NSString alloc] initWithData:dData encoding:NSUTF8StringEncoding]boolValue];
+        
+        if(flg){
+            [naviLayer pause];
+        }else{
+            [naviLayer resume];
         }
     }
     //======================

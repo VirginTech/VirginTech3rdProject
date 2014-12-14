@@ -221,6 +221,9 @@ bool flg=false;
         if(flg){
             //マッチの保持
             [MatchMakeScene setCurrentMatch:match];
+            //モード設定
+            [GameManager setMatchMode:2];
+            //対戦シーンへ
             [[CCDirector sharedDirector] replaceScene:[MatchMakeScene scene]withTransition:
                                                                 [CCTransition transitionCrossFadeWithDuration:1.0]];
         }

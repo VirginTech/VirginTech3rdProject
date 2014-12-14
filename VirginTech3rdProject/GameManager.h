@@ -20,6 +20,8 @@
 +(int)getStageLevel;
 +(void)setMatchMode:(int)mode;
 +(int)getMatchMode;
++(void)setPause:(bool)flg;
++(bool)getPause;
 
 +(void)setItem:(int)num;
 +(int)getItem;

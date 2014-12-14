@@ -12,6 +12,7 @@
 #import "TitleScene.h"
 #import "CCDrawNode.h"
 #import "MatchWaitLayer.h"
+#import "NaviLayer.h"
 
 #import "Fortress.h"
 #import "Player.h"
@@ -90,12 +91,18 @@ CCLabelTTF* debugLabel5;
     eCnt=0;
     eMaxCnt=250;
     
+    [GameManager setPause:false];
+    
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
 
     //対戦準備レイヤー
     mWaitLayer=[[MatchWaitLayer alloc]init];
-    [self addChild:mWaitLayer z:2];//最上位へ
+    [self addChild:mWaitLayer z:1];//最上位へ
+    
+    //ナビレイヤー
+    NaviLayer* naviLayer=[[NaviLayer alloc]init];
+    [self addChild:naviLayer z:2];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -105,11 +112,11 @@ CCLabelTTF* debugLabel5;
     [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
         
     // Create a back button
-    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    /*CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
     backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
     [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    [self addChild:backButton];*/
     
     //デバッグラベル
     debugLabel1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
@@ -190,6 +197,9 @@ CCLabelTTF* debugLabel5;
 
 -(void)judgement_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
     //初期化
     removePlayerArray=[[NSMutableArray alloc]init];
     removeEnemyArray=[[NSMutableArray alloc]init];
