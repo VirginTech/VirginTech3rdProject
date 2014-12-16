@@ -13,6 +13,7 @@
 #import "CCDrawNode.h"
 #import "MatchWaitLayer.h"
 #import "NaviLayer.h"
+#import "InfoLayer.h"
 
 #import "Fortress.h"
 #import "Player.h"
@@ -24,6 +25,8 @@ CGSize winSize;
 CGPoint playerLocation;
 CGPoint enemyLocation;
 float footer;
+
+InfoLayer* infoLayer;
 
 Fortress* playerFortress;
 Fortress* enemyFortress;
@@ -40,23 +43,23 @@ NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
 
 //カウンター
-int pMaxCnt;
-int pTotalCnt;
-int pCnt;
-int eMaxCnt;
-int eTotalCnt;
-int eCnt;
+//int pMaxCnt;
+//int pTotalCnt;
+//int pCnt;
+//int eMaxCnt;
+//int eTotalCnt;
+//int eCnt;
 
 //対戦準備レイヤー
 MatchWaitLayer* mWaitLayer;
 
 //デバッグ用ラベル
 //int repCnt;
-CCLabelTTF* debugLabel1;
-CCLabelTTF* debugLabel2;
-CCLabelTTF* debugLabel3;
-CCLabelTTF* debugLabel4;
-CCLabelTTF* debugLabel5;
+//CCLabelTTF* debugLabel1;
+//CCLabelTTF* debugLabel2;
+//CCLabelTTF* debugLabel3;
+//CCLabelTTF* debugLabel4;
+//CCLabelTTF* debugLabel5;
 
 +(RealBattleScene *)scene
 {
@@ -81,28 +84,26 @@ CCLabelTTF* debugLabel5;
     footer=0;
     playerArray=[[NSMutableArray alloc]init];
     createPlayerFlg=false;
-    pTotalCnt=0;
-    pCnt=0;
-    pMaxCnt=250;
     
     enemyArray=[[NSMutableArray alloc]init];
     createEnemyFlg=false;
-    eTotalCnt=0;
-    eCnt=0;
-    eMaxCnt=250;
     
     [GameManager setPause:false];
     
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
 
+    //インフォレイヤー
+    infoLayer=[[InfoLayer alloc]init];
+    [self addChild:infoLayer z:1];
+
     //対戦準備レイヤー
     mWaitLayer=[[MatchWaitLayer alloc]init];
-    [self addChild:mWaitLayer z:1];//最上位へ
+    [self addChild:mWaitLayer z:2];//最上位へ
     
     //ナビレイヤー
     NaviLayer* naviLayer=[[NaviLayer alloc]init];
-    [self addChild:naviLayer z:2];
+    [self addChild:naviLayer z:3];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -118,7 +119,7 @@ CCLabelTTF* debugLabel5;
     [backButton setTarget:self selector:@selector(onBackClicked:)];
     [self addChild:backButton];*/
     
-    //デバッグラベル
+    /*/デバッグラベル
     debugLabel1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
     debugLabel1.position=ccp(debugLabel1.contentSize.width/2, winSize.height-debugLabel1.contentSize.height/2);
     [self addChild:debugLabel1];
@@ -137,7 +138,7 @@ CCLabelTTF* debugLabel5;
     
     debugLabel5=[CCLabelTTF labelWithString:@"eTotle=0000" fontName:@"Verdana-Bold" fontSize:10];
     debugLabel5.position=ccp(debugLabel5.contentSize.width/2, debugLabel4.position.y-debugLabel5.contentSize.height);
-    [self addChild:debugLabel5];
+    [self addChild:debugLabel5];*/
 
     return self;
 }
@@ -552,11 +553,13 @@ CCLabelTTF* debugLabel5;
     }
     [self removeObject];
     
-
+    //インフォレイヤー更新
+    [infoLayer stats_Update];
+    
     //デバッグラベル更新
-    debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
-    debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
-    debugLabel5.string=[NSString stringWithFormat:@"eTotle=%04d",eTotalCnt];
+    //debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
+    //debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
+    //debugLabel5.string=[NSString stringWithFormat:@"eTotle=%04d",eTotalCnt];
 }
 
 //============================
@@ -590,25 +593,25 @@ CCLabelTTF* debugLabel5;
     {
         [playerArray removeObject:_player];
         [self removeChild:_player cleanup:YES];
-        pCnt--;
+        infoLayer.pCnt--;
     }
     for(Enemy* _enemy in removeEnemyArray)
     {
         [enemyArray removeObject:_enemy];
         [self removeChild:_enemy cleanup:YES];
-        eCnt--;
+        infoLayer.eCnt--;
     }
 }
 
 -(void)create_Player_Schedule:(CCTime)dt
 {
-    if(pCnt<40 && pTotalCnt<pMaxCnt){
+    if(infoLayer.pCnt<40 && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
         if(playerLocation.y<[GameManager getWorldSize].height*0.2){
             player=[Player createPlayer:playerLocation];
             [self addChild:player];
             [playerArray addObject:player];
-            pCnt++;
-            pTotalCnt++;
+            infoLayer.pCnt++;
+            infoLayer.pTotalCnt++;
         }else{
             //陣地外停止
             createPlayerFlg=false;
@@ -623,13 +626,13 @@ CCLabelTTF* debugLabel5;
 
 -(void)create_Enemy_Schedule:(CCTime)dt
 {
-    if(eCnt<40 && eTotalCnt<eMaxCnt){
+    if(infoLayer.eCnt<40 && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
         if(enemyLocation.y>[GameManager getWorldSize].height*0.8){
             enemy=[Enemy createEnemy:enemyLocation];
             [self addChild:enemy];
             [enemyArray addObject:enemy];
-            eCnt++;
-            eTotalCnt++;
+            infoLayer.eCnt++;
+            infoLayer.eTotalCnt++;
         }else{
             //通常停止
             createEnemyFlg=false;

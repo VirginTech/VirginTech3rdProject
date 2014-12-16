@@ -18,6 +18,7 @@
 #import "Player.h"
 #import "Enemy.h"
 #import "NaviLayer.h"
+#import "InfoLayer.h"
 
 @implementation StageScene
 
@@ -25,6 +26,8 @@ CGSize winSize;
 CCSprite* bgSpLayer;
 CCScrollView* scrollView;
 CGPoint worldLocation;
+
+InfoLayer* infoLayer;
 
 ItemBtnLayer* itemLayer;
 int itemNum;
@@ -47,19 +50,19 @@ NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
 
 //デバッグ用ラベル
-int repCnt;
-CCLabelTTF* debugLabel1;
-CCLabelTTF* debugLabel2;
-CCLabelTTF* debugLabel3;
-CCLabelTTF* debugLabel4;
-CCLabelTTF* debugLabel5;
+//int repCnt;
+//CCLabelTTF* debugLabel1;
+//CCLabelTTF* debugLabel2;
+//CCLabelTTF* debugLabel3;
+//CCLabelTTF* debugLabel4;
+//CCLabelTTF* debugLabel5;
 
 //カウンター
-int pMaxCnt;
-int eMaxCnt;
-int pTotalCnt;
-int pCnt;
-int eCnt;
+//int pMaxCnt;
+//int eMaxCnt;
+//int pTotalCnt;
+//int pCnt;
+//int eCnt;
 
 + (StageScene *)scene
 {
@@ -83,30 +86,24 @@ int eCnt;
     enemyArray=[[NSMutableArray alloc]init];
     createPlayerFlg=false;
     gameEndFlg=false;
-    pTotalCnt=0;
-    pCnt=0;eCnt=0;
-    pMaxCnt=0;
     stageNum=[GameManager getStageLevel];
-    repCnt=0;
     [GameManager setPause:false];
-    
-    //プレイヤーMax数
-    pMaxCnt=[InitObjManager NumPlayerMax:stageNum];
-    
-    //敵Max数
-    eMaxCnt=(int)[InitObjManager init_Enemy_Pattern:stageNum].count*([InitObjManager NumOfRepeat:stageNum]+1);
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
+    //インフォレイヤー
+    infoLayer=[[InfoLayer alloc]init];
+    [self addChild:infoLayer z:1];
+    
     //アイテムボタンレイヤー
     itemLayer=[[ItemBtnLayer alloc]init];
-    [self addChild:itemLayer z:1];
+    [self addChild:itemLayer z:2];
     
     //ナビレイヤー
     NaviLayer* naviLayer=[[NaviLayer alloc]init];
-    [self addChild:naviLayer z:2];
+    [self addChild:naviLayer z:3];
     
     //レベルに応じた画面の大きさ
     [GameManager setWorldSize:CGSizeMake(winSize.width, winSize.height)];
@@ -131,7 +128,7 @@ int eCnt;
     [backButton setTarget:self selector:@selector(onBackClicked:)];
     [self addChild:backButton];*/
 
-    //デバッグラベル
+    /*/デバッグラベル
     debugLabel1=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
     debugLabel1.position=ccp(debugLabel1.contentSize.width/2, winSize.height-debugLabel1.contentSize.height/2);
     [self addChild:debugLabel1];
@@ -150,7 +147,7 @@ int eCnt;
 
     debugLabel5=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"EnemyMax=%d",eMaxCnt]fontName:@"Verdana-Bold" fontSize:10];
     debugLabel5.position=ccp(debugLabel5.contentSize.width/2, debugLabel4.position.y-debugLabel5.contentSize.height);
-    [self addChild:debugLabel5];
+    [self addChild:debugLabel5];*/
     
     // done
 	return self;
@@ -244,7 +241,7 @@ int eCnt;
     NSMutableArray* array=[[NSMutableArray alloc]init];
     array=[InitObjManager init_Enemy_Pattern:stageNum];
     
-    repCnt++;
+    infoLayer.repCnt++;
     
     for(int i=0;i<array.count;i++)
     {
@@ -252,7 +249,7 @@ int eCnt;
         enemy=[Enemy createEnemy:pos];
         [bgSpLayer addChild:enemy];
         [enemyArray addObject:enemy];
-        eCnt++;
+        infoLayer.eCnt++;
     }
 
 }
@@ -615,11 +612,13 @@ int eCnt;
     }
     [self removeObject];
     
-
+    //インフォレイヤー更新
+    [infoLayer stats_Update];
+    
     //デバッグラベル更新
-    debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
-    debugLabel3.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];
-    debugLabel4.string=[NSString stringWithFormat:@"eRepeat:%d／%d",repCnt,[InitObjManager NumOfRepeat:stageNum]+1];
+    //debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
+    //debugLabel3.string=[NSString stringWithFormat:@"Totle=%04d",pTotalCnt];
+    //debugLabel4.string=[NSString stringWithFormat:@"eRepeat:%d／%d",repCnt,[InitObjManager NumOfRepeat:stageNum]+1];
 
 }
 
@@ -654,13 +653,13 @@ int eCnt;
     {
         [playerArray removeObject:_player];
         [bgSpLayer removeChild:_player cleanup:YES];
-        pCnt--;
+        infoLayer.pCnt--;
     }
     for(Enemy* _enemy in removeEnemyArray)
     {
         [enemyArray removeObject:_enemy];
         [bgSpLayer removeChild:_enemy cleanup:YES];
-        eCnt--;
+        infoLayer.eCnt--;
     }
 }
 
@@ -669,7 +668,7 @@ UIEvent* events;
 
 -(void)create_Player_Schedule:(CCTime)dt
 {
-    if(pCnt<40 && pTotalCnt<pMaxCnt){
+    if(infoLayer.pCnt<40 && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
         if(touches.tapCount>0 && worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
             player=[Player createPlayer:worldLocation];
             [bgSpLayer addChild:player];
@@ -687,8 +686,8 @@ UIEvent* events;
             }
             
             [self touchBegan:touches withEvent:events];
-            pCnt++;
-            pTotalCnt++;
+            infoLayer.pCnt++;
+            infoLayer.pTotalCnt++;
         }else{
             //通常停止
             createPlayerFlg=false;

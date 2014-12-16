@@ -55,7 +55,7 @@
     }
     nowRatio=(100/maxLife)*ability;
     lifeGauge2.scaleX=nowRatio*0.01;
-    lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge2.contentSize.width/2), lifeGauge2.contentSize.height/2);
+    lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge1.contentSize.width/2), lifeGauge1.contentSize.height/2);
 
     //デバッグ用
     //modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
@@ -94,8 +94,8 @@
                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"lifegauge2.png"]];
         nowRatio=(100/maxLife)*ability;
         lifeGauge2.scaleX=nowRatio*0.01;
-        lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge2.contentSize.width/2), lifeGauge2.contentSize.height/2);
-        lifeGauge2.scale=0.5;
+        lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge1.contentSize.width/2), lifeGauge1.contentSize.height/2);
+        //lifeGauge2.scale=0.5;
         [lifeGauge1 addChild:lifeGauge2];
         
         [self schedule:@selector(move_Schedule:)interval:0.01];

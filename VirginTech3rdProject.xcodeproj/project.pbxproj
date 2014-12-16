@@ -237,6 +237,9 @@
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
 		CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */; };
 		CF5187161A3546DE006A5845 /* ItemInventoryLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */; };
+		CF5B3E9E1A3FC73F005D9A6D /* info_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF5B3E9C1A3FC73F005D9A6D /* info_default.plist */; };
+		CF5B3E9F1A3FC73F005D9A6D /* info_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5B3E9D1A3FC73F005D9A6D /* info_default.png */; };
+		CF5B6F9B1A3ED610004B2629 /* InfoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
 		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
@@ -708,6 +711,10 @@
 		CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectScene.m; sourceTree = "<group>"; };
 		CF5187141A3546DE006A5845 /* ItemInventoryLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInventoryLayer.h; sourceTree = "<group>"; };
 		CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInventoryLayer.m; sourceTree = "<group>"; };
+		CF5B3E9C1A3FC73F005D9A6D /* info_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = info_default.plist; sourceTree = "<group>"; };
+		CF5B3E9D1A3FC73F005D9A6D /* info_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_default.png; sourceTree = "<group>"; };
+		CF5B6F991A3ED610004B2629 /* InfoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoLayer.h; sourceTree = "<group>"; };
+		CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoLayer.m; sourceTree = "<group>"; };
 		CF83CA8E19F35C7400C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CF863EE71A27311F007C146E /* MatchMakeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakeScene.h; sourceTree = "<group>"; };
@@ -1554,6 +1561,8 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CF5B3E9C1A3FC73F005D9A6D /* info_default.plist */,
+				CF5B3E9D1A3FC73F005D9A6D /* info_default.png */,
 				CF4428571A3AD3AF00F17BB0 /* message_default.plist */,
 				CF4428581A3AD3AF00F17BB0 /* message_default.png */,
 				CF20D5721A36B7AA006CD725 /* btn_default.plist */,
@@ -1654,6 +1663,8 @@
 				CF4428541A3AD12000F17BB0 /* MessageLayer.m */,
 				CF50BECC1A3D251B0060F037 /* NaviLayer.h */,
 				CF50BECD1A3D251B0060F037 /* NaviLayer.m */,
+				CF5B6F991A3ED610004B2629 /* InfoLayer.h */,
+				CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -1758,6 +1769,7 @@
 				CF20619919F3534800DBD8C4 /* LICENSE_cocos2d.txt in Resources */,
 				CF20D5701A36B6C1006CD725 /* item_default.png in Resources */,
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
+				CF5B3E9F1A3FC73F005D9A6D /* info_default.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20D5751A36B7AA006CD725 /* btn_default.png in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
@@ -1765,6 +1777,7 @@
 				CF20D56F1A36B6C1006CD725 /* item_default.plist in Resources */,
 				CF20605319F3534700DBD8C4 /* Icon-76@2x.png in Resources */,
 				CF44284E1A3A747800F17BB0 /* enemy_default.png in Resources */,
+				CF5B3E9E1A3FC73F005D9A6D /* info_default.plist in Resources */,
 				CF20606119F3534700DBD8C4 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
 				CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */,
@@ -1900,6 +1913,7 @@
 				CF2060CA19F3534700DBD8C4 /* ccFPSImages.m in Sources */,
 				CF2061DC19F3534800DBD8C4 /* OALAudioSession.m in Sources */,
 				CF49107C1A1EE1AB003F6579 /* ItemBtnLayer.m in Sources */,
+				CF5B6F9B1A3ED610004B2629 /* InfoLayer.m in Sources */,
 				CF20616D19F3534800DBD8C4 /* CCWindow.m in Sources */,
 				CF20612D19F3534800DBD8C4 /* CCSpriteFrame.m in Sources */,
 				CF20615919F3534800DBD8C4 /* CCES2Renderer.m in Sources */,
