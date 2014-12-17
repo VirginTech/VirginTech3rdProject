@@ -19,6 +19,7 @@
 #import "Enemy.h"
 #import "NaviLayer.h"
 #import "InfoLayer.h"
+#import "ResultsLayer.h"
 
 @implementation StageScene
 
@@ -38,6 +39,7 @@ int stageNum;
 Fortress* playerFortress;
 Fortress* enemyFortress;
 bool gameEndFlg;
+//bool winnerFlg;//true:青軍 false:赤軍
 
 Player* player;
 NSMutableArray* playerArray;
@@ -563,6 +565,7 @@ bool createEnemyFlg;
                 if(enemyFortress.ability<=0){
                     [bgSpLayer removeChild:enemyFortress cleanup:YES];
                     gameEndFlg=true;
+                    [self gameEnd:true];
                 }
             }
         }
@@ -579,12 +582,13 @@ bool createEnemyFlg;
                 if(playerFortress.ability<=0){
                     [bgSpLayer removeChild:playerFortress cleanup:YES];
                     gameEndFlg=true;
+                    [self gameEnd:false];
                 }
             }
         }
     }
     
-    //=============
+    /*/=============
     //ゲーム終了停止
     //=============
     if(gameEndFlg){
@@ -595,7 +599,7 @@ bool createEnemyFlg;
             _enemy.stopFlg=true;
         }
         [self unscheduleAllSelectors];
-    }
+    }*/
     
     //===================
     //消滅オブジェクト削除
@@ -661,6 +665,25 @@ bool createEnemyFlg;
         [bgSpLayer removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
     }
+}
+
+//==================
+// ゲームエンド
+//==================
+-(void)gameEnd:(bool)winnerFlg
+{
+    for(Player* _player in playerArray){
+        _player.stopFlg=true;
+    }
+    for(Enemy* _enemy in enemyArray){
+        _enemy.stopFlg=true;
+    }
+    [self unscheduleAllSelectors];
+    
+    //リザルトレイヤー表示
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
+    [self addChild:resultsLayer];
+    
 }
 
 UITouch* touches;

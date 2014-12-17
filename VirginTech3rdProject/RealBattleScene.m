@@ -14,6 +14,7 @@
 #import "MatchWaitLayer.h"
 #import "NaviLayer.h"
 #import "InfoLayer.h"
+#import "ResultsLayer.h"
 
 #import "Fortress.h"
 #import "Player.h"
@@ -504,6 +505,7 @@ MatchWaitLayer* mWaitLayer;
                 if(enemyFortress.ability<=0){
                     [self removeChild:enemyFortress cleanup:YES];
                     gameEndFlg=true;
+                    [self gameEnd:true];
                 }
             }
         }
@@ -520,12 +522,13 @@ MatchWaitLayer* mWaitLayer;
                 if(playerFortress.ability<=0){
                     [self removeChild:playerFortress cleanup:YES];
                     gameEndFlg=true;
+                    [self gameEnd:false];
                 }
             }
         }
     }
     
-    //=============
+    /*/=============
     //ゲーム終了停止
     //=============
     if(gameEndFlg){
@@ -536,7 +539,7 @@ MatchWaitLayer* mWaitLayer;
             _enemy.stopFlg=true;
         }
         [self unscheduleAllSelectors];
-    }
+    }*/
     
     //===================
     //消滅オブジェクト削除
@@ -601,6 +604,25 @@ MatchWaitLayer* mWaitLayer;
         [self removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
     }
+}
+
+//==================
+// ゲームエンド
+//==================
+-(void)gameEnd:(bool)winnerFlg
+{
+    for(Player* _player in playerArray){
+        _player.stopFlg=true;
+    }
+    for(Enemy* _enemy in enemyArray){
+        _enemy.stopFlg=true;
+    }
+    [self unscheduleAllSelectors];
+    
+    //リザルトレイヤー表示
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
+    [self addChild:resultsLayer];
+    
 }
 
 -(void)create_Player_Schedule:(CCTime)dt

@@ -210,6 +210,7 @@
 		CF20D57D1A36BE5C006CD725 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20D57C1A36BE5C006CD725 /* StoreKit.framework */; };
 		CF20D5801A36BE9D006CD725 /* ShopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20D57F1A36BE9D006CD725 /* ShopLayer.m */; };
 		CF20D5831A36D15F006CD725 /* MatchWaitLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */; };
+		CF43E1801A41186B00F76FA2 /* ResultsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF43E17F1A41186B00F76FA2 /* ResultsLayer.m */; };
 		CF4428491A3A746500F17BB0 /* player_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4428471A3A746500F17BB0 /* player_default.plist */; };
 		CF44284A1A3A746500F17BB0 /* player_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4428481A3A746500F17BB0 /* player_default.png */; };
 		CF44284D1A3A747800F17BB0 /* enemy_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF44284B1A3A747800F17BB0 /* enemy_default.plist */; };
@@ -668,6 +669,8 @@
 		CF20D57F1A36BE9D006CD725 /* ShopLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopLayer.m; sourceTree = "<group>"; };
 		CF20D5811A36D15F006CD725 /* MatchWaitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchWaitLayer.h; sourceTree = "<group>"; };
 		CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchWaitLayer.m; sourceTree = "<group>"; };
+		CF43E17E1A41186B00F76FA2 /* ResultsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsLayer.h; sourceTree = "<group>"; };
+		CF43E17F1A41186B00F76FA2 /* ResultsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsLayer.m; sourceTree = "<group>"; };
 		CF4428471A3A746500F17BB0 /* player_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = player_default.plist; sourceTree = "<group>"; };
 		CF4428481A3A746500F17BB0 /* player_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_default.png; sourceTree = "<group>"; };
 		CF44284B1A3A747800F17BB0 /* enemy_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = enemy_default.plist; sourceTree = "<group>"; };
@@ -1665,6 +1668,8 @@
 				CF50BECD1A3D251B0060F037 /* NaviLayer.m */,
 				CF5B6F991A3ED610004B2629 /* InfoLayer.h */,
 				CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */,
+				CF43E17E1A41186B00F76FA2 /* ResultsLayer.h */,
+				CF43E17F1A41186B00F76FA2 /* ResultsLayer.m */,
 			);
 			name = Layer;
 			sourceTree = "<group>";
@@ -1883,6 +1888,7 @@
 				CF20610319F3534700DBD8C4 /* CCPhysicsJoint.m in Sources */,
 				CF20613819F3534800DBD8C4 /* CCTextureCache.m in Sources */,
 				CF20607C19F3534700DBD8C4 /* CCEffectContrast.m in Sources */,
+				CF43E1801A41186B00F76FA2 /* ResultsLayer.m in Sources */,
 				CF20620719F3534800DBD8C4 /* CCSlider.m in Sources */,
 				CF20608419F3534700DBD8C4 /* CCEffectPixellate.m in Sources */,
 				CF20622219F3534800DBD8C4 /* CCBSequenceProperty.m in Sources */,

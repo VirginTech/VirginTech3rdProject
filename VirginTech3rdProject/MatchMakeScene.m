@@ -13,6 +13,7 @@
 #import "MatchWaitLayer.h"
 #import "NaviLayer.h"
 #import "InfoLayer.h"
+#import "ResultsLayer.h"
 
 #import "Fortress.h"
 #import "mPlayer.h"
@@ -713,12 +714,14 @@ CCLabelTTF* lbl_2;
     if(playerFortress.ability<=0){
         [self removeChild:playerFortress cleanup:YES];
         gameEndFlg=true;
+        [self gameEnd:false];
     }
     if(enemyFortress.ability<=0){
         [self removeChild:enemyFortress cleanup:YES];
         gameEndFlg=true;
+        [self gameEnd:true];
     }
-    //=============
+    /*/=============
     //ゲーム終了停止
     //=============
     if(gameEndFlg){
@@ -729,7 +732,7 @@ CCLabelTTF* lbl_2;
             _enemy.stopFlg=true;
         }
         [self unscheduleAllSelectors];
-    }
+    }*/
     
     //インフォレイヤー更新
     [infoLayer stats_Update];
@@ -812,12 +815,14 @@ CCLabelTTF* lbl_2;
     if(playerFortress.ability<=0){
         [self removeChild:playerFortress cleanup:YES];
         gameEndFlg=true;
+        [self gameEnd:false];
     }
     if(enemyFortress.ability<=0){
         [self removeChild:enemyFortress cleanup:YES];
         gameEndFlg=true;
+        [self gameEnd:true];
     }
-    //=============
+    /*/=============
     //ゲーム終了停止
     //=============
     if(gameEndFlg){
@@ -828,7 +833,7 @@ CCLabelTTF* lbl_2;
             _enemy.stopFlg=true;
         }
         [self unscheduleAllSelectors];
-    }
+    }*/
 
     //インフォレイヤー更新
     [infoLayer stats_Update];
@@ -837,6 +842,25 @@ CCLabelTTF* lbl_2;
     //debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
     //debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
     //debugLabel5.string=[NSString stringWithFormat:@"eTotle=%04d",eTotalCnt];
+}
+
+//==================
+// ゲームエンド
+//==================
+-(void)gameEnd:(bool)winnerFlg
+{
+    for(mPlayer* _player in playerArray){
+        _player.stopFlg=true;
+    }
+    for(mEnemy* _enemy in enemyArray){
+        _enemy.stopFlg=true;
+    }
+    [self unscheduleAllSelectors];
+    
+    //リザルトレイヤー表示
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
+    [self addChild:resultsLayer];
+    
 }
 
 -(void)create_Object_Schedule:(CCTime)dt
