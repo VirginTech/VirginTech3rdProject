@@ -9,7 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface mPlayer : CCSprite {
+@interface mPlayer : CCSprite
+{    
+    NSMutableArray* frameArray;
+    int animeCnt;
     
     int objId;
     int group;//青軍:0

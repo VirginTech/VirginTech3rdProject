@@ -123,6 +123,9 @@ bool createEnemyFlg;
     bgSpLayer.position=CGPointMake(0, 0);
     [self addChild:scrollView z:0];
     
+    //地面配置
+    [self setGround];
+    
     // Create a back button
     /*CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     backButton.positionType = CCPositionTypeNormalized;
@@ -235,6 +238,35 @@ bool createEnemyFlg;
 {
     // always call super onExit last
     [super onExit];
+}
+
+-(void)setGround
+{
+    float offsetX;
+    float offsetY;
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ground_default.plist"];
+    CCSprite* frame = [CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"ground_00.png"]];
+    CGSize frameCount = CGSizeMake(winSize.width/frame.contentSize.width+2,
+                                   [GameManager getWorldSize].height/frame.contentSize.height+1);
+    //NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",(arc4random()%10)];
+    NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",2];
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        if(i==0){
+            offsetX = frame.contentSize.width/2-1;
+            offsetY = frame.contentSize.height/2-1;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = frame.contentSize.width/2-1;
+            offsetY = offsetY + frame.contentSize.height-1;
+        }else{
+            offsetX = offsetX + frame.contentSize.width-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [bgSpLayer addChild:frame z:0];
+    }
 }
 
 -(void)create_Enemy_Schedule:(CCTime)dt
@@ -449,8 +481,8 @@ bool createEnemyFlg;
         for(Enemy* _enemy in enemyArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
                                             pointB:_enemy.position
-                                            radius1:(_player.contentSize.width*_player.scale)/2
-                                            radius2:(_enemy.contentSize.width*_enemy.scale)/2])
+                                            radius1:(_player.contentSize.width*_player.scale)/2 -5.0f
+                                            radius2:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f])
             {
                 _player.stopFlg=true;
                 _enemy.stopFlg=true;
@@ -517,8 +549,8 @@ bool createEnemyFlg;
             for(Enemy* _enemy in enemyArray){
                 if([BasicMath RadiusIntersectsRadius:_player.position
                                               pointB:_enemy.position
-                                             radius1:(_player.contentSize.width*_player.scale)/2
-                                             radius2:(_enemy.contentSize.width*_enemy.scale)/2])
+                                             radius1:(_player.contentSize.width*_player.scale)/2 -5.0f
+                                             radius2:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f])
                 {
                     hitFlg=true;
                     break;
@@ -536,8 +568,8 @@ bool createEnemyFlg;
             for(Player* _player in playerArray){
                 if([BasicMath RadiusIntersectsRadius:_enemy.position
                                                 pointB:_player.position
-                                                radius1:(_enemy.contentSize.width*_enemy.scale)/2
-                                                radius2:(_player.contentSize.width*_player.scale)/2])
+                                                radius1:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f
+                                                radius2:(_player.contentSize.width*_player.scale)/2 -5.0f])
                 {
                     hitFlg=true;
                     break;
@@ -561,6 +593,7 @@ bool createEnemyFlg;
         {
             if(!gameEndFlg){
                 _player.stopFlg=true;
+                _player.mode=3;
                 enemyFortress.ability--;
                 if(enemyFortress.ability<=0){
                     [bgSpLayer removeChild:enemyFortress cleanup:YES];
@@ -578,6 +611,7 @@ bool createEnemyFlg;
         {
             if(!gameEndFlg){
                 _enemy.stopFlg=true;
+                _enemy.mode=3;
                 playerFortress.ability--;
                 if(playerFortress.ability<=0){
                     [bgSpLayer removeChild:playerFortress cleanup:YES];
@@ -672,6 +706,8 @@ bool createEnemyFlg;
 //==================
 -(void)gameEnd:(bool)winnerFlg
 {
+    [GameManager setPause:true];
+    
     for(Player* _player in playerArray){
         _player.stopFlg=true;
     }

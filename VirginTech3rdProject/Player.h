@@ -9,8 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 
-@interface Player : CCSprite {
-    
+@interface Player : CCSprite
+{    
+    NSMutableArray* frameArray;
+    int animeCnt;
+
     int mode;//0:通常 1:逃避 2:追跡 3:戦闘
     float targetAngle;
     CGPoint nextPos;
@@ -29,7 +32,7 @@
     
     //デバッグ用
     //CCLabelTTF* modeLabel;
-    CCLabelTTF* energyLabel;
+    //CCLabelTTF* energyLabel;
     
 }
 

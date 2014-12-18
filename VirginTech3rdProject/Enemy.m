@@ -33,18 +33,122 @@
     
     if(mode==1){//回避タイム測定
         time1++;
-        if(time1>100)mode=0;//回避解除
+        if(time1>200)mode=0;//回避解除
     }else{
         time1=0;
     }
     
     if(mode==2){//追跡タイム測定
         time2++;
-        if(time2>300)mode=0;//追跡解除
+        if(time2>500)mode=0;//追跡解除
     }else{
         time2=0;
     }
 
+}
+
+-(void)animation_Schedule:(CCTime)dt
+{
+    animeCnt++;
+    
+    if(![GameManager getPause]){
+        if(self.rotationalSkewX==self.rotationalSkewY){
+            
+            if(self.rotation<=22.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:0]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:2]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:1]];
+                    }
+                }
+            }else if(self.rotation<=67.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:3]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:5]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:4]];
+                    }
+                }
+            }else if(self.rotation<=112.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:6]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:8]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:7]];
+                    }
+                }
+            }else if(self.rotation<=157.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:9]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:11]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:10]];
+                    }
+                }
+            }else if(self.rotation<=202.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:12]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:14]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:13]];
+                    }
+                }
+            }else if(self.rotation<=247.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:15]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:17]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:16]];
+                    }
+                }
+            }else if(self.rotation<=292.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:18]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:20]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:19]];
+                    }
+                }
+            }else if(self.rotation<=337.5){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:21]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:23]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:22]];
+                    }
+                }
+            }else if(self.rotation<=360.0){
+                if(animeCnt%2==0){
+                    [self setSpriteFrame:[frameArray objectAtIndex:0]];
+                }else{
+                    if(mode==3){
+                        [self setSpriteFrame:[frameArray objectAtIndex:2]];
+                    }else{
+                        [self setSpriteFrame:[frameArray objectAtIndex:1]];
+                    }
+                }
+            }
+            
+        }
+    }
+    if(animeCnt>=2)animeCnt=0;
 }
 
 -(void)status_Schedule:(CCTime)dt
@@ -64,18 +168,27 @@
 
 -(id)initWithEnemy:(CGPoint)pos
 {
+    frameArray=[[NSMutableArray alloc]init];
+    
     [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"enemy_default.plist"];
     
-    if(self=[super initWithSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"enemy.png"]])
+    for(int i=0;i<8;i++){
+        for(int j=0;j<3;j++){
+            [frameArray addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"%d%d.png",i,j]]];
+        }
+    }
+    
+    if(self=[super initWithSpriteFrame:[frameArray objectAtIndex:12]])
     {
         self.position=pos;
-        self.scale=0.7;
+        self.scale=0.3;
         
         ability=10;
         mode=0;//通常モード
         stopFlg=false;
         velocity=0.2;
+        animeCnt=0;
         
         nextPos=ccp(self.position.x,self.position.y-velocity);
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];
@@ -86,8 +199,8 @@
         //体力ゲージ描画
         lifeGauge1=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"lifegauge1.png"]];
-        lifeGauge1.position=CGPointMake(self.contentSize.width/2, self.contentSize.height/2 - 15);
-        lifeGauge1.scale=0.5;
+        lifeGauge1.position=CGPointMake(self.contentSize.width/2, self.contentSize.height/2 - 50);
+        //lifeGauge1.scale=0.5;
         [self addChild:lifeGauge1];
         
         lifeGauge2=[CCSprite spriteWithSpriteFrame:
@@ -100,6 +213,7 @@
         
         [self schedule:@selector(move_Schedule:)interval:0.01];
         [self schedule:@selector(status_Schedule:)interval:0.1];
+        [self schedule:@selector(animation_Schedule:)interval:0.2];
         
         /*/デバッグ用ラベル
         modeLabel=[CCLabelTTF labelWithString:

@@ -28,6 +28,7 @@ struct Battle_Data {
     float angle;//ターゲットアングル
     int ability;//アビリティ
     bool stopFlg;//停止
+    int mode;//状態モード
 };
 typedef struct Battle_Data Battle_Data;
 
@@ -157,6 +158,9 @@ CCLabelTTF* lbl_2;
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
+    
+    //地面配置
+    [self setGround];
     
     /*/ Create a back button
     CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
@@ -304,6 +308,35 @@ CCLabelTTF* lbl_2;
 {
     // always call super onExit last
     [super onExit];
+}
+
+-(void)setGround
+{
+    float offsetX;
+    float offsetY;
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ground_default.plist"];
+    CCSprite* frame = [CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"ground_00.png"]];
+    CGSize frameCount = CGSizeMake(winSize.width/frame.contentSize.width+2,
+                                   [GameManager getWorldSize].height/frame.contentSize.height+1);
+    //NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",(arc4random()%10)];
+    NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",2];
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        if(i==0){
+            offsetX = frame.contentSize.width/2-1;
+            offsetY = frame.contentSize.height/2-1;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = frame.contentSize.width/2-1;
+            offsetY = offsetY + frame.contentSize.height-1;
+        }else{
+            offsetX = offsetX + frame.contentSize.width-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [self addChild:frame z:0];
+    }
 }
 
 //=========================
@@ -529,8 +562,8 @@ CCLabelTTF* lbl_2;
         for(mEnemy* _enemy in enemyArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
                                           pointB:_enemy.position
-                                         radius1:(_player.contentSize.width*_player.scale)/2
-                                         radius2:(_enemy.contentSize.width*_enemy.scale)/2])
+                                         radius1:(_player.contentSize.width*_player.scale)/2 -5.0f
+                                         radius2:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f])
             {
                 _player.stopFlg=true;
                 _enemy.stopFlg=true;
@@ -597,8 +630,8 @@ CCLabelTTF* lbl_2;
             for(mEnemy* _enemy in enemyArray){
                 if([BasicMath RadiusIntersectsRadius:_player.position
                                               pointB:_enemy.position
-                                             radius1:(_player.contentSize.width*_player.scale)/2
-                                             radius2:(_enemy.contentSize.width*_enemy.scale)/2])
+                                             radius1:(_player.contentSize.width*_player.scale)/2 -5.0f
+                                             radius2:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f])
                 {
                     hitFlg=true;
                     break;
@@ -616,8 +649,8 @@ CCLabelTTF* lbl_2;
             for(mPlayer* _player in playerArray){
                 if([BasicMath RadiusIntersectsRadius:_enemy.position
                                               pointB:_player.position
-                                             radius1:(_enemy.contentSize.width*_enemy.scale)/2
-                                             radius2:(_player.contentSize.width*_player.scale)/2])
+                                             radius1:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f
+                                             radius2:(_player.contentSize.width*_player.scale)/2 -5.0f])
                 {
                     hitFlg=true;
                     break;
@@ -641,6 +674,7 @@ CCLabelTTF* lbl_2;
         {
             if(!gameEndFlg){
                 _player.stopFlg=true;
+                _player.mode=3;
                 enemyFortress.ability--;
             }
         }
@@ -653,6 +687,7 @@ CCLabelTTF* lbl_2;
         {
             if(!gameEndFlg){
                 _enemy.stopFlg=true;
+                _enemy.mode=3;
                 playerFortress.ability--;
             }
         }
@@ -673,6 +708,8 @@ CCLabelTTF* lbl_2;
         battleData.angle=_player.targetAngle;
         battleData.ability=_player.ability;
         battleData.stopFlg=_player.stopFlg;
+        battleData.mode=_player.mode;
+        
         data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
@@ -684,6 +721,8 @@ CCLabelTTF* lbl_2;
         battleData.angle=_enemy.targetAngle;
         battleData.ability=_enemy.ability;
         battleData.stopFlg=_enemy.stopFlg;
+        battleData.mode=_enemy.mode;
+        
         data=[NSData dataWithBytes:&battleData length:sizeof(Battle_Data)];
         [battleDataArray addObject:data];
     }
@@ -849,6 +888,8 @@ CCLabelTTF* lbl_2;
 //==================
 -(void)gameEnd:(bool)winnerFlg
 {
+    [GameManager setPause:true];
+    
     for(mPlayer* _player in playerArray){
         _player.stopFlg=true;
     }
@@ -1284,6 +1325,7 @@ CCLabelTTF* lbl_2;
                 _player.targetAngle=battleData->angle + M_PI;//反転
                 _player.ability=battleData->ability;
                 _player.stopFlg=battleData->stopFlg;
+                _player.mode=battleData->mode;
                 break;
             }
         }
@@ -1295,6 +1337,7 @@ CCLabelTTF* lbl_2;
                 _enemy.targetAngle=battleData->angle + M_PI;//反転
                 _enemy.ability=battleData->ability;
                 _enemy.stopFlg=battleData->stopFlg;
+                _enemy.mode=battleData->mode;
                 break;
             }
         }
