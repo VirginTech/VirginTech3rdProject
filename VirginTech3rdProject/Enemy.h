@@ -14,7 +14,7 @@
     NSMutableArray* frameArray;
     int animeCnt;
     
-    int mode;//0:通常 1:逃避 2:追跡 3:戦闘
+    int mode;//0:通常 1:逃避 2:追跡 3:戦闘 4:陣地攻撃
     float targetAngle;
     CGPoint nextPos;
     float velocity;
@@ -29,11 +29,14 @@
     float maxLife;
     float nowRatio;
 
+    id targetObject;
+    
     //デバッグ用
     //CCLabelTTF* modeLabel;
     //CCLabelTTF* energyLabel;
 }
 
+@property id targetObject;
 @property int ability;
 @property int nearEnemyCnt;
 @property bool stopFlg;
@@ -41,5 +44,7 @@
 @property float targetAngle;
 
 +(id)createEnemy:(CGPoint)pos;
+
+//-(void)setTargetPlayer:(id)_player;
 
 @end

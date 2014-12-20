@@ -450,8 +450,10 @@ MatchWaitLayer* mWaitLayer;
                     _player.ability--;
                     _enemy.ability-=3;
                 }else{//通常・その他
-                    _player.ability--;
-                    _enemy.ability--;
+                    //_player.ability--;
+                    //_enemy.ability--;
+                    _player.targetObject=_enemy;
+                    _enemy.targetObject=_player;
                 }
                 
                 break;
@@ -531,14 +533,19 @@ MatchWaitLayer* mWaitLayer;
                                      radius1:(_player.contentSize.width*_player.scale)/2
                                      radius2:(enemyFortress.contentSize.width*enemyFortress.scale)/2])
         {
-            if(!gameEndFlg){
-                _player.stopFlg=true;
-                _player.mode=3;
-                enemyFortress.ability--;
-                if(enemyFortress.ability<=0){
-                    [self removeChild:enemyFortress cleanup:YES];
-                    gameEndFlg=true;
-                    [self gameEnd:true];
+            if(_player.mode!=3){
+                if(!gameEndFlg){
+                    _player.stopFlg=true;
+                    _player.mode=4;
+                    _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:enemyFortress.position];
+                    //enemyFortress.ability--;
+                    _player.targetObject=enemyFortress;
+                    
+                    if(enemyFortress.ability<=0){
+                        [self removeChild:enemyFortress cleanup:YES];
+                        gameEndFlg=true;
+                        [self gameEnd:true];
+                    }
                 }
             }
         }
@@ -549,14 +556,19 @@ MatchWaitLayer* mWaitLayer;
                                      radius1:(_enemy.contentSize.width*_enemy.scale)/2
                                      radius2:(playerFortress.contentSize.width*playerFortress.scale)/2])
         {
-            if(!gameEndFlg){
-                _enemy.stopFlg=true;
-                _enemy.mode=3;
-                playerFortress.ability--;
-                if(playerFortress.ability<=0){
-                    [self removeChild:playerFortress cleanup:YES];
-                    gameEndFlg=true;
-                    [self gameEnd:false];
+            if(_enemy.mode!=3){
+                if(!gameEndFlg){
+                    _enemy.stopFlg=true;
+                    _enemy.mode=4;
+                    _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:playerFortress.position];
+                    //playerFortress.ability--;
+                    _enemy.targetObject=playerFortress;
+                    
+                    if(playerFortress.ability<=0){
+                        [self removeChild:playerFortress cleanup:YES];
+                        gameEndFlg=true;
+                        [self gameEnd:false];
+                    }
                 }
             }
         }

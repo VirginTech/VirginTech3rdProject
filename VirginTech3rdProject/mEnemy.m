@@ -9,9 +9,12 @@
 #import "mEnemy.h"
 #import "BasicMath.h"
 #import "GameManager.h"
+#import "Player.h"
+#import "Fortress.h"
 
 @implementation mEnemy
 
+@synthesize targetObject;
 @synthesize objId;
 @synthesize group;
 @synthesize ability;
@@ -57,8 +60,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:0]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:2]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:1]];
                     }
@@ -67,8 +71,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:3]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:5]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:4]];
                     }
@@ -77,8 +82,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:6]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:8]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:7]];
                     }
@@ -87,8 +93,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:9]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:11]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:10]];
                     }
@@ -97,8 +104,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:12]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:14]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:13]];
                     }
@@ -107,8 +115,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:15]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:17]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:16]];
                     }
@@ -117,8 +126,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:18]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:20]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:19]];
                     }
@@ -127,8 +137,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:21]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:23]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:22]];
                     }
@@ -137,8 +148,9 @@
                 if(animeCnt%2==0){
                     [self setSpriteFrame:[frameArray objectAtIndex:0]];
                 }else{
-                    if(mode==3){
+                    if(mode==3 || mode==4){
                         [self setSpriteFrame:[frameArray objectAtIndex:2]];
+                        [self attackDamage];
                     }else{
                         [self setSpriteFrame:[frameArray objectAtIndex:1]];
                     }
@@ -164,6 +176,17 @@
     //energyLabel.string=[NSString stringWithFormat:@"%d",ability];
 }
 
+-(void)attackDamage
+{
+    if(mode==3){//敵攻撃
+        Player* targetPlayer=targetObject;
+        targetPlayer.ability--;
+    }else if(mode==4){//要塞攻撃
+        Fortress* targetFortress=targetObject;
+        targetFortress.ability--;
+    }
+}
+
 -(id)initWithEnemy:(int)numId pos:(CGPoint)pos
 {
     frameArray=[[NSMutableArray alloc]init];
@@ -184,7 +207,7 @@
         self.position=pos;
         self.scale=0.3;
         velocity=0.2;
-        ability=10;
+        ability=5;
         mode=0;//通常モード
         stopFlg=false;
         animeCnt=0;

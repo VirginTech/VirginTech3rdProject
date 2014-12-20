@@ -16,7 +16,7 @@
     
     int objId;
     int group;//赤軍:1
-    int mode;//0:通常 1:逃避 2:追跡 3:戦闘
+    int mode;//0:通常 1:逃避 2:追跡 3:戦闘 4:陣地攻撃
     float targetAngle;
     CGPoint nextPos;
     float velocity;
@@ -32,10 +32,13 @@
     float maxLife;
     float nowRatio;
     
+    id targetObject;
+    
     //デバッグ用
     //CCLabelTTF* energyLabel;
 }
 
+@property id targetObject;
 @property int objId;
 @property int group;
 @property int ability;

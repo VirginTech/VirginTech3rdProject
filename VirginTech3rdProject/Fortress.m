@@ -42,7 +42,7 @@
     if(self=[super initWithSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:fileName]])
     {
         self.position=pos;
-        ability=1000;
+        ability=500;
         
         //体力ゲージ描画
         maxLife=ability;

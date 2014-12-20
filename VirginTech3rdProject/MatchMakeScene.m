@@ -591,8 +591,10 @@ CCLabelTTF* lbl_2;
                     _player.ability--;
                     _enemy.ability-=3;
                 }else{//通常・その他
-                    _player.ability--;
-                    _enemy.ability--;
+                    //_player.ability--;
+                    //_enemy.ability--;
+                    _player.targetObject=_enemy;
+                    _enemy.targetObject=_player;
                 }
                 
                 break;
@@ -672,10 +674,14 @@ CCLabelTTF* lbl_2;
                                      radius1:(_player.contentSize.width*_player.scale)/2
                                      radius2:(enemyFortress.contentSize.width*enemyFortress.scale)/2])
         {
-            if(!gameEndFlg){
-                _player.stopFlg=true;
-                _player.mode=3;
-                enemyFortress.ability--;
+            if(_player.mode!=3){
+                if(!gameEndFlg){
+                    _player.stopFlg=true;
+                    _player.mode=4;
+                    _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:enemyFortress.position];
+                    //enemyFortress.ability--;
+                    _player.targetObject=enemyFortress;
+                }
             }
         }
     }
@@ -685,10 +691,14 @@ CCLabelTTF* lbl_2;
                                      radius1:(_enemy.contentSize.width*_enemy.scale)/2
                                      radius2:(playerFortress.contentSize.width*playerFortress.scale)/2])
         {
-            if(!gameEndFlg){
-                _enemy.stopFlg=true;
-                _enemy.mode=3;
-                playerFortress.ability--;
+            if(_enemy.mode!=3){
+                if(!gameEndFlg){
+                    _enemy.stopFlg=true;
+                    _enemy.mode=4;
+                    _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:playerFortress.position];
+                    //playerFortress.ability--;
+                    _enemy.targetObject=playerFortress;
+                }
             }
         }
     }
