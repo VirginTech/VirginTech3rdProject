@@ -105,7 +105,7 @@ CCLabelTTF* eLbl2;
     [pBack_Indicator1 addChild:pInput_Indicator];
     
     //ラベル
-    pLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/40",pCnt] fontName:@"Verdana-Bold" fontSize:10];
+    pLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/40",40-pCnt] fontName:@"Verdana-Bold" fontSize:10];
     pLbl1.position=ccp(pBack_Indicator1.position.x+(pBack_Indicator1.contentSize.width*pBack_Indicator1.scale)/2+pLbl1.contentSize.width/2, pBack_Indicator1.position.y);
     [self addChild:pLbl1];
     
@@ -134,7 +134,7 @@ CCLabelTTF* eLbl2;
     [pBack_Indicator2 addChild:pSpent_Indicator];
     
     //ラベル
-    pLbl2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%03d/%03d",pTotalCnt,pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
+    pLbl2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%03d/%03d",pMaxCnt-pTotalCnt,pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
     pLbl2.position=ccp(pBack_Indicator2.position.x+(pBack_Indicator2.contentSize.width*pBack_Indicator2.scale)/2+pLbl2.contentSize.width/2, pBack_Indicator2.position.y);
     [self addChild:pLbl2];
 
@@ -167,7 +167,7 @@ CCLabelTTF* eLbl2;
         [eBack_Indicator1 addChild:eInput_Indicator];
         
         //ラベル
-        eLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/40",pCnt] fontName:@"Verdana-Bold" fontSize:10];
+        eLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/40",40-eCnt] fontName:@"Verdana-Bold" fontSize:10];
         eLbl1.position=ccp(eBack_Indicator1.position.x-(eBack_Indicator1.contentSize.width*eBack_Indicator1.scale)/2-eLbl1.contentSize.width/2, eBack_Indicator1.position.y);
         eLbl1.rotation=180;
         [self addChild:eLbl1];
@@ -194,7 +194,7 @@ CCLabelTTF* eLbl2;
         [eBack_Indicator2 addChild:eSpent_Indicator];
         
         //ラベル
-        eLbl2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%03d/%03d",pTotalCnt,pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
+        eLbl2=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%03d/%03d",eMaxCnt-eTotalCnt,eMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
         eLbl2.position=ccp(eBack_Indicator2.position.x-(eBack_Indicator2.contentSize.width*eBack_Indicator2.scale)/2-eLbl2.contentSize.width/2, eBack_Indicator2.position.y);
         eLbl2.rotation=180;
         [self addChild:eLbl2];
@@ -295,38 +295,40 @@ CCLabelTTF* eLbl2;
     //=======================
     if(pMaxCnt-pTotalCnt > 40-pCnt){//悩んだよ！
         nowRatio=(100.0f/40.0f)*(40.0f-pCnt);
+        pLbl1.string=[NSString stringWithFormat:@"%02d/40",40-pCnt];
     }else{
         nowRatio=(100.0f/40.0f)*(pMaxCnt-pTotalCnt);
+        pLbl1.string=[NSString stringWithFormat:@"%02d/40",pMaxCnt-pTotalCnt];
     }
     pInput_Indicator.scaleX=nowRatio*0.01;
     pInput_Indicator.position=CGPointMake((nowRatio*0.01)*(pBack_Indicator1.contentSize.width/2),
                                                                     pBack_Indicator1.contentSize.height/2);
-    pLbl1.string=[NSString stringWithFormat:@"%02d/40",pCnt];
     
     nowRatio=(100.0f/pMaxCnt)*(pMaxCnt-pTotalCnt);
     pSpent_Indicator.scaleX=nowRatio*0.01;
     pSpent_Indicator.position=CGPointMake((nowRatio*0.01)*(pBack_Indicator1.contentSize.width/2),
                                                                     pBack_Indicator1.contentSize.height/2);
-    pLbl2.string=[NSString stringWithFormat:@"%03d/%03d",pTotalCnt,pMaxCnt];
+    pLbl2.string=[NSString stringWithFormat:@"%03d/%03d",pMaxCnt-pTotalCnt,pMaxCnt];
 
     //=======================
     //「敵」側インジケーター
     //=======================
     if(eMaxCnt-eTotalCnt > 40-eCnt){
         nowRatio=(100.0f/40.0f)*(40.0f-eCnt);
+        eLbl1.string=[NSString stringWithFormat:@"%02d/40",40-eCnt];
     }else{
         nowRatio=(100.0f/40.0f)*(eMaxCnt-eTotalCnt);
+        eLbl1.string=[NSString stringWithFormat:@"%02d/40",eMaxCnt-eTotalCnt];
     }
     eInput_Indicator.scaleX=nowRatio*0.01;
     eInput_Indicator.position=CGPointMake((nowRatio*0.01)*(eBack_Indicator1.contentSize.width/2),
                                           eBack_Indicator1.contentSize.height/2);
-    eLbl1.string=[NSString stringWithFormat:@"%02d/40",eCnt];
     
     nowRatio=(100.0f/eMaxCnt)*(eMaxCnt-eTotalCnt);
     eSpent_Indicator.scaleX=nowRatio*0.01;
     eSpent_Indicator.position=CGPointMake((nowRatio*0.01)*(eBack_Indicator1.contentSize.width/2),
                                           eBack_Indicator1.contentSize.height/2);
-    eLbl2.string=[NSString stringWithFormat:@"%03d/%03d",eTotalCnt,eMaxCnt];
+    eLbl2.string=[NSString stringWithFormat:@"%03d/%03d",eMaxCnt-eTotalCnt,eMaxCnt];
     
     
     //デバッグラベル更新

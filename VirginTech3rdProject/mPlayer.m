@@ -209,8 +209,13 @@
             [frameArray addObject:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:[NSString stringWithFormat:@"%d%d.png",i,j]]];
         }
     }
-    
-    if(self=[super initWithSpriteFrame:[frameArray objectAtIndex:0]])
+    int vec;
+    if([GameManager getHost]){
+        vec=0;
+    }else{
+        vec=12;
+    }
+    if(self=[super initWithSpriteFrame:[frameArray objectAtIndex:vec]])
     {
         objId=numId;
         group=0;
