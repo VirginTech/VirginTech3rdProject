@@ -100,11 +100,11 @@ MatchWaitLayer* mWaitLayer;
 
     //対戦準備レイヤー
     mWaitLayer=[[MatchWaitLayer alloc]init];
-    [self addChild:mWaitLayer z:2];//最上位へ
+    [self addChild:mWaitLayer z:2];
     
     //ナビレイヤー
     NaviLayer* naviLayer=[[NaviLayer alloc]init];
-    [self addChild:naviLayer z:3];
+    [self addChild:naviLayer z:41];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -656,7 +656,7 @@ MatchWaitLayer* mWaitLayer;
     
     //リザルトレイヤー表示
     ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
-    [self addChild:resultsLayer];
+    [self addChild:resultsLayer z:42];
     
 }
 
@@ -686,7 +686,7 @@ MatchWaitLayer* mWaitLayer;
     if(infoLayer.eCnt<40 && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
         if(enemyLocation.y>[GameManager getWorldSize].height*0.8){
             enemy=[Enemy createEnemy:enemyLocation];
-            [self addChild:enemy];
+            [self addChild:enemy z:40-infoLayer.eCnt];
             [enemyArray addObject:enemy];
             infoLayer.eCnt++;
             infoLayer.eTotalCnt++;

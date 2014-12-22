@@ -145,7 +145,7 @@ CCLabelTTF* lbl_2;
     
     //ナビレイヤー
     naviLayer=[[NaviLayer alloc]init];
-    [self addChild:naviLayer z:3];
+    [self addChild:naviLayer z:41];
     
     //ワールドサイズ（iPhone4に合わせた画面の大きさ）
     [GameManager setWorldSize:CGSizeMake(320, 480)];
@@ -897,7 +897,7 @@ CCLabelTTF* lbl_2;
     
     //リザルトレイヤー表示
     ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
-    [self addChild:resultsLayer];
+    [self addChild:resultsLayer z:42];
     
 }
 
@@ -1014,7 +1014,7 @@ CCLabelTTF* lbl_2;
     //カスタムアラートメッセージ
     msgBox=[[MessageLayer alloc]initWithTitle:title msg:msg size:CGSizeMake(200, 100) type:0 procNum:procNum];
     msgBox.delegate=self;//デリゲートセット
-    [self addChild:msgBox z:3];
+    [self addChild:msgBox z:43];
 
 }
 
@@ -1214,13 +1214,13 @@ CCLabelTTF* lbl_2;
         
         if([GameManager getHost]){
             m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:ccp(_x,_y)];
-            [self addChild:m_enemy];
+            [self addChild:m_enemy z:40-infoLayer.eCnt];
             [enemyArray addObject:m_enemy];
             infoLayer.eCnt++;
             infoLayer.eTotalCnt++;
         }else{
             m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:ccp(_x,_y)];
-            [self addChild:m_player];
+            [self addChild:m_player z:40-infoLayer.pCnt];
             [playerArray addObject:m_player];
             infoLayer.pCnt++;
             infoLayer.pTotalCnt++;

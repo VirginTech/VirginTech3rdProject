@@ -28,6 +28,7 @@ CCLabelTTF* eJudgLbl;
     self = [super init];
     if (!self) return(nil);
     
+    self.userInteractionEnabled = YES;
     winSize=[[CCDirector sharedDirector]viewSize];
     
     CCButton* titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
@@ -102,6 +103,18 @@ CCLabelTTF* eJudgLbl;
     // back to intro scene with transition
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+}
+
+-(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event
+{
+}
+
+-(void)touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
+{
+}
+
+-(void)touchEnded:(UITouch *)touch withEvent:(UIEvent *)event
+{
 }
 
 @end

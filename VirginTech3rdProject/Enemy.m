@@ -219,7 +219,12 @@ Fortress* targetFortress;
         self.position=pos;
         self.scale=0.3;
         
-        ability=5;
+        if([GameManager getMatchMode]==0){//シングル戦
+            ability=(([GameManager getStageLevel]/11)+1)*5;
+            //NSLog(@"Ability=%d",ability);
+        }else{
+            ability=5;
+        }
         mode=0;//通常モード
         stopFlg=false;
         velocity=0.2;

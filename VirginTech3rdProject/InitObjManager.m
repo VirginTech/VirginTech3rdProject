@@ -16,25 +16,25 @@
     int pMaxCnt=100;
     
     if(stageNum%10==1){
-        pMaxCnt=100;
+        pMaxCnt=100+(stageNum/11*20);
     }else if(stageNum%10==2){
-        pMaxCnt=100;
+        pMaxCnt=100+(stageNum/11*20);
     }else if(stageNum%10==3){
-        pMaxCnt=120;
+        pMaxCnt=120+(stageNum/11*20);
     }else if(stageNum%10==4){
-        pMaxCnt=100;
+        pMaxCnt=100+(stageNum/11*20);
     }else if(stageNum%10==5){
-        pMaxCnt=120;
+        pMaxCnt=120+(stageNum/11*20);
     }else if(stageNum%10==6){
-        pMaxCnt=100;
+        pMaxCnt=100+(stageNum/11*20);
     }else if(stageNum%10==7){
-        pMaxCnt=120;
+        pMaxCnt=120+(stageNum/11*20);
     }else if(stageNum%10==8){
-        pMaxCnt=100;
+        pMaxCnt=100+(stageNum/11*20);
     }else if(stageNum%10==9){
-        pMaxCnt=140;
+        pMaxCnt=140+(stageNum/11*20);
     }else if(stageNum%10==0){
-        pMaxCnt=100;
+        pMaxCnt=100+(stageNum/11*20);
     }
 
     return pMaxCnt;

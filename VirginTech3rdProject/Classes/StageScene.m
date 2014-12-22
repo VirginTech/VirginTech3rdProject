@@ -34,6 +34,7 @@ ItemBtnLayer* itemLayer;
 int itemNum;
 float footer;
 
+int repeatNum;
 int stageNum;
 
 Fortress* playerFortress;
@@ -225,9 +226,9 @@ bool createEnemyFlg;
     [bgSpLayer addChild:enemyFortress];
     
     //「敵」生成スケジュール
-    int repeatNum=[InitObjManager NumOfRepeat:stageNum];
+    repeatNum=[InitObjManager NumOfRepeat:stageNum];
     int interval=[InitObjManager NumOfInterval:stageNum];
-    [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:repeatNum delay:1.0];
+    [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:CCTimerRepeatForever delay:1.0];
     
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
@@ -271,6 +272,10 @@ bool createEnemyFlg;
 
 -(void)create_Enemy_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
+    
     CGPoint pos;
     NSMutableArray* array=[[NSMutableArray alloc]init];
     array=[InitObjManager init_Enemy_Pattern:stageNum];
@@ -281,11 +286,13 @@ bool createEnemyFlg;
     {
         pos=[[array objectAtIndex:i]CGPointValue];
         enemy=[Enemy createEnemy:pos];
-        [bgSpLayer addChild:enemy];
+        [bgSpLayer addChild:enemy z:array.count-i];
         [enemyArray addObject:enemy];
         infoLayer.eCnt++;
     }
-
+    if(infoLayer.repCnt>repeatNum){
+        [self unschedule:@selector(create_Enemy_Schedule:)];
+    }
 }
 
 -(void)judgement_Schedule:(CCTime)dt
@@ -730,7 +737,7 @@ bool createEnemyFlg;
     
     //リザルトレイヤー表示
     ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
-    [self addChild:resultsLayer];
+    [self addChild:resultsLayer z:4];
     
 }
 
