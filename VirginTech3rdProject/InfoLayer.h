@@ -34,6 +34,7 @@
 + (InfoLayer *)scene;
 - (id)init;
 
+-(void)score_Update;
 -(void)stats_Update;
 
 @end

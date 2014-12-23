@@ -612,6 +612,8 @@ bool createEnemyFlg;
                         [bgSpLayer removeChild:enemyFortress cleanup:YES];
                         gameEndFlg=true;
                         [self gameEnd:true];
+                        //スコア反映
+                        [GameManager save_Score:[GameManager load_Score]+500];
                     }
                 }
             }
@@ -665,12 +667,15 @@ bool createEnemyFlg;
     for(Enemy* _enemy in enemyArray){
         if(_enemy.ability<=0){
             [removeEnemyArray addObject:_enemy];
+            //スコア反映
+            [GameManager save_Score:[GameManager load_Score]+1];
         }
     }
     [self removeObject];
     
     //インフォレイヤー更新
     [infoLayer stats_Update];
+    [infoLayer score_Update];
     
     //デバッグラベル更新
     //debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
@@ -734,6 +739,9 @@ bool createEnemyFlg;
         _enemy.stopFlg=true;
     }
     [self unscheduleAllSelectors];
+    
+    //プレイヤーアビリティ残量をスコアへ加算
+    [GameManager save_Score:[GameManager load_Score]+playerFortress.ability];
     
     //リザルトレイヤー表示
     ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];

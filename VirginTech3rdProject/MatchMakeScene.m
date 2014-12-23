@@ -85,8 +85,8 @@ MessageLayer* msgBox;
 NaviLayer* naviLayer;
 
 //デバッグラベル
-CCLabelTTF* lbl_1;
-CCLabelTTF* lbl_2;
+//CCLabelTTF* lbl_1;
+//CCLabelTTF* lbl_2;
 //CCLabelTTF* debugLabel1;
 //CCLabelTTF* debugLabel2;
 //CCLabelTTF* debugLabel3;
@@ -198,7 +198,15 @@ CCLabelTTF* lbl_2;
                             color:[CCColor whiteColor]];
     [self addChild:worldLine_h2];
     
-    //デバッグラベル
+    //GKMatch監視
+    if(battleMatch.playerIDs.count<=0){
+        [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
+                                            msg:NSLocalizedString(@"NotBattleData",NULL)
+                                            delegate:self
+                                            procNum:1];//エラーメッセージ送信
+    }
+    
+    /*/デバッグラベル
     if([GameManager getHost]){
         lbl_1=[CCLabelTTF labelWithString:@"サーバー" fontName:@"Verdana-Bold" fontSize:15];
     }else{
@@ -218,7 +226,7 @@ CCLabelTTF* lbl_2;
                                 procNum:1];//エラーメッセージ送信
     }
     lbl_2.position=ccp(winSize.width-lbl_2.contentSize.width/2,winSize.height-lbl_2.contentSize.height/2);
-    [self addChild:lbl_2];
+    [self addChild:lbl_2];*/
     
     /*/デバッグラベル
     debugLabel1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"PlayerMax=%d",pMaxCnt] fontName:@"Verdana-Bold" fontSize:10];
@@ -895,6 +903,20 @@ CCLabelTTF* lbl_2;
     }
     [self unscheduleAllSelectors];
     
+    //勝ち点を保存
+    if(winnerFlg){//青勝ち
+        if([GameManager getHost]){//ホストなら
+            [GameManager save_Match_Point:[GameManager load_Match_Point]+1];
+        }
+    }else{//赤勝ち
+        if(![GameManager getHost]){//クライアントなら
+            [GameManager save_Match_Point:[GameManager load_Match_Point]+1];
+        }
+    }
+    //インフォレイヤー更新
+    [infoLayer score_Update];
+    
+    //NSLog(@"勝ち点: %02d ポイント",[GameManager load_Match_Point]);
     //リザルトレイヤー表示
     ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
     [self addChild:resultsLayer z:42];
@@ -1037,11 +1059,26 @@ CCLabelTTF* lbl_2;
             break;
         case GKPlayerStateDisconnected:
             // プレーヤーが切断した場合
-            //NSLog(@"切断されました");
-            [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
+            if(!gameEndFlg){//ゲーム中だったら・・・
+                //ポイント加算
+                [GameManager save_Match_Point:[GameManager load_Match_Point]+1];
+                //インフォレイヤー更新
+                [infoLayer score_Update];
+                //NSLog(@"勝ち点: %02d ポイント",[GameManager load_Match_Point]);
+                //リザルトレイヤー表示
+                ResultsLayer* resultsLayer;
+                if([GameManager getHost]){//ホスト青だったら
+                    resultsLayer=[[ResultsLayer alloc]initWithWinner:true];
+                }else{
+                    resultsLayer=[[ResultsLayer alloc]initWithWinner:false];
+                }
+                [self addChild:resultsLayer z:42];
+                
+                [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
                                     msg:NSLocalizedString(@"PlayerDisconnected",NULL)
                                     delegate:nil
                                     procNum:0];//処理なし
+            }
             break;
         default:
             break;

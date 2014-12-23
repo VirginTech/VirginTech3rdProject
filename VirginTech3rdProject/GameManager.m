@@ -87,7 +87,50 @@ bool pauseFlg;
     if([dict valueForKey:@"item"]==nil){
         [self save_Item_All:0 shield:0 onrush:0 attackup:0 speedup:0];
     }
-    
+    if([dict valueForKey:@"score"]==nil){
+        [self save_Score:0];
+    }
+    if([dict valueForKey:@"point"]==nil){
+        [self save_Match_Point:0];
+    }
+}
+
+//====================
+//スコアの保存
+//====================
++(void)save_Score:(long)value
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSNumber* score=[NSNumber numberWithLong:value];
+    [userDefault setObject:score forKey:@"score"];
+}
+
+//====================
+//スコアの取得
+//====================
++(long)load_Score
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    long score=[[userDefault objectForKey:@"score"]longValue];
+    return score;
+}
+//====================
+//勝ち点の保存
+//====================
++(void)save_Match_Point:(int)value
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSNumber* point=[NSNumber numberWithInt:value];
+    [userDefault setObject:point forKey:@"point"];
+}
+//====================
+//勝ち点の取得
+//====================
++(int)load_Match_Point
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    int point=[[userDefault objectForKey:@"point"]intValue];
+    return point;
 }
 
 //=========================================

@@ -28,6 +28,11 @@
 +(void)setHost:(bool)host;
 +(bool)getHost;
 
++(void)save_Score:(long)value;
++(long)load_Score;
++(void)save_Match_Point:(int)value;
++(int)load_Match_Point;
+
 +(void)initialize_Item;
 
 +(NSMutableArray*)load_Item_All;

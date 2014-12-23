@@ -22,11 +22,14 @@
 
 CGSize winSize;
 
-CCLabelTTF* debugLabel1;
+/*CCLabelTTF* debugLabel1;
 CCLabelTTF* debugLabel2;
 CCLabelTTF* debugLabel3;
 CCLabelTTF* debugLabel4;
-CCLabelTTF* debugLabel5;
+CCLabelTTF* debugLabel5;*/
+
+//スコアボード
+CCLabelTTF* scoreBoard;
 
 //プレイヤーインジケーター
 float nowRatio;
@@ -239,7 +242,23 @@ CCLabelTTF* eLbl2;
         
     }
     
-    //デバッグラベル
+    //======================
+    // スコアボード
+    //======================
+    if([GameManager getMatchMode]==0){//シングル戦
+        scoreBoard=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score:%05ld",[GameManager load_Score]]
+                                  fontName:@"Verdana-Bold" fontSize:15];
+        scoreBoard.position=ccp(scoreBoard.contentSize.width/2, winSize.height-scoreBoard.contentSize.height/2);
+        [self addChild:scoreBoard];
+    }else if([GameManager getMatchMode]==2){//ネット対戦
+        scoreBoard=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"対戦成績:%02d",[GameManager load_Match_Point]]
+                                      fontName:@"Verdana-Bold" fontSize:15];
+        scoreBoard.position=ccp(scoreBoard.contentSize.width/2, winSize.height-scoreBoard.contentSize.height/2);
+        [self addChild:scoreBoard];
+    }
+
+    
+    /*/デバッグラベル
     if([GameManager getMatchMode]==0)
     {
          debugLabel1=[CCLabelTTF labelWithString:@"青=000 赤=000" fontName:@"Verdana-Bold" fontSize:10];
@@ -283,9 +302,18 @@ CCLabelTTF* eLbl2;
         debugLabel5=[CCLabelTTF labelWithString:@"eTotle=0000" fontName:@"Verdana-Bold" fontSize:10];
         debugLabel5.position=ccp(debugLabel5.contentSize.width/2, debugLabel4.position.y-debugLabel5.contentSize.height);
         [self addChild:debugLabel5];
-    }
+    }*/
     
     return self;
+}
+
+-(void)score_Update
+{
+    if([GameManager getMatchMode]==0){//シングル
+        scoreBoard.string=[NSString stringWithFormat:@"Score:%05ld",[GameManager load_Score]];
+    }else if([GameManager getMatchMode]==2){//ネット対戦
+        scoreBoard.string=[NSString stringWithFormat:@"対戦成績:%02d",[GameManager load_Match_Point]];
+    }
 }
 
 -(void)stats_Update
@@ -331,7 +359,7 @@ CCLabelTTF* eLbl2;
     eLbl2.string=[NSString stringWithFormat:@"%03d/%03d",eMaxCnt-eTotalCnt,eMaxCnt];
     
     
-    //デバッグラベル更新
+    /*/デバッグラベル更新
     if([GameManager getMatchMode]==0)
     {
         debugLabel1.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
@@ -343,7 +371,7 @@ CCLabelTTF* eLbl2;
         debugLabel3.string=[NSString stringWithFormat:@"青=%03d 赤=%03d",pCnt,eCnt];
         debugLabel4.string=[NSString stringWithFormat:@"pTotle=%04d",pTotalCnt];
         debugLabel5.string=[NSString stringWithFormat:@"eTotle=%04d",eTotalCnt];
-    }
+    }*/
 }
 
 @end
