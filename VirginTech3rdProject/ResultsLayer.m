@@ -14,8 +14,8 @@
 
 CGSize winSize;
 
-CCLabelTTF* pJudgLbl;
-CCLabelTTF* eJudgLbl;
+CCSprite* victorySpr;
+CCSprite* defeatSpr;
 
 + (ResultsLayer *)scene
 {
@@ -31,6 +31,10 @@ CCLabelTTF* eJudgLbl;
     self.userInteractionEnabled = YES;
     winSize=[[CCDirector sharedDirector]viewSize];
     
+    // Create a colored background (Dark Grey)
+    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f]];
+    [self addChild:background];
+    
     CCButton* titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     titleButton.positionType = CCPositionTypeNormalized;
     titleButton.position = ccp(0.5f, 0.3f); // Top Right of screen
@@ -41,57 +45,73 @@ CCLabelTTF* eJudgLbl;
     //勝利判定ラベル
     //=================
     
-    pJudgLbl=[CCLabelTTF labelWithString:@"" fontName:@"Verdana-Bold" fontSize:50];
-    eJudgLbl=[CCLabelTTF labelWithString:@"" fontName:@"Verdana-Bold" fontSize:50];
+    //画像読込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"results_default.plist"];
+    
+    victorySpr=[CCSprite spriteWithSpriteFrame:
+                        [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"victory_jp.png"]];
+    
+    defeatSpr=[CCSprite spriteWithSpriteFrame:
+                        [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"defeat_jp.png"]];
+    victorySpr.visible=false;
+    defeatSpr.visible=false;
     
     if([GameManager getMatchMode]==0)//シングル
     {
         if(flg){
-            pJudgLbl.string=@"勝利！";
+            victorySpr.visible=true;
+            victorySpr.position=ccp(winSize.width/2,winSize.height/2);
+            [self addChild:victorySpr];
         }else{
-            pJudgLbl.string=@"敗北！";
+            defeatSpr.visible=true;
+            defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
+            [self addChild:defeatSpr];
         }
-        pJudgLbl.position=ccp(winSize.width/2,winSize.height/2);
-        [self addChild:pJudgLbl];
-        
     }
     else if([GameManager getMatchMode]==1)//２人対戦
     {
+        victorySpr.visible=true;
+        defeatSpr.visible=true;
+        
         if(flg){
-            pJudgLbl.string=@"勝利！";
-            eJudgLbl.string=@"敗北！";
+            victorySpr.position=ccp(winSize.width/2,winSize.height/2-50);
+            [self addChild:victorySpr];
+            
+            defeatSpr.position=ccp(winSize.width/2,winSize.height/2+50);
+            defeatSpr.rotation=180;
+            [self addChild:defeatSpr];
         }else{
-            pJudgLbl.string=@"敗北！";
-            eJudgLbl.string=@"勝利！";
+            defeatSpr.position=ccp(winSize.width/2,winSize.height/2-50);
+            [self addChild:defeatSpr];
+            
+            victorySpr.position=ccp(winSize.width/2,winSize.height/2+50);
+            victorySpr.rotation=180;
+            [self addChild:victorySpr];
         }
-        pJudgLbl.position=ccp(winSize.width/2,winSize.height/2-50);
-        [self addChild:pJudgLbl];
-        eJudgLbl.position=ccp(winSize.width/2,winSize.height/2+50);
-        eJudgLbl.rotation=180;
-        [self addChild:eJudgLbl];
         
     }
     else//ネット対戦
     {
         if(flg){
             if([GameManager getHost]){
-                pJudgLbl.string=@"勝利！";
-                pJudgLbl.position=ccp(winSize.width/2,winSize.height/2);
-                [self addChild:pJudgLbl];
+                victorySpr.visible=true;
+                victorySpr.position=ccp(winSize.width/2,winSize.height/2);
+                [self addChild:victorySpr];
             }else{
-                eJudgLbl.string=@"敗北！";
-                eJudgLbl.position=ccp(winSize.width/2,winSize.height/2);
-                [self addChild:eJudgLbl];
+                defeatSpr.visible=true;
+                defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
+                [self addChild:defeatSpr];
             }
         }else{
             if([GameManager getHost]){
-                pJudgLbl.string=@"敗北！";
-                pJudgLbl.position=ccp(winSize.width/2,winSize.height/2);
-                [self addChild:pJudgLbl];
+                defeatSpr.visible=true;
+                defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
+                [self addChild:defeatSpr];
             }else{
-                eJudgLbl.string=@"勝利！";
-                eJudgLbl.position=ccp(winSize.width/2,winSize.height/2);
-                [self addChild:eJudgLbl];
+                victorySpr.visible=true;
+                victorySpr.position=ccp(winSize.width/2,winSize.height/2);
+                [self addChild:victorySpr];
             }
         }
     }

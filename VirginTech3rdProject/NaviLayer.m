@@ -38,22 +38,38 @@ CCButton* titleButton;
     background.visible=false;
     [self addChild:background];
     
-    pauseButton = [CCButton buttonWithTitle:@"[ポーズ]" fontName:@"Verdana-Bold" fontSize:15.0f];
-    pauseButton.positionType = CCPositionTypeNormalized;
-    if([GameManager getMatchMode]==1){
-        pauseButton.position = ccp(0.9f, 0.50f); // Top Right of screen
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    
+    pauseButton=[CCButton buttonWithTitle:@""
+                              spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"pause.png"]];
+    pauseButton.scale=0.5;
+    if([GameManager getMatchMode]==0){
+        pauseButton.position = ccp(winSize.width-(pauseButton.contentSize.width*pauseButton.scale)/2,
+                                   60+(pauseButton.contentSize.height*pauseButton.scale)/2);
+    }else if([GameManager getMatchMode]==1){
+        pauseButton.position = ccp(winSize.width-(pauseButton.contentSize.width*pauseButton.scale)/2,
+                                   winSize.height/2);
     }else{
-        pauseButton.position = ccp(0.9f, 0.95f); // Top Right of screen
+        pauseButton.position = ccp(winSize.width-(pauseButton.contentSize.width*pauseButton.scale)/2,
+                                   (pauseButton.contentSize.height*pauseButton.scale)/2);
     }
     [pauseButton setTarget:self selector:@selector(onPauseClicked:)];
     [self addChild:pauseButton];
     
-    resumeButton = [CCButton buttonWithTitle:@"[レジューム]" fontName:@"Verdana-Bold" fontSize:15.0f];
-    resumeButton.positionType = CCPositionTypeNormalized;
-    if([GameManager getMatchMode]==1){
-        resumeButton.position = ccp(0.9f, 0.50f); // Top Right of screen
+    resumeButton=[CCButton buttonWithTitle:@""
+                               spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"resume.png"]];
+    resumeButton.scale=0.5;
+    if([GameManager getMatchMode]==0){
+        resumeButton.position = ccp(winSize.width-(resumeButton.contentSize.width*pauseButton.scale)/2,
+                                    60+(resumeButton.contentSize.height*resumeButton.scale)/2);
+    }else if([GameManager getMatchMode]==1){
+        resumeButton.position = ccp(winSize.width-(resumeButton.contentSize.width*pauseButton.scale)/2,
+                                    winSize.height/2);
     }else{
-        resumeButton.position = ccp(0.9f, 0.95f); // Top Right of screen
+        resumeButton.position = ccp(winSize.width-(resumeButton.contentSize.width*pauseButton.scale)/2,
+                                    (resumeButton.contentSize.height*resumeButton.scale)/2);
     }
     [resumeButton setTarget:self selector:@selector(onResumeClicked:)];
     resumeButton.visible=false;
