@@ -80,6 +80,7 @@ MatchWaitLayer* mWaitLayer;
     self.multipleTouchEnabled = YES; /*マルチタッチ検出を有効化*/
 
     //初期化
+    TURN_OBJ_MAX=50;
     gameEndFlg=false;
     
     footer=0;
@@ -115,6 +116,7 @@ MatchWaitLayer* mWaitLayer;
     
     //地面配置
     [self setGround];
+    [self setYard];
     
     // Create a back button
     /*CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
@@ -157,7 +159,7 @@ MatchWaitLayer* mWaitLayer;
     // always call super onEnter first
     [super onEnter];
     
-    //我陣地ライン
+    /*/我陣地ライン
     CCDrawNode* drawNode1=[CCDrawNode node];
     [drawNode1 drawSegmentFrom:ccp(0,footer+([GameManager getWorldSize].height-footer)*0.2)
                             to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.2)
@@ -171,7 +173,7 @@ MatchWaitLayer* mWaitLayer;
                             to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
                         radius:0.5
                          color:[CCColor whiteColor]];
-    [self addChild:drawNode2];
+    [self addChild:drawNode2];*/
     
     //センターライン
     CCDrawNode* drawNode5=[CCDrawNode node];
@@ -223,6 +225,56 @@ MatchWaitLayer* mWaitLayer;
             offsetY = offsetY + frame.contentSize.height-1;
         }else{
             offsetX = offsetX + frame.contentSize.width-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [self addChild:frame z:0];
+    }
+}
+
+-(void)setYard
+{
+    float offsetX;
+    float offsetY;
+    float scale=0.5;
+    CCSprite* frame = [CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"ground_00.png"]];
+    CGSize frameCount = CGSizeMake(winSize.width/(frame.contentSize.width*scale)+2,
+                                   ([GameManager getWorldSize].height*0.2)/(frame.contentSize.height*scale)+1);
+    //NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",(arc4random()%10)];
+    NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",7];
+    
+    //プレイヤ側陣地
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        frame.scale=scale;
+        if(i==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = ([GameManager getWorldSize].height*0.2)-(frame.contentSize.height*scale)/2;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = offsetY - (frame.contentSize.height*scale)+1;
+        }else{
+            offsetX = offsetX + (frame.contentSize.width*scale)-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [self addChild:frame z:0];
+    }
+    //敵側陣地
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        frame.scale=scale;
+        if(i==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = ([GameManager getWorldSize].height*0.8)+(frame.contentSize.height*scale)/2;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = offsetY + (frame.contentSize.height*scale)-1;
+        }else{
+            offsetX = offsetX + (frame.contentSize.width*scale)-1;
         }
         frame.position = CGPointMake(offsetX,offsetY);
         [self addChild:frame z:0];
@@ -662,7 +714,7 @@ MatchWaitLayer* mWaitLayer;
 
 -(void)create_Player_Schedule:(CCTime)dt
 {
-    if(infoLayer.pCnt<40 && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
+    if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
         if(playerLocation.y<[GameManager getWorldSize].height*0.2){
             player=[Player createPlayer:playerLocation];
             [self addChild:player];
@@ -683,10 +735,10 @@ MatchWaitLayer* mWaitLayer;
 
 -(void)create_Enemy_Schedule:(CCTime)dt
 {
-    if(infoLayer.eCnt<40 && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
+    if(infoLayer.eCnt<TURN_OBJ_MAX && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
         if(enemyLocation.y>[GameManager getWorldSize].height*0.8){
             enemy=[Enemy createEnemy:enemyLocation];
-            [self addChild:enemy z:40-infoLayer.eCnt];
+            [self addChild:enemy z:TURN_OBJ_MAX-infoLayer.eCnt];
             [enemyArray addObject:enemy];
             infoLayer.eCnt++;
             infoLayer.eTotalCnt++;

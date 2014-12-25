@@ -124,6 +124,7 @@ NaviLayer* naviLayer;
     //NSLog(@"%@",battleMatch.playerIDs);
     
     //初期化
+    TURN_OBJ_MAX=50;
     gameEndFlg=false;
     
     playerArray=[[NSMutableArray alloc]init];
@@ -161,6 +162,7 @@ NaviLayer* naviLayer;
     
     //地面配置
     [self setGround];
+    [self setYard];
     
     /*/ Create a back button
     CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
@@ -347,6 +349,56 @@ NaviLayer* naviLayer;
     }
 }
 
+-(void)setYard
+{
+    float offsetX;
+    float offsetY;
+    float scale=0.5;
+    CCSprite* frame = [CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"ground_00.png"]];
+    CGSize frameCount = CGSizeMake(winSize.width/(frame.contentSize.width*scale)+2,
+                            (offSet.height+[GameManager getWorldSize].height*0.2)/(frame.contentSize.height*scale)+1);
+    //NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",(arc4random()%10)];
+    NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",7];
+    
+    //プレイヤ側陣地
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        frame.scale=scale;
+        if(i==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = (offSet.height+[GameManager getWorldSize].height*0.2)-(frame.contentSize.height*scale)/2;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = offsetY - (frame.contentSize.height*scale)+1;
+        }else{
+            offsetX = offsetX + (frame.contentSize.width*scale)-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [self addChild:frame z:0];
+    }
+    //敵側陣地
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        frame.scale=scale;
+        if(i==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = (offSet.height+[GameManager getWorldSize].height*0.8)+(frame.contentSize.height*scale)/2;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = offsetY + (frame.contentSize.height*scale)-1;
+        }else{
+            offsetX = offsetX + (frame.contentSize.width*scale)-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [self addChild:frame z:0];
+    }
+}
+
 //=========================
 //準備状況・スケジュール
 //=========================
@@ -366,9 +418,11 @@ NaviLayer* naviLayer;
     
     if(mWaitLayer.playerReadyFlg && mWaitLayer.enemyReadyFlg){
         [self unschedule:@selector(readiness_Schedule:)];
-        mWaitLayer.playerLbl.fontSize=50;
+        //mWaitLayer.playerLbl.fontSize=50;
+        mWaitLayer.playerLbl.scale=1.0;
         mWaitLayer.playerLbl.string=NSLocalizedString(@"BattleStrart",NULL);
-        mWaitLayer.enemyLbl.fontSize=50;
+        //mWaitLayer.enemyLbl.fontSize=50;
+        mWaitLayer.enemyLbl.scale=1.0;
         mWaitLayer.enemyLbl.string=NSLocalizedString(@"BattleStrart",NULL);
         [mWaitLayer readyWaitStart];
         //[self removeChild:mWaitLayer cleanup:YES];
@@ -927,7 +981,7 @@ NaviLayer* naviLayer;
 {
     if(touchPos.y<offSet.height+[GameManager getWorldSize].height*0.2){
         if([GameManager getHost]){//青(Player)
-            if(infoLayer.pCnt<40 && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
+            if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
                 m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:touchPos];
                 [self addChild:m_player];
                 [playerArray addObject:m_player];
@@ -941,7 +995,7 @@ NaviLayer* naviLayer;
                 [self unschedule:@selector(create_Object_Schedule:)];
             }
         }else{//赤(Enemy)
-            if(infoLayer.eCnt<40 && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
+            if(infoLayer.eCnt<TURN_OBJ_MAX && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
                 m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:touchPos];
                 [self addChild:m_enemy];
                 [enemyArray addObject:m_enemy];
@@ -1034,7 +1088,14 @@ NaviLayer* naviLayer;
     [alert show];*/
     
     //カスタムアラートメッセージ
-    msgBox=[[MessageLayer alloc]initWithTitle:title msg:msg size:CGSizeMake(200, 100) type:0 procNum:procNum];
+    msgBox=[[MessageLayer alloc]initWithTitle:title
+                                            msg:msg
+                                            pos:ccp(winSize.width/2,winSize.height/2)
+                                            size:CGSizeMake(200, 100)
+                                            modal:true
+                                            rotation:false
+                                            type:0
+                                            procNum:procNum];
     msgBox.delegate=self;//デリゲートセット
     [self addChild:msgBox z:43];
 
@@ -1251,13 +1312,13 @@ NaviLayer* naviLayer;
         
         if([GameManager getHost]){
             m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:ccp(_x,_y)];
-            [self addChild:m_enemy z:40-infoLayer.eCnt];
+            [self addChild:m_enemy z:TURN_OBJ_MAX-infoLayer.eCnt];
             [enemyArray addObject:m_enemy];
             infoLayer.eCnt++;
             infoLayer.eTotalCnt++;
         }else{
             m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:ccp(_x,_y)];
-            [self addChild:m_player z:40-infoLayer.pCnt];
+            [self addChild:m_player z:TURN_OBJ_MAX-infoLayer.pCnt];
             [playerArray addObject:m_player];
             infoLayer.pCnt++;
             infoLayer.pTotalCnt++;

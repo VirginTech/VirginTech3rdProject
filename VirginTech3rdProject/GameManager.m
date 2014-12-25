@@ -10,6 +10,15 @@
 
 @implementation GameManager
 
+//==============
+// グローバル定数
+//==============
+const int MATCH_TOTAL_OBJ_MAX=200;//対戦モードにおける総投入数
+int TURN_OBJ_MAX;//一度に投入できる数
+
+//==============
+// メモリ内
+//==============
 int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ

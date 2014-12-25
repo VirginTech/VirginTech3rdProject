@@ -9,16 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
+#import "MessageLayer.h"
 
-@interface MatchWaitLayer : CCScene {
-    
+@interface MatchWaitLayer : CCScene <MsgLayerDelegate>
+{
     bool playerReadyFlg;
     bool enemyReadyFlg;
-    CCLabelTTF* playerLbl;
-    CCLabelTTF* enemyLbl;
+    
+    MessageLayer* pMsgBox;
+    MessageLayer* eMsgBox;
+
+    CCLabelBMFont* playerLbl;
+    CCLabelBMFont* enemyLbl;
 }
-@property CCLabelTTF* playerLbl;
-@property CCLabelTTF* enemyLbl;
+@property CCLabelBMFont* playerLbl;
+@property CCLabelBMFont* enemyLbl;
 @property bool playerReadyFlg;
 @property bool enemyReadyFlg;
 

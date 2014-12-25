@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+extern const int MATCH_TOTAL_OBJ_MAX;
+extern int TURN_OBJ_MAX;
+
 @interface GameManager : NSObject
 
 +(int)getDevice;

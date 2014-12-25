@@ -234,8 +234,6 @@
 		CF49F6391A4AB57200877BA7 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF49F6371A4AB57200877BA7 /* btn_default.png */; };
 		CF49F63C1A4AC28800877BA7 /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF49F63A1A4AC28800877BA7 /* results_default.plist */; };
 		CF49F63D1A4AC28800877BA7 /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF49F63B1A4AC28800877BA7 /* results_default.png */; };
-		CF49F6451A4AD58D00877BA7 /* font.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CF49F6431A4AD58D00877BA7 /* font.fnt */; };
-		CF49F6461A4AD58D00877BA7 /* font.png in Resources */ = {isa = PBXBuildFile; fileRef = CF49F6441A4AD58D00877BA7 /* font.png */; };
 		CF4AF35F1A295FFC009A4475 /* mPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF35E1A295FFC009A4475 /* mPlayer.m */; };
 		CF4AF3621A29839B009A4475 /* mEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF3611A29839B009A4475 /* mEnemy.m */; };
 		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
@@ -244,6 +242,10 @@
 		CF50D8BE1A1B0177005A1B5D /* InitObjManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8BD1A1B0177005A1B5D /* InitObjManager.m */; };
 		CF50D8C11A1B1A4E005A1B5D /* SelectScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */; };
 		CF5187161A3546DE006A5845 /* ItemInventoryLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */; };
+		CF5A43F91A4C07AE00B71D15 /* scoreFont.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CF5A43F71A4C07AE00B71D15 /* scoreFont.fnt */; };
+		CF5A43FA1A4C07AE00B71D15 /* scoreFont.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5A43F81A4C07AE00B71D15 /* scoreFont.png */; };
+		CF5A44011A4C239B00B71D15 /* matchFont.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CF5A43FF1A4C239B00B71D15 /* matchFont.fnt */; };
+		CF5A44021A4C239B00B71D15 /* matchFont.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5A44001A4C239B00B71D15 /* matchFont.png */; };
 		CF5B6F9B1A3ED610004B2629 /* InfoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF67C3121A42C4EA005649AA /* ground_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF67C3101A42C4EA005649AA /* ground_default.plist */; };
@@ -709,8 +711,6 @@
 		CF49F6371A4AB57200877BA7 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 		CF49F63A1A4AC28800877BA7 /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
 		CF49F63B1A4AC28800877BA7 /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
-		CF49F6431A4AD58D00877BA7 /* font.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font.fnt; sourceTree = "<group>"; };
-		CF49F6441A4AD58D00877BA7 /* font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font.png; sourceTree = "<group>"; };
 		CF4AF35D1A295FFC009A4475 /* mPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mPlayer.h; sourceTree = "<group>"; };
 		CF4AF35E1A295FFC009A4475 /* mPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mPlayer.m; sourceTree = "<group>"; };
 		CF4AF3601A29839B009A4475 /* mEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mEnemy.h; sourceTree = "<group>"; };
@@ -726,6 +726,10 @@
 		CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectScene.m; sourceTree = "<group>"; };
 		CF5187141A3546DE006A5845 /* ItemInventoryLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemInventoryLayer.h; sourceTree = "<group>"; };
 		CF5187151A3546DE006A5845 /* ItemInventoryLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemInventoryLayer.m; sourceTree = "<group>"; };
+		CF5A43F71A4C07AE00B71D15 /* scoreFont.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scoreFont.fnt; sourceTree = "<group>"; };
+		CF5A43F81A4C07AE00B71D15 /* scoreFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scoreFont.png; sourceTree = "<group>"; };
+		CF5A43FF1A4C239B00B71D15 /* matchFont.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matchFont.fnt; sourceTree = "<group>"; };
+		CF5A44001A4C239B00B71D15 /* matchFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = matchFont.png; sourceTree = "<group>"; };
 		CF5B6F991A3ED610004B2629 /* InfoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoLayer.h; sourceTree = "<group>"; };
 		CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoLayer.m; sourceTree = "<group>"; };
 		CF67C3101A42C4EA005649AA /* ground_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ground_default.plist; sourceTree = "<group>"; };
@@ -1703,8 +1707,10 @@
 		CF49F63E1A4AD05900877BA7 /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				CF49F6431A4AD58D00877BA7 /* font.fnt */,
-				CF49F6441A4AD58D00877BA7 /* font.png */,
+				CF5A43FF1A4C239B00B71D15 /* matchFont.fnt */,
+				CF5A44001A4C239B00B71D15 /* matchFont.png */,
+				CF5A43F71A4C07AE00B71D15 /* scoreFont.fnt */,
+				CF5A43F81A4C07AE00B71D15 /* scoreFont.png */,
 			);
 			name = Font;
 			sourceTree = "<group>";
@@ -1777,7 +1783,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF5A44021A4C239B00B71D15 /* matchFont.png in Resources */,
 				CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */,
+				CF5A44011A4C239B00B71D15 /* matchFont.fnt in Resources */,
 				CF4428511A3A810F00F17BB0 /* fortress_default.plist in Resources */,
 				CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */,
 				CF67C3131A42C4EA005649AA /* ground_default.png in Resources */,
@@ -1788,7 +1796,6 @@
 				CF49F6251A4A6B3F00877BA7 /* info_default.png in Resources */,
 				CF20604019F3534700DBD8C4 /* Default.png in Resources */,
 				CF20604919F3534700DBD8C4 /* Icon.png in Resources */,
-				CF49F6461A4AD58D00877BA7 /* font.png in Resources */,
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
 				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
@@ -1806,8 +1813,10 @@
 				CF20622919F3534800DBD8C4 /* LICENSE_CCBReader.txt in Resources */,
 				CF20619919F3534800DBD8C4 /* LICENSE_cocos2d.txt in Resources */,
 				CF49F63C1A4AC28800877BA7 /* results_default.plist in Resources */,
+				CF5A43FA1A4C07AE00B71D15 /* scoreFont.png in Resources */,
 				CF49F63D1A4AC28800877BA7 /* results_default.png in Resources */,
 				CF20D5701A36B6C1006CD725 /* item_default.png in Resources */,
+				CF5A43F91A4C07AE00B71D15 /* scoreFont.fnt in Resources */,
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
@@ -1815,7 +1824,6 @@
 				CF49F6351A4A971800877BA7 /* player_default.png in Resources */,
 				CF20D56F1A36B6C1006CD725 /* item_default.plist in Resources */,
 				CF20605319F3534700DBD8C4 /* Icon-76@2x.png in Resources */,
-				CF49F6451A4AD58D00877BA7 /* font.fnt in Resources */,
 				CF20606119F3534700DBD8C4 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
 				CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */,

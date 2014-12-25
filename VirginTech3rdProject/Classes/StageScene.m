@@ -28,6 +28,7 @@ CCSprite* bgSpLayer;
 CCScrollView* scrollView;
 CGPoint worldLocation;
 
+MessageLayer* msgBox;
 InfoLayer* infoLayer;
 
 ItemBtnLayer* itemLayer;
@@ -84,6 +85,7 @@ bool createEnemyFlg;
     self.userInteractionEnabled = YES;
     
     //初期化
+    TURN_OBJ_MAX=40;
     footer=60;
     playerArray=[[NSMutableArray alloc]init];
     enemyArray=[[NSMutableArray alloc]init];
@@ -126,6 +128,7 @@ bool createEnemyFlg;
     
     //地面配置
     [self setGround];
+    [self setYard];
     
     // Create a back button
     /*CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
@@ -170,7 +173,7 @@ bool createEnemyFlg;
     [super onEnter];
     
     //アイテムライン
-    CCDrawNode* drawNode0=[CCDrawNode node];
+    /*CCDrawNode* drawNode0=[CCDrawNode node];
     [drawNode0 drawSegmentFrom:ccp(0,footer)
                             to:ccp([GameManager getWorldSize].width, footer)
                         radius:0.5
@@ -191,7 +194,7 @@ bool createEnemyFlg;
                                 to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
                                 radius:0.5
                                 color:[CCColor whiteColor]];
-    [bgSpLayer addChild:drawNode2];
+    [bgSpLayer addChild:drawNode2];*/
 
     //我逃避限界ライン
     CCDrawNode* drawNode3=[CCDrawNode node];
@@ -225,13 +228,35 @@ bool createEnemyFlg;
     enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
     [bgSpLayer addChild:enemyFortress];
     
+    //カスタムアラートメッセージ
+    NSString* msg=[NSString stringWithFormat:@"・%@: %d %@\n・%@: %d %@\n\n　%@",
+                    NSLocalizedString(@"RedArmy",NULL),
+                    (int)[InitObjManager init_Enemy_Pattern:stageNum].count*([InitObjManager NumOfRepeat:stageNum]+1),
+                    NSLocalizedString(@"Man",NULL),
+                    NSLocalizedString(@"BlueArmy",NULL),
+                    [InitObjManager NumPlayerMax:stageNum],
+                    NSLocalizedString(@"Man",NULL),
+                    NSLocalizedString(@"YouReady",NULL)
+                    ];
+    
+    msgBox=[[MessageLayer alloc]initWithTitle:@"戦闘準備!"
+                                                msg:msg
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 120)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:1];
+    msgBox.delegate=self;//デリゲートセット
+    [self addChild:msgBox z:4];
+    
     //「敵」生成スケジュール
-    repeatNum=[InitObjManager NumOfRepeat:stageNum];
-    int interval=[InitObjManager NumOfInterval:stageNum];
-    [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:CCTimerRepeatForever delay:1.0];
+    //repeatNum=[InitObjManager NumOfRepeat:stageNum];
+    //int interval=[InitObjManager NumOfInterval:stageNum];
+    //[self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:CCTimerRepeatForever delay:1.0];
     
     //審判スケジュール開始
-    [self schedule:@selector(judgement_Schedule:)interval:0.1];
+    //[self schedule:@selector(judgement_Schedule:)interval:0.1];
     
 }
 
@@ -268,6 +293,72 @@ bool createEnemyFlg;
         frame.position = CGPointMake(offsetX,offsetY);
         [bgSpLayer addChild:frame z:0];
     }
+}
+
+-(void)setYard
+{
+    float offsetX;
+    float offsetY;
+    float scale=0.5;
+    CCSprite* frame = [CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"ground_00.png"]];
+    CGSize frameCount = CGSizeMake(winSize.width/(frame.contentSize.width*scale)+2,
+                        (footer+([GameManager getWorldSize].height-footer)*0.2)/(frame.contentSize.height*scale)+1);
+    //NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",(arc4random()%10)];
+    NSString* bgName=[NSString stringWithFormat:@"ground_%02d.png",7];
+    
+    //プレイヤ側陣地
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        frame.scale=scale;
+        if(i==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = (footer+([GameManager getWorldSize].height-footer)*0.2)-(frame.contentSize.height*scale)/2;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = offsetY - (frame.contentSize.height*scale)+1;
+        }else{
+            offsetX = offsetX + (frame.contentSize.width*scale)-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [bgSpLayer addChild:frame z:0];
+    }
+    //敵側陣地
+    for(int i=0;i<frameCount.width*frameCount.height;i++)
+    {
+        frame = [CCSprite spriteWithSpriteFrame:
+                 [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:bgName]];
+        frame.scale=scale;
+        if(i==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = (footer+([GameManager getWorldSize].height-footer)*0.8)+(frame.contentSize.height*scale)/2;
+        }else if(i%(int)frameCount.width==0){
+            offsetX = (frame.contentSize.width*scale)/2-1;
+            offsetY = offsetY + (frame.contentSize.height*scale)-1;
+        }else{
+            offsetX = offsetX + (frame.contentSize.width*scale)-1;
+        }
+        frame.position = CGPointMake(offsetX,offsetY);
+        [bgSpLayer addChild:frame z:0];
+    }
+}
+
+//=====================
+// デリゲートメソッド
+//=====================
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
+{
+    if(procNum==1){
+        //「敵」生成スケジュール
+        repeatNum=[InitObjManager NumOfRepeat:stageNum];
+        int interval=[InitObjManager NumOfInterval:stageNum];
+        [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:CCTimerRepeatForever delay:1.0];
+        //審判スケジュール開始
+        [self schedule:@selector(judgement_Schedule:)interval:0.1];
+    }
+    msgBox.delegate=nil;//デリゲート解除
 }
 
 -(void)create_Enemy_Schedule:(CCTime)dt
@@ -754,7 +845,7 @@ UIEvent* events;
 
 -(void)create_Player_Schedule:(CCTime)dt
 {
-    if(infoLayer.pCnt<40 && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
+    if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
         if(touches.tapCount>0 && worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
             player=[Player createPlayer:worldLocation];
             [bgSpLayer addChild:player];

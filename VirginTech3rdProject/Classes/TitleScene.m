@@ -21,6 +21,7 @@
 
 @implementation TitleScene
 
+CGSize winSize;
 MessageLayer* msgBox;
 
 + (TitleScene *)scene
@@ -33,6 +34,8 @@ MessageLayer* msgBox;
     // Apple recommend assigning self with supers return value
     self = [super init];
     if (!self) return(nil);
+    
+    winSize=[[CCDirector sharedDirector]viewSize];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -189,7 +192,10 @@ MessageLayer* msgBox;
         //カスタムアラートメッセージ
         msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
                                                 msg:NSLocalizedString(@"NotNetwork",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
                                                 size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
                                                 type:0
                                                 procNum:0];//処理なし
         msgBox.delegate=self;//デリゲートセット
@@ -252,7 +258,10 @@ MessageLayer* msgBox;
         //カスタムアラートメッセージ
         msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
                                                 msg:NSLocalizedString(@"InAppBillingIslimited",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
                                                 size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
                                                 type:0
                                                 procNum:0];//処理なし
         msgBox.delegate=self;//デリゲートセット
@@ -279,7 +288,10 @@ MessageLayer* msgBox;
             //カスタムアラートメッセージ
             msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
                                                     msg:NSLocalizedString(@"NotNetwork",NULL)
+                                                    pos:ccp(winSize.width/2,winSize.height/2)
                                                     size:CGSizeMake(200, 100)
+                                                    modal:true
+                                                    rotation:false
                                                     type:0
                                                     procNum:0];//処理なし
             msgBox.delegate=self;//デリゲートセット

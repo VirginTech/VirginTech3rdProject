@@ -17,8 +17,9 @@
 
 @end
 
-@interface MessageLayer : CCScene {
-    
+@interface MessageLayer : CCScene
+{
+    int procNum;
 }
 
 // デリゲート・プロパティ
@@ -30,7 +31,10 @@
 +(MessageLayer *)scene;
 -(id)initWithTitle:(NSString*)title //タイトル
                             msg:(NSString*)msg //本文
+                            pos:(CGPoint)pos//位置
                             size:(CGSize)size //サイズ
+                            modal:(bool)modalFlg
+                            rotation:(bool)rotationFlg
                             type:(int)type //0:OKボタン 1:Yes/Noボタン
                             procNum:(int)_procNum; //処理ナンバー
 

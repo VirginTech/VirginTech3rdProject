@@ -24,13 +24,16 @@
 "Restored" = "リストア完了。";
 "Processing" = "購入処理中... ";
 
-//バトル通信
+//対戦間通信
 "BattleStrart"="戦闘開始！";
 "NotBattleData"="対戦データの取得に失敗しました";
 "PlayerDisconnected"="対戦相手から接続が切れました";
 "NetworkError"="ネットワークエラー";
-"YouReady"="[準備完了]";
 "OpponentWait"="対戦相手を待っています......";
 
-
-
+//戦闘準備
+"BattleReady"="戦闘準備!";
+"BlueArmy"="我の軍勢";
+"RedArmy"="敵の軍勢";
+"YouReady"="準備はよいか？";
+"Man"="名";

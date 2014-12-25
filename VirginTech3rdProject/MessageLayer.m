@@ -14,20 +14,31 @@
 @synthesize delegate;
 
 CGSize winSize;
-int procNum;
 
 + (MessageLayer *)scene
 {
     return [[self alloc] init];
 }
 
--(id)initWithTitle:(NSString*)title msg:(NSString*)msg size:(CGSize)size type:(int)type procNum:(int)_procNum
+-(id)initWithTitle:(NSString*)title
+                                msg:(NSString*)msg
+                                pos:(CGPoint)pos
+                                size:(CGSize)size
+                                modal:(bool)modalFlg
+                                rotation:(bool)rotationFlg
+                                type:(int)type
+                                procNum:(int)_procNum
 {
     // Apple recommend assigning self with supers return value
     self = [super init];
     if (!self) return(nil);
     
-    self.userInteractionEnabled = YES;
+    if(modalFlg){
+        self.userInteractionEnabled = YES;
+    }else{
+        self.userInteractionEnabled = NO;
+    }
+    
     winSize=[[CCDirector sharedDirector]viewSize];
     
     procNum=_procNum;
@@ -39,7 +50,7 @@ int procNum;
     //メッセージボックス
     CCSprite* msgBoard=[CCSprite spriteWithSpriteFrame:
                         [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"msgBoard.png"]];
-    msgBoard.position=ccp(winSize.width/2,winSize.height/2);
+    msgBoard.position=pos;
     msgBoard.scaleX=size.width/msgBoard.contentSize.width;
     msgBoard.scaleY=size.height/msgBoard.contentSize.height;
     [self addChild:msgBoard];
@@ -60,31 +71,66 @@ int procNum;
     [noBtn setTarget:self selector:@selector(noButtonClicked:)];
     [okBtn setTarget:self selector:@selector(okButtonClicked:)];
     
-    //[OK]ボタン
-    if(type==0){
-        okBtn.position=ccp(winSize.width-msgBoard.position.x, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+okBtn.contentSize.height*okBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
-        [self addChild:okBtn];
-    }
-    //[Yes/No]ボタン
-    else if(type==1){
-        yesBtn.position=ccp(winSize.width-msgBoard.position.x+yesBtn.contentSize.width*yesBtn.scale/2+5, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+yesBtn.contentSize.height*yesBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
-        [self addChild:yesBtn];
-        noBtn.position=ccp(winSize.width-msgBoard.position.x-noBtn.contentSize.width*noBtn.scale/2-5, winSize.height-msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+noBtn.contentSize.height*noBtn.scale/2+(msgBoard.contentSize.height*msgBoard.scaleY)*0.05);
-        [self addChild:noBtn];
-    //
+    if(rotationFlg){//反転表示
+        //[OK]ボタン
+        if(type==0){
+            okBtn.position=ccp(winSize.width-msgBoard.position.x, msgBoard.position.y+(msgBoard.contentSize.height*msgBoard.scaleY)/2-(okBtn.contentSize.height*okBtn.scale)/2-5);
+            okBtn.rotation=180;
+            [self addChild:okBtn];
+        }
+        //[Yes/No]ボタン
+        else if(type==1){
+            yesBtn.position=ccp(winSize.width-msgBoard.position.x-(yesBtn.contentSize.width*yesBtn.scale)/2-5, msgBoard.position.y+(msgBoard.contentSize.height*msgBoard.scaleY)/2-(yesBtn.contentSize.height*yesBtn.scale)/2-5);
+            yesBtn.rotation=180;
+            [self addChild:yesBtn];
+            noBtn.position=ccp(winSize.width-msgBoard.position.x+(noBtn.contentSize.width*noBtn.scale)/2+5, msgBoard.position.y+(msgBoard.contentSize.height*msgBoard.scaleY)/2-(noBtn.contentSize.height*noBtn.scale)/2-5);
+            noBtn.rotation=180;
+            [self addChild:noBtn];
+        //
+        }else{
+            
+        }
+        
+        //タイトル
+        CCLabelTTF* lbl_title=[CCLabelTTF labelWithString:title fontName:@"Verdana-Bold" fontSize:15];
+        lbl_title.position=ccp(winSize.width-msgBoard.position.x,msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+lbl_title.contentSize.height/2+10);
+        lbl_title.rotation=180;
+        [self addChild:lbl_title];
+        
+        //メッセージ本文
+        CCLabelTTF* lbl_msg=[CCLabelTTF labelWithString:msg fontName:@"Verdana-Bold" fontSize:10];
+        lbl_msg.position=ccp(winSize.width-msgBoard.position.x,msgBoard.position.y-msgBoard.contentSize.height*msgBoard.scaleY/2+lbl_msg.contentSize.height/2+40);
+        lbl_msg.rotation=180;
+        [self addChild:lbl_msg];
+    
     }else{
         
+        //[OK]ボタン
+        if(type==0){
+            okBtn.position=ccp(winSize.width-msgBoard.position.x, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(okBtn.contentSize.height*okBtn.scale)/2+5);
+            [self addChild:okBtn];
+        }
+        //[Yes/No]ボタン
+        else if(type==1){
+            yesBtn.position=ccp(winSize.width-msgBoard.position.x+(yesBtn.contentSize.width*yesBtn.scale)/2+5, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(yesBtn.contentSize.height*yesBtn.scale)/2+5);
+            [self addChild:yesBtn];
+            noBtn.position=ccp(winSize.width-msgBoard.position.x-(noBtn.contentSize.width*noBtn.scale)/2-5, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(noBtn.contentSize.height*noBtn.scale)/2+5);
+            [self addChild:noBtn];
+            //
+        }else{
+            
+        }
+        
+        //タイトル
+        CCLabelTTF* lbl_title=[CCLabelTTF labelWithString:title fontName:@"Verdana-Bold" fontSize:15];
+        lbl_title.position=ccp(winSize.width-msgBoard.position.x,msgBoard.position.y+msgBoard.contentSize.height*msgBoard.scaleY/2-lbl_title.contentSize.height/2-10);
+        [self addChild:lbl_title];
+        
+        //メッセージ本文
+        CCLabelTTF* lbl_msg=[CCLabelTTF labelWithString:msg fontName:@"Verdana-Bold" fontSize:10];
+        lbl_msg.position=ccp(winSize.width-msgBoard.position.x,msgBoard.position.y+msgBoard.contentSize.height*msgBoard.scaleY/2-lbl_msg.contentSize.height/2-40);
+        [self addChild:lbl_msg];
     }
-    
-    //タイトル
-    CCLabelTTF* lbl_title=[CCLabelTTF labelWithString:title fontName:@"Verdana-Bold" fontSize:15];
-    lbl_title.position=ccp(winSize.width-msgBoard.position.x,winSize.height-msgBoard.position.y+msgBoard.contentSize.height*msgBoard.scaleY/2-lbl_title.contentSize.height-msgBoard.contentSize.height*msgBoard.scaleY*0.05);
-    [self addChild:lbl_title];
-    
-    //メッセージ本文
-    CCLabelTTF* lbl_msg=[CCLabelTTF labelWithString:msg fontName:@"Verdana-Bold" fontSize:10];
-    lbl_msg.position=ccp(winSize.width-msgBoard.position.x,winSize.height-msgBoard.position.y+msgBoard.contentSize.height*msgBoard.scaleY/2-lbl_msg.contentSize.height-msgBoard.contentSize.height*msgBoard.scaleY*0.3);
-    [self addChild:lbl_msg];
     
     return self;
 }

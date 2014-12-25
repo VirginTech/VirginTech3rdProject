@@ -76,8 +76,8 @@ CCLabelTTF* eLbl2;
         //敵Max数
         eMaxCnt=(int)[InitObjManager init_Enemy_Pattern:[GameManager getStageLevel]].count*([InitObjManager NumOfRepeat:[GameManager getStageLevel]]+1);
     }else{//対戦
-        pMaxCnt=250;
-        eMaxCnt=250;
+        pMaxCnt=MATCH_TOTAL_OBJ_MAX;
+        eMaxCnt=MATCH_TOTAL_OBJ_MAX;
     }
     
     //=============================
@@ -105,7 +105,7 @@ CCLabelTTF* eLbl2;
     
     pInput_Indicator=[CCSprite spriteWithSpriteFrame:
                 [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"input_Indicator.png"]];
-    nowRatio=(100.0f/40.0f)*(40.0f-pCnt);
+    nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-pCnt);
     pInput_Indicator.scaleX=nowRatio*0.01;
     pInput_Indicator.position=CGPointMake((nowRatio*0.01)*(pBack_Indicator1.contentSize.width/2),
                                          pBack_Indicator1.contentSize.height/2);
@@ -113,7 +113,7 @@ CCLabelTTF* eLbl2;
     [pBack_Indicator1 addChild:pInput_Indicator];
     
     //ラベル
-    pLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/40",40-pCnt] fontName:@"Verdana-Bold" fontSize:12];
+    pLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/%02d",TURN_OBJ_MAX-pCnt,TURN_OBJ_MAX] fontName:@"Verdana-Bold" fontSize:12];
     pLbl1.position=ccp(pBack_Indicator1.position.x+(pBack_Indicator1.contentSize.width*pBack_Indicator1.scale)/2+pLbl1.contentSize.width/2, pBack_Indicator1.position.y);
     [pFrame addChild:pLbl1];
     
@@ -129,7 +129,7 @@ CCLabelTTF* eLbl2;
     
     pSpent_Indicator=[CCSprite spriteWithSpriteFrame:
                      [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"spent_Indicator.png"]];
-    nowRatio=(100.0f/40.0f)*(40.0f-pCnt);
+    nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-pCnt);
     pSpent_Indicator.scaleX=nowRatio*0.01;
     pSpent_Indicator.position=CGPointMake((nowRatio*0.01)*(pBack_Indicator2.contentSize.width/2),
                                          pBack_Indicator2.contentSize.height/2);
@@ -169,7 +169,7 @@ CCLabelTTF* eLbl2;
         
         eInput_Indicator=[CCSprite spriteWithSpriteFrame:
                          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"input_Indicator.png"]];
-        nowRatio=(100.0f/40.0f)*(40.0f-pCnt);
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-pCnt);
         eInput_Indicator.scaleX=nowRatio*0.01;
         eInput_Indicator.position=CGPointMake((nowRatio*0.01)*(eBack_Indicator1.contentSize.width/2),
                                              eBack_Indicator1.contentSize.height/2);
@@ -178,7 +178,7 @@ CCLabelTTF* eLbl2;
         [eBack_Indicator1 addChild:eInput_Indicator];
         
         //ラベル
-        eLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/40",40-eCnt] fontName:@"Verdana-Bold" fontSize:12];
+        eLbl1=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%02d/%02d",TURN_OBJ_MAX-eCnt,TURN_OBJ_MAX] fontName:@"Verdana-Bold" fontSize:12];
         eLbl1.position=ccp(eBack_Indicator1.position.x+(eBack_Indicator1.contentSize.width*eBack_Indicator1.scale)/2+eLbl1.contentSize.width/2, eBack_Indicator1.position.y);
         //eLbl1.rotation=180;
         [eFrame addChild:eLbl1];
@@ -196,7 +196,7 @@ CCLabelTTF* eLbl2;
         
         eSpent_Indicator=[CCSprite spriteWithSpriteFrame:
                          [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"spent_Indicator.png"]];
-        nowRatio=(100.0f/40.0f)*(40.0f-pCnt);
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-pCnt);
         eSpent_Indicator.scaleX=nowRatio*0.01;
         eSpent_Indicator.position=CGPointMake((nowRatio*0.01)*(eBack_Indicator2.contentSize.width/2),
                                              eBack_Indicator2.contentSize.height/2);
@@ -265,7 +265,7 @@ CCLabelTTF* eLbl2;
         //scoreBoard=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score:%05ld",[GameManager load_Score]]
         //                          fontName:@"Verdana-Bold" fontSize:15];
         scoreBoard=[CCLabelBMFont labelWithString:
-                    [NSString stringWithFormat:@"SCORE\n%05ld",[GameManager load_Score]]fntFile:@"font.fnt"];
+                    [NSString stringWithFormat:@"SCORE\n%05ld",[GameManager load_Score]]fntFile:@"scoreFont.fnt"];
         scoreBoard.scale=0.3;
         scoreBoard.position=ccp((scoreBoard.contentSize.width*scoreBoard.scale)/2,
                                 winSize.height-(scoreBoard.contentSize.height*scoreBoard.scale)/2);
@@ -274,7 +274,7 @@ CCLabelTTF* eLbl2;
         //scoreBoard=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]]
         //                              fontName:@"Verdana-Bold" fontSize:15];
         scoreBoard=[CCLabelBMFont labelWithString:
-                    [NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]]fntFile:@"font.fnt"];
+                    [NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]]fntFile:@"scoreFont.fnt"];
         scoreBoard.scale=0.3;
         scoreBoard.position=ccp((scoreBoard.contentSize.width*scoreBoard.scale)/2,
                                 winSize.height-(scoreBoard.contentSize.height*scoreBoard.scale)/2);
@@ -345,12 +345,12 @@ CCLabelTTF* eLbl2;
     //=======================
     //プレイヤー側インジケーター
     //=======================
-    if(pMaxCnt-pTotalCnt > 40-pCnt){//悩んだよ！
-        nowRatio=(100.0f/40.0f)*(40.0f-pCnt);
-        pLbl1.string=[NSString stringWithFormat:@"%02d/40",40-pCnt];
+    if(pMaxCnt-pTotalCnt > TURN_OBJ_MAX-pCnt){//悩んだよ！
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-pCnt);
+        pLbl1.string=[NSString stringWithFormat:@"%02d/%02d",TURN_OBJ_MAX-pCnt,TURN_OBJ_MAX];
     }else{
-        nowRatio=(100.0f/40.0f)*(pMaxCnt-pTotalCnt);
-        pLbl1.string=[NSString stringWithFormat:@"%02d/40",pMaxCnt-pTotalCnt];
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(pMaxCnt-pTotalCnt);
+        pLbl1.string=[NSString stringWithFormat:@"%02d/%02d",pMaxCnt-pTotalCnt,TURN_OBJ_MAX];
     }
     pInput_Indicator.scaleX=nowRatio*0.01;
     pInput_Indicator.position=CGPointMake((nowRatio*0.01)*(pBack_Indicator1.contentSize.width/2),
@@ -365,12 +365,12 @@ CCLabelTTF* eLbl2;
     //=======================
     //「敵」側インジケーター
     //=======================
-    if(eMaxCnt-eTotalCnt > 40-eCnt){
-        nowRatio=(100.0f/40.0f)*(40.0f-eCnt);
-        eLbl1.string=[NSString stringWithFormat:@"%02d/40",40-eCnt];
+    if(eMaxCnt-eTotalCnt > TURN_OBJ_MAX-eCnt){
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-eCnt);
+        eLbl1.string=[NSString stringWithFormat:@"%02d/%02d",TURN_OBJ_MAX-eCnt,TURN_OBJ_MAX];
     }else{
-        nowRatio=(100.0f/40.0f)*(eMaxCnt-eTotalCnt);
-        eLbl1.string=[NSString stringWithFormat:@"%02d/40",eMaxCnt-eTotalCnt];
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(eMaxCnt-eTotalCnt);
+        eLbl1.string=[NSString stringWithFormat:@"%02d/%02d",eMaxCnt-eTotalCnt,TURN_OBJ_MAX];
     }
     eInput_Indicator.scaleX=nowRatio*0.01;
     eInput_Indicator.position=CGPointMake((nowRatio*0.01)*(eBack_Indicator1.contentSize.width/2),
