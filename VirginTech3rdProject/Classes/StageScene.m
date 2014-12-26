@@ -53,6 +53,11 @@ NSMutableArray* enemyArray;
 NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
 
+//パーティクル
+CCParticleSystem* bombParticle;
+CCParticleSystem* rushLoadParticle;
+//NSMutableArray* bombParticleArray;
+
 //デバッグ用ラベル
 //int repCnt;
 //CCLabelTTF* debugLabel1;
@@ -89,6 +94,8 @@ bool createEnemyFlg;
     footer=60;
     playerArray=[[NSMutableArray alloc]init];
     enemyArray=[[NSMutableArray alloc]init];
+    //bombParticleArray=[[NSMutableArray alloc]init];
+    bombParticle=nil;
     createPlayerFlg=false;
     gameEndFlg=false;
     stageNum=[GameManager getStageLevel];
@@ -595,6 +602,9 @@ bool createEnemyFlg;
                 //アイテムごとによる攻撃
                 //==================
                 if(_player.itemNum==1){//爆弾
+                    //爆発パーティクル
+                    [self setBombParticle:_player.position];
+                    
                     for(Enemy* _enemy_ in enemyArray){
                         if([BasicMath RadiusContainsPoint:_player.position
                                                         pointB:_enemy_.position
@@ -840,6 +850,24 @@ bool createEnemyFlg;
     
 }
 
+-(void)setBombParticle:(CGPoint)pos
+{
+    /*/その都度削除
+    for(CCParticleSystem* _particle in bombParticleArray){
+        [bgSpLayer removeChild:_particle cleanup:YES];
+    }
+    bombParticleArray=[[NSMutableArray alloc]init];*/
+    
+    if(bombParticle!=nil){//その都度削除
+        [bgSpLayer removeChild:bombParticle cleanup:YES];
+    }
+    bombParticle=[[CCParticleSystem alloc]initWithFile:@"bomb.plist"];
+    bombParticle.position=pos;
+    bombParticle.scale=0.3;
+    [bgSpLayer addChild:bombParticle];
+    //[bombParticleArray addObject:bombParticle];
+}
+
 UITouch* touches;
 UIEvent* events;
 
@@ -861,7 +889,16 @@ UIEvent* events;
                     [itemLayer btnSelectedDisable];
                 }
             }
-            
+            /*if(itemNum==3){//突進モード・パーティクル
+                CGPoint rushLoadPos=worldLocation;
+                while(rushLoadPos.y<footer+([GameManager getWorldSize].height-footer)*0.8){
+                    rushLoadParticle=[[CCParticleSystem alloc]initWithFile:@"rush.plist"];
+                    rushLoadPos=ccp(rushLoadPos.x,rushLoadPos.y+25);
+                    rushLoadParticle.position=rushLoadPos;
+                    rushLoadParticle.scale=0.3;
+                    [bgSpLayer addChild:rushLoadParticle];
+                }
+            }*/
             [self touchBegan:touches withEvent:events];
             infoLayer.pCnt++;
             infoLayer.pTotalCnt++;

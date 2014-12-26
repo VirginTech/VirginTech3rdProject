@@ -187,6 +187,13 @@ Fortress* targetFortress;
     lifeGauge2.scaleX=nowRatio*0.01;
     lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge1.contentSize.width/2), lifeGauge1.contentSize.height/2);
     
+    if(itemNum==2){//シールドモード
+        if(ability<=5){
+            shieldParticle.visible=false;
+            //[self removeChild:shieldParticle cleanup:YES];
+        }
+    }
+    
     //デバッグ用
     //modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
     //energyLabel.string=[NSString stringWithFormat:@"%d",itemNum];
@@ -228,23 +235,40 @@ Fortress* targetFortress;
     {
         self.position=pos;
         self.scale=0.3;
-        mode=0;//通常モード
+        mode=0;//状態:通常モード
         stopFlg=false;
         animeCnt=0;
+        velocity=0.2f;
+        ability=5;
         
+        //アイテム取得
         itemNum=[GameManager getItem];
         
-        if([GameManager getItem]==5){//高速モード
+        //アイテム付与
+        if(itemNum==1){//爆弾
+            
+        }else if(itemNum==2){//シールドモード
+            ability=20;
+            shieldParticle=[[CCParticleSystem alloc]initWithFile:@"shield.plist"];
+            shieldParticle.position=ccp(self.contentSize.width/2,self.contentSize.height/2);
+            shieldParticle.scale=0.7;
+            [self addChild:shieldParticle];
+        }else if(itemNum==3){//突撃モード
+            speedupParticle=[[CCParticleSystem alloc]initWithFile:@"speedup.plist"];
+            speedupParticle.position=ccp(self.contentSize.width/2,self.contentSize.height/2-15);
+            speedupParticle.scale=1.0;
+            [self addChild:speedupParticle];
+        }else if(itemNum==4){//攻撃アップ
+            self.scale=0.35;
+        }else if(itemNum==5){//高速モード
             velocity=0.3f;
-        }else{
-            velocity=0.2f;
+            speedupParticle=[[CCParticleSystem alloc]initWithFile:@"speedup.plist"];
+            speedupParticle.position=ccp(self.contentSize.width/2,self.contentSize.height/2-15);
+            speedupParticle.scale=1.0;
+            [self addChild:speedupParticle];
         }
         
-        if([GameManager getItem]==2){//シールドモード
-            ability=15;
-        }else{
-            ability=5;
-        }
+
         
         nextPos=ccp(self.position.x,self.position.y+velocity);
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];

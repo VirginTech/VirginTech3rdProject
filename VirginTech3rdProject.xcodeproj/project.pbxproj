@@ -214,6 +214,10 @@
 		CF4428551A3AD12000F17BB0 /* MessageLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4428541A3AD12000F17BB0 /* MessageLayer.m */; };
 		CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4428571A3AD3AF00F17BB0 /* message_default.plist */; };
 		CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4428581A3AD3AF00F17BB0 /* message_default.png */; };
+		CF4542111A4D05F2001BB61C /* bomb.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4542101A4D05F2001BB61C /* bomb.plist */; };
+		CF45421D1A4D584C001BB61C /* shield.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF45421C1A4D584C001BB61C /* shield.plist */; };
+		CF4542211A4D5DBE001BB61C /* speedup.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4542201A4D5DBE001BB61C /* speedup.plist */; };
+		CF4542271A4D966F001BB61C /* rush.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4542261A4D966F001BB61C /* rush.plist */; };
 		CF454F2D1A31B7F3001C6CA9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454F2C1A31B7F3001C6CA9 /* Reachability.m */; };
 		CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */; };
 		CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454FE01A2418200037A978 /* RealBattleScene.m */; };
@@ -683,6 +687,10 @@
 		CF4428541A3AD12000F17BB0 /* MessageLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageLayer.m; sourceTree = "<group>"; };
 		CF4428571A3AD3AF00F17BB0 /* message_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = message_default.plist; sourceTree = "<group>"; };
 		CF4428581A3AD3AF00F17BB0 /* message_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message_default.png; sourceTree = "<group>"; };
+		CF4542101A4D05F2001BB61C /* bomb.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb.plist; sourceTree = "<group>"; };
+		CF45421C1A4D584C001BB61C /* shield.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shield.plist; sourceTree = "<group>"; };
+		CF4542201A4D5DBE001BB61C /* speedup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = speedup.plist; sourceTree = "<group>"; };
+		CF4542261A4D966F001BB61C /* rush.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rush.plist; sourceTree = "<group>"; };
 		CF454F2B1A31B7F3001C6CA9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CF454F2C1A31B7F3001C6CA9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -817,6 +825,7 @@
 		CF20603E19F3534700DBD8C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CF4542091A4CFA8A001BB61C /* Particle */,
 				CF49F63E1A4AD05900877BA7 /* Font */,
 				CF20D5711A36B780006CD725 /* UI */,
 				CF49107D1A1F16A9003F6579 /* Item */,
@@ -1593,6 +1602,17 @@
 			name = UI;
 			sourceTree = "<group>";
 		};
+		CF4542091A4CFA8A001BB61C /* Particle */ = {
+			isa = PBXGroup;
+			children = (
+				CF4542261A4D966F001BB61C /* rush.plist */,
+				CF4542201A4D5DBE001BB61C /* speedup.plist */,
+				CF45421C1A4D584C001BB61C /* shield.plist */,
+				CF4542101A4D05F2001BB61C /* bomb.plist */,
+			);
+			name = Particle;
+			sourceTree = "<group>";
+		};
 		CF454F301A31BC3E001C6CA9 /* Scene */ = {
 			isa = PBXGroup;
 			children = (
@@ -1787,6 +1807,7 @@
 				CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */,
 				CF5A44011A4C239B00B71D15 /* matchFont.fnt in Resources */,
 				CF4428511A3A810F00F17BB0 /* fortress_default.plist in Resources */,
+				CF4542111A4D05F2001BB61C /* bomb.plist in Resources */,
 				CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */,
 				CF67C3131A42C4EA005649AA /* ground_default.png in Resources */,
 				CF20605519F3534700DBD8C4 /* Icon-120.png in Resources */,
@@ -1807,6 +1828,7 @@
 				CF49F6381A4AB57200877BA7 /* btn_default.plist in Resources */,
 				CF67C3121A42C4EA005649AA /* ground_default.plist in Resources */,
 				CF49F6241A4A6B3F00877BA7 /* info_default.plist in Resources */,
+				CF4542211A4D5DBE001BB61C /* speedup.plist in Resources */,
 				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
 				CF20604D19F3534700DBD8C4 /* Icon-72.png in Resources */,
 				CF49F6311A4A970000877BA7 /* enemy_default.png in Resources */,
@@ -1821,11 +1843,13 @@
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
 				CF49F6391A4AB57200877BA7 /* btn_default.png in Resources */,
+				CF4542271A4D966F001BB61C /* rush.plist in Resources */,
 				CF49F6351A4A971800877BA7 /* player_default.png in Resources */,
 				CF20D56F1A36B6C1006CD725 /* item_default.plist in Resources */,
 				CF20605319F3534700DBD8C4 /* Icon-76@2x.png in Resources */,
 				CF20606119F3534700DBD8C4 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
+				CF45421D1A4D584C001BB61C /* shield.plist in Resources */,
 				CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */,
 				CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */,
 				CF20606619F3534700DBD8C4 /* iTunesArtwork@2x in Resources */,

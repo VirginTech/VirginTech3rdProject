@@ -32,6 +32,10 @@
     
     id targetObject;
     
+    //パーティクル
+    CCParticleSystem* shieldParticle;
+    CCParticleSystem* speedupParticle;
+    
     //デバッグ用
     //CCLabelTTF* modeLabel;
     //CCLabelTTF* energyLabel;
