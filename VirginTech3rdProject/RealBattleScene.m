@@ -54,6 +54,9 @@ bool createEnemyFlg;
 //対戦準備レイヤー
 MatchWaitLayer* mWaitLayer;
 
+//パーティクル
+CCParticleSystem* dieParticle;
+
 //デバッグ用ラベル
 //int repCnt;
 //CCLabelTTF* debugLabel1;
@@ -82,14 +85,12 @@ MatchWaitLayer* mWaitLayer;
     //初期化
     TURN_OBJ_MAX=50;
     gameEndFlg=false;
-    
     footer=0;
     playerArray=[[NSMutableArray alloc]init];
     createPlayerFlg=false;
-    
     enemyArray=[[NSMutableArray alloc]init];
     createEnemyFlg=false;
-    
+    dieParticle=nil;
     [GameManager setPause:false];
     
     //アイテム初期化
@@ -105,7 +106,7 @@ MatchWaitLayer* mWaitLayer;
     
     //ナビレイヤー
     NaviLayer* naviLayer=[[NaviLayer alloc]init];
-    [self addChild:naviLayer z:41];
+    [self addChild:naviLayer z:TURN_OBJ_MAX+1];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -679,16 +680,30 @@ MatchWaitLayer* mWaitLayer;
 {
     for(Player* _player in removePlayerArray)
     {
+        [self setDieParticle:_player.position];
+        [self setTomb:_player.position];
         [playerArray removeObject:_player];
         [self removeChild:_player cleanup:YES];
         infoLayer.pCnt--;
     }
     for(Enemy* _enemy in removeEnemyArray)
     {
+        [self setDieParticle:_enemy.position];
+        [self setTomb:_enemy.position];
         [enemyArray removeObject:_enemy];
         [self removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
     }
+}
+
+-(void)setTomb:(CGPoint)pos
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ground_default.plist"];
+    CCSprite* tomb = [CCSprite spriteWithSpriteFrame:
+                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"tomb.png"]];
+    tomb.scale=0.2;
+    tomb.position=pos;
+    [self addChild:tomb z:0];
 }
 
 //==================
@@ -707,9 +722,21 @@ MatchWaitLayer* mWaitLayer;
     [self unscheduleAllSelectors];
     
     //リザルトレイヤー表示
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg stars:0];
     [self addChild:resultsLayer z:42];
     
+}
+
+-(void)setDieParticle:(CGPoint)pos
+{
+    if(dieParticle!=nil){//その都度削除
+        [self removeChild:dieParticle cleanup:YES];
+    }
+    dieParticle=[[CCParticleSystem alloc]initWithFile:@"die.plist"];
+    dieParticle.position=pos;
+    dieParticle.scale=0.5;
+    [self addChild:dieParticle z:100];
+    //[bombParticleArray addObject:bombParticle];
 }
 
 -(void)create_Player_Schedule:(CCTime)dt
@@ -717,7 +744,7 @@ MatchWaitLayer* mWaitLayer;
     if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
         if(playerLocation.y<[GameManager getWorldSize].height*0.2){
             player=[Player createPlayer:playerLocation];
-            [self addChild:player];
+            [self addChild:player z:1];
             [playerArray addObject:player];
             infoLayer.pCnt++;
             infoLayer.pTotalCnt++;

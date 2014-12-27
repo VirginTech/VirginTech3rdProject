@@ -185,6 +185,9 @@ Fortress* targetFortress;
     lifeGauge2.scaleX=nowRatio*0.01;
     lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge1.contentSize.width/2), lifeGauge1.contentSize.height/2);
 
+    //ダメージ表示
+    //self.opacity=nowRatio*0.01;
+    
     //デバッグ用
     //modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
     //energyLabel.string=[NSString stringWithFormat:@"%d",ability];

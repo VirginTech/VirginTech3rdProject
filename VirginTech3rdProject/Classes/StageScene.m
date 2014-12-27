@@ -55,7 +55,8 @@ bool createEnemyFlg;
 
 //パーティクル
 CCParticleSystem* bombParticle;
-CCParticleSystem* rushLoadParticle;
+//CCParticleSystem* rushLoadParticle;
+CCParticleSystem* dieParticle;
 //NSMutableArray* bombParticleArray;
 
 //デバッグ用ラベル
@@ -96,6 +97,7 @@ CCParticleSystem* rushLoadParticle;
     enemyArray=[[NSMutableArray alloc]init];
     //bombParticleArray=[[NSMutableArray alloc]init];
     bombParticle=nil;
+    dieParticle=nil;
     createPlayerFlg=false;
     gameEndFlg=false;
     stageNum=[GameManager getStageLevel];
@@ -814,16 +816,30 @@ CCParticleSystem* rushLoadParticle;
 {
     for(Player* _player in removePlayerArray)
     {
+        [self setDieParticle:_player.position];
+        [self setTomb:_player.position];
         [playerArray removeObject:_player];
         [bgSpLayer removeChild:_player cleanup:YES];
         infoLayer.pCnt--;
     }
     for(Enemy* _enemy in removeEnemyArray)
     {
+        [self setDieParticle:_enemy.position];
+        [self setTomb:_enemy.position];
         [enemyArray removeObject:_enemy];
         [bgSpLayer removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
     }
+}
+
+-(void)setTomb:(CGPoint)pos
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ground_default.plist"];
+    CCSprite* tomb = [CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"tomb.png"]];
+    tomb.scale=0.2;
+    tomb.position=pos;
+    [bgSpLayer addChild:tomb z:0];
 }
 
 //==================
@@ -845,7 +861,16 @@ CCParticleSystem* rushLoadParticle;
     [GameManager save_Score:[GameManager load_Score]+playerFortress.ability];
     
     //リザルトレイヤー表示
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
+    int stars=0;
+    float ratio=(100.0f/500)*playerFortress.ability;
+    if(ratio>=80){
+        stars=3;
+    }else if(ratio>=50 && ratio<80){
+        stars=2;
+    }else{
+        stars=1;
+    }
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg stars:stars];
     [self addChild:resultsLayer z:4];
     
 }
@@ -864,7 +889,19 @@ CCParticleSystem* rushLoadParticle;
     bombParticle=[[CCParticleSystem alloc]initWithFile:@"bomb.plist"];
     bombParticle.position=pos;
     bombParticle.scale=0.3;
-    [bgSpLayer addChild:bombParticle];
+    [bgSpLayer addChild:bombParticle z:100];
+    //[bombParticleArray addObject:bombParticle];
+}
+
+-(void)setDieParticle:(CGPoint)pos
+{
+    if(dieParticle!=nil){//その都度削除
+        [bgSpLayer removeChild:dieParticle cleanup:YES];
+    }
+    dieParticle=[[CCParticleSystem alloc]initWithFile:@"die.plist"];
+    dieParticle.position=pos;
+    dieParticle.scale=0.5;
+    [bgSpLayer addChild:dieParticle z:100];
     //[bombParticleArray addObject:bombParticle];
 }
 
@@ -876,7 +913,7 @@ UIEvent* events;
     if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
         if(touches.tapCount>0 && worldLocation.y<footer+([GameManager getWorldSize].height-footer)*0.2){
             player=[Player createPlayer:worldLocation];
-            [bgSpLayer addChild:player];
+            [bgSpLayer addChild:player z:1];
             [playerArray addObject:player];
             
             itemNum=[GameManager getItem];

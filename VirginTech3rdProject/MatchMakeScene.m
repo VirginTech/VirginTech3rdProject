@@ -71,6 +71,9 @@ bool gameEndFlg;
 
 NSMutableArray* battleDataArray;
 
+//パーティクル
+CCParticleSystem* dieParticle;
+
 //カウンター
 //int pMaxCnt;
 //int pTotalCnt;
@@ -126,12 +129,11 @@ NaviLayer* naviLayer;
     //初期化
     TURN_OBJ_MAX=50;
     gameEndFlg=false;
-    
     playerArray=[[NSMutableArray alloc]init];
     enemyArray=[[NSMutableArray alloc]init];
     createObjectFlg=false;
-    
     [GameManager setPause:false];
+    dieParticle=nil;
     
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
@@ -146,7 +148,7 @@ NaviLayer* naviLayer;
     
     //ナビレイヤー
     naviLayer=[[NaviLayer alloc]init];
-    [self addChild:naviLayer z:41];
+    [self addChild:naviLayer z:TURN_OBJ_MAX+1];
     
     //ワールドサイズ（iPhone4に合わせた画面の大きさ）
     [GameManager setWorldSize:CGSizeMake(320, 480)];
@@ -870,16 +872,30 @@ NaviLayer* naviLayer;
 {
     for(mPlayer* _player in removePlayerArray)
     {
+        [self setDieParticle:_player.position];
+        [self setTomb:_player.position];
         [playerArray removeObject:_player];
         [self removeChild:_player cleanup:YES];
         infoLayer.pCnt--;
     }
     for(mEnemy* _enemy in removeEnemyArray)
     {
+        [self setDieParticle:_enemy.position];
+        [self setTomb:_enemy.position];
         [enemyArray removeObject:_enemy];
         [self removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
     }
+}
+
+-(void)setTomb:(CGPoint)pos
+{
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"ground_default.plist"];
+    CCSprite* tomb = [CCSprite spriteWithSpriteFrame:
+                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"tomb.png"]];
+    tomb.scale=0.2;
+    tomb.position=pos;
+    [self addChild:tomb z:0];
 }
 
 //=========================
@@ -972,9 +988,21 @@ NaviLayer* naviLayer;
     
     //NSLog(@"勝ち点: %02d ポイント",[GameManager load_Match_Point]);
     //リザルトレイヤー表示
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg];
-    [self addChild:resultsLayer z:42];
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg stars:0];
+    [self addChild:resultsLayer z:TURN_OBJ_MAX+2];
     
+}
+
+-(void)setDieParticle:(CGPoint)pos
+{
+    if(dieParticle!=nil){//その都度削除
+        [self removeChild:dieParticle cleanup:YES];
+    }
+    dieParticle=[[CCParticleSystem alloc]initWithFile:@"die.plist"];
+    dieParticle.position=pos;
+    dieParticle.scale=0.5;
+    [self addChild:dieParticle z:100];
+    //[bombParticleArray addObject:bombParticle];
 }
 
 -(void)create_Object_Schedule:(CCTime)dt
@@ -983,7 +1011,7 @@ NaviLayer* naviLayer;
         if([GameManager getHost]){//青(Player)
             if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
                 m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:touchPos];
-                [self addChild:m_player];
+                [self addChild:m_player z:1];
                 [playerArray addObject:m_player];
                 infoLayer.pCnt++;
                 infoLayer.pTotalCnt++;
@@ -997,7 +1025,7 @@ NaviLayer* naviLayer;
         }else{//赤(Enemy)
             if(infoLayer.eCnt<TURN_OBJ_MAX && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
                 m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:touchPos];
-                [self addChild:m_enemy];
+                [self addChild:m_enemy z:1];
                 [enemyArray addObject:m_enemy];
                 infoLayer.eCnt++;
                 infoLayer.eTotalCnt++;
@@ -1129,9 +1157,9 @@ NaviLayer* naviLayer;
                 //リザルトレイヤー表示
                 ResultsLayer* resultsLayer;
                 if([GameManager getHost]){//ホスト青だったら
-                    resultsLayer=[[ResultsLayer alloc]initWithWinner:true];
+                    resultsLayer=[[ResultsLayer alloc]initWithWinner:true stars:0];
                 }else{
-                    resultsLayer=[[ResultsLayer alloc]initWithWinner:false];
+                    resultsLayer=[[ResultsLayer alloc]initWithWinner:false stars:0];
                 }
                 [self addChild:resultsLayer z:42];
                 

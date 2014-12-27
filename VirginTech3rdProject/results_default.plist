@@ -22,7 +22,51 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{255, 0}, {249, 74}}</string>
+			<string>{{255, 137}, {249, 74}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>star_B.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {135, 135}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{135, 135}</string>
+			<key>spriteSourceSize</key>
+			<string>{135, 135}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{137, 0}, {135, 135}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
+		<key>star_G.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {135, 135}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{135, 135}</string>
+			<key>spriteSourceSize</key>
+			<string>{135, 135}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 0}, {135, 135}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -44,7 +88,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{0, 0}, {253, 80}}</string>
+			<string>{{0, 137}, {253, 80}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>

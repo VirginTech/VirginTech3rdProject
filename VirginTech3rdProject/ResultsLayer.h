@@ -15,6 +15,6 @@
 }
 
 + (ResultsLayer *)scene;
-- (id)initWithWinner:(bool)flg;//true:青軍 false:赤軍
+- (id)initWithWinner:(bool)flg stars:(int)stars;//true:青軍 false:赤軍
 
 @end

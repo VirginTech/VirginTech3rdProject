@@ -194,6 +194,9 @@ Fortress* targetFortress;
         }
     }
     
+    //ダメージ表示
+    //self.opacity=nowRatio*0.01;
+    
     //デバッグ用
     //modeLabel.string=[NSString stringWithFormat:@"M=%d",mode];
     //energyLabel.string=[NSString stringWithFormat:@"%d",itemNum];
@@ -267,8 +270,6 @@ Fortress* targetFortress;
             speedupParticle.scale=1.0;
             [self addChild:speedupParticle];
         }
-        
-
         
         nextPos=ccp(self.position.x,self.position.y+velocity);
         targetAngle=[BasicMath getAngle_To_Radian:self.position ePos:nextPos];

@@ -17,12 +17,17 @@ CGSize winSize;
 CCSprite* victorySpr;
 CCSprite* defeatSpr;
 
+CCSprite* starB;
+CCSprite* starG;
+int cnt;
+int rep;
+
 + (ResultsLayer *)scene
 {
     return [[self alloc] init];
 }
 
-- (id)initWithWinner:(bool)flg
+- (id)initWithWinner:(bool)flg stars:(int)stars
 {
     // Apple recommend assigning self with supers return value
     self = [super init];
@@ -30,6 +35,10 @@ CCSprite* defeatSpr;
     
     self.userInteractionEnabled = YES;
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    //初期化
+    cnt=0;
+    rep=stars*300;
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f]];
@@ -59,11 +68,30 @@ CCSprite* defeatSpr;
     
     if([GameManager getMatchMode]==0)//シングル
     {
-        if(flg){
+        //三ツ星描画（黒）
+        for(int i=0;i<3;i++){
+            starB=[CCSprite spriteWithSpriteFrame:
+                        [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_B.png"]];
+            if(i==0){
+                starB.position=ccp(winSize.width/2-100,winSize.height/2+100);
+            }else if(i==1){
+                starB.position=ccp(winSize.width/2,winSize.height/2+130);
+            }else{
+                starB.position=ccp(winSize.width/2+100,winSize.height/2+100);
+            }
+            starB.scale=0.7;
+            [self addChild:starB];
+        }
+        
+        //判定ラベル
+        if(flg){//勝利
+            //三ツ星描画（ゴールド）
+            [self schedule:@selector(star_Schedule:) interval:0.001 repeat:rep delay:0.25];
+            
             victorySpr.visible=true;
             victorySpr.position=ccp(winSize.width/2,winSize.height/2);
             [self addChild:victorySpr];
-        }else{
+        }else{//敗北
             defeatSpr.visible=true;
             defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
             [self addChild:defeatSpr];
@@ -116,6 +144,51 @@ CCSprite* defeatSpr;
         }
     }
     return self;
+}
+
+-(void)star_Schedule:(CCTime)dt
+{
+    cnt++;
+
+    if(cnt==1){
+        starG=[CCSprite spriteWithSpriteFrame:
+               [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_G.png"]];
+        starG.position=ccp(winSize.width/2-100,winSize.height/2+100);
+        starG.scale=3.0;
+        [self addChild:starG];
+    }
+    else if(cnt==300){
+        starG.scale=0.7;
+        starG.position=ccp(winSize.width/2-100,winSize.height/2+100);
+        if(rep>300){
+            starG=[CCSprite spriteWithSpriteFrame:
+                   [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_G.png"]];
+            starG.position=ccp(winSize.width/2,winSize.height/2+130);
+            starG.scale=3.0;
+            [self addChild:starG];
+        }
+    }
+    else if(cnt==600)
+    {
+        starG.scale=0.7;
+        starG.position=ccp(winSize.width/2,winSize.height/2+130);
+        if(rep>600){
+            starG=[CCSprite spriteWithSpriteFrame:
+                   [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_G.png"]];
+            starG.position=ccp(winSize.width/2+100,winSize.height/2+100);
+            starG.scale=3.0;
+            [self addChild:starG];
+        }
+    }
+    else if(cnt==900)
+    {
+        starG.scale=0.7;
+        starG.position=ccp(winSize.width/2+100,winSize.height/2+100);
+    }
+    else
+    {
+        starG.scale-=0.01;
+    }
 }
 
 - (void)onTitleClicked:(id)sender
