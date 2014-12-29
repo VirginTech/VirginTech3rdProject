@@ -30,6 +30,8 @@ CCLabelTTF* debugLabel5;*/
 
 //スコアボード
 CCLabelBMFont* scoreBoard;
+CCLabelBMFont* highScoreBoard;
+int totalScore;//現在ステージのスコア
 
 //プレイヤーインジケーター
 float nowRatio;
@@ -69,6 +71,7 @@ CCLabelTTF* eLbl2;
     eTotalCnt=0;
     pCnt=0;
     eCnt=0;
+    totalScore=[GameManager load_Total_Score:[GameManager getStageLevel]-1];//1つ前までのステージスコア
     
     if([GameManager getMatchMode]==0){//シングル
         //プレイヤーMax数
@@ -265,7 +268,7 @@ CCLabelTTF* eLbl2;
         //scoreBoard=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"Score:%05ld",[GameManager load_Score]]
         //                          fontName:@"Verdana-Bold" fontSize:15];
         scoreBoard=[CCLabelBMFont labelWithString:
-                    [NSString stringWithFormat:@"SCORE\n%05ld",[GameManager load_Score]]fntFile:@"scoreFont.fnt"];
+                [NSString stringWithFormat:@"SCORE\n%05d",totalScore+[GameManager getCurrentScore]]fntFile:@"scoreFont.fnt"];
         scoreBoard.scale=0.3;
         scoreBoard.position=ccp((scoreBoard.contentSize.width*scoreBoard.scale)/2,
                                 winSize.height-(scoreBoard.contentSize.height*scoreBoard.scale)/2);
@@ -274,13 +277,24 @@ CCLabelTTF* eLbl2;
         //scoreBoard=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]]
         //                              fontName:@"Verdana-Bold" fontSize:15];
         scoreBoard=[CCLabelBMFont labelWithString:
-                    [NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]]fntFile:@"scoreFont.fnt"];
+                [NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]]fntFile:@"scoreFont.fnt"];
         scoreBoard.scale=0.3;
         scoreBoard.position=ccp((scoreBoard.contentSize.width*scoreBoard.scale)/2,
                                 winSize.height-(scoreBoard.contentSize.height*scoreBoard.scale)/2);
         [self addChild:scoreBoard];
     }
 
+    //======================
+    // ハイスコアボード
+    //======================
+    if([GameManager getMatchMode]==0){//シングル戦
+        highScoreBoard=[CCLabelBMFont labelWithString:
+                [NSString stringWithFormat:@"HIGHSCORE\n%07ld",[GameManager load_High_Score]]fntFile:@"scoreFont.fnt"];
+        highScoreBoard.scale=0.3;
+        highScoreBoard.position=ccp(winSize.width-(highScoreBoard.contentSize.width*highScoreBoard.scale)/2,
+                                winSize.height-(highScoreBoard.contentSize.height*highScoreBoard.scale)/2);
+        [self addChild:highScoreBoard];
+    }
     
     /*/デバッグラベル
     if([GameManager getMatchMode]==0)
@@ -331,10 +345,15 @@ CCLabelTTF* eLbl2;
     return self;
 }
 
+-(void)highScore_Update
+{
+    highScoreBoard.string=[NSString stringWithFormat:@"HIGHSCORE\n%07ld",[GameManager load_High_Score]];
+}
+
 -(void)score_Update
 {
     if([GameManager getMatchMode]==0){//シングル
-        scoreBoard.string=[NSString stringWithFormat:@"SCORE\n%05ld",[GameManager load_Score]];
+        scoreBoard.string=[NSString stringWithFormat:@"SCORE\n%05d",totalScore+[GameManager getCurrentScore]];
     }else if([GameManager getMatchMode]==2){//ネット対戦
         scoreBoard.string=[NSString stringWithFormat:@"対戦成績\n%02d勝",[GameManager load_Match_Point]];
     }

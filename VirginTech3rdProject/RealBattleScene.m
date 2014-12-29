@@ -722,7 +722,11 @@ CCParticleSystem* dieParticle;
     [self unscheduleAllSelectors];
     
     //リザルトレイヤー表示
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg stars:0];
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
+                                                                stars:0
+                                                                playerDie:0
+                                                                enemyDie:0
+                                                                playerFortress:0];
     [self addChild:resultsLayer z:42];
     
 }

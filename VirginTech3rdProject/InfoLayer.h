@@ -35,6 +35,7 @@
 - (id)init;
 
 -(void)score_Update;
+-(void)highScore_Update;
 -(void)stats_Update;
 
 @end

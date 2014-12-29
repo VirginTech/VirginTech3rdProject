@@ -23,10 +23,19 @@ int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ
 int stageLevel;//ステージレベル
+int currentScore;//現在進行ステージのスコア（比較用）
 int matchMode;//0:シングル 1:リアル対戦 2:ネット対戦
 int item;//アイテム番号 0:なし 1:爆弾 2:シールド 3:突撃モード 4:攻撃アップ 5:高速モード
 bool isHost;//true:ホスト(青) false:クライアント(赤)
 bool pauseFlg;
+
+//現在進行中のステージスコア
++(void)setCurrentScore:(int)score{
+    currentScore=score;
+}
++(int)getCurrentScore{
+    return currentScore;
+}
 
 //デバイス取得／登録
 +(void)setDevice:(int)type{
@@ -96,31 +105,98 @@ bool pauseFlg;
     if([dict valueForKey:@"item"]==nil){
         [self save_Item_All:0 shield:0 onrush:0 attackup:0 speedup:0];
     }
-    if([dict valueForKey:@"score"]==nil){
-        [self save_Score:0];
+    if([dict valueForKey:@"highscore"]==nil){
+        [self save_High_Score:0];
     }
     if([dict valueForKey:@"point"]==nil){
         [self save_Match_Point:0];
     }
+    if([dict valueForKey:@"stagescore"]==nil){
+        NSMutableArray* array=[[NSMutableArray alloc]init];
+        for(int i=0;i<50;i++){
+            [array addObject:[NSNumber numberWithInt:0]];
+        }
+        [self save_Stage_Score_All:array];
+    }
+}
+//====================
+//ステージスコアの一括保存
+//====================
++(void)save_Stage_Score_All:(NSMutableArray*)array
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    [userDefault setObject:array forKey:@"stagescore"];
+    [userDefault synchronize];
+}
+//====================
+//ステージスコアの一括取得
+//====================
++(NSMutableArray*)load_Stage_Score_All
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    array = [userDefault objectForKey:@"stagescore"];
+    return array;
+}
+//====================
+//各ステージスコアの保存
+//====================
++(void)save_Stage_Score:(int)stage score:(int)score
+{
+    NSMutableArray* array=[[NSMutableArray alloc]init];
+    NSMutableArray* tmpArray=[[NSMutableArray alloc]init];
+    tmpArray=[self load_Stage_Score_All];
+    for(int i=0;i<tmpArray.count;i++){//コピー
+        [array addObject:[tmpArray objectAtIndex:i]];
+    }
+    [array replaceObjectAtIndex:stage-1 withObject:[NSNumber numberWithInt:score]];
+    [self save_Stage_Score_All:array];
 }
 
 //====================
-//スコアの保存
+//各ステージスコアの取得
 //====================
-+(void)save_Score:(long)value
++(int)load_Stage_Score:(int)stage
+{
+    NSMutableArray* array=[[NSMutableArray alloc]init];
+    array=[self load_Stage_Score_All];
+    int score=[[array objectAtIndex:stage-1]intValue];
+    return score;
+}
+//====================
+//トータルスコアの取得
+//====================
++(int)load_Total_Score:(int)stage
+{
+    int score=0;
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc]init];
+    array = [userDefault objectForKey:@"stagescore"];
+    for(int i=0;i<stage;i++){
+        score = score+[[array objectAtIndex:i]intValue];
+    }
+    return score;
+}
+
+
+//====================
+//ハイスコアの保存
+//====================
++(void)save_High_Score:(long)value
 {
     NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
     NSNumber* score=[NSNumber numberWithLong:value];
-    [userDefault setObject:score forKey:@"score"];
+    [userDefault setObject:score forKey:@"highscore"];
+    [userDefault synchronize];
 }
 
 //====================
-//スコアの取得
+//ハイスコアの取得
 //====================
-+(long)load_Score
++(long)load_High_Score
 {
     NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
-    long score=[[userDefault objectForKey:@"score"]longValue];
+    long score=[[userDefault objectForKey:@"highscore"]longValue];
     return score;
 }
 //====================
@@ -131,6 +207,7 @@ bool pauseFlg;
     NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
     NSNumber* point=[NSNumber numberWithInt:value];
     [userDefault setObject:point forKey:@"point"];
+    [userDefault synchronize];
 }
 //====================
 //勝ち点の取得

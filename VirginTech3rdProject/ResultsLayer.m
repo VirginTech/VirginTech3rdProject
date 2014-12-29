@@ -9,6 +9,7 @@
 #import "ResultsLayer.h"
 #import "GameManager.h"
 #import "TitleScene.h"
+#import "InitObjManager.h"
 
 @implementation ResultsLayer
 
@@ -22,12 +23,22 @@ CCSprite* starG;
 int cnt;
 int rep;
 
+CCLabelTTF* enemyDieLabel;
+CCLabelTTF* playerDieLabel;
+CCLabelTTF* enemyFortressLabel;
+CCLabelTTF* playerFortressLabel;
+
+
 + (ResultsLayer *)scene
 {
     return [[self alloc] init];
 }
 
-- (id)initWithWinner:(bool)flg stars:(int)stars
+- (id)initWithWinner:(bool)flg
+                            stars:(int)stars
+                            playerDie:(int)playerDieCount
+                            enemyDie:(int)enemyDieCount
+                            playerFortress:(int)playerFortressAbility
 {
     // Apple recommend assigning self with supers return value
     self = [super init];
@@ -88,9 +99,35 @@ int rep;
             //三ツ星描画（ゴールド）
             [self schedule:@selector(star_Schedule:) interval:0.001 repeat:rep delay:0.25];
             
+            //ラベル
+            enemyDieLabel=[CCLabelTTF labelWithString:
+                        [NSString stringWithFormat:@"倒した敵兵の数:%05d",enemyDieCount] fontName:@"Verdana-Bold" fontSize:15];
+            enemyDieLabel.position=ccp(winSize.width/2,winSize.height/2+30);
+            [self addChild:enemyDieLabel];
+            
+            playerDieLabel=[CCLabelTTF labelWithString:
+                        [NSString stringWithFormat:@"生残った我兵の数:%05d",
+                                                [InitObjManager NumPlayerMax:[GameManager getStageLevel]]-playerDieCount]
+                                                fontName:@"Verdana-Bold" fontSize:15];
+            playerDieLabel.position=ccp(winSize.width/2,winSize.height/2+5);
+            [self addChild:playerDieLabel];
+            
+            enemyFortressLabel=[CCLabelTTF labelWithString:
+                        [NSString stringWithFormat:@"敵城破壊ポイント:%05d",500] fontName:@"Verdana-Bold" fontSize:15];
+            enemyFortressLabel.position=ccp(winSize.width/2,winSize.height/2-20);
+            [self addChild:enemyFortressLabel];
+            
+            playerFortressLabel=[CCLabelTTF labelWithString:
+                        [NSString stringWithFormat:@"我城残存ポイント:%05d",playerFortressAbility] fontName:@"Verdana-Bold" fontSize:15];
+            playerFortressLabel.position=ccp(winSize.width/2,winSize.height/2-45);
+            [self addChild:playerFortressLabel];
+            
             victorySpr.visible=true;
-            victorySpr.position=ccp(winSize.width/2,winSize.height/2);
+            victorySpr.position=ccp(winSize.width/2,winSize.height-victorySpr.contentSize.height/2);
             [self addChild:victorySpr];
+            
+            titleButton.position=ccp(0.5f,0.2f);
+            
         }else{//敗北
             defeatSpr.visible=true;
             defeatSpr.position=ccp(winSize.width/2,winSize.height/2);

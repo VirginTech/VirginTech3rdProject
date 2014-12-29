@@ -47,11 +47,13 @@ Player* player;
 NSMutableArray* playerArray;
 NSMutableArray* removePlayerArray;
 bool createPlayerFlg;
+int playerDieCount;
 
 Enemy* enemy;
 NSMutableArray* enemyArray;
 NSMutableArray* removeEnemyArray;
 bool createEnemyFlg;
+int enemyDieCount;
 
 //パーティクル
 CCParticleSystem* bombParticle;
@@ -102,6 +104,9 @@ CCParticleSystem* dieParticle;
     gameEndFlg=false;
     stageNum=[GameManager getStageLevel];
     [GameManager setPause:false];
+    [GameManager setCurrentScore:0];
+    playerDieCount=0;
+    enemyDieCount=0;
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -715,8 +720,6 @@ CCParticleSystem* dieParticle;
                         [bgSpLayer removeChild:enemyFortress cleanup:YES];
                         gameEndFlg=true;
                         [self gameEnd:true];
-                        //スコア反映
-                        [GameManager save_Score:[GameManager load_Score]+500];
                     }
                 }
             }
@@ -765,13 +768,23 @@ CCParticleSystem* dieParticle;
     for(Player* _player in playerArray){
         if(_player.ability<=0){
             [removePlayerArray addObject:_player];
+            playerDieCount++;
         }
     }
     for(Enemy* _enemy in enemyArray){
         if(_enemy.ability<=0){
             [removeEnemyArray addObject:_enemy];
+            enemyDieCount++;
+            
             //スコア反映
-            [GameManager save_Score:[GameManager load_Score]+1];
+            [GameManager setCurrentScore:[GameManager getCurrentScore]+1];
+
+            //ゲームセンターへ送信
+            //TODO
+            
+            
+            
+
         }
     }
     [self removeObject];
@@ -855,11 +868,33 @@ CCParticleSystem* dieParticle;
     for(Enemy* _enemy in enemyArray){
         _enemy.stopFlg=true;
     }
+    
+    //スコアリング処理
+    if(winnerFlg){//勝ちなら
+        //プレイヤー城アビリティ残量をスコアへ加算
+        [GameManager setCurrentScore:[GameManager getCurrentScore]+playerFortress.ability];
+        //敵城アビリティ「500」加算
+        [GameManager setCurrentScore:[GameManager getCurrentScore]+500];
+        //残存我兵の数をスコアに加算
+        [GameManager setCurrentScore:infoLayer.pMaxCnt-playerDieCount];
+    }
+    
+    //ハイスコア保存
+    if([GameManager getCurrentScore]>[GameManager load_Stage_Score:stageNum]){//ハイスコア！
+        [GameManager save_Stage_Score:stageNum score:[GameManager getCurrentScore]];//ステージスコア保存
+        [GameManager save_High_Score:[GameManager load_Total_Score:50]];//全スコアをハイスコアへ保存
+        [infoLayer highScore_Update];//ハイスコア更新
+        
+        //ゲームセンターへ送信
+        //TODO
+        
+        
+        
+    }
+
+    //全スケジュール停止
     [self unscheduleAllSelectors];
-    
-    //プレイヤーアビリティ残量をスコアへ加算
-    [GameManager save_Score:[GameManager load_Score]+playerFortress.ability];
-    
+
     //リザルトレイヤー表示
     int stars=0;
     float ratio=(100.0f/500)*playerFortress.ability;
@@ -870,7 +905,11 @@ CCParticleSystem* dieParticle;
     }else{
         stars=1;
     }
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg stars:stars];
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
+                                                                stars:stars
+                                                                playerDie:playerDieCount
+                                                                enemyDie:enemyDieCount
+                                                                playerFortress:playerFortress.ability];
     [self addChild:resultsLayer z:4];
     
 }

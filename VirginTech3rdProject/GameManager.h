@@ -31,8 +31,16 @@ extern int TURN_OBJ_MAX;
 +(void)setHost:(bool)host;
 +(bool)getHost;
 
-+(void)save_Score:(long)value;
-+(long)load_Score;
++(void)setCurrentScore:(int)score;
++(int)getCurrentScore;
+
+//+(void)save_Stage_Score_All:(NSMutableArray*)array;
+//+(NSMutableArray*)load_Stage_Score_All;
++(void)save_Stage_Score:(int)stage score:(int)score;
++(int)load_Stage_Score:(int)stage;
++(int)load_Total_Score:(int)stage;
++(void)save_High_Score:(long)value;
++(long)load_High_Score;
 +(void)save_Match_Point:(int)value;
 +(int)load_Match_Point;
 
