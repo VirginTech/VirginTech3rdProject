@@ -876,11 +876,13 @@ CCParticleSystem* dieParticle;
         //敵城アビリティ「500」加算
         [GameManager setCurrentScore:[GameManager getCurrentScore]+500];
         //残存我兵の数をスコアに加算
-        [GameManager setCurrentScore:infoLayer.pMaxCnt-playerDieCount];
+        [GameManager setCurrentScore:[GameManager getCurrentScore]+(infoLayer.pMaxCnt-playerDieCount)];
     }
     
     //ハイスコア保存
+    bool highScoreFlg=false;
     if([GameManager getCurrentScore]>[GameManager load_Stage_Score:stageNum]){//ハイスコア！
+        highScoreFlg=true;
         [GameManager save_Stage_Score:stageNum score:[GameManager getCurrentScore]];//ステージスコア保存
         [GameManager save_High_Score:[GameManager load_Total_Score:50]];//全スコアをハイスコアへ保存
         [infoLayer highScore_Update];//ハイスコア更新
@@ -900,16 +902,26 @@ CCParticleSystem* dieParticle;
     float ratio=(100.0f/500)*playerFortress.ability;
     if(ratio>=80){
         stars=3;
+        if([GameManager load_StageClear_State:stageNum]<3){
+            [GameManager save_StageClear_State:stageNum rate:3];//ついでにステージクリア状態保存
+        }
     }else if(ratio>=50 && ratio<80){
         stars=2;
+        if([GameManager load_StageClear_State:stageNum]<2){
+            [GameManager save_StageClear_State:stageNum rate:2];//ついでにステージクリア状態保存
+        }
     }else{
         stars=1;
+        if([GameManager load_StageClear_State:stageNum]<1){
+            [GameManager save_StageClear_State:stageNum rate:1];//ついでにステージクリア状態保存
+        }
     }
     ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
                                                                 stars:stars
                                                                 playerDie:playerDieCount
                                                                 enemyDie:enemyDieCount
-                                                                playerFortress:playerFortress.ability];
+                                                                playerFortress:playerFortress.ability
+                                                                highScoreFlg:highScoreFlg];
     [self addChild:resultsLayer z:4];
     
 }

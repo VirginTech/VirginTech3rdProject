@@ -726,8 +726,9 @@ CCParticleSystem* dieParticle;
                                                                 stars:0
                                                                 playerDie:0
                                                                 enemyDie:0
-                                                                playerFortress:0];
-    [self addChild:resultsLayer z:42];
+                                                                playerFortress:0
+                                                                highScoreFlg:false];
+    [self addChild:resultsLayer z:TURN_OBJ_MAX+2];
     
 }
 

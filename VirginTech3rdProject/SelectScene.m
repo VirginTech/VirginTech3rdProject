@@ -15,6 +15,9 @@
 
 CGSize winSize;
 
+CCSprite* bgSpLayer;
+CCScrollView* scrollView;
+
 + (SelectScene *)scene
 {
     return [[self alloc] init];
@@ -32,22 +35,63 @@ CGSize winSize;
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
-    //セレクトレヴェルボタン
-    CGPoint btnPos=CGPointMake(70, winSize.height-50);
-    for(int i=0;i<50;i++){
-        CCButton* selectBtn=[CCButton buttonWithTitle:
-                             [NSString stringWithFormat:@"%02d",i+1] fontName:@"Verdana-Bold" fontSize:25];
-        if(i%5!=0){
-            btnPos=CGPointMake(btnPos.x+50, btnPos.y);
-        }else{
-            btnPos=CGPointMake(70, btnPos.y-40);
-        }
-        selectBtn.position = CGPointMake(btnPos.x, btnPos.y);
-        selectBtn.name=[NSString stringWithFormat:@"%d",i+1];
-        [selectBtn setTarget:self selector:@selector(onStageLevel:)];
-        [self addChild:selectBtn];
-    }
+    //画面サイズ設定
+    UIImage *image = [UIImage imageNamed:@"bgLayer.png"];
+    UIGraphicsBeginImageContext(CGSizeMake(winSize.width*5,winSize.height));
+    [image drawInRect:CGRectMake(0, 0, winSize.width,[GameManager getWorldSize].height)];
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
+    //スクロールビュー配置 z:0
+    bgSpLayer=[CCSprite spriteWithCGImage:image.CGImage key:nil];
+    scrollView=[[CCScrollView alloc]initWithContentNode:bgSpLayer];
+    scrollView.verticalScrollEnabled=NO;
+    bgSpLayer.position=CGPointMake(0, 0);
+    [self addChild:scrollView z:0];
+    
+    //セレクトレヴェルボタン
+    int btnCnt=0;
+    CGPoint btnPos;
+    
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+
+    for(int i=0;i<5;i++){
+        btnPos=CGPointMake((i*winSize.width)+winSize.width*0.35, winSize.height*0.75);
+        for(int j=0;j<10;j++){
+            btnCnt++;
+            CCButton* selectBtn=[CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"player.png"]];
+            if(j%2==0){
+                selectBtn.position=CGPointMake(btnPos.x, btnPos.y-(j*40));
+            }else{
+                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*40));
+            }
+            //selectBtn.position = CGPointMake(btnPos.x, btnPos.y);
+            selectBtn.scale=0.7;
+            selectBtn.name=[NSString stringWithFormat:@"%d",btnCnt];
+            [selectBtn setTarget:self selector:@selector(onStageLevel:)];
+            
+            //ラベル
+            CCLabelTTF* selectLbl=[CCLabelTTF labelWithString:
+                                   [NSString stringWithFormat:@"%02d",btnCnt] fontName:@"Verdana-Bold" fontSize:50];
+            selectLbl.position=ccp(selectBtn.contentSize.width/2,selectBtn.contentSize.height/2);
+            [selectBtn addChild:selectLbl];
+            
+            //スター
+            if([GameManager load_StageClear_State:btnCnt]>0){
+                CCSprite* star;
+                star=[CCSprite spriteWithSpriteFrame:
+                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:
+                       [NSString stringWithFormat:@"star%d.png",[GameManager load_StageClear_State:btnCnt]]]];
+                star.position=CGPointMake(selectBtn.contentSize.width/2, selectBtn.contentSize.height);
+                star.scale=0.7;
+                [selectBtn addChild:star];
+            }
+            
+            [bgSpLayer addChild:selectBtn];
+        }
+    }
     
     CCButton *titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     titleButton.positionType = CCPositionTypeNormalized;

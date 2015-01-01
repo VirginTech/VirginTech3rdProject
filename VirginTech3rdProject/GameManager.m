@@ -118,6 +118,44 @@ bool pauseFlg;
         }
         [self save_Stage_Score_All:array];
     }
+    if([dict valueForKey:@"StageClearState"]==nil){
+        NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+        NSMutableArray* array=[[NSMutableArray alloc]init];
+        for(int i=0;i<50;i++){
+            [array addObject:[NSNumber numberWithInt:0]];
+        }
+        [userDefault setObject:array forKey:@"StageClearState"];
+        [userDefault synchronize];
+    }
+
+}
+//=========================================
+//ステージクリア状態の保存(0:未達成 1:星1つ 2:星2つ 3:星3つ)
+//=========================================
++(void)save_StageClear_State:(int)stageNum rate:(int)rate
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    NSMutableArray* tmpArray=[[NSMutableArray alloc]init];
+    tmpArray = [userDefault objectForKey:@"StageClearState"];
+    for(int i=0;i<tmpArray.count;i++){//コピー
+        [array addObject:[tmpArray objectAtIndex:i]];
+    }
+    [array replaceObjectAtIndex:stageNum-1 withObject:[NSNumber numberWithInt:rate]];
+    [userDefault setObject:array forKey:@"StageClearState"];
+    [userDefault synchronize];
+}
+//=========================================
+//ステージクリア状態の取得(0:未達成 1:星1つ 2:星2つ 3:星3つ)
+//=========================================
++(int)load_StageClear_State:(int)stageNum
+{
+    int rate;
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    array = [userDefault objectForKey:@"StageClearState"];
+    rate=[[array objectAtIndex:stageNum-1]intValue];
+    return rate;
 }
 //====================
 //ステージスコアの一括保存

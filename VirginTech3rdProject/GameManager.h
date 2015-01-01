@@ -44,6 +44,9 @@ extern int TURN_OBJ_MAX;
 +(void)save_Match_Point:(int)value;
 +(int)load_Match_Point;
 
++(void)save_StageClear_State:(int)stageNum rate:(int)rate;
++(int)load_StageClear_State:(int)stageNum;
+
 +(void)initialize_Item;
 
 +(NSMutableArray*)load_Item_All;

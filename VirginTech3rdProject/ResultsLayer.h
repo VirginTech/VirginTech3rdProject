@@ -17,8 +17,9 @@
 + (ResultsLayer *)scene;
 - (id)initWithWinner:(bool)flg//true:青軍 false:赤軍
                         stars:(int)stars
-                        playerDie:(int)playerDieCount
-                        enemyDie:(int)enemyDieCount
-                        playerFortress:(int)playerFortressAbility;
+                        playerDie:(int)_playerDieCount
+                        enemyDie:(int)_enemyDieCount
+                        playerFortress:(int)_playerFortressAbility
+                        highScoreFlg:(bool)highScoreFlg;
 
 @end

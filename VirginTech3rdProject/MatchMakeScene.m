@@ -988,7 +988,8 @@ NaviLayer* naviLayer;
     
     //NSLog(@"勝ち点: %02d ポイント",[GameManager load_Match_Point]);
     //リザルトレイヤー表示
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg stars:0 playerDie:0 enemyDie:0 playerFortress:0];
+    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
+                                        stars:0 playerDie:0 enemyDie:0 playerFortress:0 highScoreFlg:false];
     [self addChild:resultsLayer z:TURN_OBJ_MAX+2];
     
 }
@@ -1125,7 +1126,7 @@ NaviLayer* naviLayer;
                                             type:0
                                             procNum:procNum];
     msgBox.delegate=self;//デリゲートセット
-    [self addChild:msgBox z:43];
+    [self addChild:msgBox z:TURN_OBJ_MAX+3];
 
 }
 
@@ -1157,11 +1158,13 @@ NaviLayer* naviLayer;
                 //リザルトレイヤー表示
                 ResultsLayer* resultsLayer;
                 if([GameManager getHost]){//ホスト青だったら
-                    resultsLayer=[[ResultsLayer alloc]initWithWinner:true stars:0 playerDie:0 enemyDie:0 playerFortress:0];
+                    resultsLayer=[[ResultsLayer alloc]initWithWinner:true
+                                            stars:0 playerDie:0 enemyDie:0 playerFortress:0 highScoreFlg:false];
                 }else{
-                    resultsLayer=[[ResultsLayer alloc]initWithWinner:false stars:0 playerDie:0 enemyDie:0 playerFortress:0];
+                    resultsLayer=[[ResultsLayer alloc]initWithWinner:false
+                                            stars:0 playerDie:0 enemyDie:0 playerFortress:0 highScoreFlg:false];
                 }
-                [self addChild:resultsLayer z:42];
+                [self addChild:resultsLayer z:TURN_OBJ_MAX+2];
                 
                 [self alert_Disconnected:NSLocalizedString(@"NetworkError",NULL)
                                     msg:NSLocalizedString(@"PlayerDisconnected",NULL)

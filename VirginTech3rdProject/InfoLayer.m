@@ -365,10 +365,10 @@ CCLabelTTF* eLbl2;
     //プレイヤー側インジケーター
     //=======================
     if(pMaxCnt-pTotalCnt > TURN_OBJ_MAX-pCnt){//悩んだよ！
-        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-pCnt);
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(float)(TURN_OBJ_MAX-pCnt);
         pLbl1.string=[NSString stringWithFormat:@"%02d/%02d",TURN_OBJ_MAX-pCnt,TURN_OBJ_MAX];
     }else{
-        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(pMaxCnt-pTotalCnt);
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(float)(pMaxCnt-pTotalCnt);
         pLbl1.string=[NSString stringWithFormat:@"%02d/%02d",pMaxCnt-pTotalCnt,TURN_OBJ_MAX];
     }
     pInput_Indicator.scaleX=nowRatio*0.01;
@@ -385,10 +385,10 @@ CCLabelTTF* eLbl2;
     //「敵」側インジケーター
     //=======================
     if(eMaxCnt-eTotalCnt > TURN_OBJ_MAX-eCnt){
-        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*((float)TURN_OBJ_MAX-eCnt);
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(float)(TURN_OBJ_MAX-eCnt);
         eLbl1.string=[NSString stringWithFormat:@"%02d/%02d",TURN_OBJ_MAX-eCnt,TURN_OBJ_MAX];
     }else{
-        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(eMaxCnt-eTotalCnt);
+        nowRatio=(100.0f/(float)TURN_OBJ_MAX)*(float)(eMaxCnt-eTotalCnt);
         eLbl1.string=[NSString stringWithFormat:@"%02d/%02d",eMaxCnt-eTotalCnt,TURN_OBJ_MAX];
     }
     eInput_Indicator.scaleX=nowRatio*0.01;
