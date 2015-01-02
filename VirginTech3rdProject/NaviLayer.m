@@ -10,6 +10,7 @@
 #import "TitleScene.h"
 #import "GameManager.h"
 #import "MatchMakeScene.h"
+#import "SelectScene.h"
 
 @implementation NaviLayer
 
@@ -19,6 +20,7 @@ CCNodeColor *background;
 CCButton *pauseButton;
 CCButton *resumeButton;
 CCButton* titleButton;
+CCButton* selectButton;
 
 + (NaviLayer *)scene
 {
@@ -82,6 +84,13 @@ CCButton* titleButton;
     titleButton.visible=false;
     [self addChild:titleButton];
     
+    //セレクトシーン
+    selectButton = [CCButton buttonWithTitle:@"[セレクト]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    selectButton.positionType = CCPositionTypeNormalized;
+    selectButton.position = ccp(0.5f, 0.25f); // Top Right of screen
+    [selectButton setTarget:self selector:@selector(onSelectClicked:)];
+    selectButton.visible=false;
+    [self addChild:selectButton];
     
     return self;
 }
@@ -94,6 +103,9 @@ CCButton* titleButton;
     pauseButton.visible=false;
     resumeButton.visible=true;
     titleButton.visible=true;
+    if([GameManager getMatchMode]==0){
+        selectButton.visible=true;
+    }
 }
 
 -(void)resume
@@ -104,6 +116,7 @@ CCButton* titleButton;
     pauseButton.visible=true;
     resumeButton.visible=false;
     titleButton.visible=false;
+    selectButton.visible=false;
 }
 
 - (void)onPauseClicked:(id)sender
@@ -127,6 +140,12 @@ CCButton* titleButton;
 {
     // back to intro scene with transition
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+}
+
+-(void)onSelectClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 

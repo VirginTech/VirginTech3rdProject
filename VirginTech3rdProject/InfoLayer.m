@@ -289,7 +289,7 @@ CCLabelTTF* eLbl2;
     //======================
     if([GameManager getMatchMode]==0){//シングル戦
         highScoreBoard=[CCLabelBMFont labelWithString:
-                [NSString stringWithFormat:@"HIGHSCORE\n%07ld",[GameManager load_High_Score]]fntFile:@"scoreFont.fnt"];
+                [NSString stringWithFormat:@"HIGHSCORE\n     %07ld",[GameManager load_High_Score]]fntFile:@"scoreFont.fnt"];
         highScoreBoard.scale=0.3;
         highScoreBoard.position=ccp(winSize.width-(highScoreBoard.contentSize.width*highScoreBoard.scale)/2,
                                 winSize.height-(highScoreBoard.contentSize.height*highScoreBoard.scale)/2);
@@ -347,7 +347,7 @@ CCLabelTTF* eLbl2;
 
 -(void)highScore_Update
 {
-    highScoreBoard.string=[NSString stringWithFormat:@"HIGHSCORE\n%07ld",[GameManager load_High_Score]];
+    highScoreBoard.string=[NSString stringWithFormat:@"HIGHSCORE\n     %07ld",[GameManager load_High_Score]];
 }
 
 -(void)score_Update

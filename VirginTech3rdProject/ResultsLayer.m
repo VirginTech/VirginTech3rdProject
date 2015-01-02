@@ -10,6 +10,7 @@
 #import "GameManager.h"
 #import "TitleScene.h"
 #import "InitObjManager.h"
+#import "SelectScene.h"
 
 @implementation ResultsLayer
 
@@ -94,6 +95,13 @@ bool highScoreFlg;
     
     if([GameManager getMatchMode]==0)//シングル
     {
+        //セレクトシーン
+        CCButton* selectButton = [CCButton buttonWithTitle:@"[セレクト]" fontName:@"Verdana-Bold" fontSize:15.0f];
+        selectButton.positionType = CCPositionTypeNormalized;
+        selectButton.position = ccp(0.5f, 0.25f); // Top Right of screen
+        [selectButton setTarget:self selector:@selector(onSelectClicked:)];
+        [self addChild:selectButton];
+        
         //三ツ星描画（黒）
         for(int i=0;i<3;i++){
             starB=[CCSprite spriteWithSpriteFrame:
@@ -348,6 +356,12 @@ bool highScoreFlg;
 {
     // back to intro scene with transition
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+}
+
+-(void)onSelectClicked:(id)sender
+{
+    [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 

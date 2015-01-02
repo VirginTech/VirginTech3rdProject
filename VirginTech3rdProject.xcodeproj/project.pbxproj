@@ -11,8 +11,6 @@
 		CF1DB63D1A54F7F200AE2481 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = CF1DB63B1A54F7F200AE2481 /* results.png */; };
 		CF1DB6401A54FC8400AE2481 /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF1DB63E1A54FC8400AE2481 /* results_default.plist */; };
 		CF1DB6411A54FC8400AE2481 /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF1DB63F1A54FC8400AE2481 /* results_default.png */; };
-		CF1DB6481A55251600AE2481 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF1DB6461A55251600AE2481 /* btn_default.plist */; };
-		CF1DB6491A55251600AE2481 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF1DB6471A55251600AE2481 /* btn_default.png */; };
 		CF20602419F3534700DBD8C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20602319F3534700DBD8C4 /* QuartzCore.framework */; };
 		CF20602619F3534700DBD8C4 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20602519F3534700DBD8C4 /* OpenGLES.framework */; };
 		CF20602819F3534700DBD8C4 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20602719F3534700DBD8C4 /* OpenAL.framework */; };
@@ -251,6 +249,9 @@
 		CF55C3961A4E5C3700EDFD93 /* ground_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF55C3941A4E5C3700EDFD93 /* ground_default.plist */; };
 		CF55C3971A4E5C3700EDFD93 /* ground_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF55C3951A4E5C3700EDFD93 /* ground_default.png */; };
 		CF55C39B1A4E769000EDFD93 /* die.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF55C39A1A4E769000EDFD93 /* die.plist */; };
+		CF59217D1A5631A600800EC2 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF59217B1A5631A600800EC2 /* btn_default.plist */; };
+		CF59217E1A5631A600800EC2 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF59217C1A5631A600800EC2 /* btn_default.png */; };
+		CF5921811A569B6500800EC2 /* PaymentManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5921801A569B6500800EC2 /* PaymentManager.m */; };
 		CF5A43F91A4C07AE00B71D15 /* scoreFont.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CF5A43F71A4C07AE00B71D15 /* scoreFont.fnt */; };
 		CF5A43FA1A4C07AE00B71D15 /* scoreFont.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5A43F81A4C07AE00B71D15 /* scoreFont.png */; };
 		CF5A44011A4C239B00B71D15 /* matchFont.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CF5A43FF1A4C239B00B71D15 /* matchFont.fnt */; };
@@ -277,8 +278,6 @@
 		CF1DB63B1A54F7F200AE2481 /* results.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results.png; sourceTree = "<group>"; };
 		CF1DB63E1A54FC8400AE2481 /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
 		CF1DB63F1A54FC8400AE2481 /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
-		CF1DB6461A55251600AE2481 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
-		CF1DB6471A55251600AE2481 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 		CF20602019F3534700DBD8C4 /* VirginTech3rdProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirginTech3rdProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF20602319F3534700DBD8C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		CF20602519F3534700DBD8C4 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
@@ -742,6 +741,10 @@
 		CF55C3941A4E5C3700EDFD93 /* ground_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ground_default.plist; sourceTree = "<group>"; };
 		CF55C3951A4E5C3700EDFD93 /* ground_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ground_default.png; sourceTree = "<group>"; };
 		CF55C39A1A4E769000EDFD93 /* die.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = die.plist; sourceTree = "<group>"; };
+		CF59217B1A5631A600800EC2 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
+		CF59217C1A5631A600800EC2 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
+		CF59217F1A569B6500800EC2 /* PaymentManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentManager.h; sourceTree = "<group>"; };
+		CF5921801A569B6500800EC2 /* PaymentManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentManager.m; sourceTree = "<group>"; };
 		CF5A43F71A4C07AE00B71D15 /* scoreFont.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = scoreFont.fnt; sourceTree = "<group>"; };
 		CF5A43F81A4C07AE00B71D15 /* scoreFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scoreFont.png; sourceTree = "<group>"; };
 		CF5A43FF1A4C239B00B71D15 /* matchFont.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = matchFont.fnt; sourceTree = "<group>"; };
@@ -1596,8 +1599,8 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				CF1DB6461A55251600AE2481 /* btn_default.plist */,
-				CF1DB6471A55251600AE2481 /* btn_default.png */,
+				CF59217B1A5631A600800EC2 /* btn_default.plist */,
+				CF59217C1A5631A600800EC2 /* btn_default.png */,
 				CF1DB63E1A54FC8400AE2481 /* results_default.plist */,
 				CF1DB63F1A54FC8400AE2481 /* results_default.png */,
 				CF49F6221A4A6B3F00877BA7 /* info_default.plist */,
@@ -1646,6 +1649,8 @@
 		CF4817401A11AA1200D5597B /* manager */ = {
 			isa = PBXGroup;
 			children = (
+				CF59217F1A569B6500800EC2 /* PaymentManager.h */,
+				CF5921801A569B6500800EC2 /* PaymentManager.m */,
 				CF48173D1A11AA0900D5597B /* GameManager.h */,
 				CF48173E1A11AA0900D5597B /* GameManager.m */,
 				CF50D8BC1A1B0177005A1B5D /* InitObjManager.h */,
@@ -1829,7 +1834,7 @@
 				CF20604019F3534700DBD8C4 /* Default.png in Resources */,
 				CF1DB6401A54FC8400AE2481 /* results_default.plist in Resources */,
 				CF20604919F3534700DBD8C4 /* Icon.png in Resources */,
-				CF1DB6481A55251600AE2481 /* btn_default.plist in Resources */,
+				CF59217D1A5631A600800EC2 /* btn_default.plist in Resources */,
 				CF1DB63D1A54F7F200AE2481 /* results.png in Resources */,
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
@@ -1850,7 +1855,7 @@
 				CF5A43FA1A4C07AE00B71D15 /* scoreFont.png in Resources */,
 				CF20D5701A36B6C1006CD725 /* item_default.png in Resources */,
 				CF5A43F91A4C07AE00B71D15 /* scoreFont.fnt in Resources */,
-				CF1DB6491A55251600AE2481 /* btn_default.png in Resources */,
+				CF59217E1A5631A600800EC2 /* btn_default.png in Resources */,
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
@@ -1937,6 +1942,7 @@
 				CF20610919F3534700DBD8C4 /* CCPhysicsShape.m in Sources */,
 				CF20608F19F3534700DBD8C4 /* CCRenderer.m in Sources */,
 				CF20612419F3534800DBD8C4 /* CCSprite.m in Sources */,
+				CF5921811A569B6500800EC2 /* PaymentManager.m in Sources */,
 				CF2061AC19F3534800DBD8C4 /* OALAudioTrack.m in Sources */,
 				CF2061ED19F3534800DBD8C4 /* NSMutableDictionary+WeakReferences.m in Sources */,
 				CF2060AB19F3534700DBD8C4 /* CCActionManager.m in Sources */,

@@ -72,11 +72,31 @@ CCScrollView* scrollView;
             selectBtn.name=[NSString stringWithFormat:@"%d",btnCnt];
             [selectBtn setTarget:self selector:@selector(onStageLevel:)];
             
-            //ラベル
-            CCLabelTTF* selectLbl=[CCLabelTTF labelWithString:
-                                   [NSString stringWithFormat:@"%02d",btnCnt] fontName:@"Verdana-Bold" fontSize:50];
-            selectLbl.position=ccp(selectBtn.contentSize.width/2,selectBtn.contentSize.height/2);
-            [selectBtn addChild:selectLbl];
+            //ボタン有効化
+            if(btnCnt>1){
+                if([GameManager load_StageClear_State:btnCnt-1]>0){
+                    selectBtn.enabled=true;
+                    //ラベル
+                    CCLabelTTF* selectLbl=[CCLabelTTF labelWithString:
+                                           [NSString stringWithFormat:@"%02d",btnCnt] fontName:@"Verdana-Bold" fontSize:35];
+                    selectLbl.position=ccp(selectBtn.contentSize.width/2,selectBtn.contentSize.height-(selectLbl.contentSize.height*selectLbl.scale)/2-15);
+                    [selectBtn addChild:selectLbl];
+                    
+                }else{
+                    selectBtn.enabled=false;
+                    //錠前
+                    CCSprite* lock=[CCSprite spriteWithSpriteFrame:
+                                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"lock.png"]];
+                    lock.position=ccp(selectBtn.contentSize.width/2,selectBtn.contentSize.height/2);
+                    [selectBtn addChild:lock];
+                }
+            }else{
+                //ラベル
+                CCLabelTTF* selectLbl=[CCLabelTTF labelWithString:
+                                       [NSString stringWithFormat:@"%02d",btnCnt] fontName:@"Verdana-Bold" fontSize:35];
+                selectLbl.position=ccp(selectBtn.contentSize.width/2,selectBtn.contentSize.height-(selectLbl.contentSize.height*selectLbl.scale)/2-15);
+                [selectBtn addChild:selectLbl];
+            }
             
             //スター
             if([GameManager load_StageClear_State:btnCnt]>0){
@@ -84,8 +104,8 @@ CCScrollView* scrollView;
                 star=[CCSprite spriteWithSpriteFrame:
                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:
                        [NSString stringWithFormat:@"star%d.png",[GameManager load_StageClear_State:btnCnt]]]];
-                star.position=CGPointMake(selectBtn.contentSize.width/2, selectBtn.contentSize.height);
                 star.scale=0.7;
+                star.position=CGPointMake(selectBtn.contentSize.width/2, selectBtn.contentSize.height-(star.contentSize.height*star.scale)/2+15);
                 [selectBtn addChild:star];
             }
             

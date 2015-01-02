@@ -9,9 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
+#import <StoreKit/StoreKit.h>
+#import "PaymentManager.h"
 
-@interface ShopLayer : CCScene {
-    
+@interface ShopLayer : CCScene <SKProductsRequestDelegate>
+{
+    UIActivityIndicatorView* indicator;
 }
 
 + (ShopLayer *)scene;
