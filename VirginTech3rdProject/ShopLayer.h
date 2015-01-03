@@ -20,4 +20,6 @@
 + (ShopLayer *)scene;
 - (id)init;
 
++(void)coin_Update;
+
 @end

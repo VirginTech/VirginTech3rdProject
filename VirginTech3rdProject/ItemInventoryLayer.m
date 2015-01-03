@@ -37,6 +37,21 @@ CCLabelTTF* lbl_Item_05;
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    
+    //現在コイン数
+    CCSprite* coin=[CCSprite spriteWithSpriteFrame:
+                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+    coin.scale=0.2;
+    coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
+    [self addChild:coin];
+    
+    CCLabelTTF* coinLabel=[CCLabelTTF labelWithString:
+                           [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fontName:@"Verdana-Bold" fontSize:18];
+    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+coinLabel.contentSize.width/2,coin.position.y);
+    [self addChild:coinLabel];
+    
     //=================
     // 爆 弾
     //=================

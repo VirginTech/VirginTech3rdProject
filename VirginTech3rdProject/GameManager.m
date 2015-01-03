@@ -95,7 +95,7 @@ bool pauseFlg;
 }
 
 //=======================
-// アイテム初期化処理
+// 初回起動時 初期化処理
 //=======================
 +(void)initialize_Item
 {
@@ -126,6 +126,9 @@ bool pauseFlg;
         }
         [userDefault setObject:array forKey:@"StageClearState"];
         [userDefault synchronize];
+    }
+    if([dict valueForKey:@"coin"]==nil){
+        [self save_Coin:0];
     }
 
 }
@@ -308,6 +311,25 @@ bool pauseFlg;
                                             onrush:[[array objectAtIndex:2]intValue]
                                             attackup:[[array objectAtIndex:3]intValue]
                                             speedup:[[array objectAtIndex:4]intValue]];
+}
+
+//=========================================
+//　コインの取得
+//=========================================
++(int)load_Coin
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    int coin=[[userDefault objectForKey:@"coin"]intValue];
+    return coin;
+}
+//=========================================
+//　コインの保存
+//=========================================
++(void)save_Coin:(int)value
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSNumber* coin=[NSNumber numberWithInt:value];
+    [userDefault setObject:coin forKey:@"coin"];
 }
 
 @end

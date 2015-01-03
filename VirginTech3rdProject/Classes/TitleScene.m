@@ -58,6 +58,18 @@ MessageLayer* msgBox;
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
+    //現在コイン数
+    CCSprite* coin=[CCSprite spriteWithSpriteFrame:
+                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+    coin.scale=0.2;
+    coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
+    [self addChild:coin];
+    
+    CCLabelTTF* coinLabel=[CCLabelTTF labelWithString:
+               [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fontName:@"Verdana-Bold" fontSize:18];
+    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+coinLabel.contentSize.width/2,coin.position.y);
+    [self addChild:coinLabel];
+    
     // Helloworld scene button
     CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
     helloWorldButton.positionType = CCPositionTypeNormalized;

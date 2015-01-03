@@ -126,7 +126,11 @@ bool highScoreFlg;
             CCSprite* enemy=[CCSprite spriteWithSpriteFrame:
                               [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"enemy.png"]];
             enemy.scale=0.3;
-            enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+20,winSize.height/2+15);
+            if([GameManager getDevice]==3){
+                enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+50,winSize.height/2+15);
+            }else{
+                enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+25,winSize.height/2+15);
+            }
             [self addChild:enemy];
             
             enemyDieLabel=[CCLabelBMFont labelWithString:

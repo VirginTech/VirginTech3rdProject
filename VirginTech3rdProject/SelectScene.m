@@ -57,18 +57,25 @@ CCScrollView* scrollView;
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
 
     for(int i=0;i<5;i++){
-        btnPos=CGPointMake((i*winSize.width)+winSize.width*0.35, winSize.height*0.75);
+        btnPos=CGPointMake((i*winSize.width)+winSize.width*0.35, winSize.height*0.8);
         for(int j=0;j<10;j++){
             btnCnt++;
             CCButton* selectBtn=[CCButton buttonWithTitle:@""
                             spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"player.png"]];
-            if(j%2==0){
-                selectBtn.position=CGPointMake(btnPos.x, btnPos.y-(j*40));
+            
+            if([GameManager getDevice]==3){
+                selectBtn.scale=0.5;
             }else{
-                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*40));
+                selectBtn.scale=0.7;
             }
+
+            if(j%2==0){
+                selectBtn.position=CGPointMake(btnPos.x, btnPos.y-(j*(selectBtn.contentSize.height*selectBtn.scale+20)/2));
+            }else{
+                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*(selectBtn.contentSize.height*selectBtn.scale+20)/2));
+            }
+            
             //selectBtn.position = CGPointMake(btnPos.x, btnPos.y);
-            selectBtn.scale=0.7;
             selectBtn.name=[NSString stringWithFormat:@"%d",btnCnt];
             [selectBtn setTarget:self selector:@selector(onStageLevel:)];
             

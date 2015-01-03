@@ -54,4 +54,7 @@ extern int TURN_OBJ_MAX;
 +(int)load_Item_Individual:(int)item;
 +(void)save_Item_Individual:(int)item value:(int)value;
 
++(int)load_Coin;
++(void)save_Coin:(int)value;
+
 @end

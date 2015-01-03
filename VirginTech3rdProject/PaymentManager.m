@@ -8,7 +8,7 @@
 
 #import "PaymentManager.h"
 #import "GameManager.h"
-//#import "InfoLayer.h"
+#import "ShopLayer.h"
 
 @implementation PaymentManager
 
@@ -127,28 +127,28 @@ SKProduct* product_;
 -(void)bought:(NSString*)productIds
 {
     
-    if([productIds isEqualToString:@"VirginTech2ndProject_Ticket10"])
+    if([productIds isEqualToString:@"VirginTech3rdProject_Coin_100"])
     {
-        //[GameManager save_Ticket_Count:[GameManager load_Ticket_Count]+10];
+        [GameManager save_Coin:[GameManager load_Coin]+100];
     }
-    else if([productIds isEqualToString:@"VirginTech2ndProject_Ticket20"])
+    else if([productIds isEqualToString:@"VirginTech3rdProject_Coin_200"])
     {
-        //[GameManager save_Ticket_Count:[GameManager load_Ticket_Count]+20];
+        [GameManager save_Coin:[GameManager load_Coin]+200];
     }
-    else if([productIds isEqualToString:@"VirginTech2ndProject_Ticket30"])
+    else if([productIds isEqualToString:@"VirginTech3rdProject_Coin_300"])
     {
-        //[GameManager save_Ticket_Count:[GameManager load_Ticket_Count]+30];
+        [GameManager save_Coin:[GameManager load_Coin]+300];
     }
-    else if([productIds isEqualToString:@"VirginTech2ndProject_Ticket50"])
+    else if([productIds isEqualToString:@"VirginTech3rdProject_Coin_500"])
     {
-        //[GameManager save_Ticket_Count:[GameManager load_Ticket_Count]+50];
+        [GameManager save_Coin:[GameManager load_Coin]+500];
     }
-    else if([productIds isEqualToString:@"VirginTech2ndProject_Ticket100"])
+    else if([productIds isEqualToString:@"VirginTech3rdProject_Coin_1000"])
     {
-        //[GameManager save_Ticket_Count:[GameManager load_Ticket_Count]+100];
+        [GameManager save_Coin:[GameManager load_Coin]+1000];
     }
 
-    //[InfoLayer update_Ticket];
+    [ShopLayer coin_Update];
     //NSLog(@"%@",productIds);
 }
 
