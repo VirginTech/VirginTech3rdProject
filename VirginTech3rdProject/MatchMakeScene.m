@@ -977,10 +977,14 @@ NaviLayer* naviLayer;
     if(winnerFlg){//青勝ち
         if([GameManager getHost]){//ホストなら
             [GameManager save_Match_Point:[GameManager load_Match_Point]+1];
+            //ゲームセンターへ送信
+            [GameManager submit_Points_GameCenter:[GameManager load_Match_Point]];
         }
     }else{//赤勝ち
         if(![GameManager getHost]){//クライアントなら
             [GameManager save_Match_Point:[GameManager load_Match_Point]+1];
+            //ゲームセンターへ送信
+            [GameManager submit_Points_GameCenter:[GameManager load_Match_Point]];
         }
     }
     //インフォレイヤー更新

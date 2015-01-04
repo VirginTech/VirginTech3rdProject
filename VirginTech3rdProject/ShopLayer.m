@@ -22,7 +22,7 @@ SKProduct* product03;
 SKProduct* product04;
 SKProduct* product05;
 
-CCLabelTTF* coinLabel;
+CCLabelBMFont* coinLabel;
 
 + (ShopLayer *)scene
 {
@@ -60,9 +60,10 @@ CCLabelTTF* coinLabel;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
-    coinLabel=[CCLabelTTF labelWithString:
-                    [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fontName:@"Verdana-Bold" fontSize:18];
-    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+coinLabel.contentSize.width/2,coin.position.y);
+    coinLabel=[CCLabelBMFont labelWithString:
+                    [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fntFile:@"scoreFont.fnt"];
+    coinLabel.scale=0.3;
+    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+(coinLabel.contentSize.width*coinLabel.scale)/2,coin.position.y);
     [self addChild:coinLabel];
     
     //インジケータ

@@ -888,10 +888,8 @@ CCParticleSystem* dieParticle;
         [infoLayer highScore_Update];//ハイスコア更新
         
         //ゲームセンターへ送信
-        //TODO
-        
-        
-        
+        [GameManager submit_Score_GameCenter:[GameManager load_High_Score]];
+
     }
 
     //全スケジュール停止

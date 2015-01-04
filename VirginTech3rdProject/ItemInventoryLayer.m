@@ -13,12 +13,15 @@
 @implementation ItemInventoryLayer
 
 CGSize winSize;
+MessageLayer* msgBox;
 
 CCLabelTTF* lbl_Item_01;
 CCLabelTTF* lbl_Item_02;
 CCLabelTTF* lbl_Item_03;
 CCLabelTTF* lbl_Item_04;
 CCLabelTTF* lbl_Item_05;
+
+CCLabelBMFont* coinLabel;
 
 + (ItemInventoryLayer *)scene
 {
@@ -47,9 +50,10 @@ CCLabelTTF* lbl_Item_05;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
-    CCLabelTTF* coinLabel=[CCLabelTTF labelWithString:
-                           [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fontName:@"Verdana-Bold" fontSize:18];
-    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+coinLabel.contentSize.width/2,coin.position.y);
+    coinLabel=[CCLabelBMFont labelWithString:
+                           [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fntFile:@"scoreFont.fnt"];
+    coinLabel.scale=0.3;
+    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+(coinLabel.contentSize.width*coinLabel.scale)/2,coin.position.y);
     [self addChild:coinLabel];
     
     //=================
@@ -137,12 +141,46 @@ CCLabelTTF* lbl_Item_05;
     lbl_Item_05.string=[NSString stringWithFormat:@"高速モード（現有数＝%03d）",[GameManager load_Item_Individual:4]];
 }
 
+-(void)updata_Coin_Value
+{
+    coinLabel.string=[NSString stringWithFormat:@"%05d",[GameManager load_Coin]];
+}
+
 - (void)onAddItemClicked:(id)sender
 {
     CCButton* btn=(CCButton*)sender;
-    int num=[btn.name intValue];
-    [GameManager save_Item_Individual:num value:[GameManager load_Item_Individual:num]+10];
-    [self updata_Item_Value];
+    if([GameManager load_Coin]-10>=0)
+    {
+        int num=[btn.name intValue];
+        [GameManager save_Item_Individual:num value:[GameManager load_Item_Individual:num]+10];
+        [self updata_Item_Value];
+        //コイン更新
+        [GameManager save_Coin:[GameManager load_Coin]-10];
+        [self updata_Coin_Value];
+    }
+    else
+    {
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"NotCoin",NULL)
+                                                msg:NSLocalizedString(@"ShopPurchase",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:0];//処理なし
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:1];
+    }
+}
+
+//=====================
+// デリゲートメソッド
+//=====================
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
+{
+    //NSLog(@"%d が選択されました",btnNum);
+    msgBox.delegate=nil;//デリゲート解除
 }
 
 - (void)onBackClicked:(id)sender

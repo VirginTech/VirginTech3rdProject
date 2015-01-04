@@ -24,6 +24,10 @@
 "Restored" = "リストア完了。";
 "Processing" = "購入処理中... ";
 
+//アイテム購入
+"ShopPurchase"="コインはショップで購入できます";
+"NotCoin"="コインが足りません";
+
 //対戦間通信
 "BattleStrart"="戦闘開始！";
 "NotBattleData"="対戦データの取得に失敗しました";

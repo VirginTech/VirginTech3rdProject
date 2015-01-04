@@ -65,10 +65,19 @@ MessageLayer* msgBox;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
-    CCLabelTTF* coinLabel=[CCLabelTTF labelWithString:
-               [NSString stringWithFormat:@"%05d",[GameManager load_Coin]] fontName:@"Verdana-Bold" fontSize:18];
-    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+coinLabel.contentSize.width/2,coin.position.y);
+    CCLabelBMFont* coinLabel=[CCLabelBMFont labelWithString:
+               [NSString stringWithFormat:@"%05d",[GameManager load_Coin]]fntFile:@"scoreFont.fnt"];
+    coinLabel.scale=0.3;
+    coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+(coinLabel.contentSize.width*coinLabel.scale)/2,coin.position.y);
     [self addChild:coinLabel];
+    
+    //ハイスコア
+    CCLabelBMFont* highScoreBoard=[CCLabelBMFont labelWithString:
+            [NSString stringWithFormat:@"HIGHSCORE\n     %07ld",[GameManager load_High_Score]]fntFile:@"scoreFont.fnt"];
+    highScoreBoard.scale=0.3;
+    highScoreBoard.position=ccp(winSize.width-(highScoreBoard.contentSize.width*highScoreBoard.scale)/2,
+                                winSize.height-(highScoreBoard.contentSize.height*highScoreBoard.scale)/2);
+    [self addChild:highScoreBoard];
     
     // Helloworld scene button
     CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];

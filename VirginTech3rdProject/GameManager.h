@@ -57,4 +57,7 @@ extern int TURN_OBJ_MAX;
 +(int)load_Coin;
 +(void)save_Coin:(int)value;
 
++(void)submit_Score_GameCenter:(NSInteger)score;
++(void)submit_Points_GameCenter:(NSInteger)points;
+
 @end

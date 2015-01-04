@@ -7,6 +7,7 @@
 //
 
 #import "GameManager.h"
+#import <GameKit/GameKit.h>
 
 @implementation GameManager
 
@@ -330,6 +331,36 @@ bool pauseFlg;
     NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
     NSNumber* coin=[NSNumber numberWithInt:value];
     [userDefault setObject:coin forKey:@"coin"];
+}
+
+//=========================================
+//GameCenterへスコアを送信
+//=========================================
++(void)submit_Score_GameCenter:(NSInteger)score
+{
+    GKScore *scoreReporter = [[GKScore alloc] initWithCategory:@"VirginTech3rdProject_Leaderboard_01"];
+    NSInteger scoreR = score;
+    scoreReporter.value = scoreR;
+    [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
+        if (error != nil){
+            NSLog(@"Error in reporting score %@",error);
+        }
+    }];
+}
+
+//=========================================
+//GameCenterへ勝ち点を送信
+//=========================================
++(void)submit_Points_GameCenter:(NSInteger)points
+{
+    GKScore *scoreReporter = [[GKScore alloc] initWithCategory:@"VirginTech3rdProject_Leaderboard_02"];
+    NSInteger scoreR = points;
+    scoreReporter.value = scoreR;
+    [scoreReporter reportScoreWithCompletionHandler:^(NSError *error) {
+        if (error != nil){
+            NSLog(@"Error in reporting score %@",error);
+        }
+    }];
 }
 
 @end

@@ -9,8 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
+#import "MessageLayer.h"
 
-@interface ItemInventoryLayer : CCScene {
+@interface ItemInventoryLayer : CCScene <MsgLayerDelegate>
+{
     
 }
 
