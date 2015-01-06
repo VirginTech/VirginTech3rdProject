@@ -32,9 +32,11 @@
     
     id targetObject;
     
-    //パーティクル
+    //アイテム・パーティクル
+    CCSprite* bomb;
     CCParticleSystem* shieldParticle;
     CCParticleSystem* speedupParticle;
+    CCParticleSystem* rushParticle;
     
     //デバッグ用
     //CCLabelTTF* modeLabel;

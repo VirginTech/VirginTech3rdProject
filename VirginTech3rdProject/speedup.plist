@@ -17,11 +17,11 @@
 	<key>finishColorAlpha</key>
 	<real>1</real>
 	<key>finishColorBlue</key>
-	<real>0.18000000715255737</real>
-	<key>finishColorGreen</key>
-	<real>0.14000000059604645</real>
-	<key>finishColorRed</key>
 	<real>1</real>
+	<key>finishColorGreen</key>
+	<real>0.4537760317325592</real>
+	<key>finishColorRed</key>
+	<real>0.0</real>
 	<key>finishColorVarianceAlpha</key>
 	<real>0.0</real>
 	<key>finishColorVarianceBlue</key>
@@ -81,11 +81,11 @@
 	<key>startColorAlpha</key>
 	<real>1</real>
 	<key>startColorBlue</key>
-	<real>0.0</real>
-	<key>startColorGreen</key>
-	<real>0.090000003576278687</real>
-	<key>startColorRed</key>
 	<real>1</real>
+	<key>startColorGreen</key>
+	<real>0.3518880307674408</real>
+	<key>startColorRed</key>
+	<real>0.0</real>
 	<key>startColorVarianceAlpha</key>
 	<real>0.0</real>
 	<key>startColorVarianceBlue</key>

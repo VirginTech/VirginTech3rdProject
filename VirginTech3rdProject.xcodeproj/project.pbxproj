@@ -220,8 +220,6 @@
 		CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4428581A3AD3AF00F17BB0 /* message_default.png */; };
 		CF4542111A4D05F2001BB61C /* bomb.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4542101A4D05F2001BB61C /* bomb.plist */; };
 		CF45421D1A4D584C001BB61C /* shield.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF45421C1A4D584C001BB61C /* shield.plist */; };
-		CF4542211A4D5DBE001BB61C /* speedup.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4542201A4D5DBE001BB61C /* speedup.plist */; };
-		CF4542271A4D966F001BB61C /* rush.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4542261A4D966F001BB61C /* rush.plist */; };
 		CF454F2D1A31B7F3001C6CA9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454F2C1A31B7F3001C6CA9 /* Reachability.m */; };
 		CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */; };
 		CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454FE01A2418200037A978 /* RealBattleScene.m */; };
@@ -236,8 +234,6 @@
 		CF49F6251A4A6B3F00877BA7 /* info_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF49F6231A4A6B3F00877BA7 /* info_default.png */; };
 		CF49F6301A4A970000877BA7 /* enemy_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF49F62E1A4A970000877BA7 /* enemy_default.plist */; };
 		CF49F6311A4A970000877BA7 /* enemy_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF49F62F1A4A970000877BA7 /* enemy_default.png */; };
-		CF49F6341A4A971800877BA7 /* player_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF49F6321A4A971800877BA7 /* player_default.plist */; };
-		CF49F6351A4A971800877BA7 /* player_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF49F6331A4A971800877BA7 /* player_default.png */; };
 		CF4AF35F1A295FFC009A4475 /* mPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF35E1A295FFC009A4475 /* mPlayer.m */; };
 		CF4AF3621A29839B009A4475 /* mEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF3611A29839B009A4475 /* mEnemy.m */; };
 		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
@@ -259,6 +255,10 @@
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
 		CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA9319F35CCA00C78540 /* Localizable.strings */; };
 		CF863EE91A27311F007C146E /* MatchMakeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF863EE81A27311F007C146E /* MatchMakeScene.m */; };
+		CF94AAFE1A5B7A74006E17D3 /* rush.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF94AAFC1A5B7A74006E17D3 /* rush.plist */; };
+		CF94AAFF1A5B7A74006E17D3 /* speedup.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF94AAFD1A5B7A74006E17D3 /* speedup.plist */; };
+		CF94AB021A5B7EA8006E17D3 /* player_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF94AB001A5B7EA8006E17D3 /* player_default.plist */; };
+		CF94AB031A5B7EA8006E17D3 /* player_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF94AB011A5B7EA8006E17D3 /* player_default.png */; };
 		CFAD371D1A57DD950016F266 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFAD371B1A57DD950016F266 /* btn_default.plist */; };
 		CFAD371E1A57DD950016F266 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CFAD371C1A57DD950016F266 /* btn_default.png */; };
 /* End PBXBuildFile section */
@@ -697,8 +697,6 @@
 		CF4428581A3AD3AF00F17BB0 /* message_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = message_default.png; sourceTree = "<group>"; };
 		CF4542101A4D05F2001BB61C /* bomb.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = bomb.plist; sourceTree = "<group>"; };
 		CF45421C1A4D584C001BB61C /* shield.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = shield.plist; sourceTree = "<group>"; };
-		CF4542201A4D5DBE001BB61C /* speedup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = speedup.plist; sourceTree = "<group>"; };
-		CF4542261A4D966F001BB61C /* rush.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rush.plist; sourceTree = "<group>"; };
 		CF454F2B1A31B7F3001C6CA9 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		CF454F2C1A31B7F3001C6CA9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -721,8 +719,6 @@
 		CF49F6231A4A6B3F00877BA7 /* info_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_default.png; sourceTree = "<group>"; };
 		CF49F62E1A4A970000877BA7 /* enemy_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = enemy_default.plist; sourceTree = "<group>"; };
 		CF49F62F1A4A970000877BA7 /* enemy_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy_default.png; sourceTree = "<group>"; };
-		CF49F6321A4A971800877BA7 /* player_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = player_default.plist; sourceTree = "<group>"; };
-		CF49F6331A4A971800877BA7 /* player_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_default.png; sourceTree = "<group>"; };
 		CF4AF35D1A295FFC009A4475 /* mPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mPlayer.h; sourceTree = "<group>"; };
 		CF4AF35E1A295FFC009A4475 /* mPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mPlayer.m; sourceTree = "<group>"; };
 		CF4AF3601A29839B009A4475 /* mEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mEnemy.h; sourceTree = "<group>"; };
@@ -753,6 +749,10 @@
 		CF83CA9419F35CCD00C78540 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CF863EE71A27311F007C146E /* MatchMakeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchMakeScene.h; sourceTree = "<group>"; };
 		CF863EE81A27311F007C146E /* MatchMakeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchMakeScene.m; sourceTree = "<group>"; };
+		CF94AAFC1A5B7A74006E17D3 /* rush.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = rush.plist; sourceTree = "<group>"; };
+		CF94AAFD1A5B7A74006E17D3 /* speedup.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = speedup.plist; sourceTree = "<group>"; };
+		CF94AB001A5B7EA8006E17D3 /* player_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = player_default.plist; sourceTree = "<group>"; };
+		CF94AB011A5B7EA8006E17D3 /* player_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = player_default.png; sourceTree = "<group>"; };
 		CFAD371B1A57DD950016F266 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
 		CFAD371C1A57DD950016F266 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1614,9 +1614,9 @@
 		CF4542091A4CFA8A001BB61C /* Particle */ = {
 			isa = PBXGroup;
 			children = (
+				CF94AAFC1A5B7A74006E17D3 /* rush.plist */,
+				CF94AAFD1A5B7A74006E17D3 /* speedup.plist */,
 				CF55C39A1A4E769000EDFD93 /* die.plist */,
-				CF4542261A4D966F001BB61C /* rush.plist */,
-				CF4542201A4D5DBE001BB61C /* speedup.plist */,
 				CF45421C1A4D584C001BB61C /* shield.plist */,
 				CF4542101A4D05F2001BB61C /* bomb.plist */,
 			);
@@ -1679,8 +1679,8 @@
 		CF4817451A11B67E00D5597B /* Object */ = {
 			isa = PBXGroup;
 			children = (
-				CF49F6321A4A971800877BA7 /* player_default.plist */,
-				CF49F6331A4A971800877BA7 /* player_default.png */,
+				CF94AB001A5B7EA8006E17D3 /* player_default.plist */,
+				CF94AB011A5B7EA8006E17D3 /* player_default.png */,
 				CF49F62E1A4A970000877BA7 /* enemy_default.plist */,
 				CF49F62F1A4A970000877BA7 /* enemy_default.png */,
 				CF44284F1A3A810F00F17BB0 /* fortress_default.plist */,
@@ -1818,11 +1818,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF5A44021A4C239B00B71D15 /* matchFont.png in Resources */,
+				CF94AAFF1A5B7A74006E17D3 /* speedup.plist in Resources */,
 				CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */,
 				CF5A44011A4C239B00B71D15 /* matchFont.fnt in Resources */,
 				CF4428511A3A810F00F17BB0 /* fortress_default.plist in Resources */,
 				CF4542111A4D05F2001BB61C /* bomb.plist in Resources */,
+				CF94AB031A5B7EA8006E17D3 /* player_default.png in Resources */,
 				CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */,
+				CF94AAFE1A5B7A74006E17D3 /* rush.plist in Resources */,
 				CF20605519F3534700DBD8C4 /* Icon-120.png in Resources */,
 				CF55C3961A4E5C3700EDFD93 /* ground_default.plist in Resources */,
 				CF55C3971A4E5C3700EDFD93 /* ground_default.png in Resources */,
@@ -1841,12 +1844,10 @@
 				CF1DB63C1A54F7F200AE2481 /* results.fnt in Resources */,
 				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
 				CF20605B19F3534700DBD8C4 /* Icon-Small.png in Resources */,
-				CF49F6341A4A971800877BA7 /* player_default.plist in Resources */,
 				CF49F6301A4A970000877BA7 /* enemy_default.plist in Resources */,
 				CF20605919F3534700DBD8C4 /* Icon-Small-50.png in Resources */,
 				CF20629719F3534900DBD8C4 /* LICENSE_Chipmunk.txt in Resources */,
 				CF49F6241A4A6B3F00877BA7 /* info_default.plist in Resources */,
-				CF4542211A4D5DBE001BB61C /* speedup.plist in Resources */,
 				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
 				CF20604D19F3534700DBD8C4 /* Icon-72.png in Resources */,
 				CF49F6311A4A970000877BA7 /* enemy_default.png in Resources */,
@@ -1859,14 +1860,13 @@
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
-				CF4542271A4D966F001BB61C /* rush.plist in Resources */,
-				CF49F6351A4A971800877BA7 /* player_default.png in Resources */,
 				CF20D56F1A36B6C1006CD725 /* item_default.plist in Resources */,
 				CF20605319F3534700DBD8C4 /* Icon-76@2x.png in Resources */,
 				CF20606119F3534700DBD8C4 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
 				CF45421D1A4D584C001BB61C /* shield.plist in Resources */,
 				CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */,
+				CF94AB021A5B7EA8006E17D3 /* player_default.plist in Resources */,
 				CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */,
 				CF20606619F3534700DBD8C4 /* iTunesArtwork@2x in Resources */,
 				CF1DB6411A54FC8400AE2481 /* results_default.png in Resources */,

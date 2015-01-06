@@ -1152,13 +1152,14 @@ NaviLayer* naviLayer;
             // 新規のプレーヤー接続を処理する
             break;
         case GKPlayerStateDisconnected:
-            // プレーヤーが切断した場合
+            //相手プレーヤーが切断した場合
             if(!gameEndFlg){//ゲーム中だったら・・・
                 //ポイント加算
                 [GameManager save_Match_Point:[GameManager load_Match_Point]+1];
                 //インフォレイヤー更新
                 [infoLayer score_Update];
-                //NSLog(@"勝ち点: %02d ポイント",[GameManager load_Match_Point]);
+                //ゲームセンターへ送信
+                [GameManager submit_Points_GameCenter:[GameManager load_Match_Point]];
                 //リザルトレイヤー表示
                 ResultsLayer* resultsLayer;
                 if([GameManager getHost]){//ホスト青だったら

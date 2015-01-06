@@ -187,7 +187,9 @@ Fortress* targetFortress;
     lifeGauge2.scaleX=nowRatio*0.01;
     lifeGauge2.position=CGPointMake((nowRatio*0.01)*(lifeGauge1.contentSize.width/2), lifeGauge1.contentSize.height/2);
     
-    if(itemNum==2){//シールドモード
+    if(itemNum==0){
+        bomb.visible=false;
+    }else if(itemNum==2){//シールドモード
         if(ability<=5){
             shieldParticle.visible=false;
             //[self removeChild:shieldParticle cleanup:YES];
@@ -249,7 +251,10 @@ Fortress* targetFortress;
         
         //アイテム付与
         if(itemNum==1){//爆弾
-            
+            bomb=[CCSprite spriteWithSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"bomb.png"]];
+            bomb.scale=0.7;
+            bomb.position=ccp(self.contentSize.width/2,self.contentSize.height/2+30);
+            [self addChild:bomb];
         }else if(itemNum==2){//シールドモード
             ability=20;
             shieldParticle=[[CCParticleSystem alloc]initWithFile:@"shield.plist"];
@@ -257,10 +262,10 @@ Fortress* targetFortress;
             shieldParticle.scale=0.7;
             [self addChild:shieldParticle];
         }else if(itemNum==3){//突撃モード
-            speedupParticle=[[CCParticleSystem alloc]initWithFile:@"speedup.plist"];
-            speedupParticle.position=ccp(self.contentSize.width/2,self.contentSize.height/2-15);
-            speedupParticle.scale=1.0;
-            [self addChild:speedupParticle];
+            rushParticle=[[CCParticleSystem alloc]initWithFile:@"rush.plist"];
+            rushParticle.position=ccp(self.contentSize.width/2,self.contentSize.height/2-15);
+            rushParticle.scale=1.0;
+            [self addChild:rushParticle];
         }else if(itemNum==4){//攻撃アップ
             self.scale=0.35;
         }else if(itemNum==5){//高速モード
