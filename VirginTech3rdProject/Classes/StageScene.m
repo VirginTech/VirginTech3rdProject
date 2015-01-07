@@ -20,6 +20,7 @@
 #import "NaviLayer.h"
 #import "InfoLayer.h"
 #import "ResultsLayer.h"
+#import "SoundManager.h"
 
 @implementation StageScene
 
@@ -88,6 +89,9 @@ CCParticleSystem* dieParticle;
     if (!self) return(nil);
     
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    //エフェクトサウンド
+    [SoundManager ready_Effect];
     
     // Enable touch handling on scene node
     self.userInteractionEnabled = YES;
@@ -365,6 +369,8 @@ CCParticleSystem* dieParticle;
 -(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
 {
     if(procNum==1){
+        //BGMスタート
+        [SoundManager playBGM:@"battle_bgm01.mp3"];
         //「敵」生成スケジュール
         repeatNum=[InitObjManager NumOfRepeat:stageNum];
         int interval=[InitObjManager NumOfInterval:stageNum];
@@ -394,6 +400,9 @@ CCParticleSystem* dieParticle;
         [bgSpLayer addChild:enemy z:array.count-i];
         [enemyArray addObject:enemy];
         infoLayer.eCnt++;
+        if(i==0){
+            [SoundManager wao_Effect];
+        }
     }
     if(infoLayer.repCnt>repeatNum){
         [self unschedule:@selector(create_Enemy_Schedule:)];
@@ -831,6 +840,9 @@ CCParticleSystem* dieParticle;
     {
         [self setDieParticle:_player.position];
         [self setTomb:_player.position];
+        if(playerDieCount%3==0){
+            [SoundManager die_Player_Effect];
+        }
         [playerArray removeObject:_player];
         [bgSpLayer removeChild:_player cleanup:YES];
         infoLayer.pCnt--;
@@ -839,6 +851,9 @@ CCParticleSystem* dieParticle;
     {
         [self setDieParticle:_enemy.position];
         [self setTomb:_enemy.position];
+        if(enemyDieCount%3==0){
+            [SoundManager die_Enemy_Effect];
+        }
         [enemyArray removeObject:_enemy];
         [bgSpLayer removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
@@ -868,6 +883,9 @@ CCParticleSystem* dieParticle;
     for(Enemy* _enemy in enemyArray){
         _enemy.stopFlg=true;
     }
+    
+    //BGMストップ
+    [SoundManager stopBGM];
     
     //スコアリング処理
     if(winnerFlg){//勝ちなら
@@ -966,7 +984,11 @@ UIEvent* events;
             player=[Player createPlayer:worldLocation];
             [bgSpLayer addChild:player z:1];
             [playerArray addObject:player];
-            
+            //エフェクトサウンド
+            [SoundManager creat_Object_Effect];
+            if(infoLayer.pTotalCnt%5==0){
+                [SoundManager run_Effect];
+            }
             itemNum=[GameManager getItem];
             if(itemNum>0){//アイテムが選択されていて
                 //アイテム数更新

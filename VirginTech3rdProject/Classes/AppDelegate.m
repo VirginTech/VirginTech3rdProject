@@ -11,6 +11,7 @@
 #import "TitleScene.h"
 #import "GameManager.h"
 #import "GKitController.h"
+#import "SoundManager.h"
 
 @implementation AppDelegate
 
@@ -85,6 +86,9 @@
         [GameManager setDevice:0];
     }
 
+    //サウンド・プリロード
+    [SoundManager initSoundPreload];
+    
 	// This method should return the very first scene to be run when your app starts.
 	return [TitleScene scene];
 }

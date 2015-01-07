@@ -1013,33 +1013,35 @@ NaviLayer* naviLayer;
 -(void)create_Object_Schedule:(CCTime)dt
 {
     if(touchPos.y<offSet.height+[GameManager getWorldSize].height*0.2){
-        if([GameManager getHost]){//青(Player)
-            if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
-                m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:touchPos];
-                [self addChild:m_player z:1];
-                [playerArray addObject:m_player];
-                infoLayer.pCnt++;
-                infoLayer.pTotalCnt++;
-                //データ送信
-                [self sendData_CreateObject:touchPos];
-            }else{
-                //カウント超過停止
-                createObjectFlg=false;
-                [self unschedule:@selector(create_Object_Schedule:)];
-            }
-        }else{//赤(Enemy)
-            if(infoLayer.eCnt<TURN_OBJ_MAX && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
-                m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:touchPos];
-                [self addChild:m_enemy z:1];
-                [enemyArray addObject:m_enemy];
-                infoLayer.eCnt++;
-                infoLayer.eTotalCnt++;
-                //データ送信
-                [self sendData_CreateObject:touchPos];
-            }else{
-                //カウント超過停止
-                createObjectFlg=false;
-                [self unschedule:@selector(create_Object_Schedule:)];
+        if(touchPos.x>offSet.width && touchPos.x<offSet.width+[GameManager getWorldSize].width){
+            if([GameManager getHost]){//青(Player)
+                if(infoLayer.pCnt<TURN_OBJ_MAX && infoLayer.pTotalCnt<infoLayer.pMaxCnt){
+                    m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:touchPos];
+                    [self addChild:m_player z:1];
+                    [playerArray addObject:m_player];
+                    infoLayer.pCnt++;
+                    infoLayer.pTotalCnt++;
+                    //データ送信
+                    [self sendData_CreateObject:touchPos];
+                }else{
+                    //カウント超過停止
+                    createObjectFlg=false;
+                    [self unschedule:@selector(create_Object_Schedule:)];
+                }
+            }else{//赤(Enemy)
+                if(infoLayer.eCnt<TURN_OBJ_MAX && infoLayer.eTotalCnt<infoLayer.eMaxCnt){
+                    m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:touchPos];
+                    [self addChild:m_enemy z:1];
+                    [enemyArray addObject:m_enemy];
+                    infoLayer.eCnt++;
+                    infoLayer.eTotalCnt++;
+                    //データ送信
+                    [self sendData_CreateObject:touchPos];
+                }else{
+                    //カウント超過停止
+                    createObjectFlg=false;
+                    [self unschedule:@selector(create_Object_Schedule:)];
+                }
             }
         }
     }else{

@@ -10,6 +10,7 @@
 #import "TitleScene.h"
 #import "GameManager.h"
 #import "StageScene.h"
+#import "SoundManager.h"
 
 @implementation SelectScene
 
@@ -134,7 +135,8 @@ CCScrollView* scrollView;
     // back to intro scene with transition
     CCButton* button =(CCButton*)sender;
     [GameManager setStageLevel:[[button name]intValue]];
-    
+    //BGMストップ
+    [SoundManager stopBGM];
     [[CCDirector sharedDirector] replaceScene:[StageScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     

@@ -17,7 +17,7 @@
 #import "PreferencesLayer.h"
 #import "CreditLayer.h"
 #import "ShopLayer.h"
-
+#import "SoundManager.h"
 
 @implementation TitleScene
 
@@ -36,6 +36,9 @@ MessageLayer* msgBox;
     if (!self) return(nil);
     
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    //オープニングBGM
+    [SoundManager playBGM:@"opening_bgm01.mp3"];
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];

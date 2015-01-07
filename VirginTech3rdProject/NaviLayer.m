@@ -11,6 +11,7 @@
 #import "GameManager.h"
 #import "MatchMakeScene.h"
 #import "SelectScene.h"
+#import "SoundManager.h"
 
 @implementation NaviLayer
 
@@ -122,6 +123,8 @@ CCButton* selectButton;
 - (void)onPauseClicked:(id)sender
 {
     [self pause];
+    //BGMポーズ
+    [SoundManager pauseBGM];
     if([GameManager getMatchMode]==2){
         [MatchMakeScene sendData_Pause:true];
     }
@@ -130,6 +133,8 @@ CCButton* selectButton;
 - (void)onResumeClicked:(id)sender
 {
     [self resume];
+    //BGMレジューム
+    [SoundManager resumeBGM];
     if([GameManager getMatchMode]==2){
         [MatchMakeScene sendData_Pause:false];
     }
@@ -138,7 +143,8 @@ CCButton* selectButton;
 
 - (void)onTitleClicked:(id)sender
 {
-    // back to intro scene with transition
+    //BGMストップ
+    [SoundManager stopBGM];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
