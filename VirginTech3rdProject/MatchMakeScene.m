@@ -14,6 +14,7 @@
 #import "NaviLayer.h"
 #import "InfoLayer.h"
 #import "ResultsLayer.h"
+#import "SoundManager.h"
 
 #import "Fortress.h"
 #import "mPlayer.h"
@@ -121,6 +122,9 @@ NaviLayer* naviLayer;
     winSize=[[CCDirector sharedDirector]viewSize];
 
     self.userInteractionEnabled = YES;
+    
+    //ネット対戦ではここでBGMストップ
+    [SoundManager stopBGM];
     
     //GKMatchデリゲート
     battleMatch.delegate=self;
@@ -874,6 +878,9 @@ NaviLayer* naviLayer;
     {
         [self setDieParticle:_player.position];
         [self setTomb:_player.position];
+        if(infoLayer.pCnt%3==0){
+            [SoundManager die_Player_Effect];
+        }
         [playerArray removeObject:_player];
         [self removeChild:_player cleanup:YES];
         infoLayer.pCnt--;
@@ -882,6 +889,9 @@ NaviLayer* naviLayer;
     {
         [self setDieParticle:_enemy.position];
         [self setTomb:_enemy.position];
+        if(infoLayer.eCnt%3==0){
+            [SoundManager die_Enemy_Effect];
+        }
         [enemyArray removeObject:_enemy];
         [self removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
@@ -971,6 +981,9 @@ NaviLayer* naviLayer;
     for(mEnemy* _enemy in enemyArray){
         _enemy.stopFlg=true;
     }
+    //サウンドオールストップ
+    [SoundManager all_Stop];
+    
     [self unscheduleAllSelectors];
     
     //勝ち点を保存
@@ -1019,6 +1032,11 @@ NaviLayer* naviLayer;
                     m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:touchPos];
                     [self addChild:m_player z:1];
                     [playerArray addObject:m_player];
+                    //エフェクトサウンド
+                    [SoundManager creat_Object_Effect];
+                    if(infoLayer.pTotalCnt%5==0){
+                        [SoundManager run_Effect];
+                    }
                     infoLayer.pCnt++;
                     infoLayer.pTotalCnt++;
                     //データ送信
@@ -1033,6 +1051,11 @@ NaviLayer* naviLayer;
                     m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:touchPos];
                     [self addChild:m_enemy z:1];
                     [enemyArray addObject:m_enemy];
+                    //エフェクトサウンド
+                    [SoundManager creat_Object_Effect];
+                    if(infoLayer.eTotalCnt%5==0){
+                        [SoundManager wao_Effect];
+                    }
                     infoLayer.eCnt++;
                     infoLayer.eTotalCnt++;
                     //データ送信
@@ -1352,12 +1375,22 @@ NaviLayer* naviLayer;
             m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:ccp(_x,_y)];
             [self addChild:m_enemy z:TURN_OBJ_MAX-infoLayer.eCnt];
             [enemyArray addObject:m_enemy];
+            //エフェクトサウンド
+            [SoundManager creat_Object_Effect];
+            if(infoLayer.eTotalCnt%5==0){
+                [SoundManager wao_Effect];
+            }
             infoLayer.eCnt++;
             infoLayer.eTotalCnt++;
         }else{
             m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:ccp(_x,_y)];
             [self addChild:m_player z:TURN_OBJ_MAX-infoLayer.pCnt];
             [playerArray addObject:m_player];
+            //エフェクトサウンド
+            [SoundManager creat_Object_Effect];
+            if(infoLayer.pTotalCnt%5==0){
+                [SoundManager run_Effect];
+            }
             infoLayer.pCnt++;
             infoLayer.pTotalCnt++;
         }

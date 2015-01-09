@@ -32,6 +32,9 @@ CCScrollView* scrollView;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
+    //オープニングBGM
+    [SoundManager playBGM:@"opening_bgm01.mp3"];
+    
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
@@ -133,6 +136,7 @@ CCScrollView* scrollView;
 - (void)onStageLevel:(id)sender
 {
     // back to intro scene with transition
+    [SoundManager click_Effect];
     CCButton* button =(CCButton*)sender;
     [GameManager setStageLevel:[[button name]intValue]];
     //BGMストップ
@@ -145,6 +149,7 @@ CCScrollView* scrollView;
 - (void)onTitleClicked:(id)sender
 {
     // back to intro scene with transition
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     

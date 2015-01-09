@@ -884,8 +884,8 @@ CCParticleSystem* dieParticle;
         _enemy.stopFlg=true;
     }
     
-    //BGMストップ
-    [SoundManager stopBGM];
+    //サウンドオールストップ
+    [SoundManager all_Stop];
     
     //スコアリング処理
     if(winnerFlg){//勝ちなら

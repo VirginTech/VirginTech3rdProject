@@ -8,6 +8,7 @@
 
 #import "CreditLayer.h"
 #import "TitleScene.h"
+#import "SoundManager.h"
 
 @implementation CreditLayer
 
@@ -44,6 +45,7 @@ CGSize winSize;
 - (void)onTitleClicked:(id)sender
 {
     // back to intro scene with transition
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     

@@ -11,6 +11,7 @@
 #import "TitleScene.h"
 #import "InitObjManager.h"
 #import "SelectScene.h"
+#import "SoundManager.h"
 
 @implementation ResultsLayer
 
@@ -185,6 +186,8 @@ bool highScoreFlg;
             //titleButton.position=ccp(0.5f,0.3f);
             
         }else{//敗北
+            //サウンド
+            [SoundManager lose_Effect];
             defeatSpr.visible=true;
             defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
             [self addChild:defeatSpr];
@@ -196,6 +199,9 @@ bool highScoreFlg;
         defeatSpr.visible=true;
         
         if(flg){
+            //サウンド
+            [SoundManager win_Effect];
+
             victorySpr.position=ccp(winSize.width/2,winSize.height/2-100);
             [self addChild:victorySpr];
             
@@ -203,6 +209,9 @@ bool highScoreFlg;
             defeatSpr.rotation=180;
             [self addChild:defeatSpr];
         }else{
+            //サウンド
+            [SoundManager lose_Effect];
+
             defeatSpr.position=ccp(winSize.width/2,winSize.height/2-100);
             [self addChild:defeatSpr];
             
@@ -218,20 +227,28 @@ bool highScoreFlg;
     {
         if(flg){
             if([GameManager getHost]){
+                //サウンド
+                [SoundManager win_Effect];
                 victorySpr.visible=true;
                 victorySpr.position=ccp(winSize.width/2,winSize.height/2);
                 [self addChild:victorySpr];
             }else{
+                //サウンド
+                [SoundManager lose_Effect];
                 defeatSpr.visible=true;
                 defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
                 [self addChild:defeatSpr];
             }
         }else{
             if([GameManager getHost]){
+                //サウンド
+                [SoundManager lose_Effect];
                 defeatSpr.visible=true;
                 defeatSpr.position=ccp(winSize.width/2,winSize.height/2);
                 [self addChild:defeatSpr];
             }else{
+                //サウンド
+                [SoundManager win_Effect];
                 victorySpr.visible=true;
                 victorySpr.position=ccp(winSize.width/2,winSize.height/2);
                 [self addChild:victorySpr];
@@ -255,6 +272,8 @@ bool highScoreFlg;
     }
     else if(cnt==300)
     {
+        //サウンドエフェクト
+        [SoundManager star_Effect];
         starG.scale=0.7;
         starG.position=ccp(winSize.width/2-100,winSize.height/2+100);
         if(rep>300){
@@ -269,6 +288,8 @@ bool highScoreFlg;
     }
     else if(cnt==600)
     {
+        //サウンドエフェクト
+        [SoundManager star_Effect];
         starG.scale=0.7;
         starG.position=ccp(winSize.width/2,winSize.height/2+130);
         if(rep>600){
@@ -283,6 +304,8 @@ bool highScoreFlg;
     }
     else if(cnt==900)
     {
+        //サウンドエフェクト
+        [SoundManager star_Effect];
         starG.scale=0.7;
         starG.position=ccp(winSize.width/2+100,winSize.height/2+100);
         [self schedule:@selector(score_Schedule:) interval:0.01 repeat:enemyDieCount delay:0];
@@ -295,11 +318,16 @@ bool highScoreFlg;
 
 -(void)score_Schedule:(CCTime)dt
 {
+    
     if(scoreNum==0)
     {
         if(enemyDieCount>0){
             enemyDieCount--;
             enemyDieLabel.string=[NSString stringWithFormat:@"たおした敵兵の数:%05d",enemyDieCount];
+            //サウンドエフェクト
+            if(enemyDieCount%10==0){
+                [SoundManager score_Effect];
+            }
         }else{
             scoreNum++;
             [self schedule:@selector(score_Schedule:) interval:0.01 repeat:playerDieCount delay:0];
@@ -310,6 +338,10 @@ bool highScoreFlg;
         if(playerDieCount>0){
             playerDieCount--;
             playerDieLabel.string=[NSString stringWithFormat:@"生残った我兵の数:%05d",playerDieCount];
+            //サウンドエフェクト
+            if(playerDieCount%10==0){
+                [SoundManager score_Effect];
+            }
         }else{
             scoreNum++;
             [self schedule:@selector(score_Schedule:) interval:0.001 repeat:enemyFortressAbility delay:0];
@@ -320,6 +352,10 @@ bool highScoreFlg;
         if(enemyFortressAbility>0){
             enemyFortressAbility--;
             enemyFortressLabel.string=[NSString stringWithFormat:@"敵城破壊ポイント:%05d",enemyFortressAbility];
+            //サウンドエフェクト
+            if(enemyFortressAbility%100==0){
+                [SoundManager score_Effect];
+            }
         }else{
             scoreNum++;
             [self schedule:@selector(score_Schedule:) interval:0.001 repeat:playerFortressAbility delay:0];
@@ -330,6 +366,10 @@ bool highScoreFlg;
         if(playerFortressAbility>0){
             playerFortressAbility--;
             playerFortressLabel.string=[NSString stringWithFormat:@"我城残存ポイント:%05d",playerFortressAbility];
+            //サウンドエフェクト
+            if(playerFortressAbility%100==0){
+                [SoundManager score_Effect];
+            }
         }else{
             if(highScoreFlg){//ハイスコアなら
                 highScore=[CCSprite spriteWithSpriteFrame:
@@ -346,10 +386,16 @@ bool highScoreFlg;
 
 -(void)high_Score_Schedule:(CCTime)dt
 {
+    //サウンド
+    if(cnt==0){
+        [SoundManager highscore_Effect];
+    }
     cnt++;
     highScore.scale-=0.01;
     highScore.rotation+=10;
     if(cnt==200){
+        //サウンド
+        [SoundManager win_Effect];
         highScore.scale=0.8;
         highScore.position=ccp(winSize.width/2,winSize.height/2);
         highScore.rotation=-25;
@@ -359,12 +405,16 @@ bool highScoreFlg;
 - (void)onTitleClicked:(id)sender
 {
     // back to intro scene with transition
+    [SoundManager all_Stop];
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 -(void)onSelectClicked:(id)sender
 {
+    [SoundManager all_Stop];
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }

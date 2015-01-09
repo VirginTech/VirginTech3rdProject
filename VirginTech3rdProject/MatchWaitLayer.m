@@ -10,6 +10,7 @@
 #import "TitleScene.h"
 #import "GameManager.h"
 #import "InitObjManager.h"
+#import "SoundManager.h"
 
 @implementation MatchWaitLayer
 
@@ -196,6 +197,7 @@ int readyCnt;
 {
     if([GameManager getMatchMode]==1)//リアル対戦モード
     {
+        [SoundManager ready_Effect];
         if(procNum==1){//プレイヤー準備よし！
             playerReadyFlg=true;//準備よし
             //playerLbl.fontSize=20;
@@ -221,6 +223,7 @@ int readyCnt;
     }
     else if([GameManager getMatchMode]==2)//ネット対戦モード
     {
+        [SoundManager ready_Effect];
         if([GameManager getHost]){//ホスト青プレイヤー
             playerReadyFlg=true;//準備よし
             //playerLbl.fontSize=20;
@@ -293,6 +296,7 @@ int readyCnt;
     if(readyCnt>1){
         [self unschedule:@selector(ready_Wait_Schedule:)];
         [self removeFromParentAndCleanup:YES];//レイヤー消去
+        [SoundManager playBGM:@"battle_bgm01.mp3"];
     }
 }
 

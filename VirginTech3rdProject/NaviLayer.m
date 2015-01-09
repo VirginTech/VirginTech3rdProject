@@ -145,12 +145,16 @@ CCButton* selectButton;
 {
     //BGMストップ
     [SoundManager stopBGM];
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 -(void)onSelectClicked:(id)sender
 {
+    //BGMストップ
+    [SoundManager stopBGM];
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }

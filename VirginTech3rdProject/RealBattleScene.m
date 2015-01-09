@@ -15,6 +15,7 @@
 #import "NaviLayer.h"
 #import "InfoLayer.h"
 #import "ResultsLayer.h"
+#import "SoundManager.h"
 
 #import "Fortress.h"
 #import "Player.h"
@@ -682,6 +683,9 @@ CCParticleSystem* dieParticle;
     {
         [self setDieParticle:_player.position];
         [self setTomb:_player.position];
+        if(infoLayer.pCnt%3==0){
+            [SoundManager die_Player_Effect];
+        }
         [playerArray removeObject:_player];
         [self removeChild:_player cleanup:YES];
         infoLayer.pCnt--;
@@ -690,6 +694,9 @@ CCParticleSystem* dieParticle;
     {
         [self setDieParticle:_enemy.position];
         [self setTomb:_enemy.position];
+        if(infoLayer.eCnt%3==0){
+            [SoundManager die_Enemy_Effect];
+        }
         [enemyArray removeObject:_enemy];
         [self removeChild:_enemy cleanup:YES];
         infoLayer.eCnt--;
@@ -719,6 +726,9 @@ CCParticleSystem* dieParticle;
     for(Enemy* _enemy in enemyArray){
         _enemy.stopFlg=true;
     }
+    //サウンドオールストップ
+    [SoundManager all_Stop];
+    
     [self unscheduleAllSelectors];
     
     //リザルトレイヤー表示
@@ -751,6 +761,11 @@ CCParticleSystem* dieParticle;
             player=[Player createPlayer:playerLocation];
             [self addChild:player z:1];
             [playerArray addObject:player];
+            //エフェクトサウンド
+            [SoundManager creat_Object_Effect];
+            if(infoLayer.pTotalCnt%5==0){
+                [SoundManager run_Effect];
+            }
             infoLayer.pCnt++;
             infoLayer.pTotalCnt++;
         }else{
@@ -772,6 +787,11 @@ CCParticleSystem* dieParticle;
             enemy=[Enemy createEnemy:enemyLocation];
             [self addChild:enemy z:TURN_OBJ_MAX-infoLayer.eCnt];
             [enemyArray addObject:enemy];
+            //エフェクトサウンド
+            [SoundManager creat_Object_Effect];
+            if(infoLayer.eTotalCnt%5==0){
+                [SoundManager wao_Effect];
+            }
             infoLayer.eCnt++;
             infoLayer.eTotalCnt++;
         }else{

@@ -11,6 +11,7 @@
 #import "GameManager.h"
 #import "Enemy.h"
 #import "Fortress.h"
+#import "SoundManager.h"
 
 @implementation mPlayer
 
@@ -161,7 +162,7 @@
             
         }
     }
-    if(animeCnt>=2)animeCnt=0;
+    if(animeCnt>=20)animeCnt=0;
 }
 
 -(void)status_Schedule:(CCTime)dt
@@ -180,6 +181,10 @@
 
 -(void)attackDamage
 {
+    //エフェクトサウンド
+    if(animeCnt%5==0){
+        [SoundManager battle_Effect];
+    }
     if(mode==3){//敵攻撃
         Enemy* targetEnemy=targetObject;
         if(itemNum==4){//攻撃アップ

@@ -9,6 +9,7 @@
 #import "ShopLayer.h"
 #import "TitleScene.h"
 #import "GameManager.h"
+#import "SoundManager.h"
 
 @implementation ShopLayer
 
@@ -264,6 +265,7 @@ CCLabelBMFont* coinLabel;
         [indicator stopAnimating];
         [indicator removeFromSuperview];
     }
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     

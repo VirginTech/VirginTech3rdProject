@@ -193,12 +193,16 @@ MessageLayer* msgBox;
 
 - (void)onItemInventoryClicked:(id)sender
 {
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[ItemInventoryLayer scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 - (void)onMatchMakeClicked:(id)sender
 {
+    [SoundManager click_Effect];
+    //[SoundManager stopBGM];
+    
     //ネット接続できるか確認
     Reachability *internetReach = [Reachability reachabilityForInternetConnection];
     //[internetReach startNotifier];
@@ -234,6 +238,8 @@ MessageLayer* msgBox;
 
 - (void)onRealBattleClicked:(id)sender
 {
+    [SoundManager click_Effect];
+    [SoundManager stopBGM];
     // start spinning scene with transition
     [GameManager setMatchMode:1];
     [[CCDirector sharedDirector] replaceScene:[RealBattleScene scene]
@@ -243,6 +249,7 @@ MessageLayer* msgBox;
 
 - (void)onPlayClicked:(id)sender
 {
+    [SoundManager click_Effect];
     // start spinning scene with transition
     [GameManager setMatchMode:0];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
@@ -252,24 +259,28 @@ MessageLayer* msgBox;
 
 -(void)onGameCenterClicked:(id)sender
 {
+    [SoundManager click_Effect];
     gkc=[[GKitController alloc]init];
     [gkc showLeaderboard];
 }
 
 -(void)onTwitterClicked:(id)sender
 {
+    [SoundManager click_Effect];
     NSURL* url = [NSURL URLWithString:@"https://twitter.com/VirginTechLLC"];
     [[UIApplication sharedApplication]openURL:url];
 }
 
 -(void)onFacebookClicked:(id)sender
 {
+    [SoundManager click_Effect];
     NSURL* url = [NSURL URLWithString:@"https://www.facebook.com/pages/VirginTech-LLC/516907375075432"];
     [[UIApplication sharedApplication]openURL:url];
 }
 
 -(void)onInAppPurchaseClicked:(id)sender
 {
+    [SoundManager click_Effect];
     //アプリ内購入の設定チェック
     if (![SKPaymentQueue canMakePayments]){//ダメ
         /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
@@ -333,12 +344,14 @@ MessageLayer* msgBox;
 
 -(void)onPreferencesButtonClicked:(id)sender
 {
+    [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 -(void)onCreditButtonClicked:(id)sender
 {
-        [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    [SoundManager click_Effect];
+    [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
 }
 
 @end

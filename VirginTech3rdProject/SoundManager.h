@@ -20,6 +20,8 @@
 +(void)pauseBGM;
 +(void)resumeBGM;
 
++(void)all_Stop;
+
 +(void)creat_Object_Effect;
 +(void)battle_Effect;
 +(void)die_Player_Effect;
@@ -27,5 +29,12 @@
 +(void)wao_Effect;
 +(void)run_Effect;
 +(void)ready_Effect;
++(void)star_Effect;
++(void)score_Effect;
++(void)highscore_Effect;
++(void)win_Effect;
++(void)lose_Effect;
+
++(void)click_Effect;
 
 @end

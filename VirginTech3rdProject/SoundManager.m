@@ -30,6 +30,15 @@
     [[OALSimpleAudio sharedInstance]preloadEffect:@"wao.mp3"];
     [[OALSimpleAudio sharedInstance]preloadEffect:@"run.mp3"];
     [[OALSimpleAudio sharedInstance]preloadEffect:@"ready.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"star.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"score.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"highscore.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"win.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"lose.mp3"];
+    
+    //UI
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"click.mp3"];
+    
 }
 
 //===================
@@ -84,6 +93,42 @@
 +(void)ready_Effect
 {
     [[OALSimpleAudio sharedInstance]playEffect:@"ready.mp3"];
+}
++(void)star_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"star.mp3"];
+}
++(void)score_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"score.mp3"];
+}
++(void)highscore_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"highscore.mp3"];
+}
++(void)win_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"win.mp3"];
+}
++(void)lose_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"lose.mp3"];
+}
+
+//===================
+// UI
+//===================
++(void)click_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"click.mp3"];
+}
+
+//===================
+// オールストップ
+//===================
++(void)all_Stop
+{
+    [[OALSimpleAudio sharedInstance]stopEverything];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "MessageLayer.h"
-
+#import "SoundManager.h"
 
 @implementation MessageLayer
 
@@ -139,6 +139,7 @@ CGSize winSize;
 {
     if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:procNum:)])
     {
+        [SoundManager click_Effect];
         [self sendDelegate:2]; //2:YES
         [self removeFromParentAndCleanup:YES];
     }
@@ -148,6 +149,7 @@ CGSize winSize;
 {
     if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:procNum:)])
     {
+        [SoundManager click_Effect];
         [self sendDelegate:1]; //1:No
         [self removeFromParentAndCleanup:YES];
     }
@@ -157,6 +159,7 @@ CGSize winSize;
 {
     if([self.delegate respondsToSelector:@selector(onMessageLayerBtnClocked:procNum:)])
     {
+        [SoundManager click_Effect];
         [self sendDelegate:0]; //0:OK
         [self removeFromParentAndCleanup:YES];
     }
