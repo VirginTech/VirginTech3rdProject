@@ -316,7 +316,7 @@ NaviLayer* naviLayer;
     if([GameManager getHost]){//ホストだったら
         [self schedule:@selector(judgement_Schedule:)interval:0.1];
     }else{
-        [self schedule:@selector(status_Schedule:)interval:0.1];
+        [self schedule:@selector(client_Schedule:)interval:0.1];
     }
 }
 
@@ -911,7 +911,7 @@ NaviLayer* naviLayer;
 //=========================
 //クライアント・スケジュール
 //=========================
--(void)status_Schedule:(CCTime)dt
+-(void)client_Schedule:(CCTime)dt
 {
     if([GameManager getPause]){
         return;
@@ -1051,6 +1051,7 @@ NaviLayer* naviLayer;
                     m_enemy=[mEnemy createEnemy:infoLayer.eTotalCnt pos:touchPos];
                     [self addChild:m_enemy z:1];
                     [enemyArray addObject:m_enemy];
+                    m_enemy.targetObject=playerFortress;//クライアントにはあらかじめ敵城を登録
                     //エフェクトサウンド
                     [SoundManager creat_Object_Effect];
                     if(infoLayer.eTotalCnt%5==0){
@@ -1386,6 +1387,7 @@ NaviLayer* naviLayer;
             m_player=[mPlayer createPlayer:infoLayer.pTotalCnt pos:ccp(_x,_y)];
             [self addChild:m_player z:TURN_OBJ_MAX-infoLayer.pCnt];
             [playerArray addObject:m_player];
+            m_player.targetObject=enemyFortress;//クライアントにはあらかじめ敵城を登録
             //エフェクトサウンド
             [SoundManager creat_Object_Effect];
             if(infoLayer.pTotalCnt%5==0){

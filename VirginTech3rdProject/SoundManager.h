@@ -34,7 +34,10 @@
 +(void)highscore_Effect;
 +(void)win_Effect;
 +(void)lose_Effect;
++(void)bomb_Effect;
++(void)attack_Effect;
 
 +(void)click_Effect;
++(void)item_Select_Effect;
 
 @end

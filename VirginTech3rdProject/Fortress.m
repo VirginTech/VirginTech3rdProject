@@ -24,6 +24,24 @@
     //energyLabel.string=[NSString stringWithFormat:@"%d",ability];
 }
 
+-(void)start_Animation
+{
+    if(animeCnt==0){
+        [self schedule:@selector(animation_Schedule:)interval:0.15 repeat:1 delay:0.0f];
+    }
+}
+
+-(void)animation_Schedule:(CCTime)dt
+{
+    if(animeCnt%2==0){
+        self.position=ccp(self.position.x+5,fPos.y);
+        animeCnt++;
+    }else{
+        self.position=ccp(fPos.x,fPos.y);
+        animeCnt=0;
+    }
+}
+
 -(id)initWithFortress:(CGPoint)pos type:(int)type
 {
     [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
@@ -41,8 +59,10 @@
 
     if(self=[super initWithSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:fileName]])
     {
+        fPos=pos;
         self.position=pos;
         ability=500;
+        animeCnt=0;
         
         //体力ゲージ描画
         maxLife=ability;

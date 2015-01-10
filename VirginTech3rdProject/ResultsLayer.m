@@ -30,6 +30,11 @@ CCLabelBMFont* playerDieLabel;
 CCLabelBMFont* enemyFortressLabel;
 CCLabelBMFont* playerFortressLabel;
 
+CCLabelBMFont* enemyDieScore;
+CCLabelBMFont* playerDieScore;
+CCLabelBMFont* enemyFortressScore;
+CCLabelBMFont* playerFortressScore;
+
 int playerDieCount;
 int enemyDieCount;
 int playerFortressAbility;
@@ -134,11 +139,16 @@ bool highScoreFlg;
             }
             [self addChild:enemy];
             
-            enemyDieLabel=[CCLabelBMFont labelWithString:
-                        [NSString stringWithFormat:@"たおした敵兵の数:%05d",enemyDieCount]fntFile:@"results.fnt"];
+            enemyDieLabel=[CCLabelBMFont labelWithString:@"たおした敵兵の数 : " fntFile:@"results.fnt"];
             enemyDieLabel.scale=0.5;
             enemyDieLabel.position=ccp(enemy.position.x+(enemy.contentSize.width*enemy.scale)/2+(enemyDieLabel.contentSize.width*enemyDieLabel.scale)/2,enemy.position.y);
             [self addChild:enemyDieLabel];
+            
+            enemyDieScore=[CCLabelBMFont labelWithString:
+                        [NSString stringWithFormat:@"%05d",enemyDieCount]fntFile:@"results.fnt"];
+            enemyDieScore.scale=0.5;
+            enemyDieScore.position=ccp(enemyDieLabel.position.x+(enemyDieLabel.contentSize.width*enemyDieLabel.scale)/2+(enemyDieScore.contentSize.width*enemyDieScore.scale)/2,enemyDieLabel.position.y);
+            [self addChild:enemyDieScore];
             
             //----------
             CCSprite* player=[CCSprite spriteWithSpriteFrame:
@@ -147,12 +157,17 @@ bool highScoreFlg;
             player.position=ccp(enemy.position.x,enemy.position.y-(enemy.contentSize.height*enemy.scale)/2-(player.contentSize.height*player.scale)/2);
             [self addChild:player];
             
-            playerDieLabel=[CCLabelBMFont labelWithString:
-                        [NSString stringWithFormat:@"生残った我兵の数:%05d",playerDieCount]fntFile:@"results.fnt"];
+            playerDieLabel=[CCLabelBMFont labelWithString:@"生残った我兵の数 : " fntFile:@"results.fnt"];
             playerDieLabel.scale=0.5;
             playerDieLabel.position=ccp(player.position.x+(player.contentSize.width*player.scale)/2+(playerDieLabel.contentSize.width*playerDieLabel.scale)/2,player.position.y);
             [self addChild:playerDieLabel];
-            
+
+            playerDieScore=[CCLabelBMFont labelWithString:
+                            [NSString stringWithFormat:@"%05d",playerDieCount]fntFile:@"results.fnt"];
+            playerDieScore.scale=0.5;
+            playerDieScore.position=ccp(playerDieLabel.position.x+(playerDieLabel.contentSize.width*playerDieLabel.scale)/2+(playerDieScore.contentSize.width*playerDieScore.scale)/2,playerDieLabel.position.y);
+            [self addChild:playerDieScore];
+
             //----------
             CCSprite* eFortress=[CCSprite spriteWithSpriteFrame:
                               [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"eFortress.png"]];
@@ -160,12 +175,17 @@ bool highScoreFlg;
             eFortress.position=ccp(player.position.x,player.position.y-(player.contentSize.height*player.scale)/2-(eFortress.contentSize.height*eFortress.scale)/2);
             [self addChild:eFortress];
             
-            enemyFortressLabel=[CCLabelBMFont labelWithString:
-                        [NSString stringWithFormat:@"敵城破壊ポイント:%05d",enemyFortressAbility] fntFile:@"results.fnt"];
+            enemyFortressLabel=[CCLabelBMFont labelWithString:@"敵城破壊ポイント : " fntFile:@"results.fnt"];
             enemyFortressLabel.scale=0.5;
             enemyFortressLabel.position=ccp(eFortress.position.x+(eFortress.contentSize.width*eFortress.scale)/2+(enemyFortressLabel.contentSize.width*enemyFortressLabel.scale)/2,eFortress.position.y);
             [self addChild:enemyFortressLabel];
-            
+
+            enemyFortressScore=[CCLabelBMFont labelWithString:
+                                [NSString stringWithFormat:@"%05d",enemyFortressAbility] fntFile:@"results.fnt"];
+            enemyFortressScore.scale=0.5;
+            enemyFortressScore.position=ccp(enemyFortressLabel.position.x+(enemyFortressLabel.contentSize.width*enemyFortressLabel.scale)/2+(enemyFortressScore.contentSize.width*enemyFortressScore.scale)/2,enemyFortressLabel.position.y);
+            [self addChild:enemyFortressScore];
+
             //----------
             CCSprite* pFortress=[CCSprite spriteWithSpriteFrame:
                                  [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"pFortress.png"]];
@@ -173,12 +193,17 @@ bool highScoreFlg;
             pFortress.position=ccp(eFortress.position.x,eFortress.position.y-(eFortress.contentSize.height*player.scale)/2-(pFortress.contentSize.height*pFortress.scale)/2);
             [self addChild:pFortress];
             
-            playerFortressLabel=[CCLabelBMFont labelWithString:
-                        [NSString stringWithFormat:@"我城残存ポイント:%05d",playerFortressAbility] fntFile:@"results.fnt"];
+            playerFortressLabel=[CCLabelBMFont labelWithString:@"我城残存ポイント : " fntFile:@"results.fnt"];
             playerFortressLabel.scale=0.5;
             playerFortressLabel.position=ccp(pFortress.position.x+(pFortress.contentSize.width*pFortress.scale)/2+(playerFortressLabel.contentSize.width*playerFortressLabel.scale)/2,pFortress.position.y);
             [self addChild:playerFortressLabel];
-            
+
+            playerFortressScore=[CCLabelBMFont labelWithString:
+                                 [NSString stringWithFormat:@"%05d",playerFortressAbility] fntFile:@"results.fnt"];
+            playerFortressScore.scale=0.5;
+            playerFortressScore.position=ccp(playerFortressLabel.position.x+(playerFortressLabel.contentSize.width*playerFortressLabel.scale)/2+(playerFortressScore.contentSize.width*playerFortressScore.scale)/2,playerFortressLabel.position.y);
+            [self addChild:playerFortressScore];
+
             //victorySpr.visible=true;
             //victorySpr.position=ccp(winSize.width/2,winSize.height-victorySpr.contentSize.height/2);
             //[self addChild:victorySpr];
@@ -323,7 +348,7 @@ bool highScoreFlg;
     {
         if(enemyDieCount>0){
             enemyDieCount--;
-            enemyDieLabel.string=[NSString stringWithFormat:@"たおした敵兵の数:%05d",enemyDieCount];
+            enemyDieScore.string=[NSString stringWithFormat:@"%05d",enemyDieCount];
             //サウンドエフェクト
             if(enemyDieCount%10==0){
                 [SoundManager score_Effect];
@@ -337,7 +362,7 @@ bool highScoreFlg;
     {
         if(playerDieCount>0){
             playerDieCount--;
-            playerDieLabel.string=[NSString stringWithFormat:@"生残った我兵の数:%05d",playerDieCount];
+            playerDieScore.string=[NSString stringWithFormat:@"%05d",playerDieCount];
             //サウンドエフェクト
             if(playerDieCount%10==0){
                 [SoundManager score_Effect];
@@ -351,7 +376,7 @@ bool highScoreFlg;
     {
         if(enemyFortressAbility>0){
             enemyFortressAbility--;
-            enemyFortressLabel.string=[NSString stringWithFormat:@"敵城破壊ポイント:%05d",enemyFortressAbility];
+            enemyFortressScore.string=[NSString stringWithFormat:@"%05d",enemyFortressAbility];
             //サウンドエフェクト
             if(enemyFortressAbility%100==0){
                 [SoundManager score_Effect];
@@ -365,7 +390,7 @@ bool highScoreFlg;
     {
         if(playerFortressAbility>0){
             playerFortressAbility--;
-            playerFortressLabel.string=[NSString stringWithFormat:@"我城残存ポイント:%05d",playerFortressAbility];
+            playerFortressScore.string=[NSString stringWithFormat:@"%05d",playerFortressAbility];
             //サウンドエフェクト
             if(playerFortressAbility%100==0){
                 [SoundManager score_Effect];
@@ -379,6 +404,9 @@ bool highScoreFlg;
                 [self addChild:highScore];
                 cnt=0;
                 [self schedule:@selector(high_Score_Schedule:) interval:0.01 repeat:200 delay:0];
+            }else{
+                //サウンド
+                [SoundManager win_Effect];
             }
         }
     }

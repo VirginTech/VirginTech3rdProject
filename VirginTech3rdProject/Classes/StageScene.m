@@ -620,6 +620,8 @@ CCParticleSystem* dieParticle;
                 if(_player.itemNum==1){//爆弾
                     //爆発パーティクル
                     [self setBombParticle:_player.position];
+                    //サウンドエフェクト
+                    [SoundManager bomb_Effect];
                     
                     for(Enemy* _enemy_ in enemyArray){
                         if([BasicMath RadiusContainsPoint:_player.position

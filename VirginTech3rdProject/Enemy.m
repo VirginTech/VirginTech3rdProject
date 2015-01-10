@@ -196,16 +196,21 @@ Fortress* targetFortress;
 
 -(void)attackDamage
 {
-    //エフェクトサウンド
-    if(animeCnt%5==0){
-        [SoundManager battle_Effect];
-    }
     if(mode==3){//敵攻撃
+        //エフェクトサウンド
+        if(animeCnt%5==0){
+            [SoundManager battle_Effect];
+        }
         Player* targetPlayer=targetObject;
         targetPlayer.ability--;
     }else if(mode==4){//要塞攻撃
+        //エフェクトサウンド
+        if(animeCnt%5==0){
+            [SoundManager attack_Effect];
+        }
         Fortress* targetFortress=targetObject;
         targetFortress.ability--;
+        [targetFortress start_Animation];
     }
 }
 
@@ -261,7 +266,13 @@ Fortress* targetFortress;
         
         [self schedule:@selector(move_Schedule:)interval:0.01];
         [self schedule:@selector(status_Schedule:)interval:0.1];
-        [self schedule:@selector(animation_Schedule:)interval:0.2];
+        
+        if([GameManager getMatchMode]==0){//シングル戦
+            float timeLag=arc4random()%10 * 0.1;
+            [self schedule:@selector(animation_Schedule:)interval:0.2 repeat:CCTimerRepeatForever delay:timeLag];
+        }else{//2人モード
+            [self schedule:@selector(animation_Schedule:)interval:0.2];
+        }
         
         /*/デバッグ用ラベル
         modeLabel=[CCLabelTTF labelWithString:

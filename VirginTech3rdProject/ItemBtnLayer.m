@@ -8,6 +8,7 @@
 
 #import "ItemBtnLayer.h"
 #import "GameManager.h"
+#import "SoundManager.h"
 
 @implementation ItemBtnLayer
 
@@ -102,6 +103,9 @@ CCLabelTTF* speedupValue;
 
 -(void)onButtonClicked:(id)sender
 {
+    //サウンドエフェクト
+    [SoundManager item_Select_Effect];
+    
     CCButton* btn=(CCButton*)sender;
     if(btn.selected){
         if([GameManager load_Item_Individual:[btn.name intValue]]>0){//アイテム在庫があれば

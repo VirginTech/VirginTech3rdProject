@@ -18,6 +18,9 @@
     float maxLife;
     float nowRatio;
     
+    CGPoint fPos;
+    int animeCnt;
+    
     //デバッグ用
     //CCLabelTTF* energyLabel;
 }
@@ -25,5 +28,6 @@
 @property int ability;
 
 +(id)createFortress:(CGPoint)pos type:(int)type;
+-(void)start_Animation;
 
 @end

@@ -179,16 +179,25 @@
 
 -(void)attackDamage
 {
-    //エフェクトサウンド
-    if(animeCnt%5==0){
-        [SoundManager battle_Effect];
-    }
     if(mode==3){//敵攻撃
-        Player* targetPlayer=targetObject;
-        targetPlayer.ability--;
+        //エフェクトサウンド
+        if(animeCnt%5==0){
+            [SoundManager battle_Effect];
+        }
+        if([GameManager getHost]){
+            Player* targetPlayer=targetObject;
+            targetPlayer.ability--;
+        }
     }else if(mode==4){//要塞攻撃
+        //エフェクトサウンド
+        if(animeCnt%5==0){
+            [SoundManager attack_Effect];
+        }
         Fortress* targetFortress=targetObject;
-        targetFortress.ability--;
+        if([GameManager getHost]){
+            targetFortress.ability--;
+        }
+        [targetFortress start_Animation];
     }
 }
 

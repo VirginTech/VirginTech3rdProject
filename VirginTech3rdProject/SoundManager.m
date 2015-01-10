@@ -35,9 +35,12 @@
     [[OALSimpleAudio sharedInstance]preloadEffect:@"highscore.mp3"];
     [[OALSimpleAudio sharedInstance]preloadEffect:@"win.mp3"];
     [[OALSimpleAudio sharedInstance]preloadEffect:@"lose.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"bomb.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"attack.mp3"];
     
     //UI
     [[OALSimpleAudio sharedInstance]preloadEffect:@"click.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"item.mp3"];
     
 }
 
@@ -114,6 +117,14 @@
 {
     [[OALSimpleAudio sharedInstance]playEffect:@"lose.mp3"];
 }
++(void)bomb_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"bomb.mp3"];
+}
++(void)attack_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"attack.mp3"];
+}
 
 //===================
 // UI
@@ -121,6 +132,10 @@
 +(void)click_Effect
 {
     [[OALSimpleAudio sharedInstance]playEffect:@"click.mp3"];
+}
++(void)item_Select_Effect
+{
+    [[OALSimpleAudio sharedInstance]playEffect:@"item.mp3"];
 }
 
 //===================

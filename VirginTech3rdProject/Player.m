@@ -207,11 +207,11 @@ Fortress* targetFortress;
 
 -(void)attackDamage
 {
-    //エフェクトサウンド
-    if(animeCnt%5==0){
-        [SoundManager battle_Effect];
-    }
     if(mode==3){//敵攻撃
+        //エフェクトサウンド
+        if(animeCnt%5==0){
+            [SoundManager battle_Effect];
+        }
         Enemy* targetEnemy=targetObject;
         if(itemNum==4){//攻撃アップ
             targetEnemy.ability-=3;
@@ -219,12 +219,17 @@ Fortress* targetFortress;
             targetEnemy.ability--;
         }
     }else if(mode==4){//要塞攻撃
+        //エフェクトサウンド
+        if(animeCnt%5==0){
+            [SoundManager attack_Effect];
+        }
         Fortress* targetFortress=targetObject;
         if(itemNum==4){//攻撃アップ
             targetFortress.ability-=3;
         }else{//通常攻撃
             targetFortress.ability--;
         }
+        [targetFortress start_Animation];
     }
 }
 
