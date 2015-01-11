@@ -37,6 +37,8 @@
     [[OALSimpleAudio sharedInstance]preloadEffect:@"lose.mp3"];
     [[OALSimpleAudio sharedInstance]preloadEffect:@"bomb.mp3"];
     [[OALSimpleAudio sharedInstance]preloadEffect:@"attack.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"f_Bomb_01.mp3"];
+    [[OALSimpleAudio sharedInstance]preloadEffect:@"f_Bomb_02.mp3"];
     
     //UI
     [[OALSimpleAudio sharedInstance]preloadEffect:@"click.mp3"];
@@ -124,6 +126,11 @@
 +(void)attack_Effect
 {
     [[OALSimpleAudio sharedInstance]playEffect:@"attack.mp3"];
+}
++(void)f_Bomb_Effect:(int)cnt
+{
+    NSString* fileName=[NSString stringWithFormat:@"f_Bomb_%02d.mp3",cnt+1];
+    [[OALSimpleAudio sharedInstance]playEffect:fileName];
 }
 
 //===================

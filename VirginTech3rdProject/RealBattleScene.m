@@ -33,6 +33,11 @@ InfoLayer* infoLayer;
 Fortress* playerFortress;
 Fortress* enemyFortress;
 bool gameEndFlg;
+bool winnerFlg;//true:青軍 false:赤軍
+
+int bombAnimeCnt;
+CCSprite* pBomb;
+CCSprite* eBomb;
 
 Player* player;
 NSMutableArray* playerArray;
@@ -93,6 +98,7 @@ CCParticleSystem* dieParticle;
     createEnemyFlg=false;
     dieParticle=nil;
     [GameManager setPause:false];
+    bombAnimeCnt=0;
     
     //アイテム初期化
     [GameManager setItem:0];//アイテム選択なし
@@ -187,11 +193,23 @@ CCParticleSystem* dieParticle;
     
     //我城生成
     playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,footer+15) type:0];
-    [self addChild:playerFortress];
+    pBomb=[CCSprite spriteWithSpriteFrame:
+           [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"bomb.png"]];
+    pBomb.position=ccp(playerFortress.contentSize.width/2,playerFortress.contentSize.height/2);
+    pBomb.scale=0.5;
+    pBomb.visible=false;
+    [playerFortress addChild:pBomb];
+    [self addChild:playerFortress z:1];
     
     //敵城生成
     enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
-    [self addChild:enemyFortress];
+    eBomb=[CCSprite spriteWithSpriteFrame:
+           [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"bomb.png"]];
+    eBomb.position=ccp(enemyFortress.contentSize.width/2,enemyFortress.contentSize.height/2);
+    eBomb.scale=0.5;
+    eBomb.visible=false;
+    [enemyFortress addChild:eBomb];
+    [self addChild:enemyFortress z:1];
     
     //審判スケジュール開始
     [self schedule:@selector(judgement_Schedule:)interval:0.1];
@@ -583,9 +601,10 @@ CCParticleSystem* dieParticle;
                     _player.targetObject=enemyFortress;
                     
                     if(enemyFortress.ability<=0){
-                        [self removeChild:enemyFortress cleanup:YES];
+                        //[self removeChild:enemyFortress cleanup:YES];
                         gameEndFlg=true;
-                        [self gameEnd:true];
+                        winnerFlg=true;
+                        [self gameEnd];
                     }
                 }
             }
@@ -606,9 +625,10 @@ CCParticleSystem* dieParticle;
                     _enemy.targetObject=playerFortress;
                     
                     if(playerFortress.ability<=0){
-                        [self removeChild:playerFortress cleanup:YES];
+                        //[self removeChild:playerFortress cleanup:YES];
                         gameEndFlg=true;
-                        [self gameEnd:false];
+                        winnerFlg=false;
+                        [self gameEnd];
                     }
                 }
             }
@@ -716,7 +736,7 @@ CCParticleSystem* dieParticle;
 //==================
 // ゲームエンド
 //==================
--(void)gameEnd:(bool)winnerFlg
+-(void)gameEnd
 {
     [GameManager setPause:true];
     
@@ -729,17 +749,62 @@ CCParticleSystem* dieParticle;
     //サウンドオールストップ
     [SoundManager all_Stop];
     
+    //全スケジュール停止
     [self unscheduleAllSelectors];
     
-    //リザルトレイヤー表示
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
-                                                                stars:0
-                                                                playerDie:0
-                                                                enemyDie:0
-                                                                playerFortress:0
-                                                                highScoreFlg:false];
-    [self addChild:resultsLayer z:TURN_OBJ_MAX+2];
+    //爆発スケジュール開始
+    [self schedule:@selector(bomb_Schedule:) interval:0.1 repeat:30 delay:0.0f];
+}
+
+//int soundCnt=0;
+-(void)bomb_Schedule:(CCTime)dt
+{
+    if(bombAnimeCnt<=20){//20回まで
+        /*/爆発音を交互に
+         if(soundCnt>1){
+         soundCnt=0;
+         }*/
+        
+        if(bombAnimeCnt%2==0){
+            if(winnerFlg){
+                //サウンドエフェクト
+                [SoundManager f_Bomb_Effect:0];
+                eBomb.position=ccp(arc4random()%(int)(eBomb.contentSize.width*eBomb.scale),
+                                   arc4random()%(int)(eBomb.contentSize.height*eBomb.scale));
+                eBomb.scale=(arc4random()%4+2)*0.1;
+                eBomb.visible=true;
+            }else{
+                //サウンドエフェクト
+                [SoundManager f_Bomb_Effect:0];
+                pBomb.position=ccp(arc4random()%(int)(pBomb.contentSize.width*pBomb.scale),
+                                   arc4random()%(int)(pBomb.contentSize.height*pBomb.scale)+
+                                   (playerFortress.contentSize.height*playerFortress.scale)/3);
+                pBomb.scale=(arc4random()%4+2)*0.1;
+                pBomb.visible=true;
+            }
+            //soundCnt++;
+        }else{
+            if(winnerFlg){
+                eBomb.visible=false;
+            }else{
+                pBomb.visible=false;
+            }
+        }
+    }
     
+    if(bombAnimeCnt>=30)
+    {
+        //リザルトレイヤー表示
+        ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
+                                                                    stars:0
+                                                                    playerDie:0
+                                                                    enemyDie:0
+                                                                    playerFortress:0
+                                                                    highScoreFlg:false];
+        [self addChild:resultsLayer z:TURN_OBJ_MAX+2];
+    }
+    
+    bombAnimeCnt++;
 }
 
 -(void)setDieParticle:(CGPoint)pos

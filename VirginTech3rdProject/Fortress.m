@@ -69,6 +69,7 @@
         lifeGauge1=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"lifegauge1.png"]];
         lifeGauge1.position=CGPointMake(self.contentSize.width/2, self.contentSize.height/2);
+        lifeGauge1.scale=0.7;
         [self addChild:lifeGauge1];
         
         lifeGauge2=[CCSprite spriteWithSpriteFrame:

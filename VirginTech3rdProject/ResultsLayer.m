@@ -133,14 +133,14 @@ bool highScoreFlg;
                               [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"enemy.png"]];
             enemy.scale=0.3;
             if([GameManager getDevice]==3){
-                enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+50,winSize.height/2+15);
+                enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+100,winSize.height/2+15);
             }else{
-                enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+25,winSize.height/2+15);
+                enemy.position=ccp((enemy.contentSize.width*enemy.scale)/2+50,winSize.height/2+15);
             }
             [self addChild:enemy];
             
             enemyDieLabel=[CCLabelBMFont labelWithString:@"たおした敵兵の数 : " fntFile:@"results.fnt"];
-            enemyDieLabel.scale=0.5;
+            enemyDieLabel.scale=0.3;
             enemyDieLabel.position=ccp(enemy.position.x+(enemy.contentSize.width*enemy.scale)/2+(enemyDieLabel.contentSize.width*enemyDieLabel.scale)/2,enemy.position.y);
             [self addChild:enemyDieLabel];
             
@@ -158,7 +158,7 @@ bool highScoreFlg;
             [self addChild:player];
             
             playerDieLabel=[CCLabelBMFont labelWithString:@"生残った我兵の数 : " fntFile:@"results.fnt"];
-            playerDieLabel.scale=0.5;
+            playerDieLabel.scale=0.3;
             playerDieLabel.position=ccp(player.position.x+(player.contentSize.width*player.scale)/2+(playerDieLabel.contentSize.width*playerDieLabel.scale)/2,player.position.y);
             [self addChild:playerDieLabel];
 
@@ -176,7 +176,7 @@ bool highScoreFlg;
             [self addChild:eFortress];
             
             enemyFortressLabel=[CCLabelBMFont labelWithString:@"敵城破壊ポイント : " fntFile:@"results.fnt"];
-            enemyFortressLabel.scale=0.5;
+            enemyFortressLabel.scale=0.3;
             enemyFortressLabel.position=ccp(eFortress.position.x+(eFortress.contentSize.width*eFortress.scale)/2+(enemyFortressLabel.contentSize.width*enemyFortressLabel.scale)/2,eFortress.position.y);
             [self addChild:enemyFortressLabel];
 
@@ -194,7 +194,7 @@ bool highScoreFlg;
             [self addChild:pFortress];
             
             playerFortressLabel=[CCLabelBMFont labelWithString:@"我城残存ポイント : " fntFile:@"results.fnt"];
-            playerFortressLabel.scale=0.5;
+            playerFortressLabel.scale=0.3;
             playerFortressLabel.position=ccp(pFortress.position.x+(pFortress.contentSize.width*pFortress.scale)/2+(playerFortressLabel.contentSize.width*playerFortressLabel.scale)/2,pFortress.position.y);
             [self addChild:playerFortressLabel];
 
@@ -293,12 +293,14 @@ bool highScoreFlg;
                [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_G.png"]];
         starG.position=ccp(winSize.width/2-100,winSize.height/2+100);
         starG.scale=3.0;
-        [self addChild:starG];
+        [self addChild:starG z:1];
     }
     else if(cnt==300)
     {
         //サウンドエフェクト
         [SoundManager star_Effect];
+        //パーティクル
+        [self set_Star_Particle];
         starG.scale=0.7;
         starG.position=ccp(winSize.width/2-100,winSize.height/2+100);
         if(rep>300){
@@ -306,7 +308,7 @@ bool highScoreFlg;
                    [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_G.png"]];
             starG.position=ccp(winSize.width/2,winSize.height/2+130);
             starG.scale=3.0;
-            [self addChild:starG];
+            [self addChild:starG z:1];
         }else{
             [self schedule:@selector(score_Schedule:) interval:0.01 repeat:enemyDieCount delay:0];
         }
@@ -315,6 +317,8 @@ bool highScoreFlg;
     {
         //サウンドエフェクト
         [SoundManager star_Effect];
+        //パーティクル
+        [self set_Star_Particle];
         starG.scale=0.7;
         starG.position=ccp(winSize.width/2,winSize.height/2+130);
         if(rep>600){
@@ -322,7 +326,7 @@ bool highScoreFlg;
                    [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"star_G.png"]];
             starG.position=ccp(winSize.width/2+100,winSize.height/2+100);
             starG.scale=3.0;
-            [self addChild:starG];
+            [self addChild:starG z:1];
         }else{
             [self schedule:@selector(score_Schedule:) interval:0.01 repeat:enemyDieCount delay:0];
         }
@@ -331,6 +335,8 @@ bool highScoreFlg;
     {
         //サウンドエフェクト
         [SoundManager star_Effect];
+        //パーティクル
+        [self set_Star_Particle];
         starG.scale=0.7;
         starG.position=ccp(winSize.width/2+100,winSize.height/2+100);
         [self schedule:@selector(score_Schedule:) interval:0.01 repeat:enemyDieCount delay:0];
@@ -428,6 +434,14 @@ bool highScoreFlg;
         highScore.position=ccp(winSize.width/2,winSize.height/2);
         highScore.rotation=-25;
     }
+}
+
+-(void)set_Star_Particle
+{
+    CCParticleSystem* starParticle=[[CCParticleSystem alloc]initWithFile:@"star.plist"];
+    starParticle.position=ccp(starG.position.x,starG.position.y);
+    starParticle.scale=0.7;
+    [self addChild:starParticle z:0];
 }
 
 - (void)onTitleClicked:(id)sender

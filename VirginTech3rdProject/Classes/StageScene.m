@@ -42,7 +42,12 @@ int stageNum;
 Fortress* playerFortress;
 Fortress* enemyFortress;
 bool gameEndFlg;
-//bool winnerFlg;//true:青軍 false:赤軍
+bool winnerFlg;//true:青軍 false:赤軍
+bool highScoreFlg;
+
+int bombAnimeCnt;
+CCSprite* pBomb;
+CCSprite* eBomb;
 
 Player* player;
 NSMutableArray* playerArray;
@@ -111,6 +116,7 @@ CCParticleSystem* dieParticle;
     [GameManager setCurrentScore:0];
     playerDieCount=0;
     enemyDieCount=0;
+    bombAnimeCnt=0;
     
     // Create a colored background (Dark Grey)
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
@@ -240,11 +246,23 @@ CCParticleSystem* dieParticle;
     
     //我城生成
     playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,footer+15) type:0];
-    [bgSpLayer addChild:playerFortress];
+    pBomb=[CCSprite spriteWithSpriteFrame:
+                    [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"bomb.png"]];
+    pBomb.position=ccp(playerFortress.contentSize.width/2,playerFortress.contentSize.height/2);
+    pBomb.scale=0.5;
+    pBomb.visible=false;
+    [playerFortress addChild:pBomb];
+    [bgSpLayer addChild:playerFortress z:1];
     
     //敵城生成
     enemyFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,[GameManager getWorldSize].height-15) type:1];
-    [bgSpLayer addChild:enemyFortress];
+    eBomb=[CCSprite spriteWithSpriteFrame:
+                    [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"bomb.png"]];
+    eBomb.position=ccp(enemyFortress.contentSize.width/2,enemyFortress.contentSize.height/2);
+    eBomb.scale=0.5;
+    eBomb.visible=false;
+    [enemyFortress addChild:eBomb];
+    [bgSpLayer addChild:enemyFortress z:1];
     
     //カスタムアラートメッセージ
     NSString* msg=[NSString stringWithFormat:@"・%@: %d %@\n・%@: %d %@\n\n　%@",
@@ -728,9 +746,10 @@ CCParticleSystem* dieParticle;
                     _player.targetObject=enemyFortress;
                     
                     if(enemyFortress.ability<=0){
-                        [bgSpLayer removeChild:enemyFortress cleanup:YES];
+                        //[bgSpLayer removeChild:enemyFortress cleanup:YES];
                         gameEndFlg=true;
-                        [self gameEnd:true];
+                        winnerFlg=true;
+                        [self gameEnd];
                     }
                 }
             }
@@ -751,9 +770,10 @@ CCParticleSystem* dieParticle;
                     _enemy.targetObject=playerFortress;
                     
                     if(playerFortress.ability<=0){
-                        [bgSpLayer removeChild:playerFortress cleanup:YES];
+                        //[bgSpLayer removeChild:playerFortress cleanup:YES];
                         gameEndFlg=true;
-                        [self gameEnd:false];
+                        winnerFlg=false;
+                        [self gameEnd];
                     }
                 }
             }
@@ -875,7 +895,7 @@ CCParticleSystem* dieParticle;
 //==================
 // ゲームエンド
 //==================
--(void)gameEnd:(bool)winnerFlg
+-(void)gameEnd
 {
     [GameManager setPause:true];
     
@@ -897,10 +917,12 @@ CCParticleSystem* dieParticle;
         [GameManager setCurrentScore:[GameManager getCurrentScore]+500];
         //残存我兵の数をスコアに加算
         [GameManager setCurrentScore:[GameManager getCurrentScore]+(infoLayer.pMaxCnt-playerDieCount)];
+        //スコア更新
+        [infoLayer score_Update];
     }
     
     //ハイスコア保存
-    bool highScoreFlg=false;
+    highScoreFlg=false;
     if([GameManager getCurrentScore]>[GameManager load_Stage_Score:stageNum]){//ハイスコア！
         highScoreFlg=true;
         [GameManager save_Stage_Score:stageNum score:[GameManager getCurrentScore]];//ステージスコア保存
@@ -911,39 +933,83 @@ CCParticleSystem* dieParticle;
         [GameManager submit_Score_GameCenter:[GameManager load_High_Score]];
 
     }
-
     //全スケジュール停止
     [self unscheduleAllSelectors];
 
-    //リザルトレイヤー表示
-    int stars=0;
-    if(winnerFlg){//勝ちなら
-        float ratio=(100.0f/500)*playerFortress.ability;
-        if(ratio>=80){
-            stars=3;
-            if([GameManager load_StageClear_State:stageNum]<3){
-                [GameManager save_StageClear_State:stageNum rate:3];//ついでにステージクリア状態保存
+    //爆発スケジュール開始
+    [self schedule:@selector(bomb_Schedule:) interval:0.1 repeat:30 delay:0.0f];
+    
+}
+
+//int soundCnt=0;
+-(void)bomb_Schedule:(CCTime)dt
+{
+    if(bombAnimeCnt<=20){//20回まで
+        /*/爆発音を交互に
+        if(soundCnt>1){
+            soundCnt=0;
+        }*/
+        
+        if(bombAnimeCnt%2==0){
+            if(winnerFlg){
+                //サウンドエフェクト
+                [SoundManager f_Bomb_Effect:0];
+                eBomb.position=ccp(arc4random()%(int)(eBomb.contentSize.width*eBomb.scale),
+                                        arc4random()%(int)(eBomb.contentSize.height*eBomb.scale));
+                eBomb.scale=(arc4random()%4+2)*0.1;
+                eBomb.visible=true;
+            }else{
+                //サウンドエフェクト
+                [SoundManager f_Bomb_Effect:0];
+                pBomb.position=ccp(arc4random()%(int)(pBomb.contentSize.width*pBomb.scale),
+                                        arc4random()%(int)(pBomb.contentSize.height*pBomb.scale)+
+                                        (playerFortress.contentSize.height*playerFortress.scale)/3);
+                pBomb.scale=(arc4random()%4+2)*0.1;
+                pBomb.visible=true;
             }
-        }else if(ratio>=50 && ratio<80){
-            stars=2;
-            if([GameManager load_StageClear_State:stageNum]<2){
-                [GameManager save_StageClear_State:stageNum rate:2];//ついでにステージクリア状態保存
-            }
+            //soundCnt++;
         }else{
-            stars=1;
-            if([GameManager load_StageClear_State:stageNum]<1){
-                [GameManager save_StageClear_State:stageNum rate:1];//ついでにステージクリア状態保存
+            if(winnerFlg){
+                eBomb.visible=false;
+            }else{
+                pBomb.visible=false;
             }
         }
     }
-    ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
-                                                                stars:stars
-                                                                playerDie:playerDieCount
-                                                                enemyDie:enemyDieCount
-                                                                playerFortress:playerFortress.ability
-                                                                highScoreFlg:highScoreFlg];
-    [self addChild:resultsLayer z:4];
     
+    if(bombAnimeCnt>=30)
+    {
+        //リザルトレイヤー表示
+        int stars=0;
+        if(winnerFlg){//勝ちなら
+            float ratio=(100.0f/500)*playerFortress.ability;
+            if(ratio>=80){
+                stars=3;
+                if([GameManager load_StageClear_State:stageNum]<3){
+                    [GameManager save_StageClear_State:stageNum rate:3];//ついでにステージクリア状態保存
+                }
+            }else if(ratio>=50 && ratio<80){
+                stars=2;
+                if([GameManager load_StageClear_State:stageNum]<2){
+                    [GameManager save_StageClear_State:stageNum rate:2];//ついでにステージクリア状態保存
+                }
+            }else{
+                stars=1;
+                if([GameManager load_StageClear_State:stageNum]<1){
+                    [GameManager save_StageClear_State:stageNum rate:1];//ついでにステージクリア状態保存
+                }
+            }
+        }
+        ResultsLayer* resultsLayer=[[ResultsLayer alloc]initWithWinner:winnerFlg
+                                                                        stars:stars
+                                                                        playerDie:playerDieCount
+                                                                        enemyDie:enemyDieCount
+                                                                        playerFortress:playerFortress.ability
+                                                                        highScoreFlg:highScoreFlg];
+        [self addChild:resultsLayer z:4];
+    }
+    
+    bombAnimeCnt++;
 }
 
 -(void)setBombParticle:(CGPoint)pos

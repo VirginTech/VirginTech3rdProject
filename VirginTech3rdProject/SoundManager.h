@@ -36,6 +36,7 @@
 +(void)lose_Effect;
 +(void)bomb_Effect;
 +(void)attack_Effect;
++(void)f_Bomb_Effect:(int)cnt;
 
 +(void)click_Effect;
 +(void)item_Select_Effect;

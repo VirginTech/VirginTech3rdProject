@@ -5,6 +5,28 @@
 	<key>frames</key>
 	<dict>
 		
+		<key>bomb.png</key>
+		<dict>
+			<key>aliases</key>
+			<array>
+			
+			</array>
+			<key>spriteColorRect</key>
+			<string>{{0, 0}, {100, 79}}</string>
+			<key>spriteOffset</key>
+			<string>{0, -0}</string>
+			<key>spriteSize</key>
+			<string>{100, 79}</string>
+			<key>spriteSourceSize</key>
+			<string>{100, 79}</string>
+			<key>spriteTrimmed</key>
+			<true/>
+			<key>textureRect</key>
+			<string>{{0, 250}, {100, 79}}</string>
+			<key>textureRotated</key>
+			<false/>
+		</dict>
+		
 		<key>defeat_jp.png</key>
 		<dict>
 			<key>aliases</key>
@@ -22,7 +44,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{137, 276}, {249, 74}}</string>
+			<string>{{0, 174}, {249, 74}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -44,7 +66,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{137, 174}, {100, 100}}</string>
+			<string>{{0, 341}, {100, 100}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -66,7 +88,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{388, 205}, {100, 100}}</string>
+			<string>{{406, 137}, {100, 100}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -110,7 +132,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{406, 0}, {100, 100}}</string>
+			<string>{{102, 250}, {100, 100}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -132,7 +154,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{0, 311}, {100, 100}}</string>
+			<string>{{406, 239}, {100, 100}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -154,7 +176,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{269, 68}, {135, 135}}</string>
+			<string>{{269, 137}, {135, 135}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
@@ -176,7 +198,7 @@
 			<key>spriteTrimmed</key>
 			<true/>
 			<key>textureRect</key>
-			<string>{{0, 174}, {135, 135}}</string>
+			<string>{{318, 0}, {135, 135}}</string>
 			<key>textureRotated</key>
 			<false/>
 		</dict>
