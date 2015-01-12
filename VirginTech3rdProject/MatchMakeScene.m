@@ -1012,6 +1012,7 @@ NaviLayer* naviLayer;
 //==================
 -(void)gameEnd
 {
+    self.userInteractionEnabled = NO;
     [GameManager setPause:true];
     
     for(mPlayer* _player in playerArray){

@@ -8,6 +8,7 @@
 
 #import "CCSlider.h"
 #import "CCControlSubclass.h"
+#import "SoundManager.h"
 
 @interface CCSlider (Inputs)
 - (void) inputEnteredWithWorlPos:(CGPoint)worldLocation;
@@ -86,20 +87,33 @@
 - (void) touchUpInside:(UITouch*)touch withEvent:(UIEvent*)event
 {
     [self inputUpInside];
+    
+    if([self.name isEqualToString:@"Effect-Volume"]){
+        [SoundManager click_Effect];
+    }
 }
 
 - (void) touchUpOutside:(UITouch*)touch withEvent:(UIEvent*)event
 {
     [self inputUpOutside];
+    
+    if([self.name isEqualToString:@"Effect-Volume"]){
+        [SoundManager click_Effect];
+    }
 }
 
 - (void) touchMoved:(UITouch *)touch withEvent:(UIEvent *)event
 {
     CGPoint dragPos = [touch locationInNode:self];
-    
     [self inputDraggedWithPos:dragPos];
-    
     [super touchMoved:touch withEvent:event];
+    
+    if([self.name isEqualToString:@"BGM-Volume"]){
+        [SoundManager setBgmVolume:self.sliderValue];
+        //NSLog(@"Slider:%f",self.sliderValue);
+    }else if([self.name isEqualToString:@"Effect-Volume"]){
+        [SoundManager setEffectVolume:self.sliderValue];
+    }
 }
 
 

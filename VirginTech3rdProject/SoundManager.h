@@ -15,10 +15,20 @@
 
 +(void)initSoundPreload;
 
++(void)setBgmSwitch:(bool)flg;
++(bool)getBgmSwitch;
++(void)setEffectSwitch:(bool)flg;
++(bool)getEffectSwitch;
+
 +(void)playBGM:(NSString*)fileName;
 +(void)stopBGM;
 +(void)pauseBGM;
 +(void)resumeBGM;
+
++(void)setBgmVolume:(float)value;
++(float)getBgmVolume;
++(void)setEffectVolume:(float)value;
++(float)getEffectVolume;
 
 +(void)all_Stop;
 

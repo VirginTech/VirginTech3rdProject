@@ -149,15 +149,39 @@ CCLabelBMFont* coinLabel;
 
 - (void)onAddItemClicked:(id)sender
 {
+    //サウンドエフェクト
+    [SoundManager click_Effect];
+    
     CCButton* btn=(CCButton*)sender;
     if([GameManager load_Coin]-10>=0)
     {
         int num=[btn.name intValue];
-        [GameManager save_Item_Individual:num value:[GameManager load_Item_Individual:num]+10];
-        [self updata_Item_Value];
-        //コイン更新
-        [GameManager save_Coin:[GameManager load_Coin]-10];
-        [self updata_Coin_Value];
+        NSString* itemName;
+        if(num==0){
+            itemName=NSLocalizedString(@"Item01",NULL);
+        }else if(num==1){
+            itemName=NSLocalizedString(@"Item02",NULL);
+        }else if(num==2){
+            itemName=NSLocalizedString(@"Item03",NULL);
+        }else if(num==3){
+            itemName=NSLocalizedString(@"Item04",NULL);
+        }else if(num==4){
+            itemName=NSLocalizedString(@"Item05",NULL);
+        }
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"GetItem",NULL)
+                                                msg:[NSString stringWithFormat:@"%@%@",
+                                                     itemName,
+                                                     NSLocalizedString(@"ItemPurchase",NULL)]
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
+                                                type:1
+                                                procNum:num];//アイテム番号
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:1];
     }
     else
     {
@@ -181,6 +205,14 @@ CCLabelBMFont* coinLabel;
 -(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
 {
     //NSLog(@"%d が選択されました",btnNum);
+    if(btnNum==2){//Yesだったら
+        //int num=[btn.name intValue];
+        [GameManager save_Item_Individual:procNum value:[GameManager load_Item_Individual:procNum]+10];
+        [self updata_Item_Value];
+        //コイン更新
+        [GameManager save_Coin:[GameManager load_Coin]-10];
+        [self updata_Coin_Value];
+    }
     msgBox.delegate=nil;//デリゲート解除
 }
 

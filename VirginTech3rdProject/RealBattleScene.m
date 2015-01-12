@@ -738,6 +738,7 @@ CCParticleSystem* dieParticle;
 //==================
 -(void)gameEnd
 {
+    self.userInteractionEnabled = NO;
     [GameManager setPause:true];
     
     for(Player* _player in playerArray){

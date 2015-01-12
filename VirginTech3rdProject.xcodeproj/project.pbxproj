@@ -217,6 +217,11 @@
 		CF454F2D1A31B7F3001C6CA9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454F2C1A31B7F3001C6CA9 /* Reachability.m */; };
 		CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */; };
 		CF454FE11A2418200037A978 /* RealBattleScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF454FE01A2418200037A978 /* RealBattleScene.m */; };
+		CF45BB851A635D0D005C0E2F /* sound_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF45BB831A635D0D005C0E2F /* sound_default.plist */; };
+		CF45BB861A635D0D005C0E2F /* sound_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF45BB841A635D0D005C0E2F /* sound_default.png */; };
+		CF45BB8E1A638E01005C0E2F /* Default-Landscape~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF45BB8B1A638E01005C0E2F /* Default-Landscape~ipad@2x.png */; };
+		CF45BB8F1A638E01005C0E2F /* Default-Portrait~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = CF45BB8C1A638E01005C0E2F /* Default-Portrait~ipad.png */; };
+		CF45BB901A638E01005C0E2F /* Default-Portrait~ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = CF45BB8D1A638E01005C0E2F /* Default-Portrait~ipad@2x.png */; };
 		CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = CF48173B1A11A9AA00D5597B /* bgLayer.png */; };
 		CF48173F1A11AA0900D5597B /* GameManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF48173E1A11AA0900D5597B /* GameManager.m */; };
 		CF4817441A11B12100D5597B /* Fortress.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4817431A11B12100D5597B /* Fortress.m */; };
@@ -719,6 +724,11 @@
 		CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		CF454FDF1A2418200037A978 /* RealBattleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RealBattleScene.h; sourceTree = "<group>"; };
 		CF454FE01A2418200037A978 /* RealBattleScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RealBattleScene.m; sourceTree = "<group>"; };
+		CF45BB831A635D0D005C0E2F /* sound_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sound_default.plist; sourceTree = "<group>"; };
+		CF45BB841A635D0D005C0E2F /* sound_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sound_default.png; sourceTree = "<group>"; };
+		CF45BB8B1A638E01005C0E2F /* Default-Landscape~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape~ipad@2x.png"; path = "Resources/Default-Landscape~ipad@2x.png"; sourceTree = "<group>"; };
+		CF45BB8C1A638E01005C0E2F /* Default-Portrait~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad.png"; path = "Resources/Default-Portrait~ipad.png"; sourceTree = "<group>"; };
+		CF45BB8D1A638E01005C0E2F /* Default-Portrait~ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait~ipad@2x.png"; path = "Resources/Default-Portrait~ipad@2x.png"; sourceTree = "<group>"; };
 		CF48173B1A11A9AA00D5597B /* bgLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bgLayer.png; sourceTree = "<group>"; };
 		CF48173D1A11AA0900D5597B /* GameManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameManager.h; sourceTree = "<group>"; };
 		CF48173E1A11AA0900D5597B /* GameManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameManager.m; sourceTree = "<group>"; };
@@ -888,13 +898,10 @@
 				CF49107D1A1F16A9003F6579 /* Item */,
 				CF4817451A11B67E00D5597B /* Object */,
 				CF48173A1A11A98C00D5597B /* BackGround */,
-				CF20603F19F3534700DBD8C4 /* Default.png */,
-				CF20604119F3534700DBD8C4 /* Default@2x.png */,
-				CF20604319F3534700DBD8C4 /* Default-568h@2x.png */,
-				CF20604519F3534700DBD8C4 /* Default-Landscape~ipad.png */,
 				CF20606219F3534700DBD8C4 /* Info.plist */,
 				CF20606319F3534700DBD8C4 /* iTunesArtwork */,
 				CF20606519F3534700DBD8C4 /* iTunesArtwork@2x */,
+				CF45BB911A638E7D005C0E2F /* SplashScreen */,
 				CF20604719F3534700DBD8C4 /* Icons */,
 				CF83CA8D19F35C4700C78540 /* InfoPlist.strings */,
 				CF83CA9319F35CCA00C78540 /* Localizable.strings */,
@@ -1647,6 +1654,8 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CF45BB831A635D0D005C0E2F /* sound_default.plist */,
+				CF45BB841A635D0D005C0E2F /* sound_default.png */,
 				CF4CFDFE1A6209C400352590 /* results_default.plist */,
 				CF4CFDFF1A6209C400352590 /* results_default.png */,
 				CFAD371B1A57DD950016F266 /* btn_default.plist */,
@@ -1683,6 +1692,20 @@
 				CF863EE81A27311F007C146E /* MatchMakeScene.m */,
 			);
 			name = Scene;
+			sourceTree = "<group>";
+		};
+		CF45BB911A638E7D005C0E2F /* SplashScreen */ = {
+			isa = PBXGroup;
+			children = (
+				CF20603F19F3534700DBD8C4 /* Default.png */,
+				CF20604119F3534700DBD8C4 /* Default@2x.png */,
+				CF20604319F3534700DBD8C4 /* Default-568h@2x.png */,
+				CF20604519F3534700DBD8C4 /* Default-Landscape~ipad.png */,
+				CF45BB8B1A638E01005C0E2F /* Default-Landscape~ipad@2x.png */,
+				CF45BB8C1A638E01005C0E2F /* Default-Portrait~ipad.png */,
+				CF45BB8D1A638E01005C0E2F /* Default-Portrait~ipad@2x.png */,
+			);
+			name = SplashScreen;
 			sourceTree = "<group>";
 		};
 		CF48173A1A11A98C00D5597B /* BackGround */ = {
@@ -1937,6 +1960,7 @@
 				CF55C3971A4E5C3700EDFD93 /* ground_default.png in Resources */,
 				CF5FCFD21A5E3E5400B95692 /* wao.mp3 in Resources */,
 				CFF9623A1A5D29E6005E1B4C /* battle.mp3 in Resources */,
+				CF45BB901A638E01005C0E2F /* Default-Portrait~ipad@2x.png in Resources */,
 				CFFBE45B1A5CE446009A5116 /* die_player.mp3 in Resources */,
 				CF55C39B1A4E769000EDFD93 /* die.plist in Resources */,
 				CF20604B19F3534700DBD8C4 /* Icon@2x.png in Resources */,
@@ -1946,6 +1970,7 @@
 				CF522BDA1A60CE6200B0A5CC /* item.mp3 in Resources */,
 				CF20604F19F3534700DBD8C4 /* Icon-72@2x.png in Resources */,
 				CF4CFE051A62153800352590 /* fortress_default.png in Resources */,
+				CF45BB8F1A638E01005C0E2F /* Default-Portrait~ipad.png in Resources */,
 				CF49F6251A4A6B3F00877BA7 /* info_default.png in Resources */,
 				CF20604019F3534700DBD8C4 /* Default.png in Resources */,
 				CF20604919F3534700DBD8C4 /* Icon.png in Resources */,
@@ -1980,6 +2005,7 @@
 				CF522BDE1A60D5F800B0A5CC /* attack.mp3 in Resources */,
 				CF20604419F3534700DBD8C4 /* Default-568h@2x.png in Resources */,
 				CF20606419F3534700DBD8C4 /* iTunesArtwork in Resources */,
+				CF45BB851A635D0D005C0E2F /* sound_default.plist in Resources */,
 				CF20605F19F3534700DBD8C4 /* Icon-Spotlight-iOS7.png in Resources */,
 				CF20D56F1A36B6C1006CD725 /* item_default.plist in Resources */,
 				CF522BD51A60C36200B0A5CC /* results.fnt in Resources */,
@@ -1989,7 +2015,9 @@
 				CF4CFE0D1A62901C00352590 /* star.plist in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
 				CF5FCFD61A5E453A00B95692 /* click.mp3 in Resources */,
+				CF45BB8E1A638E01005C0E2F /* Default-Landscape~ipad@2x.png in Resources */,
 				CF45421D1A4D584C001BB61C /* shield.plist in Resources */,
+				CF45BB861A635D0D005C0E2F /* sound_default.png in Resources */,
 				CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */,
 				CF94AB021A5B7EA8006E17D3 /* player_default.plist in Resources */,
 				CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */,
