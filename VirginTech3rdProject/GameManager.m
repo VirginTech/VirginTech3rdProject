@@ -98,7 +98,7 @@ bool pauseFlg;
 //=======================
 // 初回起動時 初期化処理
 //=======================
-+(void)initialize_Item
++(void)initialize_Save_Data
 {
     NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:appDomain];
@@ -331,6 +331,32 @@ bool pauseFlg;
     NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
     NSNumber* coin=[NSNumber numberWithInt:value];
     [userDefault setObject:coin forKey:@"coin"];
+}
+
+//=========================================
+//　ログイン日の取得
+//=========================================
++(NSDate*)load_Login_Date
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSDate* date =[userDefault objectForKey:@"LoginDate"];
+    return date;
+}
+
+//=========================================
+//　ログイン日の保存
+//=========================================
++(void)save_login_Date:(NSDate*)date
+{
+    //日付のみに変換
+    NSCalendar *calen = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *comps = [calen components:unitFlags fromDate:date];
+    //[comps setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];//GMTで貫く
+    NSDate *date_ = [calen dateFromComponents:comps];
+    
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    [userDefault setObject:date_ forKey:@"LoginDate"];
 }
 
 //=========================================

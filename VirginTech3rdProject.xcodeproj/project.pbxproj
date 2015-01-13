@@ -237,8 +237,6 @@
 		CF4AF3621A29839B009A4475 /* mEnemy.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4AF3611A29839B009A4475 /* mEnemy.m */; };
 		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
 		CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4BDAB31A25AFC000ECE855 /* GKitController.m */; };
-		CF4CFE001A6209C400352590 /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFDFE1A6209C400352590 /* results_default.plist */; };
-		CF4CFE011A6209C400352590 /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFDFF1A6209C400352590 /* results_default.png */; };
 		CF4CFE041A62153800352590 /* fortress_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFE021A62153800352590 /* fortress_default.plist */; };
 		CF4CFE051A62153800352590 /* fortress_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFE031A62153800352590 /* fortress_default.png */; };
 		CF4CFE0A1A6222BA00352590 /* f_Bomb_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFE081A6222BA00352590 /* f_Bomb_01.mp3 */; };
@@ -270,6 +268,9 @@
 		CF5FCFD21A5E3E5400B95692 /* wao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF5FCFD01A5E3E5400B95692 /* wao.mp3 */; };
 		CF5FCFD61A5E453A00B95692 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF5FCFD51A5E453A00B95692 /* click.mp3 */; };
 		CF5FCFD81A5E4B8C00B95692 /* star.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF5FCFD71A5E4B8C00B95692 /* star.mp3 */; };
+		CF5FF90A1A651B1400D4DB9D /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF5FF9081A651B1400D4DB9D /* results_default.plist */; };
+		CF5FF90B1A651B1400D4DB9D /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5FF9091A651B1400D4DB9D /* results_default.png */; };
+		CF5FF90D1A6523A100D4DB9D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF5FF90C1A6523A100D4DB9D /* Social.framework */; };
 		CF60E6A51A5CB7820023427D /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF60E6A41A5CB7820023427D /* SoundManager.m */; };
 		CF60E6AD1A5CC3EE0023427D /* creat_obj.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */; };
 		CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CF83CA8D19F35C4700C78540 /* InfoPlist.strings */; };
@@ -753,8 +754,6 @@
 		CF4BDAB01A25AE5300ECE855 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		CF4BDAB21A25AFC000ECE855 /* GKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKitController.h; sourceTree = "<group>"; };
 		CF4BDAB31A25AFC000ECE855 /* GKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKitController.m; sourceTree = "<group>"; };
-		CF4CFDFE1A6209C400352590 /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
-		CF4CFDFF1A6209C400352590 /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
 		CF4CFE021A62153800352590 /* fortress_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = fortress_default.plist; sourceTree = "<group>"; };
 		CF4CFE031A62153800352590 /* fortress_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_default.png; sourceTree = "<group>"; };
 		CF4CFE081A6222BA00352590 /* f_Bomb_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = f_Bomb_01.mp3; sourceTree = "<group>"; };
@@ -791,6 +790,9 @@
 		CF5FCFD01A5E3E5400B95692 /* wao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wao.mp3; sourceTree = "<group>"; };
 		CF5FCFD51A5E453A00B95692 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		CF5FCFD71A5E4B8C00B95692 /* star.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = star.mp3; sourceTree = "<group>"; };
+		CF5FF9081A651B1400D4DB9D /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
+		CF5FF9091A651B1400D4DB9D /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
+		CF5FF90C1A6523A100D4DB9D /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CF60E6A31A5CB7820023427D /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		CF60E6A41A5CB7820023427D /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = creat_obj.mp3; sourceTree = "<group>"; };
@@ -819,6 +821,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF5FF90D1A6523A100D4DB9D /* Social.framework in Frameworks */,
 				CF20D57D1A36BE5C006CD725 /* StoreKit.framework in Frameworks */,
 				CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */,
 				CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */,
@@ -860,6 +863,7 @@
 		CF20602219F3534700DBD8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF5FF90C1A6523A100D4DB9D /* Social.framework */,
 				CF20D57C1A36BE5C006CD725 /* StoreKit.framework */,
 				CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */,
 				CF4BDAB01A25AE5300ECE855 /* GameKit.framework */,
@@ -1654,10 +1658,10 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CF5FF9081A651B1400D4DB9D /* results_default.plist */,
+				CF5FF9091A651B1400D4DB9D /* results_default.png */,
 				CF45BB831A635D0D005C0E2F /* sound_default.plist */,
 				CF45BB841A635D0D005C0E2F /* sound_default.png */,
-				CF4CFDFE1A6209C400352590 /* results_default.plist */,
-				CF4CFDFF1A6209C400352590 /* results_default.png */,
 				CFAD371B1A57DD950016F266 /* btn_default.plist */,
 				CFAD371C1A57DD950016F266 /* btn_default.png */,
 				CF49F6221A4A6B3F00877BA7 /* info_default.plist */,
@@ -1964,8 +1968,8 @@
 				CFFBE45B1A5CE446009A5116 /* die_player.mp3 in Resources */,
 				CF55C39B1A4E769000EDFD93 /* die.plist in Resources */,
 				CF20604B19F3534700DBD8C4 /* Icon@2x.png in Resources */,
+				CF5FF90A1A651B1400D4DB9D /* results_default.plist in Resources */,
 				CF4CFE041A62153800352590 /* fortress_default.plist in Resources */,
-				CF4CFE001A6209C400352590 /* results_default.plist in Resources */,
 				CF20605D19F3534700DBD8C4 /* Icon-Small@2x.png in Resources */,
 				CF522BDA1A60CE6200B0A5CC /* item.mp3 in Resources */,
 				CF20604F19F3534700DBD8C4 /* Icon-72@2x.png in Resources */,
@@ -1979,7 +1983,6 @@
 				CF60E6AD1A5CC3EE0023427D /* creat_obj.mp3 in Resources */,
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				CFF962481A5D5EB1005E1B4C /* ready.mp3 in Resources */,
-				CF4CFE011A6209C400352590 /* results_default.png in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
 				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
 				CF20605B19F3534700DBD8C4 /* Icon-Small.png in Resources */,
@@ -2023,6 +2026,7 @@
 				CF44285A1A3AD3AF00F17BB0 /* message_default.png in Resources */,
 				CF59E0F51A5F82740087CB58 /* win.mp3 in Resources */,
 				CF20606619F3534700DBD8C4 /* iTunesArtwork@2x in Resources */,
+				CF5FF90B1A651B1400D4DB9D /* results_default.png in Resources */,
 				CFF962441A5D4CB9005E1B4C /* battle_bgm01.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

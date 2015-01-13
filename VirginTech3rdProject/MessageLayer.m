@@ -107,14 +107,14 @@ CGSize winSize;
         
         //[OK]ボタン
         if(type==0){
-            okBtn.position=ccp(winSize.width-msgBoard.position.x, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(okBtn.contentSize.height*okBtn.scale)/2+5);
+            okBtn.position=ccp(winSize.width-msgBoard.position.x, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(okBtn.contentSize.height*okBtn.scale)/2+10);
             [self addChild:okBtn];
         }
         //[Yes/No]ボタン
         else if(type==1){
-            yesBtn.position=ccp(winSize.width-msgBoard.position.x+(yesBtn.contentSize.width*yesBtn.scale)/2+5, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(yesBtn.contentSize.height*yesBtn.scale)/2+5);
+            yesBtn.position=ccp(winSize.width-msgBoard.position.x+(yesBtn.contentSize.width*yesBtn.scale)/2+5, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(yesBtn.contentSize.height*yesBtn.scale)/2+10);
             [self addChild:yesBtn];
-            noBtn.position=ccp(winSize.width-msgBoard.position.x-(noBtn.contentSize.width*noBtn.scale)/2-5, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(noBtn.contentSize.height*noBtn.scale)/2+5);
+            noBtn.position=ccp(winSize.width-msgBoard.position.x-(noBtn.contentSize.width*noBtn.scale)/2-5, msgBoard.position.y-(msgBoard.contentSize.height*msgBoard.scaleY)/2+(noBtn.contentSize.height*noBtn.scale)/2+10);
             [self addChild:noBtn];
             //
         }else{

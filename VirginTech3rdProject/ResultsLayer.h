@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "cocos2d.h"
 #import "cocos2d-ui.h"
+#import "MessageLayer.h"
 
-@interface ResultsLayer : CCScene {
+@interface ResultsLayer : CCScene <MsgLayerDelegate>{
     
 }
 

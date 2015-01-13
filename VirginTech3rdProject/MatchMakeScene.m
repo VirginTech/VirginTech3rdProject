@@ -183,7 +183,7 @@ NaviLayer* naviLayer;
     [backButton setTarget:self selector:@selector(onBackClicked:)];
     [self addChild:backButton];*/
     
-    //ワールドライン描画
+    /*/ワールドライン描画
     CCDrawNode* worldLine_v1=[CCDrawNode node];//左縦
     [worldLine_v1 drawSegmentFrom:ccp(offSet.width+0,offSet.height+0)
                             to:ccp(offSet.width+0,offSet.height+[GameManager getWorldSize].height)
@@ -210,7 +210,7 @@ NaviLayer* naviLayer;
                                to:ccp(offSet.width+[GameManager getWorldSize].width,offSet.height+[GameManager getWorldSize].height)
                            radius:0.5
                             color:[CCColor whiteColor]];
-    [self addChild:worldLine_h2];
+    [self addChild:worldLine_h2];*/
     
     //GKMatch監視
     if(battleMatch.playerIDs.count<=0){
@@ -320,7 +320,7 @@ NaviLayer* naviLayer;
         [self addChild:playerFortress z:1];
     }
     
-    //我陣地ライン
+    /*/我陣地ライン
     CCDrawNode* drawNode1=[CCDrawNode node];
     [drawNode1 drawSegmentFrom:ccp(offSet.width+0,offSet.height+[GameManager getWorldSize].height*0.2)
                             to:ccp(offSet.width+[GameManager getWorldSize].width,offSet.height+[GameManager getWorldSize].height*0.2)
@@ -342,7 +342,7 @@ NaviLayer* naviLayer;
                             to:ccp(offSet.width+[GameManager getWorldSize].width,offSet.height+[GameManager getWorldSize].height/2)
                         radius:0.5
                          color:[CCColor yellowColor]];
-    [self addChild:drawNode5];
+    [self addChild:drawNode5];*/
     
     //準備状況・スケジュール
     [self schedule:@selector(readiness_Schedule:)interval:0.5];

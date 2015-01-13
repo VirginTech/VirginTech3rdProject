@@ -181,7 +181,7 @@ CCParticleSystem* dieParticle;
                             to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
                         radius:0.5
                          color:[CCColor whiteColor]];
-    [self addChild:drawNode2];*/
+    [self addChild:drawNode2];
     
     //センターライン
     CCDrawNode* drawNode5=[CCDrawNode node];
@@ -189,7 +189,7 @@ CCParticleSystem* dieParticle;
                             to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)/2)
                         radius:0.5
                          color:[CCColor yellowColor]];
-    [self addChild:drawNode5];
+    [self addChild:drawNode5];*/
     
     //我城生成
     playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,footer+15) type:0];

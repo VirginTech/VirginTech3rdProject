@@ -218,7 +218,7 @@ CCParticleSystem* dieParticle;
                                 to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)*0.8)
                                 radius:0.5
                                 color:[CCColor whiteColor]];
-    [bgSpLayer addChild:drawNode2];*/
+    [bgSpLayer addChild:drawNode2];
 
     //我逃避限界ライン
     CCDrawNode* drawNode3=[CCDrawNode node];
@@ -242,7 +242,7 @@ CCParticleSystem* dieParticle;
                             to:ccp([GameManager getWorldSize].width,footer+([GameManager getWorldSize].height-footer)/2)
                         radius:0.5
                          color:[CCColor yellowColor]];
-    [bgSpLayer addChild:drawNode5];
+    [bgSpLayer addChild:drawNode5];*/
     
     //我城生成
     playerFortress=[Fortress createFortress:ccp([GameManager getWorldSize].width/2,footer+15) type:0];

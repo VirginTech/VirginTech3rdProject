@@ -12,6 +12,7 @@
 #import "InitObjManager.h"
 #import "SelectScene.h"
 #import "SoundManager.h"
+#import <Social/Social.h>
 
 @implementation ResultsLayer
 
@@ -43,6 +44,8 @@ int enemyFortressAbility;
 int scoreNum;
 CCSprite* highScore;
 bool highScoreFlg;
+
+MessageLayer* msgBox;
 
 + (ResultsLayer *)scene
 {
@@ -107,6 +110,24 @@ bool highScoreFlg;
         selectButton.position = ccp(0.5f, 0.25f); // Top Right of screen
         [selectButton setTarget:self selector:@selector(onSelectClicked:)];
         [self addChild:selectButton];
+        
+        //ツイッターボタン
+        CCButton* twitter=[CCButton buttonWithTitle:@"" spriteFrame:
+                           [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twitter.png"]];
+        twitter.positionType = CCPositionTypeNormalized;
+        twitter.position=ccp(0.3f,0.2f);
+        twitter.scale=0.7;
+        [twitter setTarget:self selector:@selector(onTwitterClicked:)];
+        [self addChild:twitter];
+        
+        //フェイスブックボタン
+        CCButton* facebook=[CCButton buttonWithTitle:@"" spriteFrame:
+                           [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"facebook.png"]];
+        facebook.positionType = CCPositionTypeNormalized;
+        facebook.position=ccp(0.7f,0.2f);
+        facebook.scale=0.7;
+        [facebook setTarget:self selector:@selector(onFacebookClicked:)];
+        [self addChild:facebook];
         
         //三ツ星描画（黒）
         for(int i=0;i<3;i++){
@@ -433,6 +454,23 @@ bool highScoreFlg;
         highScore.scale=0.8;
         highScore.position=ccp(winSize.width/2,winSize.height/2);
         highScore.rotation=-25;
+        
+        //レビュー誘導メッセージ
+        if([GameManager getStageLevel]%5==0)
+        {
+            //カスタムアラートメッセージ
+            msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Rate",NULL)
+                                                    msg:NSLocalizedString(@"Rate_Message",NULL)
+                                                    pos:ccp(winSize.width/2,winSize.height/2)
+                                                    size:CGSizeMake(230, 100)
+                                                    modal:true
+                                                    rotation:false
+                                                    type:1//YES/NO
+                                                    procNum:1];
+            msgBox.delegate=self;//デリゲートセット
+            [self addChild:msgBox z:3];
+        }
+        
     }
 }
 
@@ -459,6 +497,64 @@ bool highScoreFlg;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+}
+
+-(void)onTwitterClicked:(id)sender
+{
+    SLComposeViewController *vc = [SLComposeViewController
+                                   composeViewControllerForServiceType:SLServiceTypeTwitter];
+    [vc setInitialText:[NSString stringWithFormat:
+                                @"%@ %ld %@\n",NSLocalizedString(@"PostMessage",NULL),
+                                [GameManager load_High_Score],
+                                NSLocalizedString(@"PostEnd",NULL)]];
+    [vc addURL:[NSURL URLWithString:NSLocalizedString(@"URL",NULL)]];
+    [vc setCompletionHandler:^(SLComposeViewControllerResult result)
+     {
+         switch (result) {
+             case SLComposeViewControllerResultDone:
+                 //チケットを付与
+                 [GameManager save_Coin:[GameManager load_Coin]+10];
+                 break;
+             case SLComposeViewControllerResultCancelled:
+                 break;
+         }
+     }];
+    [[CCDirector sharedDirector]presentViewController:vc animated:YES completion:nil];
+}
+
+-(void)onFacebookClicked:(id)sender
+{
+    SLComposeViewController *vc = [SLComposeViewController
+                                   composeViewControllerForServiceType:SLServiceTypeFacebook];
+    [vc setInitialText:[NSString stringWithFormat:
+                                @"%@ %ld %@\n",NSLocalizedString(@"PostMessage",NULL),
+                                [GameManager load_High_Score],
+                                NSLocalizedString(@"PostEnd",NULL)]];
+    [vc addURL:[NSURL URLWithString:NSLocalizedString(@"URL",NULL)]];
+    [vc setCompletionHandler:^(SLComposeViewControllerResult result)
+     {
+         switch (result) {
+             case SLComposeViewControllerResultDone:
+                 //チケットを付与
+                 [GameManager save_Coin:[GameManager load_Coin]+10];
+                 break;
+             case SLComposeViewControllerResultCancelled:
+                 break;
+         }
+     }];
+    [[CCDirector sharedDirector]presentViewController:vc animated:YES completion:nil];
+}
+
+//=====================
+// デリゲートメソッド
+//=====================
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
+{
+    if(btnNum==2){//「はい」だったら
+        NSURL* url = [NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=945977622&mt=8&type=Purple+Software"];
+        [[UIApplication sharedApplication]openURL:url];
+    }
+    msgBox.delegate=nil;//デリゲート解除
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event

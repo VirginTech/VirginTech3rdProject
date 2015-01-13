@@ -47,7 +47,7 @@ extern int TURN_OBJ_MAX;
 +(void)save_StageClear_State:(int)stageNum rate:(int)rate;
 +(int)load_StageClear_State:(int)stageNum;
 
-+(void)initialize_Item;
++(void)initialize_Save_Data;
 
 +(NSMutableArray*)load_Item_All;
 +(void)save_Item_All:(int)bomb shield:(int)shield onrush:(int)onrush attackup:(int)attackup speedup:(int)speedup;
@@ -56,6 +56,9 @@ extern int TURN_OBJ_MAX;
 
 +(int)load_Coin;
 +(void)save_Coin:(int)value;
+
++(NSDate*)load_Login_Date;
++(void)save_login_Date:(NSDate*)date;
 
 +(void)submit_Score_GameCenter:(NSInteger)score;
 +(void)submit_Points_GameCenter:(NSInteger)points;

@@ -24,6 +24,8 @@
 CGSize winSize;
 MessageLayer* msgBox;
 
+CCLabelBMFont* coinLabel;
+
 + (TitleScene *)scene
 {
 	return [[self alloc] init];
@@ -44,8 +46,54 @@ MessageLayer* msgBox;
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     [self addChild:background];
     
-    //データ初期化
-    [GameManager initialize_Item];
+    //初回起動時ウェルカムメッセージ
+    //NSDate* currentDate= [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]];
+    NSDate* currentDate=[NSDate date];//GMTで貫く
+    NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+    NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:appDomain];
+    if([dict valueForKey:@"LoginDate"]==nil){//初回なら
+        [GameManager save_login_Date:currentDate];
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Welcome",NULL)
+                                                msg:NSLocalizedString(@"FirstLogin",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(250, 180)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:1];//初回ログインボーナスメッセージへ
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:3];
+    }
+    
+    //デイリー・ボーナス
+    NSDate* recentDate=[GameManager load_Login_Date];
+    //日付のみに変換
+    NSCalendar *calen = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *comps = [calen components:unitFlags fromDate:currentDate];
+    //[comps setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];//GMTで貫く
+    currentDate = [calen dateFromComponents:comps];
+    
+    if([currentDate compare:recentDate]==NSOrderedDescending){//日付が変わってるなら「1」
+        [GameManager save_login_Date:currentDate];
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"BonusGet",NULL)
+                                                msg:NSLocalizedString(@"DailyBonus",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:3];//デイリーボーナス付与
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:3];
+    }
+
+    //初回時データ初期化
+    [GameManager initialize_Save_Data];
     
     //ゲームキット初期化
     gkc=[[GKitController alloc]init];
@@ -57,10 +105,15 @@ MessageLayer* msgBox;
     label.position = ccp(0.5f, 0.5f); // Middle of screen
     [self addChild:label];
     
-    
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
+    //バージョン表記
+    CCLabelTTF* version=[CCLabelTTF labelWithString:@"VirginTech© v1.0.0" fontName:@"Verdana" fontSize:10];
+    version.position=ccp(winSize.width/2,winSize.height-version.contentSize.height/2);
+    version.color=[CCColor whiteColor];
+    [self addChild:version];
+
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
@@ -68,7 +121,7 @@ MessageLayer* msgBox;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
-    CCLabelBMFont* coinLabel=[CCLabelBMFont labelWithString:
+    coinLabel=[CCLabelBMFont labelWithString:
                [NSString stringWithFormat:@"%05d",[GameManager load_Coin]]fntFile:@"scoreFont.fnt"];
     coinLabel.scale=0.3;
     coinLabel.position=ccp(coin.position.x+(coin.contentSize.width*coin.scale)/2+(coinLabel.contentSize.width*coinLabel.scale)/2,coin.position.y);
@@ -186,8 +239,37 @@ MessageLayer* msgBox;
 //=====================
 -(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
 {
-    //NSLog(@"%d が選択されました",btnNum);
-    msgBox.delegate=nil;//デリゲート解除
+    if(procNum==0)
+    {
+        msgBox.delegate=nil;//デリゲート解除
+    }
+    else if(procNum==1)//初回ボーナスメッセージ
+    {
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"BonusGet",NULL)
+                                                msg:NSLocalizedString(@"FirstBonus",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:2];//初回ログインボーナス付与
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:3];
+    }
+    else if(procNum==2)//初回ボーナス付与
+    {
+        [GameManager save_Coin:[GameManager load_Coin]+100];
+        coinLabel.string=[NSString stringWithFormat:@"%05d",[GameManager load_Coin]];
+        msgBox.delegate=nil;//デリゲート解除
+    }
+    else if(procNum==3)//デイリーボーナス付与
+    {
+        [GameManager save_Coin:[GameManager load_Coin]+10];
+        coinLabel.string=[NSString stringWithFormat:@"%05d",[GameManager load_Coin]];
+        msgBox.delegate=nil;//デリゲート解除
+    }
+
 }
 
 
