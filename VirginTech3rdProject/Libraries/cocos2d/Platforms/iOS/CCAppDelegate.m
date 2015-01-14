@@ -293,7 +293,7 @@ FindPOTScale(CGFloat size, CGFloat fixedSize)
     // インスタンス生成
     UILocalNotification *notification = [[UILocalNotification alloc] init];
     // 12時間後に通知をする（設定は秒単位）
-    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(60 * 60 * 8)];//8時間後
+    notification.fireDate = [NSDate dateWithTimeIntervalSinceNow:(60 * 60 * 10)];//8時間後
     // タイムゾーンの設定
     notification.timeZone = [NSTimeZone defaultTimeZone];
     // 通知時に表示させるメッセージ内容

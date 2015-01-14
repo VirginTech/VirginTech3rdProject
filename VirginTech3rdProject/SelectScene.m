@@ -67,16 +67,16 @@ CCScrollView* scrollView;
             CCButton* selectBtn=[CCButton buttonWithTitle:@""
                             spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"player.png"]];
             
-            if([GameManager getDevice]==3){
-                selectBtn.scale=0.5;
-            }else{
+            if([GameManager getDevice]==1){
                 selectBtn.scale=0.7;
+            }else{
+                selectBtn.scale=0.5;
             }
 
             if(j%2==0){
-                selectBtn.position=CGPointMake(btnPos.x, btnPos.y-(j*(selectBtn.contentSize.height*selectBtn.scale+20)/2));
+                selectBtn.position=CGPointMake(btnPos.x, btnPos.y-(j*(selectBtn.contentSize.height*selectBtn.scale+15)/2));
             }else{
-                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*(selectBtn.contentSize.height*selectBtn.scale+20)/2));
+                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*(selectBtn.contentSize.height*selectBtn.scale+15)/2));
             }
             
             //selectBtn.position = CGPointMake(btnPos.x, btnPos.y);

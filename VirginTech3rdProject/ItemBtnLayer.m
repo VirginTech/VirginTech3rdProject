@@ -58,22 +58,22 @@ CCLabelTTF* speedupValue;
             bombValue.position=ccp(btn.contentSize.width/2,bombValue.contentSize.height/2);
             [btn addChild:bombValue];
         }else if(i==1){
-            btn.title=@"シールド";
+            btn.title=@"防御力UP";
             shieldValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:30];
             shieldValue.position=ccp(btn.contentSize.width/2,shieldValue.contentSize.height/2);
             [btn addChild:shieldValue];
         }else if(i==2){
-            btn.title=@"突撃モード";
+            btn.title=@"突進の術";
             onrushValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:30];
             onrushValue.position=ccp(btn.contentSize.width/2,onrushValue.contentSize.height/2);
             [btn addChild:onrushValue];
         }else if(i==3){
-            btn.title=@"攻撃アップ";
+            btn.title=@"攻撃力UP";
             attackupValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:3]] fontName:@"Verdana-Bold" fontSize:30];
             attackupValue.position=ccp(btn.contentSize.width/2,attackupValue.contentSize.height/2);
             [btn addChild:attackupValue];
         }else if(i==4){
-            btn.title=@"高速モード";
+            btn.title=@"早足の術";
             speedupValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:30];
             speedupValue.position=ccp(btn.contentSize.width/2,speedupValue.contentSize.height/2);
             [btn addChild:speedupValue];

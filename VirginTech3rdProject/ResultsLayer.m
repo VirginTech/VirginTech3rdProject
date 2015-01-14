@@ -428,7 +428,7 @@ MessageLayer* msgBox;
                        [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"highscore.png"]];
                 highScore.position=ccp(winSize.width/2,winSize.height/2);
                 highScore.scale=3.0;
-                [self addChild:highScore];
+                [self addChild:highScore z:2];
                 cnt=0;
                 [self schedule:@selector(high_Score_Schedule:) interval:0.01 repeat:200 delay:0];
             }else{

@@ -73,7 +73,7 @@ CCLabelBMFont* coinLabel;
     //=================
     // シールド
     //=================
-    lbl_Item_02=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"シールド（現有数＝%03d）",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:15];
+    lbl_Item_02=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"防御力UP（現有数＝%03d）",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_02.position=ccp(lbl_Item_02.contentSize.width/2+20,lbl_Item_01.position.y-50);
     [self addChild:lbl_Item_02];
 
@@ -86,7 +86,7 @@ CCLabelBMFont* coinLabel;
     //=================
     // 突進モード
     //=================
-    lbl_Item_03=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"突進モード（現有数＝%03d）",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:15];
+    lbl_Item_03=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"突進の術（現有数＝%03d）",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_03.position=ccp(lbl_Item_03.contentSize.width/2+20,lbl_Item_02.position.y-50);
     [self addChild:lbl_Item_03];
 
@@ -112,7 +112,7 @@ CCLabelBMFont* coinLabel;
     //=================
     // 高速モード
     //=================
-    lbl_Item_05=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"高速モード（現有数＝%03d）",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:15];
+    lbl_Item_05=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"早足の術（現有数＝%03d）",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_05.position=ccp(lbl_Item_05.contentSize.width/2+20,lbl_Item_04.position.y-50);
     [self addChild:lbl_Item_05];
 
