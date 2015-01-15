@@ -224,7 +224,7 @@
         objId=numId;
         group=1;
         self.position=pos;
-        self.scale=0.3;
+        self.scale=0.33;
         velocity=0.2;
         ability=5;
         mode=0;//通常モード

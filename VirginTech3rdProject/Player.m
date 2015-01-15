@@ -249,7 +249,7 @@ Fortress* targetFortress;
     if(self=[super initWithSpriteFrame:[frameArray objectAtIndex:0]])
     {
         self.position=pos;
-        self.scale=0.3;
+        self.scale=0.33;
         mode=0;//状態:通常モード
         stopFlg=false;
         animeCnt=0;
@@ -277,7 +277,7 @@ Fortress* targetFortress;
             rushParticle.scale=1.0;
             [self addChild:rushParticle];
         }else if(itemNum==4){//攻撃アップ
-            self.scale=0.35;
+            self.scale=0.38;
         }else if(itemNum==5){//高速モード
             velocity=0.3f;
             speedupParticle=[[CCParticleSystem alloc]initWithFile:@"speedup.plist"];

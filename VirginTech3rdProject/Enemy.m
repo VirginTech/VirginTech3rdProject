@@ -230,7 +230,7 @@ Fortress* targetFortress;
     if(self=[super initWithSpriteFrame:[frameArray objectAtIndex:12]])
     {
         self.position=pos;
-        self.scale=0.3;
+        self.scale=0.33;
         
         if([GameManager getMatchMode]==0){//シングル戦
             ability=(([GameManager getStageLevel]/11)+1)*5;
