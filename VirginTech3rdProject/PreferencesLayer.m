@@ -171,9 +171,11 @@ CCButton* offEffectSwitch;
 {
     // back to intro scene with transition
     [SoundManager click_Effect];
-    [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
-                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
-    
+    //[[CCDirector sharedDirector] replaceScene:[TitleScene scene]
+    //                           withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    [[CCDirector sharedDirector] replaceScene:[TitleScene scene] withTransition:
+                        [CCTransition transitionRevealWithDirection:CCTransitionDirectionLeft duration:0.3f]];
+
 }
 
 @end

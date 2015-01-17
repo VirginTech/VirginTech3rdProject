@@ -41,9 +41,11 @@ CCLabelTTF* speedupValue;
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"item_default.plist"];
     
     for(int i=0;i<5;i++){
+        NSString* name1=[NSString stringWithFormat:@"item%02da.png",i];
+        NSString* name2=[NSString stringWithFormat:@"item%02db.png",i];
         CCButton* btn=[CCButton buttonWithTitle:@""
-                                    spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item01.png"]
-                         highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item02.png"]
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:name1]
+                            highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:name2]
                             disabledSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:nil]];
         
         btn.togglesSelectedState=YES;

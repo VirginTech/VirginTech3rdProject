@@ -503,9 +503,10 @@ CCParticleSystem* dieParticle;
             {
                 
                 if(_player.itemNum!=3){//突撃モードでなければ
-                    if(_player.mode!=1 && _player.mode!=3){
+                    //if(_player.mode!=1 && _player.mode!=3){
+                    if(_player.mode==0){
                         if(_player.nearPlayerCnt < _enemy.nearEnemyCnt){
-                            if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.25){
+                            if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.35){
                                 collisSurfaceAngle = [self getCollisSurfaceAngle:_player.position pos2:_enemy.position];
                                 _player.targetAngle = 2*collisSurfaceAngle-(_player.targetAngle+collisSurfaceAngle);
                                 _player.targetAngle = [BasicMath getNormalize_Radian:_player.targetAngle];
@@ -525,12 +526,18 @@ CCParticleSystem* dieParticle;
                                                radius2:(_enemy.contentSize.width*_enemy.scale+30)]){
                 
                 if(_player.itemNum!=3){//突撃モードでなければ
-                    if(_player.mode!=2 && _player.mode!=3){
+                    //if(_player.mode!=2 && _player.mode!=3){
+                    if(_player.mode==0){
+                        //通常追撃
                         if(_enemy.nearEnemyCnt <= _player.nearPlayerCnt){
                             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
                             _player.mode=2;
                         }
-                        if(_player.position.y<footer+([GameManager getWorldSize].height-footer)*0.25){
+                        //強制追撃
+                        if(_enemy.mode==4){//敵が自陣地を攻撃していれば
+                            _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                            _player.mode=2;
+                        }else if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.35){//自陣地内で
                             _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
                             _player.mode=2;
                         }
@@ -578,9 +585,10 @@ CCParticleSystem* dieParticle;
                                                  radius2:(_player.contentSize.width*_player.scale+15)])
             {
                 
-                if(_enemy.mode!=1 && _enemy.mode!=3){
+                //if(_enemy.mode!=1 && _enemy.mode!=3){
+                if(_enemy.mode==0){
                     if(_player.nearPlayerCnt > _enemy.nearEnemyCnt){
-                        if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.75){
+                        if(_enemy.position.y<footer+([GameManager getWorldSize].height-footer)*0.65){
                             collisSurfaceAngle = [self getCollisSurfaceAngle:_enemy.position pos2:_player.position];
                             _enemy.targetAngle = 2*collisSurfaceAngle-(_enemy.targetAngle+collisSurfaceAngle);
                             _enemy.targetAngle = [BasicMath getNormalize_Radian:_enemy.targetAngle];
@@ -598,12 +606,18 @@ CCParticleSystem* dieParticle;
                                             radius1:(_enemy.contentSize.width*_enemy.scale+30)
                                             radius2:(_player.contentSize.width*_player.scale+30)])
             {
-                if(_enemy.mode!=2 && _enemy.mode!=3){
+                //if(_enemy.mode!=2 && _enemy.mode!=3){
+                if(_enemy.mode==0){
+                    //通常追撃
                     if(_enemy.nearEnemyCnt >= _player.nearPlayerCnt){
                         _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
                         _enemy.mode=2;
                     }
-                    if(_enemy.position.y>footer+([GameManager getWorldSize].height-footer)*0.75){
+                    //強制追撃
+                    if(_player.mode==4){//敵が自陣地を攻撃していれば
+                        _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+                        _enemy.mode=2;
+                    }else if(_player.position.y>footer+([GameManager getWorldSize].height-footer)*0.65){//自陣地内で
                         _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
                         _enemy.mode=2;
                     }

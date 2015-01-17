@@ -276,8 +276,11 @@ CCLabelBMFont* coinLabel;
 - (void)onItemInventoryClicked:(id)sender
 {
     [SoundManager click_Effect];
-    [[CCDirector sharedDirector] replaceScene:[ItemInventoryLayer scene]
-                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //[[CCDirector sharedDirector] replaceScene:[ItemInventoryLayer scene]
+    //                           withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    [[CCDirector sharedDirector] replaceScene:[ItemInventoryLayer scene] withTransition:
+                                [CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:0.3f]];
+
 }
 
 - (void)onMatchMakeClicked:(id)sender
@@ -325,7 +328,7 @@ CCLabelBMFont* coinLabel;
     // start spinning scene with transition
     [GameManager setMatchMode:1];
     [[CCDirector sharedDirector] replaceScene:[RealBattleScene scene]
-                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
     
 }
 
@@ -335,7 +338,7 @@ CCLabelBMFont* coinLabel;
     // start spinning scene with transition
     [GameManager setMatchMode:0];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
-                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
 
 }
 
@@ -419,7 +422,8 @@ CCLabelBMFont* coinLabel;
         }else{//ネットワークOK!
             
             //ショップ画面へ
-            [[CCDirector sharedDirector] replaceScene:[ShopLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+            [[CCDirector sharedDirector] replaceScene:[ShopLayer scene]
+                                       withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
         }
     }
 }
@@ -427,13 +431,18 @@ CCLabelBMFont* coinLabel;
 -(void)onPreferencesButtonClicked:(id)sender
 {
     [SoundManager click_Effect];
-    [[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //[[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene]withTransition:
+    //                                              [CCTransition transitionCrossFadeWithDuration:1.0]];
+    [[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene] withTransition:
+                        [CCTransition transitionRevealWithDirection:CCTransitionDirectionRight duration:0.3f]];
+
 }
 
 -(void)onCreditButtonClicked:(id)sender
 {
     [SoundManager click_Effect];
-    [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
 }
 
 @end
