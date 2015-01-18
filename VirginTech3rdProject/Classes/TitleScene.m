@@ -67,31 +67,9 @@ CCLabelBMFont* coinLabel;
         [self addChild:msgBox z:3];
     }
     
-    //デイリー・ボーナス
-    NSDate* recentDate=[GameManager load_Login_Date];
-    //日付のみに変換
-    NSCalendar *calen = [NSCalendar currentCalendar];
-    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
-    NSDateComponents *comps = [calen components:unitFlags fromDate:currentDate];
-    //[comps setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];//GMTで貫く
-    currentDate = [calen dateFromComponents:comps];
+    //日付変更監視スケジュール(デイリーボーナス)
+    [self schedule:@selector(status_Schedule:) interval:1.0];
     
-    if([currentDate compare:recentDate]==NSOrderedDescending){//日付が変わってるなら「1」
-        [GameManager save_login_Date:currentDate];
-        
-        //カスタムアラートメッセージ
-        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"BonusGet",NULL)
-                                                msg:NSLocalizedString(@"DailyBonus",NULL)
-                                                pos:ccp(winSize.width/2,winSize.height/2)
-                                                size:CGSizeMake(200, 100)
-                                                modal:true
-                                                rotation:false
-                                                type:0
-                                                procNum:3];//デイリーボーナス付与
-        msgBox.delegate=self;//デリゲートセット
-        [self addChild:msgBox z:3];
-    }
-
     //初回時データ初期化
     [GameManager initialize_Save_Data];
     
@@ -232,6 +210,38 @@ CCLabelBMFont* coinLabel;
 {
     // always call super onExit last
     [super onExit];
+}
+
+//===================
+// 状態監視スケジュール
+//===================
+-(void)status_Schedule:(CCTime)dt
+{
+    //デイリー・ボーナス
+    NSDate* recentDate=[GameManager load_Login_Date];
+    NSDate* currentDate=[NSDate date];//GMTで貫く
+    //日付のみに変換
+    NSCalendar *calen = [NSCalendar currentCalendar];
+    unsigned unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit |  NSDayCalendarUnit;
+    NSDateComponents *comps = [calen components:unitFlags fromDate:currentDate];
+    //[comps setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];//GMTで貫く
+    currentDate = [calen dateFromComponents:comps];
+    
+    if([currentDate compare:recentDate]==NSOrderedDescending){//日付が変わってるなら「1」
+        [GameManager save_login_Date:currentDate];
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"BonusGet",NULL)
+                                                msg:NSLocalizedString(@"DailyBonus",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:3];//デイリーボーナス付与
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:3];
+    }
 }
 
 //=====================

@@ -60,6 +60,8 @@ extern int TURN_OBJ_MAX;
 +(NSDate*)load_Login_Date;
 +(void)save_login_Date:(NSDate*)date;
 
++(void)save_First_Battle:(bool)flg;
+
 +(void)submit_Score_GameCenter:(NSInteger)score;
 +(void)submit_Points_GameCenter:(NSInteger)points;
 

@@ -67,6 +67,9 @@ CCParticleSystem* bombParticle;
 CCParticleSystem* dieParticle;
 //NSMutableArray* bombParticleArray;
 
+CCSprite* finger;
+int fingerCnt;
+
 //デバッグ用ラベル
 //int repCnt;
 //CCLabelTTF* debugLabel1;
@@ -395,8 +398,48 @@ CCParticleSystem* dieParticle;
         [self schedule:@selector(create_Enemy_Schedule:)interval:interval repeat:CCTimerRepeatForever delay:1.0];
         //審判スケジュール開始
         [self schedule:@selector(judgement_Schedule:)interval:0.1];
+        //フィンガー表示
+        if([GameManager getStageLevel]==1){
+            NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+            NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:appDomain];
+            if([dict valueForKey:@"FirstBattle"]==nil){//初戦なら
+                [GameManager save_First_Battle:true];
+                [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+                [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"info_default.plist"];
+                finger=[CCSprite spriteWithSpriteFrame:
+                                  [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"finger.png"]];
+                finger.position=ccp(playerFortress.position.x-80,playerFortress.position.y+20);
+                finger.scale=0.5;
+                finger.rotation=45;
+                [bgSpLayer addChild:finger];
+                fingerCnt=0;
+                [self schedule:@selector(finger_Schedule:) interval:0.01];
+            }
+        }
     }
     msgBox.delegate=nil;//デリゲート解除
+}
+
+-(void)finger_Schedule:(CCTime)dt
+{
+    fingerCnt++;
+    
+    float amplitude=2;//振幅
+    float period=5;//周期
+    float y = sin(fingerCnt / period) * amplitude;
+    
+    if(fingerCnt<100){
+        finger.position=ccp(finger.position.x+2.0,finger.position.y + y);
+    }else if(fingerCnt<200){
+        finger.position=ccp(finger.position.x-2.0,finger.position.y + y);
+    }else if(fingerCnt<300){
+        finger.position=ccp(finger.position.x+2.0,finger.position.y + y);
+    }
+    
+    if(fingerCnt>300){
+        [self unschedule:@selector(finger_Schedule:)];
+        [bgSpLayer removeChild:finger cleanup:YES];
+    }
 }
 
 -(void)create_Enemy_Schedule:(CCTime)dt

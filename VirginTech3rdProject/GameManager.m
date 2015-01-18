@@ -360,6 +360,16 @@ bool pauseFlg;
 }
 
 //=========================================
+//　初戦開始フラグ
+//=========================================
++(void)save_First_Battle:(bool)flg
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSNumber* firstBattle=[NSNumber numberWithBool:flg];
+    [userDefault setObject:firstBattle forKey:@"FirstBattle"];
+}
+
+//=========================================
 //GameCenterへスコアを送信
 //=========================================
 +(void)submit_Score_GameCenter:(NSInteger)score
