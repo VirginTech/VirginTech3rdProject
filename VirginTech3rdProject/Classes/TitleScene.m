@@ -18,6 +18,7 @@
 #import "CreditLayer.h"
 #import "ShopLayer.h"
 #import "SoundManager.h"
+#import "ManualLayer.h"
 
 @implementation TitleScene
 
@@ -137,6 +138,13 @@ CCLabelBMFont* coinLabel;
     itemInventoryButton.position = ccp(0.5f, 0.20f);
     [itemInventoryButton setTarget:self selector:@selector(onItemInventoryClicked:)];
     [self addChild:itemInventoryButton];
+    
+    //マニュアル
+    CCButton *manualButton = [CCButton buttonWithTitle:@"[遊び方]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    manualButton.positionType = CCPositionTypeNormalized;
+    manualButton.position = ccp(0.5f, 0.15f);
+    [manualButton setTarget:self selector:@selector(onManualClicked:)];
+    [self addChild:manualButton];
     
     // GameCenterボタン
     CCButton *gameCenterButton = [CCButton buttonWithTitle:@"" spriteFrame:
@@ -282,6 +290,12 @@ CCLabelBMFont* coinLabel;
 
 }
 
+- (void)onManualClicked:(id)sender
+{
+    [SoundManager click_Effect];
+    [[CCDirector sharedDirector] replaceScene:[ManualLayer scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
+}
 
 - (void)onItemInventoryClicked:(id)sender
 {
