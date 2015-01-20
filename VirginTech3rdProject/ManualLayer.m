@@ -9,6 +9,7 @@
 #import "ManualLayer.h"
 #import "TitleScene.h"
 #import "SoundManager.h"
+#import "GameManager.h"
 
 @implementation ManualLayer
 
@@ -30,13 +31,19 @@ CCScrollView* scrollView;
     winSize=[[CCDirector sharedDirector]viewSize];
     
     // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
-    [self addChild:background];
+    //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //[self addChild:background];
 
-    //背景画像拡大
+    //スクロール背景画像拡大
+    int length;
+    if([GameManager getDevice]==2){//iPhone4は2048pxが限界・・・。
+        length=6;//1920px
+    }else{//iPhone5以降なら4096pxまで可能
+        length=9;//2880px
+    }
     UIImage *image = [UIImage imageNamed:@"bgLayer.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(winSize.width * 9,winSize.height));
-    [image drawInRect:CGRectMake(0, 0, winSize.width * 9,winSize.height)];
+    UIGraphicsBeginImageContext(CGSizeMake(winSize.width * length,winSize.height));
+    [image drawInRect:CGRectMake(0, 0, winSize.width * length,winSize.height)];
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -46,7 +53,22 @@ CCScrollView* scrollView;
     scrollView.verticalScrollEnabled=NO;
     [self addChild:scrollView];
     
-    //1ページ
+    for(int i=0;i<9;i++)
+    {
+        //背景
+        CCSprite* bg=[CCSprite spriteWithImageNamed:@"itemLayer.png"];
+        bg.scale=0.6;
+        bg.position=ccp(winSize.width/2*(((i+1)*2)-1),winSize.height/2);
+        [bgSpLayer addChild:bg z:0];
+        
+        //ページ
+        CCSprite* page=[CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"manual_%02d.png",i+1]];
+        page.scale=0.6;
+        page.position=ccp(winSize.width/2*(((i+1)*2)-1),winSize.height/2);
+        [bgSpLayer addChild:page z:1];
+    }
+    
+    /*/1ページ
     CCSprite* page01=[CCSprite spriteWithImageNamed:@"manual_01.png"];
     page01.scale=0.6;
     page01.position=ccp(winSize.width/2 * 1,winSize.height/2);
@@ -98,7 +120,7 @@ CCScrollView* scrollView;
     CCSprite* page09=[CCSprite spriteWithImageNamed:@"manual_09.png"];
     page09.scale=0.6;
     page09.position=ccp(winSize.width/2 * 17,winSize.height/2);
-    [bgSpLayer addChild:page09];
+    [bgSpLayer addChild:page09];*/
     
     CCButton *titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
     titleButton.positionType = CCPositionTypeNormalized;

@@ -38,8 +38,15 @@ CCLabelBMFont* coinLabel;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
-    // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //タイトル
+    CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
+    title.positionType = CCPositionTypeNormalized;
+    title.position=ccp(0.5f,0.6f);
+    title.scale=0.8;
+    [self addChild:title];
+    
+    //Create a colored background (Dark Grey)
+    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.8f]];
     [self addChild:background];
     
     CCButton *titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
@@ -57,7 +64,7 @@ CCLabelBMFont* coinLabel;
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
-    coin.scale=0.2;
+    coin.scale=0.3;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
@@ -123,31 +130,31 @@ CCLabelBMFont* coinLabel;
     CCSprite* coin01=[CCSprite spriteWithSpriteFrame:
                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
     coin01.position=ccp(40, winSize.height -130);
-    coin01.scale=0.2;
+    coin01.scale=0.3;
     [self addChild:coin01];
     
     CCSprite* coin02=[CCSprite spriteWithSpriteFrame:
                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
     coin02.position=ccp(coin01.position.x, coin01.position.y -40);
-    coin02.scale=0.2;
+    coin02.scale=0.3;
     [self addChild:coin02];
     
     CCSprite* coin03=[CCSprite spriteWithSpriteFrame:
                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
     coin03.position=ccp(coin01.position.x, coin01.position.y -80);
-    coin03.scale=0.2;
+    coin03.scale=0.3;
     [self addChild:coin03];
     
     CCSprite* coin04=[CCSprite spriteWithSpriteFrame:
                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
     coin04.position=ccp(coin01.position.x, coin01.position.y -120);
-    coin04.scale=0.2;
+    coin04.scale=0.3;
     [self addChild:coin04];
     
     CCSprite* coin05=[CCSprite spriteWithSpriteFrame:
                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
     coin05.position=ccp(coin01.position.x, coin01.position.y -160);
-    coin05.scale=0.2;
+    coin05.scale=0.3;
     [self addChild:coin05];
     
     //ラベル

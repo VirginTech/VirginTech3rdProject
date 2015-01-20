@@ -27,8 +27,15 @@ CGSize winSize;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
-    // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //タイトル
+    CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
+    title.positionType = CCPositionTypeNormalized;
+    title.position=ccp(0.5f,0.6f);
+    title.scale=0.8;
+    [self addChild:title];
+    
+    //Create a colored background (Dark Grey)
+    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.8f]];
     [self addChild:background];
     
     

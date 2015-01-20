@@ -44,8 +44,15 @@ CCLabelBMFont* coinLabel;
     [SoundManager playBGM:@"opening_bgm01.mp3"];
     
     // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
-    [self addChild:background];
+    //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //[self addChild:background];
+    
+    //タイトル
+    CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
+    title.positionType = CCPositionTypeNormalized;
+    title.position=ccp(0.5f,0.6f);
+    title.scale=0.8;
+    [self addChild:title];
     
     //初回起動時ウェルカムメッセージ
     //NSDate* currentDate= [NSDate dateWithTimeIntervalSinceNow:[[NSTimeZone systemTimeZone] secondsFromGMT]];
@@ -77,18 +84,18 @@ CCLabelBMFont* coinLabel;
     //ゲームキット初期化
     gkc=[[GKitController alloc]init];
     
-    //タイトル
+    /*/タイトル
     CCLabelTTF *label = [CCLabelTTF labelWithString:@"戦国HERO" fontName:@"Chalkduster" fontSize:36.0f];
     label.positionType = CCPositionTypeNormalized;
     label.color = [CCColor redColor];
     label.position = ccp(0.5f, 0.5f); // Middle of screen
-    [self addChild:label];
+    [self addChild:label];*/
     
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
     //バージョン表記
-    CCLabelTTF* version=[CCLabelTTF labelWithString:@"VirginTech© v1.0.0" fontName:@"Verdana" fontSize:10];
+    CCLabelTTF* version=[CCLabelTTF labelWithString:@"VirginTech© v1.0.0" fontName:@"Verdana-Bold" fontSize:10];
     version.position=ccp(winSize.width/2,winSize.height-version.contentSize.height/2);
     version.color=[CCColor whiteColor];
     [self addChild:version];
@@ -96,7 +103,7 @@ CCLabelBMFont* coinLabel;
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
-    coin.scale=0.2;
+    coin.scale=0.3;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
@@ -455,10 +462,10 @@ CCLabelBMFont* coinLabel;
 -(void)onPreferencesButtonClicked:(id)sender
 {
     [SoundManager click_Effect];
-    //[[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene]withTransition:
-    //                                              [CCTransition transitionCrossFadeWithDuration:1.0]];
-    [[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene] withTransition:
-                        [CCTransition transitionRevealWithDirection:CCTransitionDirectionRight duration:0.3f]];
+    [[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene]withTransition:
+                                                  [CCTransition transitionCrossFadeWithDuration:0.5]];
+    //[[CCDirector sharedDirector] replaceScene:[PreferencesLayer scene] withTransition:
+    //                    [CCTransition transitionRevealWithDirection:CCTransitionDirectionRight duration:0.3f]];
 
 }
 

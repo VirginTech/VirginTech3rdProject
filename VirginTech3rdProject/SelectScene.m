@@ -36,13 +36,13 @@ CCScrollView* scrollView;
     [SoundManager playBGM:@"opening_bgm01.mp3"];
     
     // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
-    [self addChild:background];
+    //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //[self addChild:background];
     
     //画面サイズ設定
     UIImage *image = [UIImage imageNamed:@"bgLayer.png"];
-    UIGraphicsBeginImageContext(CGSizeMake(winSize.width*5,winSize.height));
-    [image drawInRect:CGRectMake(0, 0, winSize.width,[GameManager getWorldSize].height)];
+    UIGraphicsBeginImageContext(CGSizeMake(winSize.width * 5,winSize.height));
+    [image drawInRect:CGRectMake(0, 0, winSize.width * 5,winSize.height)];
     image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
@@ -60,9 +60,23 @@ CCScrollView* scrollView;
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
 
-    for(int i=0;i<5;i++){
+    for(int i=0;i<5;i++)
+    {
         btnPos=CGPointMake((i*winSize.width)+winSize.width*0.35, winSize.height*0.8);
-        for(int j=0;j<10;j++){
+        
+        //背景
+        CCSprite* bg=[CCSprite spriteWithImageNamed:@"itemLayer.png"];
+        bg.scale=0.6;
+        bg.position=ccp(winSize.width/2*(((i+1)*2)-1),winSize.height/2);
+        [bgSpLayer addChild:bg z:0];
+        
+        CCSprite* selectBg=[CCSprite spriteWithImageNamed:@"selectLayer.png"];
+        selectBg.scale=0.7;
+        selectBg.position=ccp(winSize.width/2*(((i+1)*2)-1),winSize.height/2);
+        [bgSpLayer addChild:selectBg z:1];
+        
+        for(int j=0;j<10;j++)
+        {
             btnCnt++;
             CCButton* selectBtn=[CCButton buttonWithTitle:@""
                             spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"player.png"]];
@@ -76,7 +90,7 @@ CCScrollView* scrollView;
             if(j%2==0){
                 selectBtn.position=CGPointMake(btnPos.x, btnPos.y-(j*(selectBtn.contentSize.height*selectBtn.scale+15)/2));
             }else{
-                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*(selectBtn.contentSize.height*selectBtn.scale+15)/2));
+                selectBtn.position=CGPointMake(btnPos.x+100, btnPos.y-((j-1)*(selectBtn.contentSize.height*selectBtn.scale+15)/2-20));
             }
             
             //selectBtn.position = CGPointMake(btnPos.x, btnPos.y);
@@ -97,8 +111,9 @@ CCScrollView* scrollView;
                     selectBtn.enabled=false;
                     //錠前
                     CCSprite* lock=[CCSprite spriteWithSpriteFrame:
-                                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"lock.png"]];
-                    lock.position=ccp(selectBtn.contentSize.width/2,selectBtn.contentSize.height/2);
+                                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"bomb.png"]];
+                    lock.position=ccp(selectBtn.contentSize.width/2+10,selectBtn.contentSize.height/2+10);
+                    lock.scale=0.8;
                     [selectBtn addChild:lock];
                 }
             }else{
@@ -120,7 +135,7 @@ CCScrollView* scrollView;
                 [selectBtn addChild:star];
             }
             
-            [bgSpLayer addChild:selectBtn];
+            [bgSpLayer addChild:selectBtn z:2];
         }
     }
     

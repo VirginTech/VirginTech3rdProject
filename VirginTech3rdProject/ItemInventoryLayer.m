@@ -38,8 +38,14 @@ CCLabelBMFont* coinLabel;
     winSize=[[CCDirector sharedDirector]viewSize];
     
     // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
-    [self addChild:background];
+    //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //[self addChild:background];
+    
+    //背景
+    CCSprite* bg=[CCSprite spriteWithImageNamed:@"itemLayer.png"];
+    bg.scale=0.6;
+    bg.position=ccp(winSize.width/2,winSize.height/2);
+    [self addChild:bg];
     
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"item_default.plist"];
@@ -47,7 +53,7 @@ CCLabelBMFont* coinLabel;
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
-    coin.scale=0.2;
+    coin.scale=0.3;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
     
@@ -78,6 +84,12 @@ CCLabelBMFont* coinLabel;
                                winSize.height/2+frame_Item_01.contentSize.height*frame_Item_01.scale);
     [self addChild:frame_Item_01];
     
+    CCSprite* item_01=[CCSprite spriteWithSpriteFrame:
+                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item00.png"]];
+    item_01.scale=0.7;
+    item_01.position=ccp(frame_Item_01.contentSize.width/2,frame_Item_01.contentSize.height/2);
+    [frame_Item_01 addChild:item_01];
+    
     CCLabelTTF* lbl_Name_01=[CCLabelTTF labelWithString:@"【爆　弾】" fontName:@"Verdana-Bold" fontSize:20];
     lbl_Name_01.position=ccp(frame_Item_01.contentSize.width/2,
                              frame_Item_01.contentSize.height-lbl_Name_01.contentSize.height-10);
@@ -105,6 +117,12 @@ CCLabelBMFont* coinLabel;
     frame_Item_02.position=ccp(frame_Item_01.position.x+frame_Item_02.contentSize.width*frame_Item_02.scale,
                                                                                         frame_Item_01.position.y);
     [self addChild:frame_Item_02];
+    
+    CCSprite* item_02=[CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item01.png"]];
+    item_02.scale=0.7;
+    item_02.position=ccp(frame_Item_02.contentSize.width/2,frame_Item_02.contentSize.height/2);
+    [frame_Item_02 addChild:item_02];
     
     CCLabelTTF* lbl_Name_02=[CCLabelTTF labelWithString:@"【防御力UP】" fontName:@"Verdana-Bold" fontSize:20];
     lbl_Name_02.position=ccp(frame_Item_02.contentSize.width/2,
@@ -134,6 +152,12 @@ CCLabelBMFont* coinLabel;
                                frame_Item_01.position.y-frame_Item_03.contentSize.height*frame_Item_03.scale);
     [self addChild:frame_Item_03];
     
+    CCSprite* item_03=[CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item02.png"]];
+    item_03.scale=0.7;
+    item_03.position=ccp(frame_Item_03.contentSize.width/2,frame_Item_03.contentSize.height/2);
+    [frame_Item_03 addChild:item_03];
+    
     CCLabelTTF* lbl_Name_03=[CCLabelTTF labelWithString:@"【突進の術】" fontName:@"Verdana-Bold" fontSize:20];
     lbl_Name_03.position=ccp(frame_Item_03.contentSize.width/2,
                              frame_Item_03.contentSize.height-lbl_Name_03.contentSize.height-10);
@@ -160,6 +184,12 @@ CCLabelBMFont* coinLabel;
     frame_Item_04.scale=scale;
     frame_Item_04.position=ccp(frame_Item_02.position.x,frame_Item_03.position.y);
     [self addChild:frame_Item_04];
+    
+    CCSprite* item_04=[CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item03.png"]];
+    item_04.scale=0.7;
+    item_04.position=ccp(frame_Item_04.contentSize.width/2,frame_Item_04.contentSize.height/2);
+    [frame_Item_04 addChild:item_04];
     
     CCLabelTTF* lbl_Name_04=[CCLabelTTF labelWithString:@"【攻撃力UP】" fontName:@"Verdana-Bold" fontSize:20];
     lbl_Name_04.position=ccp(frame_Item_04.contentSize.width/2,
@@ -188,6 +218,12 @@ CCLabelBMFont* coinLabel;
     frame_Item_05.position=ccp(frame_Item_03.position.x,
                                frame_Item_04.position.y-frame_Item_05.contentSize.height*frame_Item_05.scale);
     [self addChild:frame_Item_05];
+    
+    CCSprite* item_05=[CCSprite spriteWithSpriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item04.png"]];
+    item_05.scale=0.7;
+    item_05.position=ccp(frame_Item_05.contentSize.width/2,frame_Item_05.contentSize.height/2);
+    [frame_Item_05 addChild:item_05];
     
     CCLabelTTF* lbl_Name_05=[CCLabelTTF labelWithString:@"【早足の術】" fontName:@"Verdana-Bold" fontSize:20];
     lbl_Name_05.position=ccp(frame_Item_05.contentSize.width/2,

@@ -34,9 +34,22 @@ CCButton* offEffectSwitch;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
-    // Create a colored background (Dark Grey)
-    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
+    //タイトル
+    CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
+    title.positionType = CCPositionTypeNormalized;
+    title.position=ccp(0.5f,0.6f);
+    title.scale=0.8;
+    [self addChild:title];
+    
+    //Create a colored background (Dark Grey)
+    CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.8f]];
     [self addChild:background];
+    
+    /*/背景
+    CCSprite* bg=[CCSprite spriteWithImageNamed:@"itemLayer.png"];
+    bg.scale=0.6;
+    bg.position=ccp(winSize.width/2,winSize.height/2);
+    [self addChild:bg];*/
     
     //画像読込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"sound_default.plist"];
@@ -88,7 +101,7 @@ CCButton* offEffectSwitch;
     bgmSlider.position=ccp(winSize.width/2-bgmSlider.contentSize.width/2,bgmLabel.position.y-70);
     [bgmSlider setSliderValue:[SoundManager getBgmVolume]];
     bgmSlider.name=@"BGM-Volume";
-    bgmSlider.handle.scale=0.5;
+    bgmSlider.handle.scale=0.7;
     [self addChild:bgmSlider];
     
     //=================
@@ -131,7 +144,7 @@ CCButton* offEffectSwitch;
     effectSlider.position=ccp(winSize.width/2-effectSlider.contentSize.width/2,effectLabel.position.y-70);
     [effectSlider setSliderValue:[SoundManager getEffectVolume]];
     effectSlider.name=@"Effect-Volume";
-    effectSlider.handle.scale=0.5;
+    effectSlider.handle.scale=0.7;
     [self addChild:effectSlider];
     
     return self;
@@ -171,10 +184,10 @@ CCButton* offEffectSwitch;
 {
     // back to intro scene with transition
     [SoundManager click_Effect];
-    //[[CCDirector sharedDirector] replaceScene:[TitleScene scene]
-    //                           withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
-    [[CCDirector sharedDirector] replaceScene:[TitleScene scene] withTransition:
-                        [CCTransition transitionRevealWithDirection:CCTransitionDirectionLeft duration:0.3f]];
+    [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //[[CCDirector sharedDirector] replaceScene:[TitleScene scene] withTransition:
+    //                    [CCTransition transitionRevealWithDirection:CCTransitionDirectionLeft duration:0.3f]];
 
 }
 
