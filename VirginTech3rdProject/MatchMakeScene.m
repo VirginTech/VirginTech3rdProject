@@ -308,6 +308,7 @@ NaviLayer* naviLayer;
         eBomb.scale=0.5;
         eBomb.visible=false;
         [enemyFortress addChild:eBomb];
+        enemyFortress.rotation=180;
         [self addChild:enemyFortress z:1];
         
         playerFortress=[Fortress createFortress:ccp(offSet.width+[GameManager getWorldSize].width/2,offSet.height+[GameManager getWorldSize].height-15) type:0];
@@ -317,6 +318,7 @@ NaviLayer* naviLayer;
         pBomb.scale=0.5;
         pBomb.visible=false;
         [playerFortress addChild:pBomb];
+        playerFortress.rotation=180;
         [self addChild:playerFortress z:1];
     }
     
@@ -1581,8 +1583,10 @@ NaviLayer* naviLayer;
         
         if(flg){
             [naviLayer pause];
+            [SoundManager pauseBGM];
         }else{
             [naviLayer resume];
+            [SoundManager resumeBGM];
         }
     }
     //======================

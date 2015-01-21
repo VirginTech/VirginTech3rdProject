@@ -54,12 +54,6 @@ CCButton* offEffectSwitch;
     //画像読込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"sound_default.plist"];
     
-    CCButton *titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
-    titleButton.positionType = CCPositionTypeNormalized;
-    titleButton.position = ccp(0.9f, 0.95f); // Top Right of screen
-    [titleButton setTarget:self selector:@selector(onTitleClicked:)];
-    [self addChild:titleButton];
-    
     //=================
     //BGM音量
     //=================
@@ -146,6 +140,19 @@ CCButton* offEffectSwitch;
     effectSlider.name=@"Effect-Volume";
     effectSlider.handle.scale=0.7;
     [self addChild:effectSlider];
+    
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    
+    CCButton *titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    //titleButton.positionType = CCPositionTypeNormalized;
+    titleButton.scale=0.6;
+    titleButton.position = ccp(winSize.width-(titleButton.contentSize.width*titleButton.scale)/2,
+                               winSize.height-titleButton.contentSize.height/2);
+    [titleButton setTarget:self selector:@selector(onTitleClicked:)];
+    [self addChild:titleButton];
     
     return self;
 }

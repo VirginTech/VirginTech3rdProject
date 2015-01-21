@@ -95,6 +95,15 @@ CCLabelBMFont* coinLabel;
                              frame_Item_01.contentSize.height-lbl_Name_01.contentSize.height-10);
     [frame_Item_01 addChild:lbl_Name_01];
 
+    CCLabelTTF* lbl_Descript_01=[CCLabelTTF labelWithString:@"周りにいる敵兵を瞬殺します" fontName:@"Verdana-Bold" fontSize:12];
+    lbl_Descript_01.position=ccp(frame_Item_01.contentSize.width/2,
+                                 frame_Item_01.contentSize.height-lbl_Name_01.contentSize.height-30);
+    [frame_Item_01 addChild:lbl_Descript_01];
+    
+    CCLabelTTF* lbl_Cnt_01=[CCLabelTTF labelWithString:@"×10" fontName:@"Verdana-Bold" fontSize:30];
+    lbl_Cnt_01.position=ccp(item_01.contentSize.width,item_01.contentSize.height/2);
+    [item_01 addChild:lbl_Cnt_01];
+    
     lbl_Item_01=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"保有数: %03d",
                                 [GameManager load_Item_Individual:0]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_01.position=ccp(frame_Item_01.contentSize.width/2,frame_Item_01.contentSize.height/2-60);
@@ -124,11 +133,20 @@ CCLabelBMFont* coinLabel;
     item_02.position=ccp(frame_Item_02.contentSize.width/2,frame_Item_02.contentSize.height/2);
     [frame_Item_02 addChild:item_02];
     
-    CCLabelTTF* lbl_Name_02=[CCLabelTTF labelWithString:@"【防御力UP】" fontName:@"Verdana-Bold" fontSize:20];
+    CCLabelTTF* lbl_Name_02=[CCLabelTTF labelWithString:@"【防護力UP】" fontName:@"Verdana-Bold" fontSize:20];
     lbl_Name_02.position=ccp(frame_Item_02.contentSize.width/2,
                              frame_Item_02.contentSize.height-lbl_Name_02.contentSize.height-10);
     [frame_Item_02 addChild:lbl_Name_02];
     
+    CCLabelTTF* lbl_Descript_02=[CCLabelTTF labelWithString:@"防護力がアップします" fontName:@"Verdana-Bold" fontSize:12];
+    lbl_Descript_02.position=ccp(frame_Item_02.contentSize.width/2,
+                                 frame_Item_02.contentSize.height-lbl_Name_02.contentSize.height-30);
+    [frame_Item_02 addChild:lbl_Descript_02];
+    
+    CCLabelTTF* lbl_Cnt_02=[CCLabelTTF labelWithString:@"×10" fontName:@"Verdana-Bold" fontSize:30];
+    lbl_Cnt_02.position=ccp(item_02.contentSize.width,item_02.contentSize.height/2);
+    [item_02 addChild:lbl_Cnt_02];
+
     lbl_Item_02=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"保有数: %03d",
                                 [GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_02.position=ccp(frame_Item_02.contentSize.width/2,frame_Item_02.contentSize.height/2-60);
@@ -163,6 +181,15 @@ CCLabelBMFont* coinLabel;
                              frame_Item_03.contentSize.height-lbl_Name_03.contentSize.height-10);
     [frame_Item_03 addChild:lbl_Name_03];
     
+    CCLabelTTF* lbl_Descript_03=[CCLabelTTF labelWithString:@"ひたすら敵陣地に向け突進します" fontName:@"Verdana-Bold" fontSize:12];
+    lbl_Descript_03.position=ccp(frame_Item_03.contentSize.width/2,
+                                 frame_Item_03.contentSize.height-lbl_Name_03.contentSize.height-30);
+    [frame_Item_03 addChild:lbl_Descript_03];
+
+    CCLabelTTF* lbl_Cnt_03=[CCLabelTTF labelWithString:@"×10" fontName:@"Verdana-Bold" fontSize:30];
+    lbl_Cnt_03.position=ccp(item_03.contentSize.width,item_03.contentSize.height/2);
+    [item_03 addChild:lbl_Cnt_03];
+    
     lbl_Item_03=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"保有数: %03d",
                                 [GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_03.position=ccp(frame_Item_03.contentSize.width/2,frame_Item_03.contentSize.height/2-60);
@@ -196,12 +223,22 @@ CCLabelBMFont* coinLabel;
                              frame_Item_04.contentSize.height-lbl_Name_04.contentSize.height-10);
     [frame_Item_04 addChild:lbl_Name_04];
     
+    CCLabelTTF* lbl_Descript_04=[CCLabelTTF labelWithString:@"攻撃力がアップします" fontName:@"Verdana-Bold" fontSize:12];
+    lbl_Descript_04.position=ccp(frame_Item_04.contentSize.width/2,
+                                 frame_Item_04.contentSize.height-lbl_Name_04.contentSize.height-30);
+    [frame_Item_04 addChild:lbl_Descript_04];
+    
+    CCLabelTTF* lbl_Cnt_04=[CCLabelTTF labelWithString:@"×10" fontName:@"Verdana-Bold" fontSize:30];
+    lbl_Cnt_04.position=ccp(item_04.contentSize.width,item_04.contentSize.height/2);
+    [item_04 addChild:lbl_Cnt_04];
+    
     lbl_Item_04=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"保有数: %03d",
                             [GameManager load_Item_Individual:3]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_04.position=ccp(frame_Item_04.contentSize.width/2,frame_Item_04.contentSize.height/2-60);
     [frame_Item_04 addChild:lbl_Item_04];
 
     //CCButton* btn_Item_04=[CCButton buttonWithTitle:@"[購入]" fontName:@"Verdana-Bold" fontSize:15];
+    
     CCButton* btn_Item_04=[CCButton buttonWithTitle:@"   ×10" spriteFrame:
                            [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"itemBtn.png"]];
     btn_Item_04.position=ccp(frame_Item_04.contentSize.width/2,btn_Item_04.contentSize.height/2+20);
@@ -230,6 +267,15 @@ CCLabelBMFont* coinLabel;
                              frame_Item_05.contentSize.height-lbl_Name_05.contentSize.height-10);
     [frame_Item_05 addChild:lbl_Name_05];
     
+    CCLabelTTF* lbl_Descript_05=[CCLabelTTF labelWithString:@"足が速くなります" fontName:@"Verdana-Bold" fontSize:12];
+    lbl_Descript_05.position=ccp(frame_Item_05.contentSize.width/2,
+                                 frame_Item_05.contentSize.height-lbl_Name_05.contentSize.height-30);
+    [frame_Item_05 addChild:lbl_Descript_05];
+
+    CCLabelTTF* lbl_Cnt_05=[CCLabelTTF labelWithString:@"×10" fontName:@"Verdana-Bold" fontSize:30];
+    lbl_Cnt_05.position=ccp(item_05.contentSize.width,item_05.contentSize.height/2);
+    [item_05 addChild:lbl_Cnt_05];
+    
     lbl_Item_05=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"保有数: %03d",
                                 [GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:15];
     lbl_Item_05.position=ccp(frame_Item_05.contentSize.width/2,frame_Item_05.contentSize.height/2-60);
@@ -253,11 +299,18 @@ CCLabelBMFont* coinLabel;
     [self addChild:frame_Item_06];
     
     
-    CCButton *backButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
-    backButton.positionType = CCPositionTypeNormalized;
-    backButton.position = ccp(0.9f, 0.95f); // Top Right of screen
-    [backButton setTarget:self selector:@selector(onBackClicked:)];
-    [self addChild:backButton];
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    
+    CCButton *titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    //titleButton.positionType = CCPositionTypeNormalized;
+    titleButton.scale=0.6;
+    titleButton.position = ccp(winSize.width-(titleButton.contentSize.width*titleButton.scale)/2,
+                               winSize.height-titleButton.contentSize.height/2);
+    [titleButton setTarget:self selector:@selector(onBackClicked:)];
+    [self addChild:titleButton];
     
     return self;
 }

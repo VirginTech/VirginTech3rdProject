@@ -78,18 +78,29 @@ CCButton* selectButton;
     resumeButton.visible=false;
     [self addChild:resumeButton];
     
-    titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    //タイトルボタン
+    titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                                [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
     titleButton.positionType = CCPositionTypeNormalized;
-    titleButton.position = ccp(0.5f, 0.3f); // Top Right of screen
+    if([GameManager getMatchMode]==0){//１人対戦
+        titleButton.position = ccp(0.35f, 0.3f);
+    }else if([GameManager getMatchMode]==1){//２人対戦
+        titleButton.position = ccp(0.5f, 0.5f);
+    }else{//ネット対戦
+        titleButton.position = ccp(0.5f, 0.3f);
+    }
     [titleButton setTarget:self selector:@selector(onTitleClicked:)];
+    titleButton.scale=0.6;
     titleButton.visible=false;
     [self addChild:titleButton];
     
-    //セレクトシーン
-    selectButton = [CCButton buttonWithTitle:@"[セレクト]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    //セレクトボタン
+    selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                                [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn.png"]];
     selectButton.positionType = CCPositionTypeNormalized;
-    selectButton.position = ccp(0.5f, 0.25f); // Top Right of screen
+    selectButton.position = ccp(0.65f, 0.3f); // Top Right of screen
     [selectButton setTarget:self selector:@selector(onSelectClicked:)];
+    selectButton.scale=0.6;
     selectButton.visible=false;
     [self addChild:selectButton];
     
@@ -143,8 +154,8 @@ CCButton* selectButton;
 
 - (void)onTitleClicked:(id)sender
 {
-    //BGMストップ
-    [SoundManager stopBGM];
+    //サウンドストップ
+    [SoundManager all_Stop];
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
@@ -152,8 +163,8 @@ CCButton* selectButton;
 
 -(void)onSelectClicked:(id)sender
 {
-    //BGMストップ
-    [SoundManager stopBGM];
+    //サウンドストップ
+    [SoundManager all_Stop];
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];

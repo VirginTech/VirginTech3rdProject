@@ -80,20 +80,25 @@ MessageLayer* msgBox;
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.5f]];
     [self addChild:background];
     
-    CCButton* titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
+    //画像読込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"results_default.plist"];
+    
+    CCButton *titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
     titleButton.positionType = CCPositionTypeNormalized;
-    titleButton.position = ccp(0.5f, 0.3f); // Top Right of screen
+    if([GameManager getMatchMode]==0){
+        titleButton.position = ccp(0.35f, 0.275f); // Top Right of screen
+    }else{
+        titleButton.position = ccp(0.5f, 0.275f); // Top Right of screen
+    }
     [titleButton setTarget:self selector:@selector(onTitleClicked:)];
+    titleButton.scale=0.6;
     [self addChild:titleButton];
     
     //=================
     //勝利判定ラベル
     //=================
-    
-    //画像読込み
-    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"results_default.plist"];
-    
     victorySpr=[CCSprite spriteWithSpriteFrame:
                         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"victory_jp.png"]];
     
@@ -105,10 +110,12 @@ MessageLayer* msgBox;
     if([GameManager getMatchMode]==0)//シングル
     {
         //セレクトシーン
-        CCButton* selectButton = [CCButton buttonWithTitle:@"[セレクト]" fontName:@"Verdana-Bold" fontSize:15.0f];
+        CCButton* selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                                  [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn.png"]];
         selectButton.positionType = CCPositionTypeNormalized;
-        selectButton.position = ccp(0.5f, 0.25f); // Top Right of screen
+        selectButton.position = ccp(0.65f, 0.275f); // Top Right of screen
         [selectButton setTarget:self selector:@selector(onSelectClicked:)];
+        selectButton.scale=0.6;
         [self addChild:selectButton];
         
         //ツイッターボタン

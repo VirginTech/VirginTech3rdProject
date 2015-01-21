@@ -49,9 +49,16 @@ CCLabelBMFont* coinLabel;
     CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:0.8f]];
     [self addChild:background];
     
-    CCButton *titleButton = [CCButton buttonWithTitle:@"[タイトル]" fontName:@"Verdana-Bold" fontSize:15.0f];
-    titleButton.positionType = CCPositionTypeNormalized;
-    titleButton.position = ccp(0.9f, 0.95f); // Top Right of screen
+    //画像読み込み
+    [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
+    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    
+    CCButton *titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    //titleButton.positionType = CCPositionTypeNormalized;
+    titleButton.scale=0.6;
+    titleButton.position = ccp(winSize.width-(titleButton.contentSize.width*titleButton.scale)/2,
+                               winSize.height-titleButton.contentSize.height/2);
     [titleButton setTarget:self selector:@selector(onTitleClicked:)];
     [self addChild:titleButton];
     
@@ -59,7 +66,7 @@ CCLabelBMFont* coinLabel;
     paymane = [[PaymentManager alloc]init];
     
     //画像読み込み
-    [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
+    //[[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:

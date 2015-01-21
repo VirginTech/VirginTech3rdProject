@@ -292,6 +292,10 @@ int readyCnt;
 
 -(void)ready_Wait_Schedule:(CCTime)dt
 {
+    if([GameManager getPause]){
+        return;
+    }
+    
     readyCnt++;
     if(readyCnt>1){
         [self unschedule:@selector(ready_Wait_Schedule:)];
