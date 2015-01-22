@@ -277,6 +277,9 @@
 		CF5AEC4A1A6B87BC00F54986 /* info_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF5AEC481A6B87BC00F54986 /* info_default.plist */; };
 		CF5AEC4B1A6B87BC00F54986 /* info_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5AEC491A6B87BC00F54986 /* info_default.png */; };
 		CF5B6F9B1A3ED610004B2629 /* InfoLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */; };
+		CF5D54811A70C24300D1E8C4 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF5D547F1A70C24300D1E8C4 /* btn_default.plist */; };
+		CF5D54821A70C24300D1E8C4 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5D54801A70C24300D1E8C4 /* btn_default.png */; };
+		CF5D54841A70EF8B00D1E8C4 /* virgintech.png in Resources */ = {isa = PBXBuildFile; fileRef = CF5D54831A70EF8B00D1E8C4 /* virgintech.png */; };
 		CF5DB46319F3551300F97BC4 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20603519F3534700DBD8C4 /* GLKit.framework */; };
 		CF5FCFD21A5E3E5400B95692 /* wao.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF5FCFD01A5E3E5400B95692 /* wao.mp3 */; };
 		CF5FCFD61A5E453A00B95692 /* click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF5FCFD51A5E453A00B95692 /* click.mp3 */; };
@@ -284,8 +287,6 @@
 		CF5FF90D1A6523A100D4DB9D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF5FF90C1A6523A100D4DB9D /* Social.framework */; };
 		CF60E6A51A5CB7820023427D /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF60E6A41A5CB7820023427D /* SoundManager.m */; };
 		CF60E6AD1A5CC3EE0023427D /* creat_obj.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */; };
-		CF61158D1A6F6341004D68B3 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF61158B1A6F6341004D68B3 /* btn_default.plist */; };
-		CF61158E1A6F6341004D68B3 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF61158C1A6F6341004D68B3 /* btn_default.png */; };
 		CF6115911A6F6614004D68B3 /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF61158F1A6F6614004D68B3 /* results_default.plist */; };
 		CF6115921A6F6614004D68B3 /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF6115901A6F6614004D68B3 /* results_default.png */; };
 		CF6115991A6FA35E004D68B3 /* item_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF6115971A6FA35E004D68B3 /* item_default.plist */; };
@@ -814,6 +815,9 @@
 		CF5AEC491A6B87BC00F54986 /* info_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_default.png; sourceTree = "<group>"; };
 		CF5B6F991A3ED610004B2629 /* InfoLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoLayer.h; sourceTree = "<group>"; };
 		CF5B6F9A1A3ED610004B2629 /* InfoLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoLayer.m; sourceTree = "<group>"; };
+		CF5D547F1A70C24300D1E8C4 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
+		CF5D54801A70C24300D1E8C4 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
+		CF5D54831A70EF8B00D1E8C4 /* virgintech.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = virgintech.png; sourceTree = "<group>"; };
 		CF5FCFD01A5E3E5400B95692 /* wao.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wao.mp3; sourceTree = "<group>"; };
 		CF5FCFD51A5E453A00B95692 /* click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = click.mp3; sourceTree = "<group>"; };
 		CF5FCFD71A5E4B8C00B95692 /* star.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = star.mp3; sourceTree = "<group>"; };
@@ -821,8 +825,6 @@
 		CF60E6A31A5CB7820023427D /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		CF60E6A41A5CB7820023427D /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = creat_obj.mp3; sourceTree = "<group>"; };
-		CF61158B1A6F6341004D68B3 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
-		CF61158C1A6F6341004D68B3 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 		CF61158F1A6F6614004D68B3 /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
 		CF6115901A6F6614004D68B3 /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
 		CF6115971A6FA35E004D68B3 /* item_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = item_default.plist; sourceTree = "<group>"; };
@@ -1686,10 +1688,10 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CF5D547F1A70C24300D1E8C4 /* btn_default.plist */,
+				CF5D54801A70C24300D1E8C4 /* btn_default.png */,
 				CF61158F1A6F6614004D68B3 /* results_default.plist */,
 				CF6115901A6F6614004D68B3 /* results_default.png */,
-				CF61158B1A6F6341004D68B3 /* btn_default.plist */,
-				CF61158C1A6F6341004D68B3 /* btn_default.png */,
 				CF4BBA4A1A6E021D00C3A25B /* sound_default.plist */,
 				CF4BBA4B1A6E021D00C3A25B /* sound_default.png */,
 				CF5AEC481A6B87BC00F54986 /* info_default.plist */,
@@ -1743,6 +1745,7 @@
 		CF48173A1A11A98C00D5597B /* BackGround */ = {
 			isa = PBXGroup;
 			children = (
+				CF5D54831A70EF8B00D1E8C4 /* virgintech.png */,
 				CF4BBA761A6E897200C3A25B /* title.png */,
 				CF4BBA481A6DFFB100C3A25B /* itemLayer.png */,
 				CF4BBA421A6DF2E200C3A25B /* selectLayer.png */,
@@ -2019,9 +2022,9 @@
 				CF5456041A6CFFEA008E1A34 /* manual_02.png in Resources */,
 				CF5456051A6CFFEA008E1A34 /* manual_03.png in Resources */,
 				CF55C3971A4E5C3700EDFD93 /* ground_default.png in Resources */,
+				CF5D54821A70C24300D1E8C4 /* btn_default.png in Resources */,
 				CF5FCFD21A5E3E5400B95692 /* wao.mp3 in Resources */,
 				CF4BBA431A6DF2E200C3A25B /* selectLayer.png in Resources */,
-				CF61158E1A6F6341004D68B3 /* btn_default.png in Resources */,
 				CFF9623A1A5D29E6005E1B4C /* battle.mp3 in Resources */,
 				CF45BB901A638E01005C0E2F /* Default-Portrait~ipad@2x.png in Resources */,
 				CFFBE45B1A5CE446009A5116 /* die_player.mp3 in Resources */,
@@ -2040,9 +2043,9 @@
 				CF20605719F3534700DBD8C4 /* Icon-iPad-Spotlight-iOS7@2x.png in Resources */,
 				CFF962481A5D5EB1005E1B4C /* ready.mp3 in Resources */,
 				CF20604619F3534700DBD8C4 /* Default-Landscape~ipad.png in Resources */,
+				CF5D54811A70C24300D1E8C4 /* btn_default.plist in Resources */,
 				CF83CA8B19F35C4700C78540 /* InfoPlist.strings in Resources */,
 				CF5456081A6CFFEA008E1A34 /* manual_06.png in Resources */,
-				CF61158D1A6F6341004D68B3 /* btn_default.plist in Resources */,
 				CF20605B19F3534700DBD8C4 /* Icon-Small.png in Resources */,
 				CF20605919F3534700DBD8C4 /* Icon-Small-50.png in Resources */,
 				CF522BDC1A60CE7000B0A5CC /* bomb.mp3 in Resources */,
@@ -2076,6 +2079,7 @@
 				CF20606119F3534700DBD8C4 /* Icon-Spotlight-iOS7@2x.png in Resources */,
 				CF4CFE0D1A62901C00352590 /* star.plist in Resources */,
 				CF20605119F3534700DBD8C4 /* Icon-76.png in Resources */,
+				CF5D54841A70EF8B00D1E8C4 /* virgintech.png in Resources */,
 				CF4BBA771A6E897200C3A25B /* title.png in Resources */,
 				CF4BBA4D1A6E021D00C3A25B /* sound_default.png in Resources */,
 				CF5FCFD61A5E453A00B95692 /* click.mp3 in Resources */,

@@ -93,12 +93,6 @@ CCLabelBMFont* coinLabel;
     
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
-    
-    //バージョン表記
-    CCLabelTTF* version=[CCLabelTTF labelWithString:@"VirginTech© v1.0.0" fontName:@"Verdana-Bold" fontSize:10];
-    version.position=ccp(winSize.width/2,winSize.height-version.contentSize.height/2);
-    version.color=[CCColor whiteColor];
-    [self addChild:version];
 
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
@@ -121,35 +115,70 @@ CCLabelBMFont* coinLabel;
                                 winSize.height-(highScoreBoard.contentSize.height*highScoreBoard.scale)/2);
     [self addChild:highScoreBoard];
     
-    // Helloworld scene button
-    CCButton *helloWorldButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    helloWorldButton.positionType = CCPositionTypeNormalized;
-    helloWorldButton.position = ccp(0.5f, 0.35f);
-    [helloWorldButton setTarget:self selector:@selector(onPlayClicked:)];
-    [self addChild:helloWorldButton];
+    //1プレイボタン
+    //CCButton *onePlayButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *onePlayButton = [CCButton buttonWithTitle:@""
+                spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"onePlayBtn_a.png"]
+                highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"onePlayBtn_b.png"]
+                disabledSpriteFrame:nil];
+    //onePlayButton.positionType = CCPositionTypeNormalized;
+    //onePlayButton.position = ccp(0.5f, 0.35f);
+    onePlayButton.scale=0.7;
+    if([GameManager getDevice]==1){//iPhone5,6
+        onePlayButton.position=ccp(winSize.width/2,winSize.height/2 - 70);
+    }else if([GameManager getDevice]==2){//iPhone4
+        onePlayButton.position=ccp(winSize.width/2,winSize.height/2 - 40);
+    }else{//iPad
+        onePlayButton.position=ccp(winSize.width/2,winSize.height/2 - 60);
+    }
+    [onePlayButton setTarget:self selector:@selector(onPlayClicked:)];
+    [self addChild:onePlayButton];
 
-    CCButton *realBattleButton = [CCButton buttonWithTitle:@"[リアル対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    realBattleButton.positionType = CCPositionTypeNormalized;
-    realBattleButton.position = ccp(0.5f, 0.30f);
+    //2プレイボタン
+    //CCButton *realBattleButton = [CCButton buttonWithTitle:@"[リアル対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *realBattleButton = [CCButton buttonWithTitle:@""
+                spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twoPlayBtn_a.png"]
+                highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twoPlayBtn_b.png"]
+                disabledSpriteFrame:nil];
+    //realBattleButton.positionType = CCPositionTypeNormalized;
+    //realBattleButton.position = ccp(0.5f, 0.30f);
+    realBattleButton.scale=0.7;
+    realBattleButton.position=ccp(onePlayButton.position.x,onePlayButton.position.y-(onePlayButton.contentSize.height*onePlayButton.scale)/2-(realBattleButton.contentSize.height*realBattleButton.scale)/2);
     [realBattleButton setTarget:self selector:@selector(onRealBattleClicked:)];
     [self addChild:realBattleButton];
 
-    CCButton *matchMakeButton = [CCButton buttonWithTitle:@"[オンライン対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    matchMakeButton.positionType = CCPositionTypeNormalized;
-    matchMakeButton.position = ccp(0.5f, 0.25f);
+    //オンライン対戦ボタン
+    //CCButton *matchMakeButton = [CCButton buttonWithTitle:@"[オンライン対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *matchMakeButton = [CCButton buttonWithTitle:@""
+                spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"netPlayBtn_a.png"]
+                highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"netPlayBtn_b.png"]
+                disabledSpriteFrame:nil];
+    //matchMakeButton.positionType = CCPositionTypeNormalized;
+    //matchMakeButton.position = ccp(0.5f, 0.25f);
+    matchMakeButton.scale=0.7;
+    matchMakeButton.position=ccp(realBattleButton.position.x,realBattleButton.position.y-(realBattleButton.contentSize.height*realBattleButton.scale)/2-(matchMakeButton.contentSize.height*matchMakeButton.scale)/2);
     [matchMakeButton setTarget:self selector:@selector(onMatchMakeClicked:)];
     [self addChild:matchMakeButton];
     
-    CCButton *itemInventoryButton = [CCButton buttonWithTitle:@"[アイテム倉庫]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    itemInventoryButton.positionType = CCPositionTypeNormalized;
-    itemInventoryButton.position = ccp(0.5f, 0.20f);
+    //アイテム倉庫ボタン
+    //CCButton *itemInventoryButton = [CCButton buttonWithTitle:@"[アイテム倉庫]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *itemInventoryButton = [CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item_btn.png"]];
+    //itemInventoryButton.positionType = CCPositionTypeNormalized;
+    //itemInventoryButton.position = ccp(0.5f, 0.20f);
+    itemInventoryButton.scale=0.7;
+    itemInventoryButton.position=ccp(realBattleButton.position.x+(realBattleButton.contentSize.width*realBattleButton.scale)/2+(itemInventoryButton.contentSize.width*itemInventoryButton.scale)/2,realBattleButton.position.y);
     [itemInventoryButton setTarget:self selector:@selector(onItemInventoryClicked:)];
     [self addChild:itemInventoryButton];
     
-    //マニュアル
-    CCButton *manualButton = [CCButton buttonWithTitle:@"[遊び方]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    manualButton.positionType = CCPositionTypeNormalized;
-    manualButton.position = ccp(0.5f, 0.15f);
+    //マニュアルボタン
+    //CCButton *manualButton = [CCButton buttonWithTitle:@"[遊び方]" fontName:@"Verdana-Bold" fontSize:18.0f];
+    CCButton *manualButton = [CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"manual_btn.png"]];
+    //manualButton.positionType = CCPositionTypeNormalized;
+    //manualButton.position = ccp(0.5f, 0.15f);
+    manualButton.scale=0.7;
+    manualButton.position=ccp(realBattleButton.position.x-(realBattleButton.contentSize.width*realBattleButton.scale)/2-(manualButton.contentSize.width*manualButton.scale)/2,realBattleButton.position.y);
     [manualButton setTarget:self selector:@selector(onManualClicked:)];
     [self addChild:manualButton];
     
@@ -206,6 +235,22 @@ CCLabelBMFont* coinLabel;
     creditButton.scale=0.5;
     [creditButton setTarget:self selector:@selector(onCreditButtonClicked:)];
     [self addChild:creditButton];
+    
+    //バージョン表記
+    CCLabelTTF* version=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"VirginTech© v%@",
+                                [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleShortVersionString"]]
+                                fontName:@"Verdana" fontSize:10];
+    version.position=ccp(matchMakeButton.position.x,matchMakeButton.position.y-(matchMakeButton.contentSize.height*matchMakeButton.scale)/2-version.contentSize.height/2);
+    version.color=[CCColor whiteColor];
+    [self addChild:version];
+    
+    //おすすめアプリボタン
+    CCButton *moreAppButton = [CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"moreAppBtn.png"]];
+    moreAppButton.scale=0.6;
+    moreAppButton.position=ccp(matchMakeButton.position.x,version.position.y-version.contentSize.height/2-(moreAppButton.contentSize.height*moreAppButton.scale)/2 - 10);
+    [moreAppButton setTarget:self selector:@selector(onMoreAppClicked:)];
+    [self addChild:moreAppButton];
     
     // done
 	return self;
@@ -474,6 +519,12 @@ CCLabelBMFont* coinLabel;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[CreditLayer scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
+}
+
+-(void)onMoreAppClicked:(id)sender
+{
+    NSURL* url = [NSURL URLWithString:@"https://itunes.apple.com/jp/artist/virgintech-llc./id869207880"];
+    [[UIApplication sharedApplication]openURL:url];
 }
 
 @end
