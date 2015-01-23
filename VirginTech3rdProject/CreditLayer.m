@@ -10,6 +10,8 @@
 #import "TitleScene.h"
 #import "SoundManager.h"
 
+#import "ImobileSdkAds/ImobileSdkAds.h"
+
 @implementation CreditLayer
 
 CGSize winSize;
@@ -212,7 +214,8 @@ CCScrollView* scrollView;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
-    
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 @end

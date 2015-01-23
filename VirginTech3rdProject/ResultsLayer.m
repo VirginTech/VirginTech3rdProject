@@ -14,6 +14,8 @@
 #import "SoundManager.h"
 #import <Social/Social.h>
 
+#import "IMobileLayer.h"
+
 @implementation ResultsLayer
 
 CGSize winSize;
@@ -65,6 +67,10 @@ MessageLayer* msgBox;
     
     self.userInteractionEnabled = YES;
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    //i-Mobile広告表示
+    IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:false];
+    [self addChild:iMobileAd];
     
     //初期化
     cnt=0;
@@ -496,6 +502,8 @@ MessageLayer* msgBox;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 -(void)onSelectClicked:(id)sender
@@ -504,6 +512,8 @@ MessageLayer* msgBox;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 -(void)onTwitterClicked:(id)sender

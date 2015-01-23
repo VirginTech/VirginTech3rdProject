@@ -11,6 +11,8 @@
 #import "SoundManager.h"
 #import "GameManager.h"
 
+#import "IMobileLayer.h"
+
 @implementation ManualLayer
 
 CGSize winSize;
@@ -33,6 +35,10 @@ CCScrollView* scrollView;
     // Create a colored background (Dark Grey)
     //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     //[self addChild:background];
+
+    //i-Mobile広告表示
+    IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:false];
+    [self addChild:iMobileAd];
 
     //スクロール背景画像拡大
     int length;
@@ -144,7 +150,8 @@ CCScrollView* scrollView;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
-    
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 @end

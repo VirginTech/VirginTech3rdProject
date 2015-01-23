@@ -13,6 +13,8 @@
 #import "SelectScene.h"
 #import "SoundManager.h"
 
+#import "IMobileLayer.h"
+
 @implementation NaviLayer
 
 CGSize winSize;
@@ -22,6 +24,8 @@ CCButton *pauseButton;
 CCButton *resumeButton;
 CCButton* titleButton;
 CCButton* selectButton;
+
+IMobileLayer* iMobileAd;
 
 + (NaviLayer *)scene
 {
@@ -56,7 +60,7 @@ CCButton* selectButton;
                                    winSize.height/2);
     }else{
         pauseButton.position = ccp(winSize.width-(pauseButton.contentSize.width*pauseButton.scale)/2,
-                                   (pauseButton.contentSize.height*pauseButton.scale)/2);
+                                   60+(pauseButton.contentSize.height*pauseButton.scale)/2);
     }
     [pauseButton setTarget:self selector:@selector(onPauseClicked:)];
     [self addChild:pauseButton];
@@ -72,7 +76,7 @@ CCButton* selectButton;
                                     winSize.height/2);
     }else{
         resumeButton.position = ccp(winSize.width-(resumeButton.contentSize.width*pauseButton.scale)/2,
-                                    (resumeButton.contentSize.height*resumeButton.scale)/2);
+                                    60+(resumeButton.contentSize.height*resumeButton.scale)/2);
     }
     [resumeButton setTarget:self selector:@selector(onResumeClicked:)];
     resumeButton.visible=false;
@@ -118,6 +122,9 @@ CCButton* selectButton;
     if([GameManager getMatchMode]==0){
         selectButton.visible=true;
     }
+    //i-Mobile広告表示
+    iMobileAd=[[IMobileLayer alloc]init:false];
+    [self addChild:iMobileAd];
 }
 
 -(void)resume
@@ -129,6 +136,8 @@ CCButton* selectButton;
     resumeButton.visible=false;
     titleButton.visible=false;
     selectButton.visible=false;
+    //広告非表示
+    [iMobileAd removeLayer];
 }
 
 - (void)onPauseClicked:(id)sender
@@ -159,6 +168,10 @@ CCButton* selectButton;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //広告非表示
+    [iMobileAd removeLayer];
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 -(void)onSelectClicked:(id)sender
@@ -168,6 +181,10 @@ CCButton* selectButton;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
+    //広告非表示
+    [iMobileAd removeLayer];
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 -(void)touchBegan:(UITouch *)touch withEvent:(UIEvent *)event

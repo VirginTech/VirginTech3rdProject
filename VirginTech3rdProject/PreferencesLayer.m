@@ -10,6 +10,8 @@
 #import "TitleScene.h"
 #import "SoundManager.h"
 
+#import "IMobileLayer.h"
+
 @implementation PreferencesLayer
 
 CGSize winSize;
@@ -33,6 +35,10 @@ CCButton* offEffectSwitch;
     if (!self) return(nil);
     
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    //i-Mobile広告表示
+    IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:false];
+    [self addChild:iMobileAd];
     
     //タイトル
     CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
@@ -195,7 +201,8 @@ CCButton* offEffectSwitch;
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     //[[CCDirector sharedDirector] replaceScene:[TitleScene scene] withTransition:
     //                    [CCTransition transitionRevealWithDirection:CCTransitionDirectionLeft duration:0.3f]];
-
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 @end

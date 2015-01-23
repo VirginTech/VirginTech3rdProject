@@ -236,6 +236,10 @@
 		CF4BBA771A6E897200C3A25B /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = CF4BBA761A6E897200C3A25B /* title.png */; };
 		CF4BDAB11A25AE5300ECE855 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4BDAB01A25AE5300ECE855 /* GameKit.framework */; };
 		CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4BDAB31A25AFC000ECE855 /* GKitController.m */; };
+		CF4CD4241A71EC7700331E88 /* ImobileSdkAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4CD4231A71EC7700331E88 /* ImobileSdkAds.framework */; };
+		CF4CD4261A71EC9700331E88 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4CD4251A71EC9700331E88 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		CF4CD4281A71ECAE00331E88 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF4CD4271A71ECAE00331E88 /* CoreLocation.framework */; };
+		CF4CD42C1A71ED1D00331E88 /* IMobileLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4CD42B1A71ED1D00331E88 /* IMobileLayer.m */; };
 		CF4CFE0A1A6222BA00352590 /* f_Bomb_01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFE081A6222BA00352590 /* f_Bomb_01.mp3 */; };
 		CF4CFE0B1A6222BA00352590 /* f_Bomb_02.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFE091A6222BA00352590 /* f_Bomb_02.mp3 */; };
 		CF4CFE0D1A62901C00352590 /* star.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4CFE0C1A62901C00352590 /* star.plist */; };
@@ -767,6 +771,11 @@
 		CF4BDAB01A25AE5300ECE855 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		CF4BDAB21A25AFC000ECE855 /* GKitController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKitController.h; sourceTree = "<group>"; };
 		CF4BDAB31A25AFC000ECE855 /* GKitController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKitController.m; sourceTree = "<group>"; };
+		CF4CD4231A71EC7700331E88 /* ImobileSdkAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImobileSdkAds.framework; path = ../../Library/Ad/iMobile/imobile_for_SP_app_iOS_SDK_2.0.8/lib/ImobileSdkAds.framework; sourceTree = "<group>"; };
+		CF4CD4251A71EC9700331E88 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		CF4CD4271A71ECAE00331E88 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		CF4CD42A1A71ED1D00331E88 /* IMobileLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IMobileLayer.h; sourceTree = "<group>"; };
+		CF4CD42B1A71ED1D00331E88 /* IMobileLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IMobileLayer.m; sourceTree = "<group>"; };
 		CF4CFE081A6222BA00352590 /* f_Bomb_01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = f_Bomb_01.mp3; sourceTree = "<group>"; };
 		CF4CFE091A6222BA00352590 /* f_Bomb_02.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = f_Bomb_02.mp3; sourceTree = "<group>"; };
 		CF4CFE0C1A62901C00352590 /* star.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = star.plist; sourceTree = "<group>"; };
@@ -850,6 +859,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF4CD4281A71ECAE00331E88 /* CoreLocation.framework in Frameworks */,
+				CF4CD4261A71EC9700331E88 /* AdSupport.framework in Frameworks */,
+				CF4CD4241A71EC7700331E88 /* ImobileSdkAds.framework in Frameworks */,
 				CF5FF90D1A6523A100D4DB9D /* Social.framework in Frameworks */,
 				CF20D57D1A36BE5C006CD725 /* StoreKit.framework in Frameworks */,
 				CF454F2F1A31BAEC001C6CA9 /* SystemConfiguration.framework in Frameworks */,
@@ -892,6 +904,9 @@
 		CF20602219F3534700DBD8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CF4CD4271A71ECAE00331E88 /* CoreLocation.framework */,
+				CF4CD4251A71EC9700331E88 /* AdSupport.framework */,
+				CF4CD4231A71EC7700331E88 /* ImobileSdkAds.framework */,
 				CF5FF90C1A6523A100D4DB9D /* Social.framework */,
 				CF20D57C1A36BE5C006CD725 /* StoreKit.framework */,
 				CF454F2E1A31BAEC001C6CA9 /* SystemConfiguration.framework */,
@@ -1668,6 +1683,7 @@
 		CF20629C19F3534900DBD8C4 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CF4CD4291A71ECF300331E88 /* AdLayer */,
 				CF20629D19F3534900DBD8C4 /* AppDelegate.h */,
 				CF20629E19F3534900DBD8C4 /* AppDelegate.m */,
 				CF4BDAB21A25AFC000ECE855 /* GKitController.h */,
@@ -1861,6 +1877,15 @@
 				CF5A43F81A4C07AE00B71D15 /* scoreFont.png */,
 			);
 			name = Font;
+			sourceTree = "<group>";
+		};
+		CF4CD4291A71ECF300331E88 /* AdLayer */ = {
+			isa = PBXGroup;
+			children = (
+				CF4CD42A1A71ED1D00331E88 /* IMobileLayer.h */,
+				CF4CD42B1A71ED1D00331E88 /* IMobileLayer.m */,
+			);
+			name = AdLayer;
 			sourceTree = "<group>";
 		};
 		CF5455F01A6CB33B008E1A34 /* Manual */ = {
@@ -2162,6 +2187,7 @@
 				CF2060D919F3534700DBD8C4 /* CCLayout.m in Sources */,
 				CF4817441A11B12100D5597B /* Fortress.m in Sources */,
 				CF20610919F3534700DBD8C4 /* CCPhysicsShape.m in Sources */,
+				CF4CD42C1A71ED1D00331E88 /* IMobileLayer.m in Sources */,
 				CF20608F19F3534700DBD8C4 /* CCRenderer.m in Sources */,
 				CF20612419F3534800DBD8C4 /* CCSprite.m in Sources */,
 				CF5921811A569B6500800EC2 /* PaymentManager.m in Sources */,
@@ -2433,6 +2459,10 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/virgintech/Documents/Library/Ad/iMobile/imobile_for_SP_app_iOS_SDK_2.0.8/lib,
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VirginTech3rdProject/Supporting Files/Prefix.pch";
@@ -2458,6 +2488,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/virgintech/Documents/Library/Ad/iMobile/imobile_for_SP_app_iOS_SDK_2.0.8/lib,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VirginTech3rdProject/Supporting Files/Prefix.pch";
 				HEADER_SEARCH_PATHS = (

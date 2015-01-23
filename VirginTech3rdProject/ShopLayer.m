@@ -11,6 +11,8 @@
 #import "GameManager.h"
 #import "SoundManager.h"
 
+#import "IMobileLayer.h"
+
 @implementation ShopLayer
 
 CGSize winSize;
@@ -37,6 +39,10 @@ CCLabelBMFont* coinLabel;
     if (!self) return(nil);
     
     winSize=[[CCDirector sharedDirector]viewSize];
+    
+    //i-Mobile広告表示
+    IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:false];
+    [self addChild:iMobileAd];
     
     //タイトル
     CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
@@ -282,7 +288,8 @@ CCLabelBMFont* coinLabel;
     [SoundManager click_Effect];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
-    
+    //インターステイシャル広告表示
+    [ImobileSdkAds showBySpotID:@"359467"];
 }
 
 @end

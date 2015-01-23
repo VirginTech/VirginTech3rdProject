@@ -20,6 +20,8 @@
 #import "SoundManager.h"
 #import "ManualLayer.h"
 
+#import "IMobileLayer.h"
+
 @implementation TitleScene
 
 CGSize winSize;
@@ -46,6 +48,10 @@ CCLabelBMFont* coinLabel;
     // Create a colored background (Dark Grey)
     //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     //[self addChild:background];
+    
+    //i-Mobile広告表示
+    IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:true];
+    [self addChild:iMobileAd];
     
     //タイトル
     CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
