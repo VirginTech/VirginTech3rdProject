@@ -25,7 +25,7 @@ CGSize winSize;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
-    //[ImobileSdkAds setTestMode:YES];//テストモード
+    [ImobileSdkAds setTestMode:YES];//テストモード
 
     //=================
     //フッターバナー
@@ -40,7 +40,7 @@ CGSize winSize;
         
         [[[CCDirector sharedDirector]view]addSubview:adView];
         
-        //[ImobileSdkAds setSpotDelegate:@"359462" delegate:self];
+        //[ImobileSdkAds setSpotDelegate:@"362877" delegate:self];
         [ImobileSdkAds showBySpotID:@"362877" View:adView];
     }
     else//iPhone
@@ -67,11 +67,14 @@ CGSize winSize;
             [ImobileSdkAds startBySpotID:@"359471"];
             
             ImobileSdkAdsIconParams *iconParams = [[ImobileSdkAdsIconParams alloc] init];
-            iconParams.iconNumber = 3;
-            iconParams.iconSize = 70;
-            iconParams.iconTitleEnable = NO;
-            iconParams.iconTitleFontColor = @"#000000";
-            iconParams.iconTitleShadowEnable = NO;
+            iconParams.iconNumber = 2;
+            iconParams.iconSize = 80;
+            iconParams.iconViewLayoutWidth = winSize.width*2+1200;
+            iconParams.iconTitleEnable = YES;
+            iconParams.iconTitleFontSize = 10;
+            iconParams.iconTitleOffset = 4;
+            iconParams.iconTitleFontColor = @"#ffffff";
+            iconParams.iconTitleShadowEnable = YES;
             
             [ImobileSdkAds startBySpotID:@"359471"];
             
@@ -79,8 +82,7 @@ CGSize winSize;
             [[[CCDirector sharedDirector]view]addSubview:viewCon.view];
             
             [ImobileSdkAds showBySpotID:@"359471" ViewController:viewCon
-                                                Position:CGPointMake((winSize.width*2)/2-(iconParams.iconSize*2-10),
-                                                (winSize.height*2)/2) IconPrams:iconParams];
+                        Position:CGPointMake(-600,(winSize.height*2)/2-50) IconPrams:iconParams];
         }
         else
         {
@@ -88,11 +90,14 @@ CGSize winSize;
             [ImobileSdkAds startBySpotID:@"359471"];
             
             ImobileSdkAdsIconParams *iconParams = [[ImobileSdkAdsIconParams alloc] init];
-            iconParams.iconNumber = 3;
+            iconParams.iconNumber = 2;
             iconParams.iconSize = 47;
-            iconParams.iconTitleEnable = NO;
-            iconParams.iconTitleFontColor = @"#000000";
-            iconParams.iconTitleShadowEnable = NO;
+            iconParams.iconViewLayoutWidth = winSize.width+450;
+            iconParams.iconTitleEnable = YES;
+            iconParams.iconTitleFontSize = 8;
+            iconParams.iconTitleOffset = 1;
+            iconParams.iconTitleFontColor = @"#ffffff";
+            iconParams.iconTitleShadowEnable = YES;
             
             [ImobileSdkAds startBySpotID:@"359471"];
             
@@ -100,7 +105,7 @@ CGSize winSize;
             [[[CCDirector sharedDirector]view]addSubview:viewCon.view];
 
             [ImobileSdkAds showBySpotID:@"359471" ViewController:viewCon
-                            Position:CGPointMake(winSize.width/2-(iconParams.iconSize*2),winSize.height/2) IconPrams:iconParams];
+                    Position:CGPointMake(-225,winSize.height/2-50) IconPrams:iconParams];
         }
     }
     
@@ -111,8 +116,9 @@ CGSize winSize;
 {
     //[ImobileSdkAds setSpotDelegate:@"359462" delegate:nil];
     [adView removeFromSuperview];
-    [viewCon.view removeFromSuperview];
     adView=nil;
+    
+    [viewCon.view removeFromSuperview];
     viewCon.view=nil;
 }
 
@@ -120,8 +126,9 @@ CGSize winSize;
 {
     //[ImobileSdkAds setSpotDelegate:@"359462" delegate:nil];
     [adView removeFromSuperview];
-    [viewCon.view removeFromSuperview];
     adView=nil;
+
+    [viewCon.view removeFromSuperview];
     viewCon.view=nil;
 }
 
@@ -129,7 +136,10 @@ CGSize winSize;
 - (void)imobileSdkAdsSpot:(NSString *)spotId didReadyWithValue:(ImobileSdkAdsReadyResult)value{};
 
 //広告の取得を失敗した際に呼ばれます
-- (void)imobileSdkAdsSpot:(NSString *)spotId didFailWithValue:(ImobileSdkAdsFailResult)value{};
+- (void)imobileSdkAdsSpot:(NSString *)spotId didFailWithValue:(ImobileSdkAdsFailResult)value
+{
+    NSLog(@"ERROR=%u",value);
+}
 
 //広告の表示要求があった際に、準備が完了していない場合に呼ばれます
 - (void)imobileSdkAdsSpotIsNotReady:(NSString *)spotId{};

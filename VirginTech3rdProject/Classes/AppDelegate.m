@@ -75,11 +75,6 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeSound categories:nil]];
     }
     
-    //iMobileインタースティシャル読込み (AppBankNetworkインタースティシャルと相性悪し)
-    [ImobileSdkAds registerWithPublisherID:@"31967" MediaID:@"140388" SpotID:@"359467"];
-    [ImobileSdkAds setAdOrientation:IMOBILESDKADS_AD_ORIENTATION_PORTRAIT];
-    [ImobileSdkAds startBySpotID:@"359467"];
-    
 	return YES;
 }
 
@@ -100,6 +95,13 @@
     //サウンド・プリロード
     [SoundManager initSoundPreload];
     
+    //iMobileインタースティシャル読込み (AppBankNetworkインタースティシャルと相性悪し)
+    if([GameManager getDevice]!=3){//iPadでなければ
+        [ImobileSdkAds registerWithPublisherID:@"31967" MediaID:@"140388" SpotID:@"359467"];
+        [ImobileSdkAds setAdOrientation:IMOBILESDKADS_AD_ORIENTATION_PORTRAIT];
+        [ImobileSdkAds startBySpotID:@"359467"];
+    }
+
 	// This method should return the very first scene to be run when your app starts.
 	return [TitleScene scene];
 }

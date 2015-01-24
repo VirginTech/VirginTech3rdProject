@@ -351,8 +351,10 @@ CCLabelBMFont* coinLabel;
 - (void)onManualClicked:(id)sender
 {
     [SoundManager click_Effect];
-    [[CCDirector sharedDirector] replaceScene:[ManualLayer scene]
-                               withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
+    //[[CCDirector sharedDirector] replaceScene:[ManualLayer scene]
+    //                           withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
+    [[CCDirector sharedDirector] replaceScene:[ManualLayer scene] withTransition:
+                                [CCTransition transitionPushWithDirection:CCTransitionDirectionLeft duration:0.5f]];
 }
 
 - (void)onItemInventoryClicked:(id)sender
