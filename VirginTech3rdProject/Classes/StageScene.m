@@ -252,7 +252,7 @@ int fingerCnt;
     pBomb=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"bomb.png"]];
     pBomb.position=ccp(playerFortress.contentSize.width/2,playerFortress.contentSize.height/2);
-    pBomb.scale=0.5;
+    //pBomb.scale=0.5;
     pBomb.visible=false;
     [playerFortress addChild:pBomb];
     [bgSpLayer addChild:playerFortress z:1];
@@ -262,7 +262,7 @@ int fingerCnt;
     eBomb=[CCSprite spriteWithSpriteFrame:
                     [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"bomb.png"]];
     eBomb.position=ccp(enemyFortress.contentSize.width/2,enemyFortress.contentSize.height/2);
-    eBomb.scale=0.5;
+    //eBomb.scale=0.5;
     eBomb.visible=false;
     [enemyFortress addChild:eBomb];
     [bgSpLayer addChild:enemyFortress z:1];
@@ -791,8 +791,8 @@ int fingerCnt;
     for(Player* _player in playerArray){
         if([BasicMath RadiusIntersectsRadius:_player.position
                                                 pointB:enemyFortress.position
-                                                radius1:(_player.contentSize.width*_player.scale)/2
-                                                radius2:(enemyFortress.contentSize.width*enemyFortress.scale)/2])
+                                                radius1:(_player.contentSize.width*_player.scale)/2 -5.0f
+                                                radius2:(enemyFortress.contentSize.width*enemyFortress.scale)/2 -5.0f])
         {
             if(_player.mode!=3){
                 if(!gameEndFlg){
@@ -815,8 +815,8 @@ int fingerCnt;
     for(Enemy* _enemy in enemyArray){
         if([BasicMath RadiusIntersectsRadius:_enemy.position
                                       pointB:playerFortress.position
-                                     radius1:(_enemy.contentSize.width*_enemy.scale)/2
-                                     radius2:(playerFortress.contentSize.width*playerFortress.scale)/2])
+                                     radius1:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f
+                                     radius2:(playerFortress.contentSize.width*playerFortress.scale)/2 -5.0f])
         {
             if(_enemy.mode!=3){
                 if(!gameEndFlg){
@@ -1014,7 +1014,7 @@ int fingerCnt;
                 [SoundManager f_Bomb_Effect:0];
                 eBomb.position=ccp(arc4random()%(int)(eBomb.contentSize.width*eBomb.scale),
                                         arc4random()%(int)(eBomb.contentSize.height*eBomb.scale));
-                eBomb.scale=(arc4random()%4+2)*0.1;
+                eBomb.scale=(arc4random()%4+6)*0.1;
                 eBomb.visible=true;
             }else{
                 //サウンドエフェクト
@@ -1022,7 +1022,7 @@ int fingerCnt;
                 pBomb.position=ccp(arc4random()%(int)(pBomb.contentSize.width*pBomb.scale),
                                         arc4random()%(int)(pBomb.contentSize.height*pBomb.scale)+
                                         (playerFortress.contentSize.height*playerFortress.scale)/3);
-                pBomb.scale=(arc4random()%4+2)*0.1;
+                pBomb.scale=(arc4random()%4+6)*0.1;
                 pBomb.visible=true;
             }
             //soundCnt++;

@@ -102,7 +102,7 @@ CCLabelBMFont* coinLabel;
 
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
-                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_500.png"]];
     coin.scale=0.3;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
@@ -243,7 +243,7 @@ CCLabelBMFont* coinLabel;
     [self addChild:creditButton];
     
     //バージョン表記
-    CCLabelTTF* version=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"VirginTech© v%@",
+    CCLabelTTF* version=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"©VirginTech v%@",
                                 [[[NSBundle mainBundle] infoDictionary]objectForKey:@"CFBundleShortVersionString"]]
                                 fontName:@"Verdana" fontSize:10];
     version.position=ccp(matchMakeButton.position.x,matchMakeButton.position.y-(matchMakeButton.contentSize.height*matchMakeButton.scale)/2-version.contentSize.height/2);

@@ -58,7 +58,7 @@ CCLabelBMFont* coinLabel;
     
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
-                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                    [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_500.png"]];
     coin.scale=0.3;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];

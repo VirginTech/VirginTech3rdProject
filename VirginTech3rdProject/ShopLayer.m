@@ -76,7 +76,7 @@ CCLabelBMFont* coinLabel;
     
     //現在コイン数
     CCSprite* coin=[CCSprite spriteWithSpriteFrame:
-                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                      [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_500.png"]];
     coin.scale=0.3;
     coin.position=ccp((coin.contentSize.width*coin.scale)/2, winSize.height-(coin.contentSize.height*coin.scale)/2);
     [self addChild:coin];
@@ -141,31 +141,31 @@ CCLabelBMFont* coinLabel;
     
     //コインパック
     CCSprite* coin01=[CCSprite spriteWithSpriteFrame:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_100.png"]];
     coin01.position=ccp(40, winSize.height -130);
     coin01.scale=0.3;
     [self addChild:coin01];
     
     CCSprite* coin02=[CCSprite spriteWithSpriteFrame:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_200.png"]];
     coin02.position=ccp(coin01.position.x, coin01.position.y -40);
     coin02.scale=0.3;
     [self addChild:coin02];
     
     CCSprite* coin03=[CCSprite spriteWithSpriteFrame:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_300.png"]];
     coin03.position=ccp(coin01.position.x, coin01.position.y -80);
     coin03.scale=0.3;
     [self addChild:coin03];
     
     CCSprite* coin04=[CCSprite spriteWithSpriteFrame:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_500.png"]];
     coin04.position=ccp(coin01.position.x, coin01.position.y -120);
     coin04.scale=0.3;
     [self addChild:coin04];
     
     CCSprite* coin05=[CCSprite spriteWithSpriteFrame:
-                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin.png"]];
+                     [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"coin_1000.png"]];
     coin05.position=ccp(coin01.position.x, coin01.position.y -160);
     coin05.scale=0.3;
     [self addChild:coin05];
