@@ -12,7 +12,9 @@
 #import "StageScene.h"
 #import "SoundManager.h"
 
+#import "IAdLayer.h"
 #import "IMobileLayer.h"
+#import "AdGenerLayer.h"
 
 @implementation SelectScene
 
@@ -41,9 +43,21 @@ CCScrollView* scrollView;
     //CCNodeColor *background = [CCNodeColor nodeWithColor:[CCColor colorWithRed:0.2f green:0.2f blue:0.2f alpha:1.0f]];
     //[self addChild:background];
     
-    //i-Mobile広告表示
-    IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:false];
-    [self addChild:iMobileAd];
+    if([GameManager getLocale]==1){//日本語なら
+        //i-Mobile広告(フッター、アイコン)
+        IMobileLayer* iMobileAd=[[IMobileLayer alloc]init:false];
+        [self addChild:iMobileAd];
+    }else{//それ以外
+        //iAd広告
+        IAdLayer* iAdLayer=[[IAdLayer alloc]init];
+        [self addChild:iAdLayer];
+    }
+
+    /*/iPadならAdGene広告(iPadフッター)
+    if([GameManager getDevice]==3){
+        AdGenerLayer* adgene=[[AdGenerLayer alloc]init];
+        [self addChild:adgene];
+    }*/
     
     //画面サイズ設定
     UIImage *image = [UIImage imageNamed:@"bgLayer.png"];

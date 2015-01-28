@@ -13,6 +13,8 @@ extern int TURN_OBJ_MAX;
 
 @interface GameManager : NSObject
 
++(int)getLocale;
++(void)setLocale:(int)value;//1:英語 2:日本語
 +(int)getDevice;
 +(void)setDevice:(int)type;// 1:iPhone5,6 2:iPhone4 3:iPad2
 +(float)getOsVersion;

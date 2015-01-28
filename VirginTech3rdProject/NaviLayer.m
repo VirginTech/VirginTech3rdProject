@@ -13,7 +13,9 @@
 #import "SelectScene.h"
 #import "SoundManager.h"
 
+#import "IAdLayer.h"
 #import "IMobileLayer.h"
+#import "AdGenerLayer.h"
 
 @implementation NaviLayer
 
@@ -25,7 +27,9 @@ CCButton *resumeButton;
 CCButton* titleButton;
 CCButton* selectButton;
 
+IAdLayer* iAdLayer;
 IMobileLayer* iMobileAd;
+//AdGenerLayer* adgene;
 
 + (NaviLayer *)scene
 {
@@ -122,9 +126,21 @@ IMobileLayer* iMobileAd;
     if([GameManager getMatchMode]==0){
         selectButton.visible=true;
     }
-    //i-Mobile広告表示
-    iMobileAd=[[IMobileLayer alloc]init:false];
-    [self addChild:iMobileAd];
+    if([GameManager getLocale]==1){//日本語なら
+        //i-Mobile広告(フッター、アイコン)
+        iMobileAd=[[IMobileLayer alloc]init:false];
+        [self addChild:iMobileAd];
+    }else{//それ以外
+        //iAd広告
+        iAdLayer=[[IAdLayer alloc]init];
+        [self addChild:iAdLayer];
+    }
+
+    /*/iPadならAdGene広告(iPadフッター)
+    if([GameManager getDevice]==3){
+        adgene=[[AdGenerLayer alloc]init];
+        [self addChild:adgene];
+    }*/
 }
 
 -(void)resume
@@ -136,8 +152,16 @@ IMobileLayer* iMobileAd;
     resumeButton.visible=false;
     titleButton.visible=false;
     selectButton.visible=false;
+    
     //広告非表示
-    [iMobileAd removeLayer];
+    if([GameManager getLocale]==1){//日本語なら
+        [iMobileAd removeLayer];
+    }else{
+        [iAdLayer removeLayer];
+    }
+    /*if([GameManager getDevice]==3){
+        [adgene removeLayer];
+    }*/
 }
 
 - (void)onPauseClicked:(id)sender
@@ -169,7 +193,14 @@ IMobileLayer* iMobileAd;
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     //広告非表示
-    [iMobileAd removeLayer];
+    if([GameManager getLocale]==1){//日本語なら
+        [iMobileAd removeLayer];
+    }else{
+        [iAdLayer removeLayer];
+    }
+    /*if([GameManager getDevice]==3){
+        [adgene removeLayer];
+    }*/
     //インターステイシャル広告表示
     [ImobileSdkAds showBySpotID:@"359467"];
 }
@@ -182,7 +213,14 @@ IMobileLayer* iMobileAd;
     [[CCDirector sharedDirector] replaceScene:[SelectScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:1.0]];
     //広告非表示
-    [iMobileAd removeLayer];
+    if([GameManager getLocale]==1){//日本語なら
+        [iMobileAd removeLayer];
+    }else{
+        [iAdLayer removeLayer];
+    }
+    /*if([GameManager getDevice]==3){
+        [adgene removeLayer];
+    }*/
     //インターステイシャル広告表示
     [ImobileSdkAds showBySpotID:@"359467"];
 }

@@ -20,6 +20,7 @@ int TURN_OBJ_MAX;//一度に投入できる数
 //==============
 // メモリ内
 //==============
+int locale;//1:日本語 2:それ以外
 int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ
@@ -37,7 +38,13 @@ bool pauseFlg;
 +(int)getCurrentScore{
     return currentScore;
 }
-
+//ロケール登録
++(void)setLocale:(int)value{
+    locale=value;
+}
++(int)getLocale{
+    return locale;
+}
 //デバイス取得／登録
 +(void)setDevice:(int)type{
     deviceType=type;

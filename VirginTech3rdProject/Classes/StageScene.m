@@ -1021,7 +1021,7 @@ int fingerCnt;
                 [SoundManager f_Bomb_Effect:0];
                 pBomb.position=ccp(arc4random()%(int)(pBomb.contentSize.width*pBomb.scale),
                                         arc4random()%(int)(pBomb.contentSize.height*pBomb.scale)+
-                                        (playerFortress.contentSize.height*playerFortress.scale)/3);
+                                        (playerFortress.contentSize.height*playerFortress.scale));
                 pBomb.scale=(arc4random()%4+6)*0.1;
                 pBomb.visible=true;
             }

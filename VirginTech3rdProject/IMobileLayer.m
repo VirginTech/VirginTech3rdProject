@@ -36,11 +36,11 @@ CGSize winSize;
         [ImobileSdkAds startBySpotID:@"362877"];
         
         adView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 728, 90)];
-        adView.frame=CGRectOffset(adView.frame, 0,winSize.height*2-adView.frame.size.height/2);
+        adView.frame=CGRectOffset(adView.frame, 20,winSize.height*2);
         
         [[[CCDirector sharedDirector]view]addSubview:adView];
         
-        //[ImobileSdkAds setSpotDelegate:@"362877" delegate:self];
+        [ImobileSdkAds setSpotDelegate:@"362877" delegate:self];
         [ImobileSdkAds showBySpotID:@"362877" View:adView];
     }
     else//iPhone
@@ -49,11 +49,11 @@ CGSize winSize;
         [ImobileSdkAds startBySpotID:@"359462"];
 
         adView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-        adView.frame=CGRectOffset(adView.frame, 0,winSize.height-adView.frame.size.height);
+        adView.frame=CGRectOffset(adView.frame, 0,winSize.height);
 
         [[[CCDirector sharedDirector]view]addSubview:adView];
         
-        //[ImobileSdkAds setSpotDelegate:@"359462" delegate:self];
+        [ImobileSdkAds setSpotDelegate:@"359462" delegate:self];
         [ImobileSdkAds showBySpotID:@"359462" View:adView];
     }
     
@@ -82,7 +82,7 @@ CGSize winSize;
             [[[CCDirector sharedDirector]view]addSubview:viewCon.view];
             
             [ImobileSdkAds showBySpotID:@"359471" ViewController:viewCon
-                        Position:CGPointMake(-600,(winSize.height*2)/2-50) IconPrams:iconParams];
+                        Position:CGPointMake(-600,(winSize.height*2)/2-100) IconPrams:iconParams];
         }
         else
         {
@@ -109,12 +109,14 @@ CGSize winSize;
         }
     }
     
+    adViewFlg=false;
+    
     return self;
 }
 
 - (void) dealloc
 {
-    //[ImobileSdkAds setSpotDelegate:@"359462" delegate:nil];
+    [ImobileSdkAds setSpotDelegate:@"359462" delegate:nil];
     [adView removeFromSuperview];
     adView=nil;
     
@@ -124,7 +126,7 @@ CGSize winSize;
 
 -(void)removeLayer
 {
-    //[ImobileSdkAds setSpotDelegate:@"359462" delegate:nil];
+    [ImobileSdkAds setSpotDelegate:@"359462" delegate:nil];
     [adView removeFromSuperview];
     adView=nil;
 
@@ -133,12 +135,18 @@ CGSize winSize;
 }
 
 //広告の表示が準備完了した際に呼ばれます
-- (void)imobileSdkAdsSpot:(NSString *)spotId didReadyWithValue:(ImobileSdkAdsReadyResult)value{};
+- (void)imobileSdkAdsSpot:(NSString *)spotId didReadyWithValue:(ImobileSdkAdsReadyResult)value
+{
+    /*[UIView animateWithDuration:0.3 animations:^
+    {
+        adView.frame=CGRectOffset(adView.frame, 0,-adView.frame.size.height);
+    }];*/
+}
 
 //広告の取得を失敗した際に呼ばれます
 - (void)imobileSdkAdsSpot:(NSString *)spotId didFailWithValue:(ImobileSdkAdsFailResult)value
 {
-    NSLog(@"ERROR=%u",value);
+    //NSLog(@"ERROR=%u",value);
 }
 
 //広告の表示要求があった際に、準備が完了していない場合に呼ばれます
@@ -151,6 +159,16 @@ CGSize winSize;
 - (void)imobileSdkAdsSpotDidClose:(NSString *)spotId{};
 
 //広告の表示が完了した際に呼ばれます
-- (void)imobileSdkAdsSpotDidShow:(NSString *)spotId{};
+- (void)imobileSdkAdsSpotDidShow:(NSString *)spotId
+{
+    if(!adViewFlg)
+    {
+        [UIView animateWithDuration:0.3 animations:^
+        {
+            adView.frame=CGRectOffset(adView.frame, 0,-adView.frame.size.height);
+        }];
+        adViewFlg=true;
+    }
+}
 
 @end

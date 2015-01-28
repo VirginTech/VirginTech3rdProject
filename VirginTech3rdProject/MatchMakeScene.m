@@ -1082,10 +1082,9 @@ NaviLayer* naviLayer;
                 if([GameManager getHost]){//赤城が上
                     eBomb.position=ccp(arc4random()%(int)(eBomb.contentSize.width*eBomb.scale),
                                    arc4random()%(int)(eBomb.contentSize.height*eBomb.scale));
-                }else{//赤城が下
+                }else{//赤城が下(城反転している)
                     eBomb.position=ccp(arc4random()%(int)(eBomb.contentSize.width*eBomb.scale),
-                                       arc4random()%(int)(eBomb.contentSize.height*eBomb.scale)+
-                                       (enemyFortress.contentSize.height*enemyFortress.scale));
+                                       arc4random()%(int)(eBomb.contentSize.height*eBomb.scale));
                 }
                 eBomb.scale=(arc4random()%4+6)*0.1;
                 eBomb.visible=true;
@@ -1096,9 +1095,10 @@ NaviLayer* naviLayer;
                     pBomb.position=ccp(arc4random()%(int)(pBomb.contentSize.width*pBomb.scale),
                                    arc4random()%(int)(pBomb.contentSize.height*pBomb.scale)+
                                    (playerFortress.contentSize.height*playerFortress.scale));
-                }else{//青城が上
+                }else{//青城が上(城反転している)
                     pBomb.position=ccp(arc4random()%(int)(pBomb.contentSize.width*pBomb.scale),
-                                       arc4random()%(int)(pBomb.contentSize.height*pBomb.scale));
+                                       arc4random()%(int)(pBomb.contentSize.height*pBomb.scale)+
+                                       (playerFortress.contentSize.height*playerFortress.scale));
                 }
                 pBomb.scale=(arc4random()%4+6)*0.1;
                 pBomb.visible=true;

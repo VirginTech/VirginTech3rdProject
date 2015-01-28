@@ -15,6 +15,7 @@
     
     UIView *adView;
     UIViewController* viewCon;
+    bool adViewFlg;
 }
 
 + (IMobileLayer *)scene;

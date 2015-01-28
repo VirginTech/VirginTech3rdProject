@@ -92,6 +92,15 @@
         [GameManager setDevice:0];
     }
 
+    //ロケール登録
+    NSArray *languages = [NSLocale preferredLanguages];
+    NSString *lang = [languages objectAtIndex:0];
+    if([lang isEqualToString:@"ja"]){
+        [GameManager setLocale:1];//日本語
+    }else{
+        [GameManager setLocale:2];//それ以外
+    }
+    
     //サウンド・プリロード
     [SoundManager initSoundPreload];
     
