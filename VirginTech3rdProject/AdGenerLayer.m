@@ -29,7 +29,7 @@ CGSize winSize;
     
     if([GameManager getDevice]==3){//iPad
         adgparam = @{
-                     @"locationid" : @"16036", //管理画面から払い出された広告枠ID(16036)
+                     @"locationid" : @"20186", //管理画面から払い出された広告枠ID(16036)
                      @"adtype" : @(kADG_AdType_Tablet), //管理画面にて入力した枠サイズ(kADG_AdType_Sp：320x50, kADG_AdType_Large:320x100, kADG_AdType_Rect:300x250, kADG_AdType_Tablet:728x90, kADG_AdType_Free
                      @"originx" : @(20), //広告枠設置起点のx座標
                      @"originy" : @(winSize.height*2), //広告枠設置起点のy座標
@@ -38,7 +38,7 @@ CGSize winSize;
                 };
     }else{
         adgparam = @{
-                     @"locationid" : @"16037", //管理画面から払い出された広告枠ID(16037)
+                     @"locationid" : @"", //管理画面から払い出された広告枠ID(16037)
                      @"adtype" : @(kADG_AdType_Sp), //管理画面にて入力した枠サイズ(kADG_AdType_Sp：320x50, kADG_AdType_Large:320x100, kADG_AdType_Rect:300x250, kADG_AdType_Tablet:728x90, kADG_AdType_Free
                      @"originx" : @(0), //広告枠設置起点のx座標
                      @"originy" : @(winSize.height-50), //広告枠設置起点のy座標

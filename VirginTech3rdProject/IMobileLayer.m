@@ -25,7 +25,7 @@ CGSize winSize;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
-    [ImobileSdkAds setTestMode:YES];//テストモード
+    //[ImobileSdkAds setTestMode:YES];//テストモード
 
     //=================
     //フッターバナー

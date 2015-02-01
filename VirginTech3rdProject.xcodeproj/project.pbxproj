@@ -282,8 +282,6 @@
 		CF5FF90D1A6523A100D4DB9D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF5FF90C1A6523A100D4DB9D /* Social.framework */; };
 		CF60E6A51A5CB7820023427D /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF60E6A41A5CB7820023427D /* SoundManager.m */; };
 		CF60E6AD1A5CC3EE0023427D /* creat_obj.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */; };
-		CF6115911A6F6614004D68B3 /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF61158F1A6F6614004D68B3 /* results_default.plist */; };
-		CF6115921A6F6614004D68B3 /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF6115901A6F6614004D68B3 /* results_default.png */; };
 		CF6FB0FF1A7880BE001D03C3 /* AdGenerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6FB0FE1A7880BE001D03C3 /* AdGenerLayer.m */; };
 		CF6FB1011A7880F1001D03C3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6FB1001A7880F1001D03C3 /* CoreTelephony.framework */; };
 		CF6FB1031A78810D001D03C3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6FB1021A78810D001D03C3 /* MediaPlayer.framework */; };
@@ -316,6 +314,8 @@
 		CFF962481A5D5EB1005E1B4C /* ready.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFF962471A5D5EB1005E1B4C /* ready.mp3 */; };
 		CFFBE45A1A5CE446009A5116 /* die_enemy.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFFBE4581A5CE446009A5116 /* die_enemy.mp3 */; };
 		CFFBE45B1A5CE446009A5116 /* die_player.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFFBE4591A5CE446009A5116 /* die_player.mp3 */; };
+		CFFDD30B1A7A452C000191D4 /* results_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFFDD3091A7A452C000191D4 /* results_default.plist */; };
+		CFFDD30C1A7A452C000191D4 /* results_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CFFDD30A1A7A452C000191D4 /* results_default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -834,8 +834,6 @@
 		CF60E6A31A5CB7820023427D /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		CF60E6A41A5CB7820023427D /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = creat_obj.mp3; sourceTree = "<group>"; };
-		CF61158F1A6F6614004D68B3 /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
-		CF6115901A6F6614004D68B3 /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
 		CF6FB0FD1A7880BE001D03C3 /* AdGenerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdGenerLayer.h; sourceTree = "<group>"; };
 		CF6FB0FE1A7880BE001D03C3 /* AdGenerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdGenerLayer.m; sourceTree = "<group>"; };
 		CF6FB1001A7880F1001D03C3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -878,6 +876,8 @@
 		CFF962471A5D5EB1005E1B4C /* ready.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ready.mp3; sourceTree = "<group>"; };
 		CFFBE4581A5CE446009A5116 /* die_enemy.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = die_enemy.mp3; sourceTree = "<group>"; };
 		CFFBE4591A5CE446009A5116 /* die_player.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = die_player.mp3; sourceTree = "<group>"; };
+		CFFDD3091A7A452C000191D4 /* results_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = results_default.plist; sourceTree = "<group>"; };
+		CFFDD30A1A7A452C000191D4 /* results_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results_default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1741,12 +1741,12 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CFFDD3091A7A452C000191D4 /* results_default.plist */,
+				CFFDD30A1A7A452C000191D4 /* results_default.png */,
 				CFC9B0851A7619A5002EDE49 /* btn_default.plist */,
 				CFC9B0861A7619A5002EDE49 /* btn_default.png */,
 				CFC9B0711A760532002EDE49 /* info_default.plist */,
 				CFC9B0721A760532002EDE49 /* info_default.png */,
-				CF61158F1A6F6614004D68B3 /* results_default.plist */,
-				CF6115901A6F6614004D68B3 /* results_default.png */,
 				CF4BBA4A1A6E021D00C3A25B /* sound_default.plist */,
 				CF4BBA4B1A6E021D00C3A25B /* sound_default.png */,
 				CF4428571A3AD3AF00F17BB0 /* message_default.plist */,
@@ -2093,10 +2093,8 @@
 				CFC9B0941A7622C6002EDE49 /* item_default.png in Resources */,
 				CF4542111A4D05F2001BB61C /* bomb.plist in Resources */,
 				CFF962401A5D4A05005E1B4C /* run.mp3 in Resources */,
-				CF6115921A6F6614004D68B3 /* results_default.png in Resources */,
 				CF48173C1A11A9AA00D5597B /* bgLayer.png in Resources */,
 				CFF962451A5D4CB9005E1B4C /* opening_bgm02.mp3 in Resources */,
-				CF6115911A6F6614004D68B3 /* results_default.plist in Resources */,
 				CF94AAFE1A5B7A74006E17D3 /* rush.plist in Resources */,
 				CF4BBA4C1A6E021D00C3A25B /* sound_default.plist in Resources */,
 				CF59E0F31A5F817F0087CB58 /* lose.mp3 in Resources */,
@@ -2117,6 +2115,8 @@
 				CF4CA1C51A773A2E0063D8D3 /* manual_06.png in Resources */,
 				CF20605D19F3534700DBD8C4 /* Icon-Small@2x.png in Resources */,
 				CF522BDA1A60CE6200B0A5CC /* item.mp3 in Resources */,
+				CFFDD30B1A7A452C000191D4 /* results_default.plist in Resources */,
+				CFFDD30C1A7A452C000191D4 /* results_default.png in Resources */,
 				CFC9B0701A75FAEA002EDE49 /* fortress_default.png in Resources */,
 				CFC9B0681A75FA49002EDE49 /* player_default.png in Resources */,
 				CF20604F19F3534700DBD8C4 /* Icon-72@2x.png in Resources */,
