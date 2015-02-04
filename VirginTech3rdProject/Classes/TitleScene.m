@@ -19,6 +19,7 @@
 #import "ShopLayer.h"
 #import "SoundManager.h"
 #import "ManualLayer.h"
+#import "NoticeScene.h"
 
 #import "IAdLayer.h"
 #import "IMobileLayer.h"
@@ -271,6 +272,16 @@ CCLabelBMFont* coinLabel;
     moreAppButton.position=ccp(matchMakeButton.position.x,version.position.y-version.contentSize.height/2-(moreAppButton.contentSize.height*moreAppButton.scale)/2 - 10);
     [moreAppButton setTarget:self selector:@selector(onMoreAppClicked:)];
     [self addChild:moreAppButton];
+    
+    //お知らせボタン
+    if([GameManager getLocale]==1){//日本語のみ
+        CCButton* noticeButton=[CCButton buttonWithTitle:@""
+                        spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"notice.png"]];
+        noticeButton.scale=0.4;
+        noticeButton.position=ccp(onePlayButton.position.x,onePlayButton.position.y+(onePlayButton.contentSize.height*onePlayButton.scale)/2+(noticeButton.contentSize.height*noticeButton.scale)/2);
+        [noticeButton setTarget:self selector:@selector(onNoticeClicked:)];
+        [self addChild:noticeButton];
+    }
     
     // done
 	return self;
@@ -547,6 +558,13 @@ CCLabelBMFont* coinLabel;
 {
     NSURL* url = [NSURL URLWithString:@"https://itunes.apple.com/jp/artist/virgintech-llc./id869207880"];
     [[UIApplication sharedApplication]openURL:url];
+}
+
+-(void)onNoticeClicked:(id)sender
+{
+    [SoundManager click_Effect];
+    [[CCDirector sharedDirector] replaceScene:[NoticeScene scene]
+                               withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
 }
 
 @end

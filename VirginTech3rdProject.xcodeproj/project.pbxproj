@@ -206,6 +206,8 @@
 		CF20D57D1A36BE5C006CD725 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF20D57C1A36BE5C006CD725 /* StoreKit.framework */; };
 		CF20D5801A36BE9D006CD725 /* ShopLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20D57F1A36BE9D006CD725 /* ShopLayer.m */; };
 		CF20D5831A36D15F006CD725 /* MatchWaitLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */; };
+		CF30EFA51A820A200009C055 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF30EFA31A820A200009C055 /* btn_default.plist */; };
+		CF30EFA61A820A200009C055 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CF30EFA41A820A200009C055 /* btn_default.png */; };
 		CF43E1801A41186B00F76FA2 /* ResultsLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF43E17F1A41186B00F76FA2 /* ResultsLayer.m */; };
 		CF4428551A3AD12000F17BB0 /* MessageLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF4428541A3AD12000F17BB0 /* MessageLayer.m */; };
 		CF4428591A3AD3AF00F17BB0 /* message_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CF4428571A3AD3AF00F17BB0 /* message_default.plist */; };
@@ -282,6 +284,7 @@
 		CF5FF90D1A6523A100D4DB9D /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF5FF90C1A6523A100D4DB9D /* Social.framework */; };
 		CF60E6A51A5CB7820023427D /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CF60E6A41A5CB7820023427D /* SoundManager.m */; };
 		CF60E6AD1A5CC3EE0023427D /* creat_obj.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */; };
+		CF6ABD4E1A81A2C5004AB9C3 /* NoticeScene.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6ABD4D1A81A2C5004AB9C3 /* NoticeScene.m */; };
 		CF6FB0FF1A7880BE001D03C3 /* AdGenerLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6FB0FE1A7880BE001D03C3 /* AdGenerLayer.m */; };
 		CF6FB1011A7880F1001D03C3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6FB1001A7880F1001D03C3 /* CoreTelephony.framework */; };
 		CF6FB1031A78810D001D03C3 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6FB1021A78810D001D03C3 /* MediaPlayer.framework */; };
@@ -301,8 +304,6 @@
 		CFC9B0701A75FAEA002EDE49 /* fortress_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B06E1A75FAEA002EDE49 /* fortress_default.png */; };
 		CFC9B0731A760532002EDE49 /* info_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0711A760532002EDE49 /* info_default.plist */; };
 		CFC9B0741A760532002EDE49 /* info_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0721A760532002EDE49 /* info_default.png */; };
-		CFC9B0871A7619A5002EDE49 /* btn_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0851A7619A5002EDE49 /* btn_default.plist */; };
-		CFC9B0881A7619A5002EDE49 /* btn_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0861A7619A5002EDE49 /* btn_default.png */; };
 		CFC9B0931A7622C6002EDE49 /* item_default.plist in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0911A7622C6002EDE49 /* item_default.plist */; };
 		CFC9B0941A7622C6002EDE49 /* item_default.png in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0921A7622C6002EDE49 /* item_default.png */; };
 		CFC9B0981A7641FE002EDE49 /* title.png in Resources */ = {isa = PBXBuildFile; fileRef = CFC9B0971A7641FD002EDE49 /* title.png */; };
@@ -736,6 +737,8 @@
 		CF20D57F1A36BE9D006CD725 /* ShopLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopLayer.m; sourceTree = "<group>"; };
 		CF20D5811A36D15F006CD725 /* MatchWaitLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatchWaitLayer.h; sourceTree = "<group>"; };
 		CF20D5821A36D15F006CD725 /* MatchWaitLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MatchWaitLayer.m; sourceTree = "<group>"; };
+		CF30EFA31A820A200009C055 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
+		CF30EFA41A820A200009C055 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 		CF43E17E1A41186B00F76FA2 /* ResultsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultsLayer.h; sourceTree = "<group>"; };
 		CF43E17F1A41186B00F76FA2 /* ResultsLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultsLayer.m; sourceTree = "<group>"; };
 		CF4428531A3AD12000F17BB0 /* MessageLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageLayer.h; sourceTree = "<group>"; };
@@ -834,6 +837,8 @@
 		CF60E6A31A5CB7820023427D /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		CF60E6A41A5CB7820023427D /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
 		CF60E6AC1A5CC3EE0023427D /* creat_obj.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = creat_obj.mp3; sourceTree = "<group>"; };
+		CF6ABD4C1A81A2C5004AB9C3 /* NoticeScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoticeScene.h; sourceTree = "<group>"; };
+		CF6ABD4D1A81A2C5004AB9C3 /* NoticeScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoticeScene.m; sourceTree = "<group>"; };
 		CF6FB0FD1A7880BE001D03C3 /* AdGenerLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdGenerLayer.h; sourceTree = "<group>"; };
 		CF6FB0FE1A7880BE001D03C3 /* AdGenerLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdGenerLayer.m; sourceTree = "<group>"; };
 		CF6FB1001A7880F1001D03C3 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -863,8 +868,6 @@
 		CFC9B06E1A75FAEA002EDE49 /* fortress_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fortress_default.png; sourceTree = "<group>"; };
 		CFC9B0711A760532002EDE49 /* info_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = info_default.plist; sourceTree = "<group>"; };
 		CFC9B0721A760532002EDE49 /* info_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info_default.png; sourceTree = "<group>"; };
-		CFC9B0851A7619A5002EDE49 /* btn_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = btn_default.plist; sourceTree = "<group>"; };
-		CFC9B0861A7619A5002EDE49 /* btn_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = btn_default.png; sourceTree = "<group>"; };
 		CFC9B0911A7622C6002EDE49 /* item_default.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = item_default.plist; sourceTree = "<group>"; };
 		CFC9B0921A7622C6002EDE49 /* item_default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = item_default.png; sourceTree = "<group>"; };
 		CFC9B0971A7641FD002EDE49 /* title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = title.png; sourceTree = "<group>"; };
@@ -1727,6 +1730,8 @@
 				CF4BDAB31A25AFC000ECE855 /* GKitController.m */,
 				CF2062A319F3534900DBD8C4 /* TitleScene.h */,
 				CF2062A419F3534900DBD8C4 /* TitleScene.m */,
+				CF6ABD4C1A81A2C5004AB9C3 /* NoticeScene.h */,
+				CF6ABD4D1A81A2C5004AB9C3 /* NoticeScene.m */,
 				CF50D8BF1A1B1A4E005A1B5D /* SelectScene.h */,
 				CF50D8C01A1B1A4E005A1B5D /* SelectScene.m */,
 				CF4817401A11AA1200D5597B /* manager */,
@@ -1741,10 +1746,10 @@
 		CF20D5711A36B780006CD725 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CF30EFA31A820A200009C055 /* btn_default.plist */,
+				CF30EFA41A820A200009C055 /* btn_default.png */,
 				CFFDD3091A7A452C000191D4 /* results_default.plist */,
 				CFFDD30A1A7A452C000191D4 /* results_default.png */,
-				CFC9B0851A7619A5002EDE49 /* btn_default.plist */,
-				CFC9B0861A7619A5002EDE49 /* btn_default.png */,
 				CFC9B0711A760532002EDE49 /* info_default.plist */,
 				CFC9B0721A760532002EDE49 /* info_default.png */,
 				CF4BBA4A1A6E021D00C3A25B /* sound_default.plist */,
@@ -2089,7 +2094,7 @@
 				CF94AAFF1A5B7A74006E17D3 /* speedup.plist in Resources */,
 				CF20604219F3534700DBD8C4 /* Default@2x.png in Resources */,
 				CF5A44011A4C239B00B71D15 /* matchFont.fnt in Resources */,
-				CFC9B0871A7619A5002EDE49 /* btn_default.plist in Resources */,
+				CF30EFA51A820A200009C055 /* btn_default.plist in Resources */,
 				CFC9B0941A7622C6002EDE49 /* item_default.png in Resources */,
 				CF4542111A4D05F2001BB61C /* bomb.plist in Resources */,
 				CFF962401A5D4A05005E1B4C /* run.mp3 in Resources */,
@@ -2144,7 +2149,7 @@
 				CF83CA9119F35CCA00C78540 /* Localizable.strings in Resources */,
 				CF4CFE0B1A6222BA00352590 /* f_Bomb_02.mp3 in Resources */,
 				CF20604D19F3534700DBD8C4 /* Icon-72.png in Resources */,
-				CFC9B0881A7619A5002EDE49 /* btn_default.png in Resources */,
+				CF30EFA61A820A200009C055 /* btn_default.png in Resources */,
 				CFC9B06F1A75FAEA002EDE49 /* fortress_default.plist in Resources */,
 				CF4BBA491A6DFFB100C3A25B /* itemLayer.png in Resources */,
 				CF20622919F3534800DBD8C4 /* LICENSE_CCBReader.txt in Resources */,
@@ -2333,6 +2338,7 @@
 				CF20608A19F3534700DBD8C4 /* CCEffectTexture.m in Sources */,
 				CF20617919F3534800DBD8C4 /* CCColor.m in Sources */,
 				CF4BDAB41A25AFC000ECE855 /* GKitController.m in Sources */,
+				CF6ABD4E1A81A2C5004AB9C3 /* NoticeScene.m in Sources */,
 				CF20609319F3534700DBD8C4 /* CCShader.m in Sources */,
 				CF2060B519F3534700DBD8C4 /* CCAnimation.m in Sources */,
 				CF20620119F3534800DBD8C4 /* CCControlTextureFactory.m in Sources */,
