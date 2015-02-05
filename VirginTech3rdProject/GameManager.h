@@ -64,6 +64,8 @@ extern int TURN_OBJ_MAX;
 
 +(void)save_First_Battle:(bool)flg;
 
++(void)save_Gift_Acquired:(NSString*)giftKey flg:(bool)flg;
+
 +(void)submit_Score_GameCenter:(NSInteger)score;
 +(void)submit_Points_GameCenter:(NSInteger)points;
 

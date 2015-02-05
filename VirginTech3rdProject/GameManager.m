@@ -377,6 +377,16 @@ bool pauseFlg;
 }
 
 //=========================================
+//　特典付与フラグ
+//=========================================
++(void)save_Gift_Acquired:(NSString*)giftKey flg:(bool)flg
+{
+    NSUserDefaults  *userDefault=[NSUserDefaults standardUserDefaults];
+    NSNumber* gift=[NSNumber numberWithBool:flg];
+    [userDefault setObject:gift forKey:giftKey];
+}
+
+//=========================================
 //GameCenterへスコアを送信
 //=========================================
 +(void)submit_Score_GameCenter:(NSInteger)score

@@ -80,3 +80,10 @@
 "PostMessage"="【戦国ヒーロー】\nおめでとう！\nハイスコア";
 "PostEnd"="点達成!";
 "URL"="https://itunes.apple.com/jp/app/id945977622";
+
+//予約特典
+"Gift"="予約特典";
+"Gift_Get"="小判200両ゲット！";
+"Gift_Error"="特典IDが間違っています";
+"Gift_Not"="特典は、お１人様１回までです";
+

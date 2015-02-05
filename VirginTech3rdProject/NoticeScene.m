@@ -16,6 +16,8 @@
 CGSize winSize;
 UIWebView *webview;
 
+MessageLayer* msgBox;
+
 + (NoticeScene *)scene
 {
     return [[self alloc] init];
@@ -77,6 +79,127 @@ UIWebView *webview;
 {
     webview.delegate=nil;
     [webview removeFromSuperview];
+}
+
+//画面推移時に呼ばれるデリゲートメソッド
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
+                                                navigationType:(UIWebViewNavigationType)navigationType;
+{
+    //「jp.co.virgintech.VirginTech3rdProject」スキーマ以外は通常にページ遷移をさせる
+    NSString* scheme = [[request URL] scheme];
+    if (![scheme isEqualToString:@"jp.co.virgintech.virgintech3rdproject"]) {
+        return YES;
+    }
+    
+    //=========================
+    // 特典コード認証 準備
+    //=========================
+    
+    //クエリ文字列をパースする
+    NSString* query = [[request URL] query];
+    NSArray *array = [query componentsSeparatedByString:@"="];
+    
+    //Webビューから送信された情報を受信する
+    NSString* giftKey=[array objectAtIndex:0];
+    int inputId=[[array objectAtIndex:1]intValue];
+    int giftId=[[array objectAtIndex:2]intValue];
+    
+    //認証処理
+    [self gift_certification:inputId giftKey:giftKey giftId:giftId];
+    
+    return NO;
+}
+
+//=========================
+// 特典コード認証 処理
+//=========================
+-(void)gift_certification:(int)inputId giftKey:(NSString*)giftKey giftId:(int)giftId
+{
+    if(inputId==giftId){//有効なIDなら
+        /*/カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Gift",NULL)
+                                                msg:NSLocalizedString(@"Gift_Get",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(250, 180)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:1];//特典付与
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:1];*/
+        
+        NSString *appDomain = [[NSBundle mainBundle] bundleIdentifier];
+        NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:appDomain];
+        
+        if([dict valueForKey:giftKey]==nil)//まだ貰ってなければ
+        {
+            //ギフトを保存
+            [GameManager save_Gift_Acquired:giftKey flg:true];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gift",NULL)
+                                                                message:NSLocalizedString(@"Gift_Get",NULL)
+                                                                delegate:self
+                                                                cancelButtonTitle:nil
+                                                                otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
+            alert.tag=1;//特典付与
+            [alert show];
+        }
+        else//もうすでに貰っていれば
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gift",NULL)
+                                                                message:NSLocalizedString(@"Gift_Not",NULL)
+                                                                delegate:nil
+                                                                cancelButtonTitle:nil
+                                                                otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
+            alert.tag=0;//何もなし
+            [alert show];
+        }
+    }else{
+        /*/カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Gift",NULL)
+                                                msg:NSLocalizedString(@"Gift_Error",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(250, 180)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:0];//何もなし
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:1];*/
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gift",NULL)
+                                                            message:NSLocalizedString(@"Gift_Error",NULL)
+                                                            delegate:nil
+                                                            cancelButtonTitle:nil
+                                                            otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
+        alert.tag=0;//何もなし
+        [alert show];
+    }
+}
+
+//==============================
+// アラートメッセージ デリゲートメソッド
+//==============================
+-(void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView.tag==0){
+        //何もなし
+    }else{
+        //特典付与
+        [GameManager save_Coin:[GameManager load_Coin]+200];
+    }
+}
+
+//============================
+// カスタムアラート デリゲートメソッド
+//============================
+-(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
+{
+    if(procNum==1){//特典付与
+        [GameManager save_Coin:[GameManager load_Coin]+300];
+    }else{
+        //何もなし
+    }
+    msgBox.delegate=nil;
 }
 
 - (void)onTitleClicked:(id)sender
