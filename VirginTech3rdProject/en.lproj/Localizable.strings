@@ -5,3 +5,92 @@
   Created by VirginTech LLC. on 2014/10/19.
   Copyright (c) 2014年 VirginTech LLC. All rights reserved.
 */
+
+//ロケール
+"Locale" = "Locale";
+
+//ボタン
+"Yes"="YES";
+"No"="NO";
+"Ok"="OK";
+
+//アプリ内課金
+"Notnetwork" = "No network connection.";
+"Error" = "Error";
+"Completed" = "Completed";
+"InAppBillingIslimited" = "In-App Purchase is restrictions.";
+"ItemIdIsInvalid" = "Item ID is invalid.";
+"Purchase" = " Get!";
+"Restored" = "Restored ";
+"Processing" = "Purchase processing... ";
+
+//アイテム購入
+"Item01"="【Bomb】";
+"Item02"="【Defense Up】";
+"Item03"="【Charge】";
+"Item04"="【Attack Up】";
+"Item05"="【Quick steps】";
+"GetItem"="Get items";
+"ItemPurchase"="Purchase 10 set";
+"ShopPurchase"="'KOBAN' are available at shop";
+"NotCoin"="You need more 'KOBAN'";
+
+//アイテム倉庫
+"descript_01"="\nEnemy soldiers around you \nwill die instantly.";
+"descript_02"="\nYour defense ability \nwill improve.";
+"descript_03"="\n\nYour troops will charge \nintensely towards the \nenemy territory";
+"descript_04"="\nYour attacking ability \nwill improve.";
+"descript_05"="\nYou will be able \nto move faster.";
+"quantity"="You have";
+
+//対戦間通信
+"BattleStrart"="Battle Start!";
+"NotBattleData"="Failed to retrieve battle data";
+"PlayerDisconnected"="Your opponent is disconnected";
+"NetworkError"="Network error";
+"OpponentWait"="Waiting for your opponent......";
+
+//戦闘準備
+"BattleReady"="Ready for the battle!";
+"BlueArmy"="Your troops";
+"RedArmy"="Enemy troops";
+"YouReady"="Are you ready?";
+"Man"="";
+
+//リザルト
+"EnemySoldier"="Defeated enemy soldiers:";
+"YourSoldier"="Your survived soldiers:";
+"EnemyDestruct"="Enemy castle destruction point:";
+"RemainPoint"="Your castle remaining point:";
+
+//ウェルカムメッセージ
+"Welcome"="Welcome!";
+"FirstLogin"="Thank you for downloading. \nIt doesn’t cost anything to play \nthis game, but some of the items \nhave to be paid. \nPlease make sure that children won’t \npurchase any items without \ntheir parents supervision.";
+
+//ログインボーナス
+"BonusGet"="Got a bonus!";
+"FirstBonus"="Thank you for the very first \nlog-in. Free 'KOBAN' 100-ryo \nare yours now!";
+"DailyBonus"="Free daily 'KOBAN' 10-ryo!";
+
+//ローカル通知
+"LocalNotification"="General! The enemy force has started attacking!";
+
+//レビュー誘導
+"Rate" = "Rate";
+"RateItNow" = "Rate It Now";
+"RemindMeLater" = "Remind Me Later";
+"NoThanks" = "No,Thanks";
+"Rate_Message"="Thank you for playing the game.\nWould you mind taking a moment \nto rate it?";
+
+//ソーシャル投稿メッセージ
+"PostMessage"="【SENGOKU HERO】\nCongratulations!\nHigh score";
+"PostEnd"=" is achieved!";
+"URL"="https://itunes.apple.com/jp/app/id945977622";
+
+//予約特典
+"Gift"="Present!";
+"Gift_Get"="-ryo";
+"Gift_Koban"="Get! 'KOBAN' ";
+"Gift_Error"="ID for the exclusive offer \nis incorrect";
+"Gift_Not"="This exclusive offer is limited \nto one per customer";
+

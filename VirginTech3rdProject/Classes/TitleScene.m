@@ -138,10 +138,18 @@ CCLabelBMFont* coinLabel;
     
     //1プレイボタン
     //CCButton *onePlayButton = [CCButton buttonWithTitle:@"[シングルモード]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    CCButton *onePlayButton = [CCButton buttonWithTitle:@""
+    CCButton *onePlayButton;
+    if([GameManager getLocale]==1){//日本
+        onePlayButton = [CCButton buttonWithTitle:@""
                 spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"onePlayBtn_a.png"]
                 highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"onePlayBtn_b.png"]
                 disabledSpriteFrame:nil];
+    }else{//それ以外(デフォルト)
+        onePlayButton = [CCButton buttonWithTitle:@""
+                spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"onePlayBtn_en_a.png"]
+                highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"onePlayBtn_en_b.png"]
+                disabledSpriteFrame:nil];
+    }
     //onePlayButton.positionType = CCPositionTypeNormalized;
     //onePlayButton.position = ccp(0.5f, 0.35f);
     onePlayButton.scale=0.7;
@@ -157,10 +165,18 @@ CCLabelBMFont* coinLabel;
 
     //2プレイボタン
     //CCButton *realBattleButton = [CCButton buttonWithTitle:@"[リアル対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    CCButton *realBattleButton = [CCButton buttonWithTitle:@""
+    CCButton *realBattleButton;
+    if([GameManager getLocale]==1){//日本
+        realBattleButton = [CCButton buttonWithTitle:@""
                 spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twoPlayBtn_a.png"]
                 highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twoPlayBtn_b.png"]
                 disabledSpriteFrame:nil];
+    }else{
+        realBattleButton = [CCButton buttonWithTitle:@""
+                spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twoPlayBtn_en_a.png"]
+                highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twoPlayBtn_en_b.png"]
+                disabledSpriteFrame:nil];
+    }
     //realBattleButton.positionType = CCPositionTypeNormalized;
     //realBattleButton.position = ccp(0.5f, 0.30f);
     realBattleButton.scale=0.7;
@@ -170,10 +186,18 @@ CCLabelBMFont* coinLabel;
 
     //オンライン対戦ボタン
     //CCButton *matchMakeButton = [CCButton buttonWithTitle:@"[オンライン対戦モード]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    CCButton *matchMakeButton = [CCButton buttonWithTitle:@""
+    CCButton *matchMakeButton;
+    if([GameManager getLocale]==1){//日本
+        matchMakeButton = [CCButton buttonWithTitle:@""
                 spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"netPlayBtn_a.png"]
                 highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"netPlayBtn_b.png"]
                 disabledSpriteFrame:nil];
+    }else{
+        matchMakeButton = [CCButton buttonWithTitle:@""
+                spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"netPlayBtn_en_a.png"]
+                highlightedSpriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"netPlayBtn_en_b.png"]
+                disabledSpriteFrame:nil];
+    }
     //matchMakeButton.positionType = CCPositionTypeNormalized;
     //matchMakeButton.position = ccp(0.5f, 0.25f);
     matchMakeButton.scale=0.7;
@@ -183,8 +207,14 @@ CCLabelBMFont* coinLabel;
     
     //アイテム倉庫ボタン
     //CCButton *itemInventoryButton = [CCButton buttonWithTitle:@"[アイテム倉庫]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    CCButton *itemInventoryButton = [CCButton buttonWithTitle:@""
+    CCButton *itemInventoryButton;
+    if([GameManager getLocale]==1){//日本
+        itemInventoryButton = [CCButton buttonWithTitle:@""
                             spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item_btn.png"]];
+    }else{
+        itemInventoryButton = [CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"item_btn_en.png"]];
+    }
     //itemInventoryButton.positionType = CCPositionTypeNormalized;
     //itemInventoryButton.position = ccp(0.5f, 0.20f);
     itemInventoryButton.scale=0.7;
@@ -194,8 +224,14 @@ CCLabelBMFont* coinLabel;
     
     //マニュアルボタン
     //CCButton *manualButton = [CCButton buttonWithTitle:@"[遊び方]" fontName:@"Verdana-Bold" fontSize:18.0f];
-    CCButton *manualButton = [CCButton buttonWithTitle:@""
+    CCButton *manualButton;
+    if([GameManager getLocale]==1){//日本
+        manualButton = [CCButton buttonWithTitle:@""
                             spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"manual_btn.png"]];
+    }else{
+        manualButton = [CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"manual_btn_en.png"]];
+    }
     //manualButton.positionType = CCPositionTypeNormalized;
     //manualButton.position = ccp(0.5f, 0.15f);
     manualButton.scale=0.7;
@@ -266,8 +302,14 @@ CCLabelBMFont* coinLabel;
     [self addChild:version];
     
     //おすすめアプリボタン
-    CCButton *moreAppButton = [CCButton buttonWithTitle:@""
+    CCButton *moreAppButton;
+    if([GameManager getLocale]==1){//日本
+        moreAppButton = [CCButton buttonWithTitle:@""
                             spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"moreAppBtn.png"]];
+    }else{
+        moreAppButton = [CCButton buttonWithTitle:@""
+                            spriteFrame:[[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"moreAppBtn_en.png"]];
+    }
     moreAppButton.scale=0.6;
     moreAppButton.position=ccp(matchMakeButton.position.x,version.position.y-version.contentSize.height/2-(moreAppButton.contentSize.height*moreAppButton.scale)/2 - 10);
     [moreAppButton setTarget:self selector:@selector(onMoreAppClicked:)];

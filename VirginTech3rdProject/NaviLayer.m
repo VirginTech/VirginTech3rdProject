@@ -87,11 +87,16 @@ IMobileLayer* iMobileAd;
     [self addChild:resumeButton];
     
     //タイトルボタン
-    titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
-                                [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    if([GameManager getLocale]==1){
+        titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    }else{
+        titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn_en.png"]];
+    }
     titleButton.positionType = CCPositionTypeNormalized;
     if([GameManager getMatchMode]==0){//１人対戦
-        titleButton.position = ccp(0.35f, 0.3f);
+        titleButton.position = ccp(0.3f, 0.3f);
     }else if([GameManager getMatchMode]==1){//２人対戦
         titleButton.position = ccp(0.5f, 0.5f);
     }else{//ネット対戦
@@ -103,10 +108,15 @@ IMobileLayer* iMobileAd;
     [self addChild:titleButton];
     
     //セレクトボタン
-    selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
-                                [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn.png"]];
+    if([GameManager getLocale]==1){
+        selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn.png"]];
+    }else{
+        selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn_en.png"]];
+    }
     selectButton.positionType = CCPositionTypeNormalized;
-    selectButton.position = ccp(0.65f, 0.3f); // Top Right of screen
+    selectButton.position = ccp(0.7f, 0.3f); // Top Right of screen
     [selectButton setTarget:self selector:@selector(onSelectClicked:)];
     selectButton.scale=0.6;
     selectButton.visible=false;

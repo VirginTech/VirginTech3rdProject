@@ -20,7 +20,7 @@ int TURN_OBJ_MAX;//一度に投入できる数
 //==============
 // メモリ内
 //==============
-int locale;//1:日本語 2:それ以外
+int locale;//1:日本語 0:それ以外(デフォルト)
 int deviceType;// 1:iPhone5,6 2:iPhone4 3:iPad2
 float osVersion;//OSバージョン
 CGSize worldSize;//ワールドサイズ

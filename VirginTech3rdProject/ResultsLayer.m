@@ -104,11 +104,17 @@ MessageLayer* msgBox;
     [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"results_default.plist"];
     
-    CCButton *titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
-                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    CCButton *titleButton;
+    if([GameManager getLocale]==1){
+        titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    }else{
+        titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn_en.png"]];
+    }
     titleButton.positionType = CCPositionTypeNormalized;
     if([GameManager getMatchMode]==0){
-        titleButton.position = ccp(0.35f, 0.275f); // Top Right of screen
+        titleButton.position = ccp(0.3f, 0.275f); // Top Right of screen
     }else{
         titleButton.position = ccp(0.5f, 0.275f); // Top Right of screen
     }
@@ -119,28 +125,50 @@ MessageLayer* msgBox;
     //=================
     //勝利判定ラベル
     //=================
-    victorySpr=[CCSprite spriteWithSpriteFrame:
+    if([GameManager getLocale]==1){
+        victorySpr=[CCSprite spriteWithSpriteFrame:
                         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"victory_jp.png"]];
+    }else{
+        victorySpr=[CCSprite spriteWithSpriteFrame:
+                        [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"victory_en.png"]];
+    }
     
-    defeatSpr=[CCSprite spriteWithSpriteFrame:
+    if([GameManager getLocale]==1){
+        defeatSpr=[CCSprite spriteWithSpriteFrame:
                         [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"defeat_jp.png"]];
+    }else{
+        defeatSpr=[CCSprite spriteWithSpriteFrame:
+                        [[CCSpriteFrameCache sharedSpriteFrameCache] spriteFrameByName:@"defeat_en.png"]];
+    }
     victorySpr.visible=false;
     defeatSpr.visible=false;
     
     if([GameManager getMatchMode]==0)//シングル
     {
         //セレクトシーン
-        CCButton* selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
-                                  [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn.png"]];
+        CCButton *selectButton;
+        if([GameManager getLocale]==1){
+            selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                           [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn.png"]];
+        }else{
+            selectButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                           [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"selectBtn_en.png"]];
+        }
         selectButton.positionType = CCPositionTypeNormalized;
-        selectButton.position = ccp(0.65f, 0.275f); // Top Right of screen
+        selectButton.position = ccp(0.7f, 0.275f); // Top Right of screen
         [selectButton setTarget:self selector:@selector(onSelectClicked:)];
         selectButton.scale=0.6;
         [self addChild:selectButton];
         
         //ツイッターボタン
-        CCButton* twitter=[CCButton buttonWithTitle:@"" spriteFrame:
-                           [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twitter.png"]];
+        CCButton* twitter;
+        if([GameManager getLocale]==1){
+            twitter=[CCButton buttonWithTitle:@"" spriteFrame:
+                            [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twitter.png"]];
+        }else{
+            twitter=[CCButton buttonWithTitle:@"" spriteFrame:
+                            [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"twitter_en.png"]];
+        }
         twitter.positionType = CCPositionTypeNormalized;
         twitter.position=ccp(0.3f,0.2f);
         twitter.scale=0.7;
@@ -148,8 +176,14 @@ MessageLayer* msgBox;
         [self addChild:twitter];
         
         //フェイスブックボタン
-        CCButton* facebook=[CCButton buttonWithTitle:@"" spriteFrame:
-                           [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"facebook.png"]];
+        CCButton* facebook;
+        if([GameManager getLocale]==1){
+            facebook=[CCButton buttonWithTitle:@"" spriteFrame:
+                            [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"facebook.png"]];
+        }else{
+            facebook=[CCButton buttonWithTitle:@"" spriteFrame:
+                            [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"facebook_en.png"]];
+        }
         facebook.positionType = CCPositionTypeNormalized;
         facebook.position=ccp(0.7f,0.2f);
         facebook.scale=0.7;
@@ -187,7 +221,7 @@ MessageLayer* msgBox;
             }
             [self addChild:enemy];
             
-            enemyDieLabel=[CCLabelBMFont labelWithString:@"たおした敵兵の数 : " fntFile:@"results.fnt"];
+            enemyDieLabel=[CCLabelBMFont labelWithString:NSLocalizedString(@"EnemySoldier",NULL)fntFile:@"results.fnt"];
             enemyDieLabel.scale=0.3;
             enemyDieLabel.position=ccp(enemy.position.x+(enemy.contentSize.width*enemy.scale)/2+(enemyDieLabel.contentSize.width*enemyDieLabel.scale)/2,enemy.position.y);
             [self addChild:enemyDieLabel];
@@ -205,7 +239,7 @@ MessageLayer* msgBox;
             player.position=ccp(enemy.position.x,enemy.position.y-(enemy.contentSize.height*enemy.scale)/2-(player.contentSize.height*player.scale)/2);
             [self addChild:player];
             
-            playerDieLabel=[CCLabelBMFont labelWithString:@"生残った我兵の数 : " fntFile:@"results.fnt"];
+            playerDieLabel=[CCLabelBMFont labelWithString:NSLocalizedString(@"YourSoldier",NULL)fntFile:@"results.fnt"];
             playerDieLabel.scale=0.3;
             playerDieLabel.position=ccp(player.position.x+(player.contentSize.width*player.scale)/2+(playerDieLabel.contentSize.width*playerDieLabel.scale)/2,player.position.y);
             [self addChild:playerDieLabel];
@@ -223,7 +257,7 @@ MessageLayer* msgBox;
             eFortress.position=ccp(player.position.x,player.position.y-(player.contentSize.height*player.scale)/2-(eFortress.contentSize.height*eFortress.scale)/2);
             [self addChild:eFortress];
             
-            enemyFortressLabel=[CCLabelBMFont labelWithString:@"敵城破壊ポイント : " fntFile:@"results.fnt"];
+            enemyFortressLabel=[CCLabelBMFont labelWithString:NSLocalizedString(@"EnemyDestruct",NULL)fntFile:@"results.fnt"];
             enemyFortressLabel.scale=0.3;
             enemyFortressLabel.position=ccp(eFortress.position.x+(eFortress.contentSize.width*eFortress.scale)/2+(enemyFortressLabel.contentSize.width*enemyFortressLabel.scale)/2,eFortress.position.y);
             [self addChild:enemyFortressLabel];
@@ -241,7 +275,7 @@ MessageLayer* msgBox;
             pFortress.position=ccp(eFortress.position.x,eFortress.position.y-(eFortress.contentSize.height*player.scale)/2-(pFortress.contentSize.height*pFortress.scale)/2);
             [self addChild:pFortress];
             
-            playerFortressLabel=[CCLabelBMFont labelWithString:@"我城残存ポイント : " fntFile:@"results.fnt"];
+            playerFortressLabel=[CCLabelBMFont labelWithString:NSLocalizedString(@"RemainPoint",NULL)fntFile:@"results.fnt"];
             playerFortressLabel.scale=0.3;
             playerFortressLabel.position=ccp(pFortress.position.x+(pFortress.contentSize.width*pFortress.scale)/2+(playerFortressLabel.contentSize.width*playerFortressLabel.scale)/2,pFortress.position.y);
             [self addChild:playerFortressLabel];

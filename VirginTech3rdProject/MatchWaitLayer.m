@@ -213,10 +213,10 @@ int readyCnt;
         }
         if(playerReadyFlg && enemyReadyFlg){
             //playerLbl.fontSize=50;
-            playerLbl.scale=1.0;
+            playerLbl.scale=0.7;
             playerLbl.string=NSLocalizedString(@"BattleStrart",NULL);
             //enemyLbl.fontSize=50;
-            enemyLbl.scale=1.0;
+            enemyLbl.scale=0.7;
             enemyLbl.string=NSLocalizedString(@"BattleStrart",NULL);
             [self readyWaitStart];
         }

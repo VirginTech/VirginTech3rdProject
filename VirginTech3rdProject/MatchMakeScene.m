@@ -462,10 +462,10 @@ NaviLayer* naviLayer;
     if(mWaitLayer.playerReadyFlg && mWaitLayer.enemyReadyFlg){
         [self unschedule:@selector(readiness_Schedule:)];
         //mWaitLayer.playerLbl.fontSize=50;
-        mWaitLayer.playerLbl.scale=1.0;
+        mWaitLayer.playerLbl.scale=0.7;
         mWaitLayer.playerLbl.string=NSLocalizedString(@"BattleStrart",NULL);
         //mWaitLayer.enemyLbl.fontSize=50;
-        mWaitLayer.enemyLbl.scale=1.0;
+        mWaitLayer.enemyLbl.scale=0.7;
         mWaitLayer.enemyLbl.string=NSLocalizedString(@"BattleStrart",NULL);
         [mWaitLayer readyWaitStart];
         //[self removeChild:mWaitLayer cleanup:YES];

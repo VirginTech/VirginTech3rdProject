@@ -55,27 +55,27 @@ CCLabelTTF* speedupValue;
         [btn setTarget:self selector:@selector(onButtonClicked:)];
         btn.name=[NSString stringWithFormat:@"%d",i];
         if(i==0){
-            btn.title=@"爆　弾";
+            btn.title=NSLocalizedString(@"Item01",NULL);
             bombValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:0]] fontName:@"Verdana-Bold" fontSize:30];
             bombValue.position=ccp(btn.contentSize.width/2,bombValue.contentSize.height/2);
             [btn addChild:bombValue];
         }else if(i==1){
-            btn.title=@"防御力UP";
+            btn.title=NSLocalizedString(@"Item02",NULL);
             shieldValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:1]] fontName:@"Verdana-Bold" fontSize:30];
             shieldValue.position=ccp(btn.contentSize.width/2,shieldValue.contentSize.height/2);
             [btn addChild:shieldValue];
         }else if(i==2){
-            btn.title=@"突進の術";
+            btn.title=NSLocalizedString(@"Item03",NULL);
             onrushValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:2]] fontName:@"Verdana-Bold" fontSize:30];
             onrushValue.position=ccp(btn.contentSize.width/2,onrushValue.contentSize.height/2);
             [btn addChild:onrushValue];
         }else if(i==3){
-            btn.title=@"攻撃力UP";
+            btn.title=NSLocalizedString(@"Item04",NULL);
             attackupValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:3]] fontName:@"Verdana-Bold" fontSize:30];
             attackupValue.position=ccp(btn.contentSize.width/2,attackupValue.contentSize.height/2);
             [btn addChild:attackupValue];
         }else if(i==4){
-            btn.title=@"早足の術";
+            btn.title=NSLocalizedString(@"Item05",NULL);
             speedupValue=[CCLabelTTF labelWithString:[NSString stringWithFormat:@"%d",[GameManager load_Item_Individual:4]] fontName:@"Verdana-Bold" fontSize:30];
             speedupValue.position=ccp(btn.contentSize.width/2,speedupValue.contentSize.height/2);
             [btn addChild:speedupValue];

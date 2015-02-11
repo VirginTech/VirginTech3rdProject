@@ -98,7 +98,7 @@
     if([lang isEqualToString:@"ja"]){
         [GameManager setLocale:1];//日本語
     }else{
-        [GameManager setLocale:2];//それ以外
+        [GameManager setLocale:0];//それ以外(デフォルト)
     }
     
     //サウンド・プリロード

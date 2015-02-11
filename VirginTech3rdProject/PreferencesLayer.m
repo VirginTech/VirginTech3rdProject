@@ -166,8 +166,14 @@ CCButton* offEffectSwitch;
     [[CCSpriteFrameCache sharedSpriteFrameCache]removeSpriteFrames];
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
-    CCButton *titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
-                             [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    CCButton *titleButton;
+    if([GameManager getLocale]==1){
+        titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn.png"]];
+    }else{
+        titleButton = [CCButton buttonWithTitle:@"" spriteFrame:
+                       [[CCSpriteFrameCache sharedSpriteFrameCache]spriteFrameByName:@"titleBtn_en.png"]];
+    }
     //titleButton.positionType = CCPositionTypeNormalized;
     titleButton.scale=0.6;
     titleButton.position = ccp(winSize.width-(titleButton.contentSize.width*titleButton.scale)/2,

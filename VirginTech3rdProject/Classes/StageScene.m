@@ -278,7 +278,7 @@ int fingerCnt;
                     NSLocalizedString(@"YouReady",NULL)
                     ];
     
-    msgBox=[[MessageLayer alloc]initWithTitle:@"戦闘準備!"
+    msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"BattleReady",NULL)
                                                 msg:msg
                                                 pos:ccp(winSize.width/2,winSize.height/2)
                                                 size:CGSizeMake(200, 120)
