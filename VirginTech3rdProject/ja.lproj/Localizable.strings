@@ -77,13 +77,14 @@
 "Rate_Message"="ゲームを遊んで頂きありがとうございます。\n宜しければレビューをお願いします。";
 
 //ソーシャル投稿メッセージ
-"PostMessage"="【戦国ヒーロー】\nおめでとう！\nハイスコア";
+"PostMessage"="【戦国HERO】\nおめでとう！\nハイスコア";
 "PostEnd"="点達成!";
 "URL"="https://itunes.apple.com/jp/app/id945977622";
 
 //予約特典
-"Gift"="予約特典";
-"Gift_Get"="小判200両ゲット！";
+"Gift"="プレゼント";
+"Gift_Get"=" 両ゲット！";
+"Gift_Koban"="小判 ";
 "Gift_Error"="特典IDが間違っています";
 "Gift_Not"="特典は、お１人様１回までです";
 

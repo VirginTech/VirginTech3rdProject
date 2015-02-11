@@ -563,8 +563,39 @@ CCLabelBMFont* coinLabel;
 -(void)onNoticeClicked:(id)sender
 {
     [SoundManager click_Effect];
-    [[CCDirector sharedDirector] replaceScene:[NoticeScene scene]
+    //ネット接続できるか確認
+    Reachability *internetReach = [Reachability reachabilityForInternetConnection];
+    //[internetReach startNotifier];
+    NetworkStatus netStatus = [internetReach currentReachabilityStatus];
+    if(netStatus == NotReachable)
+    {
+        /*/ネットワーク接続なし
+         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Error",NULL)
+         message:NSLocalizedString(@"NotNetwork",NULL)
+         delegate:nil
+         cancelButtonTitle:nil
+         otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
+         [alert show];*/
+        
+        //カスタムアラートメッセージ
+        msgBox=[[MessageLayer alloc]initWithTitle:NSLocalizedString(@"Error",NULL)
+                                                msg:NSLocalizedString(@"NotNetwork",NULL)
+                                                pos:ccp(winSize.width/2,winSize.height/2)
+                                                size:CGSizeMake(200, 100)
+                                                modal:true
+                                                rotation:false
+                                                type:0
+                                                procNum:0];//処理なし
+        msgBox.delegate=self;//デリゲートセット
+        [self addChild:msgBox z:3];
+        
+        return;
+    }
+    else
+    {
+        [[CCDirector sharedDirector] replaceScene:[NoticeScene scene]
                                withTransition:[CCTransition transitionCrossFadeWithDuration:0.5]];
+    }
 }
 
 @end

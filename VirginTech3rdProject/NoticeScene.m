@@ -15,6 +15,9 @@
 
 CGSize winSize;
 UIWebView *webview;
+UIActivityIndicatorView* indicator;
+
+int giftVolume;
 
 MessageLayer* msgBox;
 
@@ -31,7 +34,7 @@ MessageLayer* msgBox;
     
     winSize=[[CCDirector sharedDirector]viewSize];
     
-    //タイトル
+    //タイトル画面
     CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
     title.positionType = CCPositionTypeNormalized;
     title.position=ccp(0.5f,0.6f);
@@ -59,7 +62,6 @@ MessageLayer* msgBox;
     //cocos2dの上に乗っける
     [[[CCDirector sharedDirector] view] addSubview:webview];
     
-    
     //画像読み込み
     [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:@"btn_default.plist"];
     
@@ -77,14 +79,52 @@ MessageLayer* msgBox;
 
 - (void) dealloc
 {
+    // インジケータを非表示にする
+    if([indicator isAnimating])
+    {
+        [indicator stopAnimating];
+        [indicator removeFromSuperview];
+    }
+    //Webビュー削除
     webview.delegate=nil;
     [webview removeFromSuperview];
 }
 
+// ページ読込開始時にインジケータ表示
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    //インジケーター
+    if([indicator isAnimating]==false)
+    {
+        indicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+        indicator.color=[UIColor blackColor];
+        [[[CCDirector sharedDirector] view] addSubview:indicator];
+        if([GameManager getDevice]==3){
+            indicator.center = ccp(winSize.width, winSize.height);
+        }else{
+            indicator.center = ccp(winSize.width/2, winSize.height/2);
+        }
+        [indicator startAnimating];
+    }
+}
+
+// ページ読込完了時にインジケータ非表示
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    // インジケータを非表示にする
+    if([indicator isAnimating])
+    {
+        [indicator stopAnimating];
+        [indicator removeFromSuperview];
+    }
+}
+
 //画面推移時に呼ばれるデリゲートメソッド
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request
-                                                navigationType:(UIWebViewNavigationType)navigationType;
-{
+                                                navigationType:(UIWebViewNavigationType)navigationType
+{    
+    //キャッシュを全て消去
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     //「jp.co.virgintech.VirginTech3rdProject」スキーマ以外は通常にページ遷移をさせる
     NSString* scheme = [[request URL] scheme];
     if (![scheme isEqualToString:@"jp.co.virgintech.virgintech3rdproject"]) {
@@ -103,6 +143,7 @@ MessageLayer* msgBox;
     NSString* giftKey=[array objectAtIndex:0];
     int inputId=[[array objectAtIndex:1]intValue];
     int giftId=[[array objectAtIndex:2]intValue];
+    giftVolume=[[array objectAtIndex:3]intValue];
     
     //認証処理
     [self gift_certification:inputId giftKey:giftKey giftId:giftId];
@@ -136,8 +177,10 @@ MessageLayer* msgBox;
             //ギフトを保存
             [GameManager save_Gift_Acquired:giftKey flg:true];
             
+            NSString* msg=[NSString stringWithFormat:@"%@%d%@",
+                           NSLocalizedString(@"Gift_Koban",NULL),giftVolume,NSLocalizedString(@"Gift_Get",NULL)];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Gift",NULL)
-                                                                message:NSLocalizedString(@"Gift_Get",NULL)
+                                                                message:msg
                                                                 delegate:self
                                                                 cancelButtonTitle:nil
                                                                 otherButtonTitles:NSLocalizedString(@"Ok",NULL), nil];
@@ -185,7 +228,7 @@ MessageLayer* msgBox;
         //何もなし
     }else{
         //特典付与
-        [GameManager save_Coin:[GameManager load_Coin]+200];
+        [GameManager save_Coin:[GameManager load_Coin]+giftVolume];
     }
 }
 
@@ -195,7 +238,7 @@ MessageLayer* msgBox;
 -(void)onMessageLayerBtnClocked:(int)btnNum procNum:(int)procNum
 {
     if(procNum==1){//特典付与
-        [GameManager save_Coin:[GameManager load_Coin]+300];
+        [GameManager save_Coin:[GameManager load_Coin]+giftVolume];
     }else{
         //何もなし
     }
