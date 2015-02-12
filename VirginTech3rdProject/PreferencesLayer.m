@@ -56,7 +56,12 @@ CCButton* offEffectSwitch;
     }*/
     
     //タイトル
-    CCSprite* title=[CCSprite spriteWithImageNamed:@"title.png"];
+    CCSprite* title;
+    if([GameManager getLocale]==1){//日本語
+        title=[CCSprite spriteWithImageNamed:@"title.png"];
+    }else{
+        title=[CCSprite spriteWithImageNamed:@"title_en.png"];
+    }
     title.positionType = CCPositionTypeNormalized;
     title.position=ccp(0.5f,0.6f);
     title.scale=0.8;

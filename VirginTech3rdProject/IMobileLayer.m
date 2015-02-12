@@ -59,7 +59,7 @@ CGSize winSize;
     
     //=================
     //アイコン
-    /*/=================
+    //=================
     if(iconFlg){
         if([GameManager getDevice]==3)//iPad
         {
@@ -107,7 +107,7 @@ CGSize winSize;
             [ImobileSdkAds showBySpotID:@"359471" ViewController:viewCon
                     Position:CGPointMake(-225,winSize.height/2-50) IconPrams:iconParams];
         }
-    }*/
+    }
     
     adViewFlg=false;
     

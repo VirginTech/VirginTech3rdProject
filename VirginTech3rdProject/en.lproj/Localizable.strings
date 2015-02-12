@@ -35,6 +35,10 @@
 "ShopPurchase"="'KOBAN' are available at shop";
 "NotCoin"="You need more 'KOBAN'";
 
+//インフォメーション
+"Result"="RESULT";
+"Win"="Win";
+
 //アイテム倉庫
 "descript_01"="\nEnemy soldiers around you \nwill die instantly.";
 "descript_02"="\nYour defense ability \nwill improve.";

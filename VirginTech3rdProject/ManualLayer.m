@@ -82,7 +82,12 @@ CCScrollView* scrollView;
         [bgSpLayer addChild:bg z:0];
         
         //ページ
-        CCSprite* page=[CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"manual_%02d.png",i+1]];
+        CCSprite* page;
+        if([GameManager getLocale]==1){//日本
+            page=[CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"manual_%02d.png",i+1]];
+        }else{
+            page=[CCSprite spriteWithImageNamed:[NSString stringWithFormat:@"manual_en_%02d.png",i+1]];
+        }
         page.scale=0.6;
         page.position=ccp(winSize.width/2*(((i+1)*2)-1),winSize.height/2);
         [bgSpLayer addChild:page z:1];
