@@ -203,6 +203,9 @@ Fortress* targetFortress;
         }
         Player* targetPlayer=targetObject;
         targetPlayer.ability--;
+        if(targetPlayer.ability<=0){
+            mode=0;//敵を倒したらモード0
+        }
     }else if(mode==4){//要塞攻撃
         //エフェクトサウンド
         if(animeCnt%5==0){

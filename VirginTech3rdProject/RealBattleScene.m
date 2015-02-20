@@ -504,6 +504,7 @@ CCParticleSystem* dieParticle;
     //戦闘判定（停止）
     //==============
     for(Player* _player in playerArray){
+        if(_player.mode==3)continue;//戦闘中なら飛ばす
         for(Enemy* _enemy in enemyArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
                                           pointB:_enemy.position
@@ -519,6 +520,7 @@ CCParticleSystem* dieParticle;
         }
     }
     for(Enemy* _enemy in enemyArray){
+        if(_enemy.mode==3)continue;//戦闘中なら飛ばす
         for(Player* _player in playerArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
                                           pointB:_enemy.position

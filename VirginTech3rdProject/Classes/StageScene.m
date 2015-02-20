@@ -680,14 +680,18 @@ int fingerCnt;
                                             radius1:(_player.contentSize.width*_player.scale)/2 -5.0f
                                             radius2:(_enemy.contentSize.width*_enemy.scale)/2 -5.0f])
             {
-                _player.stopFlg=true;
-                _enemy.stopFlg=true;
-                
-                _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
-                _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
-                
-                _player.mode=3;
-                _enemy.mode=3;
+                if(_player.mode!=3){//戦闘中は無視
+                    _player.mode=3;
+                    _player.stopFlg=true;
+                    _player.targetObject=_enemy;
+                    _player.targetAngle=[BasicMath getAngle_To_Radian:_player.position ePos:_enemy.position];
+                }
+                if(_enemy.mode!=3){//戦闘中は無視
+                    _enemy.mode=3;
+                    _enemy.stopFlg=true;
+                    _enemy.targetObject=_player;
+                    _enemy.targetAngle=[BasicMath getAngle_To_Radian:_enemy.position ePos:_player.position];
+                }
                 
                 //==================
                 //アイテムごとによる攻撃
@@ -711,11 +715,13 @@ int fingerCnt;
                     _player.ability--;
                     _enemy.ability-=3;
                 }else{//通常・その他
-                    //_player.ability--;
-                    //_enemy.ability--;*/
+                    _player.ability--;
+                    _enemy.ability--;
+                }
+                
                 _player.targetObject=_enemy;
                 _enemy.targetObject=_player;
-                //}
+                */
                 
                 break;
             }

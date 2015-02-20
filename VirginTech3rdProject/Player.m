@@ -218,6 +218,9 @@ Fortress* targetFortress;
         }else{//通常攻撃
             targetEnemy.ability--;
         }
+        if(targetEnemy.ability<=0){
+            mode=0;//敵を倒したらモード0
+        }
     }else if(mode==4){//要塞攻撃
         //エフェクトサウンド
         if(animeCnt%5==0){

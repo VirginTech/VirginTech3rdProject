@@ -678,6 +678,7 @@ NaviLayer* naviLayer;
     //戦闘判定（停止）
     //==============
     for(mPlayer* _player in playerArray){
+        if(_player.mode==3)continue;//戦闘中なら飛ばす
         for(mEnemy* _enemy in enemyArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
                                           pointB:_enemy.position
@@ -693,6 +694,7 @@ NaviLayer* naviLayer;
         }
     }
     for(mEnemy* _enemy in enemyArray){
+        if(_enemy.mode==3)continue;//戦闘中なら飛ばす
         for(mPlayer* _player in playerArray){
             if([BasicMath RadiusIntersectsRadius:_player.position
                                           pointB:_enemy.position
