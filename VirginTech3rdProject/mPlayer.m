@@ -193,6 +193,10 @@
             }else{//通常攻撃
                 targetEnemy.ability--;
             }
+            //敵を倒したらモード0
+            if(targetEnemy.ability<=0){
+                mode=0;
+            }
         }
     }else if(mode==4){//要塞攻撃
         //エフェクトサウンド

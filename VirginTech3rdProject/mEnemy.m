@@ -187,6 +187,10 @@
         if([GameManager getHost]){
             Player* targetPlayer=targetObject;
             targetPlayer.ability--;
+            //敵を倒したらモード0
+            if(targetPlayer.ability<=0){
+                mode=0;
+            }
         }
     }else if(mode==4){//要塞攻撃
         //エフェクトサウンド
