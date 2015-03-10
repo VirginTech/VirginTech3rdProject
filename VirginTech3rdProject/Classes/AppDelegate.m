@@ -47,6 +47,17 @@
 		CCSetupTabletScale2X: @(YES),
 	}];
 	
+    //CV効果測定(初回起動のみ)
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    bool isFirstLoaded = [defaults boolForKey:@"isFirstLoaded"];
+    if (isFirstLoaded == false)//無くても偽（初回）
+    {
+        isFirstLoaded = true;
+        [defaults setBool:isFirstLoaded forKey:@"isFirstLoaded"];
+        NSString* thankPageURL = @"http://spdeliver.i-mobile.co.jp/app/ad_conv.ashx?sid=10032&url=jp%2eco%2evirgintech%2eVirginTech3rdProject%3a%2f%2f";
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:thankPageURL]];
+    }
+    
     //OSバージョン登録
     [GameManager setOsVersion:[[[UIDevice currentDevice]systemVersion]floatValue]];
     
