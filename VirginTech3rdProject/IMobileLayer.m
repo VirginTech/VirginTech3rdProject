@@ -27,6 +27,9 @@ CGSize winSize;
     
     //[ImobileSdkAds setTestMode:YES];//テストモード
 
+#if DEBUG
+#else
+    
     //=================
     //フッターバナー
     //=================
@@ -110,6 +113,8 @@ CGSize winSize;
     }
     
     adViewFlg=false;
+    
+#endif
     
     return self;
 }
