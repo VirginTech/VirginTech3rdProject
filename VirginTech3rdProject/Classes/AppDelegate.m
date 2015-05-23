@@ -47,7 +47,7 @@
 		CCSetupTabletScale2X: @(YES),
 	}];
 	
-    //CV効果測定(初回起動のみ)
+    /*/CV効果測定(初回起動のみ)
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     bool isFirstLoaded = [defaults boolForKey:@"isFirstLoaded"];
     if (isFirstLoaded == false)//無くても偽（初回）
@@ -56,7 +56,7 @@
         [defaults setBool:isFirstLoaded forKey:@"isFirstLoaded"];
         NSString* thankPageURL = @"http://spdeliver.i-mobile.co.jp/app/ad_conv.ashx?sid=10032&url=jp%2eco%2evirgintech%2eVirginTech3rdProject%3a%2f%2f";
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:thankPageURL]];
-    }
+    }*/
     
     //OSバージョン登録
     [GameManager setOsVersion:[[[UIDevice currentDevice]systemVersion]floatValue]];
@@ -116,11 +116,11 @@
     [SoundManager initSoundPreload];
     
     //iMobileインタースティシャル読込み (AppBankNetworkインタースティシャルと相性悪し)
-    if([GameManager getDevice]!=3){//iPadでなければ
+    //if([GameManager getDevice]!=3){//iPadでなければ
         [ImobileSdkAds registerWithPublisherID:@"31967" MediaID:@"140388" SpotID:@"359467"];
         [ImobileSdkAds setAdOrientation:IMOBILESDKADS_AD_ORIENTATION_PORTRAIT];
         [ImobileSdkAds startBySpotID:@"359467"];
-    }
+    //}
 
 	// This method should return the very first scene to be run when your app starts.
 	return [TitleScene scene];
