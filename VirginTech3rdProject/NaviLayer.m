@@ -16,6 +16,7 @@
 #import "IAdLayer.h"
 #import "IMobileLayer.h"
 #import "AdGenerLayer.h"
+#import "AdMobLayer_iOS.h"
 
 @implementation NaviLayer
 
@@ -30,6 +31,7 @@ CCButton* selectButton;
 IAdLayer* iAdLayer;
 IMobileLayer* iMobileAd;
 //AdGenerLayer* adgene;
+AdMobLayer_iOS* admob;
 
 + (NaviLayer *)scene
 {
@@ -142,8 +144,11 @@ IMobileLayer* iMobileAd;
         [self addChild:iMobileAd];
     }else{//それ以外
         //iAd広告
-        iAdLayer=[[IAdLayer alloc]init];
-        [self addChild:iAdLayer];
+        //iAdLayer=[[IAdLayer alloc]init];
+        //self addChild:iAdLayer];
+        
+        admob=[[AdMobLayer_iOS alloc]init];
+        [self addChild:admob];
     }
 
     /*/iPadならAdGene広告(iPadフッター)
@@ -167,7 +172,8 @@ IMobileLayer* iMobileAd;
     if([GameManager getLocale]==1){//日本語なら
         [iMobileAd removeLayer];
     }else{
-        [iAdLayer removeLayer];
+        //[iAdLayer removeLayer];
+        [admob removeLayer];
     }
     /*if([GameManager getDevice]==3){
         [adgene removeLayer];
@@ -206,7 +212,8 @@ IMobileLayer* iMobileAd;
     if([GameManager getLocale]==1){//日本語なら
         [iMobileAd removeLayer];
     }else{
-        [iAdLayer removeLayer];
+        //[iAdLayer removeLayer];
+        [admob removeLayer];
     }
     /*if([GameManager getDevice]==3){
         [adgene removeLayer];
@@ -226,7 +233,8 @@ IMobileLayer* iMobileAd;
     if([GameManager getLocale]==1){//日本語なら
         [iMobileAd removeLayer];
     }else{
-        [iAdLayer removeLayer];
+        //[iAdLayer removeLayer];
+        [admob removeLayer];
     }
     /*if([GameManager getDevice]==3){
         [adgene removeLayer];

@@ -14,6 +14,7 @@
 #import "IAdLayer.h"
 #import "IMobileLayer.h"
 #import "AdGenerLayer.h"
+#import "AdMobLayer_iOS.h"
 
 @implementation ItemInventoryLayer
 
@@ -51,8 +52,11 @@ CCLabelBMFont* coinLabel;
         [self addChild:iMobileAd];
     }else{//それ以外
         //iAd広告
-        IAdLayer* iAdLayer=[[IAdLayer alloc]init];
-        [self addChild:iAdLayer];
+        //IAdLayer* iAdLayer=[[IAdLayer alloc]init];
+        //[self addChild:iAdLayer];
+        
+        AdMobLayer_iOS* admob=[[AdMobLayer_iOS alloc]init];
+        [self addChild:admob];
     }
 
     /*/iPadならAdGene広告(iPadフッター)

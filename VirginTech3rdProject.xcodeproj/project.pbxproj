@@ -319,6 +319,11 @@
 		CFD0D7321A8B4375007FC735 /* matchFont.png in Resources */ = {isa = PBXBuildFile; fileRef = CFD0D7301A8B4375007FC735 /* matchFont.png */; };
 		CFD0D73D1A8B6FBF007FC735 /* results.fnt in Resources */ = {isa = PBXBuildFile; fileRef = CFD0D73B1A8B6FBF007FC735 /* results.fnt */; };
 		CFD0D73E1A8B6FBF007FC735 /* results.png in Resources */ = {isa = PBXBuildFile; fileRef = CFD0D73C1A8B6FBF007FC735 /* results.png */; };
+		CFF42CDD1B7DA7EB00813186 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF42CDC1B7DA7EB00813186 /* GoogleMobileAds.framework */; };
+		CFF42CDF1B7DA88400813186 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF42CDE1B7DA88400813186 /* EventKitUI.framework */; };
+		CFF42CE11B7DA8AF00813186 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF42CE01B7DA8AF00813186 /* MessageUI.framework */; };
+		CFF42CE61B7DAB4D00813186 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CFF42CE51B7DAB4D00813186 /* CoreMedia.framework */; };
+		CFF42CE91B7DAB9200813186 /* AdMobLayer_iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF42CE81B7DAB9200813186 /* AdMobLayer_iOS.m */; };
 		CFF9623A1A5D29E6005E1B4C /* battle.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFF962391A5D29E6005E1B4C /* battle.mp3 */; };
 		CFF962401A5D4A05005E1B4C /* run.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFF9623F1A5D4A05005E1B4C /* run.mp3 */; };
 		CFF962441A5D4CB9005E1B4C /* battle_bgm01.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CFF962411A5D4CB9005E1B4C /* battle_bgm01.mp3 */; };
@@ -895,6 +900,12 @@
 		CFD0D7301A8B4375007FC735 /* matchFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = matchFont.png; sourceTree = "<group>"; };
 		CFD0D73B1A8B6FBF007FC735 /* results.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = results.fnt; sourceTree = "<group>"; };
 		CFD0D73C1A8B6FBF007FC735 /* results.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = results.png; sourceTree = "<group>"; };
+		CFF42CDC1B7DA7EB00813186 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMobileAds.framework; path = "../../Library/Ad/AdMob/GoogleMobileAdsSdkiOS-7.3.1/GoogleMobileAds.framework"; sourceTree = "<group>"; };
+		CFF42CDE1B7DA88400813186 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		CFF42CE01B7DA8AF00813186 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		CFF42CE51B7DAB4D00813186 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		CFF42CE71B7DAB9200813186 /* AdMobLayer_iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AdMobLayer_iOS.h; sourceTree = "<group>"; };
+		CFF42CE81B7DAB9200813186 /* AdMobLayer_iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AdMobLayer_iOS.m; sourceTree = "<group>"; };
 		CFF962391A5D29E6005E1B4C /* battle.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle.mp3; sourceTree = "<group>"; };
 		CFF9623F1A5D4A05005E1B4C /* run.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = run.mp3; sourceTree = "<group>"; };
 		CFF962411A5D4CB9005E1B4C /* battle_bgm01.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = battle_bgm01.mp3; sourceTree = "<group>"; };
@@ -910,6 +921,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFF42CE61B7DAB4D00813186 /* CoreMedia.framework in Frameworks */,
+				CFF42CE11B7DA8AF00813186 /* MessageUI.framework in Frameworks */,
+				CFF42CDF1B7DA88400813186 /* EventKitUI.framework in Frameworks */,
+				CFF42CDD1B7DA7EB00813186 /* GoogleMobileAds.framework in Frameworks */,
 				CF47A0FD1A78D3640017317B /* iAd.framework in Frameworks */,
 				CF6FB1071A788150001D03C3 /* EventKit.framework in Frameworks */,
 				CF6FB1051A788134001D03C3 /* Security.framework in Frameworks */,
@@ -961,6 +976,10 @@
 		CF20602219F3534700DBD8C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CFF42CE51B7DAB4D00813186 /* CoreMedia.framework */,
+				CFF42CE01B7DA8AF00813186 /* MessageUI.framework */,
+				CFF42CDE1B7DA88400813186 /* EventKitUI.framework */,
+				CFF42CDC1B7DA7EB00813186 /* GoogleMobileAds.framework */,
 				CF47A0FC1A78D3640017317B /* iAd.framework */,
 				CF6FB1061A788150001D03C3 /* EventKit.framework */,
 				CF6FB1041A788134001D03C3 /* Security.framework */,
@@ -1954,6 +1973,8 @@
 				CF6FB0FE1A7880BE001D03C3 /* AdGenerLayer.m */,
 				CF4CD42A1A71ED1D00331E88 /* IMobileLayer.h */,
 				CF4CD42B1A71ED1D00331E88 /* IMobileLayer.m */,
+				CFF42CE71B7DAB9200813186 /* AdMobLayer_iOS.h */,
+				CFF42CE81B7DAB9200813186 /* AdMobLayer_iOS.m */,
 			);
 			name = AdLayer;
 			sourceTree = "<group>";
@@ -2111,6 +2132,11 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "VirginTech LLC.";
+				TargetAttributes = {
+					CF20601F19F3534700DBD8C4 = {
+						DevelopmentTeam = 8KB943D2Z5;
+					};
+				};
 			};
 			buildConfigurationList = CF20601B19F3534700DBD8C4 /* Build configuration list for PBXProject "VirginTech3rdProject" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2303,6 +2329,7 @@
 				CF2061AF19F3534800DBD8C4 /* OALAudioTrackNotifications.m in Sources */,
 				CF20617619F3534800DBD8C4 /* CCFileUtils.m in Sources */,
 				CF20609B19F3534700DBD8C4 /* CCAction.m in Sources */,
+				CFF42CE91B7DAB9200813186 /* AdMobLayer_iOS.m in Sources */,
 				CF2061D519F3534800DBD8C4 /* ALWrapper.m in Sources */,
 				CF20621F19F3534800DBD8C4 /* CCBsequence.m in Sources */,
 				CF20620A19F3534800DBD8C4 /* CCTableView.m in Sources */,
@@ -2585,11 +2612,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/virgintech/Documents/Library/Ad/iMobile/imobile_for_SP_app_iOS_SDK_2.0.8/lib,
 					"$(PROJECT_DIR)/VirginTech3rdProject/ADG_iOSSDK",
+					"/Users/virgintech/Documents/Library/Ad/AdMob/GoogleMobileAdsSdkiOS-7.3.1",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2610,6 +2640,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -2618,12 +2649,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/virgintech/Documents/Library/Ad/iMobile/imobile_for_SP_app_iOS_SDK_2.0.8/lib,
 					"$(PROJECT_DIR)/VirginTech3rdProject/ADG_iOSSDK",
+					"/Users/virgintech/Documents/Library/Ad/AdMob/GoogleMobileAdsSdkiOS-7.3.1",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "VirginTech3rdProject/Supporting Files/Prefix.pch";
@@ -2643,6 +2676,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
 			};

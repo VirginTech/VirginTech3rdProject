@@ -237,7 +237,7 @@ Fortress* targetFortress;
         
         if([GameManager getMatchMode]==0){//シングル戦
             ability=(([GameManager getStageLevel]-1)/10+1)*5;
-            NSLog(@"Ability=%d",ability);
+            //NSLog(@"Ability=%d",ability);
         }else{
             ability=5;
         }
